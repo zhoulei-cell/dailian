@@ -1,0 +1,75 @@
+{
+    "pages": [ //pages数组中第一项表示应用启动页,
+        {
+            "path": "pages/main/main",
+            "style": {
+                "navigationBarTitleText": "大厅"
+            }
+        },
+		{
+		    "path": "pages/release/release",
+		    "style": {
+		        "navigationBarTitleText": "发布"
+		    }
+		},
+		{
+		    "path": "pages/releaseinfo/releaseinfo",
+		    "style": {
+		        "navigationBarTitleText": "王者排位发单"
+		    }
+		},
+		{
+		    "path": "pages/orderinfo/orderinfo",
+		    "style": {
+		        "navigationBarTitleText": "订单详情"
+		    }
+		},
+		{
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "登录"
+            }
+        }, {
+            "path": "pages/reg/reg",
+            "style": {
+                "navigationBarTitleText": "注册"
+            }
+        }, {
+            "path": "pages/pwd/pwd",
+            "style": {
+                "navigationBarTitleText": "找回密码"
+            }
+        }, {
+            "path": "pages/user/user",
+            "style": {
+                "navigationBarTitleText": "我的"
+            }
+        }
+    ],
+    "tabBar": {
+        "color": "#7a7e83",
+        "selectedColor": "#0faeff",
+        "backgroundColor": "#ffffff",
+        "list": [{
+            "pagePath": "pages/main/main",
+            "text": "大厅",
+            "iconPath": "static/img/home.png",
+            "selectedIconPath": "static/img/homeHL.png"
+        },{
+            "pagePath": "pages/release/release",
+            "text": "发布",
+            "iconPath": "static/img/public.png",
+            "selectedIconPath": "static/img/publicsl.png"
+        },{
+            "pagePath": "pages/user/user",
+            "text": "我的",
+            "iconPath": "static/img/user.png",
+            "selectedIconPath": "static/img/userHL.png"
+        }]
+    },
+    "globalStyle": {
+        "navigationBarTextStyle": "white",
+        "navigationBarBackgroundColor": "#0faeff",
+        "backgroundColor": "#fff"
+    }
+}
