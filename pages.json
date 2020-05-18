@@ -25,6 +25,42 @@
 		    }
 		},
 		{
+		    "path": "pages/orderreceiving/orderreceiving",
+		    "style": {
+		        "navigationBarTitleText": "接单订单"
+		    }
+		},
+		{
+		    "path": "pages/orderrelease/orderrelease",
+		    "style": {
+		        "navigationBarTitleText": "发单订单"
+		    }
+		},
+		{
+		    "path": "pages/coupon/coupon",
+		    "style": {
+		        "navigationBarTitleText": "优惠券"
+		    }
+		},
+		{
+		    "path": "pages/mwallet/mwallet",
+		    "style": {
+		        "navigationBarTitleText": "我的钱包"
+		    }
+		},
+		{
+		    "path": "pages/placeOrder/placeOrder",
+		    "style": {
+		        "navigationBarTitleText": "提交订单"
+		    }
+		},
+		{
+		    "path": "pages/Recharge/Recharge",
+		    "style": {
+		        "navigationBarTitleText": "充值中心"
+		    }
+		},
+		{
             "path": "pages/login/login",
             "style": {
                 "navigationBarTitleText": "登录"

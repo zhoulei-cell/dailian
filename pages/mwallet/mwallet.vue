@@ -6,11 +6,6 @@
 				<view class="line bold">用户名：18117961915</view>
 				<view class="line">代练员等级：初级</view>
 				<view class="line red">余额：0.00元</view>
-				<view class="linebtn"><button type="primary">提现</button>
-				<navigator url="/pages/Recharge/Recharge">
-					<button type="primary">充值</button>
-				</navigator>
-				</view>
 			</view>
 		</view>
 		<uni-list>
@@ -22,12 +17,14 @@
 			</navigator>
 		</uni-list>
 		<uni-list>
-			<!-- <navigator url="/pages/coupon/coupon">
+			<navigator url="/pages/coupon/coupon">
 				<uni-list-item title="我的优惠券"  />
-			</navigator> -->
+			</navigator>
+			<uni-list-item title="我的钱包" />
+		</uni-list>
+		<uni-list>
 			<uni-list-item title="会员中心"  />
 			<uni-list-item title="邀请有奖" />
-			<!-- <uni-list-item title="我的钱包" /> -->
 		</uni-list>
 		<uni-list>
 			<!-- <uni-list-item title="我的关注"  />
@@ -121,15 +118,15 @@
 	}
 	.userinfo .userinfot{
 		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 	}
 	.userinfo .userinfot .line{
 		font-size: 24rpx;
 		text-align: left;
 	}
-	.linebtn{
-		display: flex;
-	}
-	.linebtn button{
+	.userinfo .userinfot .line button{
 		width: 200rpx;
 		height: 50rpx;
 		font-size: 24rpx !important;

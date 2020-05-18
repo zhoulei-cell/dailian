@@ -64,7 +64,11 @@ export default {
 		
     },
     methods: {
-		
+		nextStep(){
+			uni.navigateTo({
+				url: '/pages/placeOrder/placeOrder'
+			})
+		}
     }
 }
 </script>
