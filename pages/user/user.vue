@@ -43,8 +43,8 @@
 			<uni-list-item title="在线客服"/>
 		</uni-list>
         <view class="btn-row">
-            <button v-if="!hasLogin" type="primary" class="primary" @tap="bindLogin">登录</button>
-            <button v-if="hasLogin" type="default" @tap="bindLogout">退出登录</button>
+            <button v-if="hasLogin" type="primary" class="primary" @tap="bindLogin">登录</button>
+            <button v-if="!hasLogin" type="default" @tap="bindLogout">退出登录</button>
         </view>
     </view>
 </template>
