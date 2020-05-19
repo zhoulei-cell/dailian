@@ -61,6 +61,12 @@
 		    }
 		},
 		{
+		    "path": "pages/withdrawal/withdrawal",
+		    "style": {
+		        "navigationBarTitleText": "提现"
+		    }
+		},
+		{
 		    "path": "pages/membershipcenter/membershipcenter",
 		    "style": {
 		        "navigationBarTitleText": "会员中心"

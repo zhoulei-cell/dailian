@@ -6,10 +6,13 @@
 				<view class="line bold">用户名：18117961915</view>
 				<view class="line">代练员等级：初级</view>
 				<view class="line red">余额：0.00元</view>
-				<view class="linebtn"><button type="primary">提现</button>
-				<navigator url="/pages/Recharge/Recharge">
-					<button type="primary">充值</button>
-				</navigator>
+				<view class="linebtn">
+					<navigator url="/pages/withdrawal/withdrawal">
+						<button type="primary">提现</button>
+					</navigator>
+					<navigator url="/pages/Recharge/Recharge">
+						<button type="primary">充值</button>
+					</navigator>
 				</view>
 			</view>
 		</view>
@@ -132,6 +135,7 @@
 	}
 	.linebtn{
 		display: flex;
+		justify-content:space-between;
 	}
 	.linebtn button{
 		width: 200rpx;
