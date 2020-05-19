@@ -25,14 +25,18 @@
 			<!-- <navigator url="/pages/coupon/coupon">
 				<uni-list-item title="我的优惠券"  />
 			</navigator> -->
+			<navigator url="/pages/membershipcenter/membershipcenter">
 			<uni-list-item title="会员中心"  />
+			</navigator>
 			<uni-list-item title="邀请有奖" />
 			<!-- <uni-list-item title="我的钱包" /> -->
 		</uni-list>
 		<uni-list>
 			<!-- <uni-list-item title="我的关注"  />
 			<uni-list-item title="我的粉丝"  /> -->
+			<navigator url="/pages/calendar/calendar">
 			<uni-list-item title="在线签到"/>
+			</navigator>
 			<uni-list-item title="在线客服"/>
 		</uni-list>
         <view class="btn-row">

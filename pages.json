@@ -61,6 +61,18 @@
 		    }
 		},
 		{
+		    "path": "pages/membershipcenter/membershipcenter",
+		    "style": {
+		        "navigationBarTitleText": "会员中心"
+		    }
+		},
+		{
+		    "path": "pages/calendar/calendar",
+		    "style": {
+		        "navigationBarTitleText": "在线签到"
+		    }
+		},
+		{
             "path": "pages/login/login",
             "style": {
                 "navigationBarTitleText": "登录"

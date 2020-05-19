@@ -7,7 +7,7 @@
             </view>
             <view class="input-row">
                 <text class="title">联系QQ：</text>
-                <m-input type="text" displayable v-model="password" placeholder="请输入QQ号码"></m-input>
+                <m-input type="text" v-model="password" placeholder="请输入QQ号码"></m-input>
             </view>
         </view>
         <view class="btn-row">
