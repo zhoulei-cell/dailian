@@ -13,6 +13,30 @@
 		    }
 		},
 		{
+		    "path": "pages/releasepk/releasepk",
+		    "style": {
+		        "navigationBarTitleText": "发布对战"
+		    }
+		},
+		{
+		    "path": "pages/confrontation/confrontation",
+		    "style": {
+		        "navigationBarTitleText": "赛事"
+		    }
+		},
+		{
+		    "path": "pages/arena/arena",
+		    "style": {
+		        "navigationBarTitleText": "竞技场"
+		    }
+		},
+		{
+		    "path": "pages/arenadetial/arenadetial",
+		    "style": {
+		        "navigationBarTitleText": "房间"
+		    }
+		},
+		{
 		    "path": "pages/releaseinfo/releaseinfo",
 		    "style": {
 		        "navigationBarTitleText": "王者排位发单"
@@ -114,6 +138,11 @@
             "text": "发布",
             "iconPath": "static/img/public.png",
             "selectedIconPath": "static/img/publicsl.png"
+        },{
+            "pagePath": "pages/confrontation/confrontation",
+            "text": "赛事",
+            "iconPath": "static/img/Confrontation.png",
+            "selectedIconPath": "static/img/Confrontationcheck.png"
         },{
             "pagePath": "pages/user/user",
             "text": "我的",

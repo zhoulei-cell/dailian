@@ -26,7 +26,7 @@
 
 <script>
 	import slFilter from '@/components/sl-filter/sl-filter.vue';
-	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue'
+	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
     import {
         mapState
     } from 'vuex'
@@ -215,12 +215,23 @@
 		},
         computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
         onLoad() {
-            
+					let opts={
+                        url: '/api/device/add',
+                        method: 'post'
+                    };
+                    let param={
+                        deviceId:this.deviceCode,
+                        deviceName:this.deviceName
+                    };
+                    this.$http.httpTokenRequest(opts, param).then(res => {
+                        console.log(res.data);
+                       //打印请求返回的数据
+                    },error => {console.log(error);})   
         },
-		result(val) {
-			console.log('filter_result:' + JSON.stringify(val));
-		},
 		methods:{
+			result(val) {
+				console.log('filter_result:' + JSON.stringify(val));
+			},
 			search(res) {
 				uni.showModal({
 					content: '搜索：' + res.value,
