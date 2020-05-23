@@ -10,14 +10,13 @@
 		<view class="lineinfo">
 			<view class="lineone">
 				<view class="line">代练费：<text>￥105.00</text></view>
-				<view class="line">代练费：<text>￥105.00</text></view>
+				<view class="line">安全保证金：<text>￥105.00</text></view>
 				<view class="line">效率保障金：<text>￥105.00</text></view>
 			</view>
 			<view class="lineone">
 				<view class="linetitle"><text class="titlel">发  布  者：</text><text class="blue">呼保义发单</text></view>
 				<view class="line">总发单数：1773808笔</view>
 				<view class="line">总成交数：75872笔</view>
-				<view class="line">总发单数：1773808笔</view>
 				<view class="line">协  商  率：1%</view>
 				<view class="line">平均验收时间：157分钟</view>
 			</view>

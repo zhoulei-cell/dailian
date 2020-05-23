@@ -1,0 +1,37 @@
+
+.content{
+		padding: 0;
+}
+.topline{
+	background: #fff;	
+	padding: 20rpx;
+}
+.topline text{
+		color: red;
+		font-size: 36rpx;
+}
+.btn{
+		padding-top: 20rpx;
+}
+.paytype{
+		margin-top: 10rpx;
+		background: #fff;
+		padding: 20rpx;
+}
+.paytype .title{
+		font-weight: bold;
+		font-size: 28rpx;
+}
+.flex{
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+}
+.uni-list-cell::after{
+		left: 0;
+}
+.uni-list-cell-pd{
+		padding-left: 0;
+}
+

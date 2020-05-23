@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "在线签到",
+  "usingComponents": {
+    "uni-section": "/components/uni-section/uni-section",
+    "uni-calendar": "/components/uni-calendar/uni-calendar"
+  }
+}

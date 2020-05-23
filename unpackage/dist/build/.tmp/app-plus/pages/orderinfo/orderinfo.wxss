@@ -1,0 +1,72 @@
+
+.blue{
+	color: #0000FF;
+	font-size: 24rpx;
+}
+.pzero{
+	padding-bottom: 0 !important;
+}
+.red{
+	color: red;
+	font-size: 24rpx;
+}
+.content{
+	padding: 0;
+	background: #fff;
+	padding-bottom: 100rpx;
+}
+.lineinfo{
+	padding: 20rpx;
+	position: relative;
+	border-bottom: 1px solid #E0E0E0;
+}
+.line{
+	font-size: 24rpx;
+	color: #666;
+	line-height: 42rpx;
+}
+.title{
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #333;
+}
+.lineone{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
+	padding-bottom: 20rpx;
+}
+.lineone .line{
+	width: 50%;
+}
+.lineone .line text{
+	color: red;
+}
+.linetitle{
+	width: 100%;
+	font-size: 24rpx;
+	color: #666;
+	line-height: 42rpx;
+}
+.linetitle .titlel{
+	font-weight: bold;
+}
+.linetextinfo{
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	color: #666;
+	line-height: 26px;
+}
+.next{
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+}
+.next button{
+	width: 100%;
+}
+

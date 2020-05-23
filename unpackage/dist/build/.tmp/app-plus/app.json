@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/main/main",
+    "pages/release/release",
+    "pages/releasepk/releasepk",
+    "pages/confrontation/confrontation",
+    "pages/arena/arena",
+    "pages/arenadetial/arenadetial",
+    "pages/releaseinfo/releaseinfo",
+    "pages/orderinfo/orderinfo",
+    "pages/orderreceiving/orderreceiving",
+    "pages/orderrelease/orderrelease",
+    "pages/coupon/coupon",
+    "pages/mwallet/mwallet",
+    "pages/placeOrder/placeOrder",
+    "pages/Recharge/Recharge",
+    "pages/withdrawal/withdrawal",
+    "pages/membershipcenter/membershipcenter",
+    "pages/calendar/calendar",
+    "pages/login/login",
+    "pages/reg/reg",
+    "pages/pwd/pwd",
+    "pages/user/user"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#0faeff",
+    "backgroundColor": "#fff"
+  },
+  "tabBar": {
+    "color": "#7a7e83",
+    "selectedColor": "#0faeff",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/main/main",
+        "text": "大厅",
+        "iconPath": "static/img/home.png",
+        "selectedIconPath": "static/img/homeHL.png"
+      },
+      {
+        "pagePath": "pages/release/release",
+        "text": "发布",
+        "iconPath": "static/img/public.png",
+        "selectedIconPath": "static/img/publicsl.png"
+      },
+      {
+        "pagePath": "pages/confrontation/confrontation",
+        "text": "赛事",
+        "iconPath": "static/img/Confrontation.png",
+        "selectedIconPath": "static/img/Confrontationcheck.png"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "我的",
+        "iconPath": "static/img/user.png",
+        "selectedIconPath": "static/img/userHL.png"
+      }
+    ]
+  },
+  "nvueCompiler": "weex",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "dailian",
+  "compilerVersion": "2.3.6",
+  "usingComponents": {}
+}

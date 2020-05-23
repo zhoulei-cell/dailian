@@ -1,0 +1,69 @@
+
+.line2{
+	padding: 20rpx;
+}
+.att{
+	color: #fb9c80;
+	padding: 20rpx;
+}
+.line{
+background: #fff;	
+padding: 20rpx;
+position: relative;
+}
+.line::after{
+	position: absolute;
+	z-index: 10;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 1px;
+	content: '';
+	-webkit-transform: scaleY(.5);
+	-ms-transform: scaleY(.5);
+	transform: scaleY(.5);
+	background-color: #c8c7cc;
+}
+.line text{
+	color: #D3D3D3;
+}
+.text{
+	background: #fff;
+	padding: 20rpx;
+}
+.tag{
+	padding-right: 10rpx;
+}
+.uni-list-cell::after{
+left: 0;
+}
+.cellfirst::before {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    -ms-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #c8c7cc;
+}
+.content{
+	padding: 0;
+}
+.next{
+	padding-top: 60px;
+}
+.next button{
+	width: 100%;
+}
+.uni-list::before{
+	background: none;
+}
+.uni-title{
+	font-weight: bold;
+	padding-left: 20rpx;
+}
+
