@@ -1,51 +1,46 @@
 <template>
     <view class="content">
-		<view class="userinfo">
-			<view class="userimg"><image src="http://dl.m.3yx.com/images/new-wap/pic-Photo.png" mode=""></image></view>
-			<view class="userinfot">
-				<view class="line bold">用户名：18117961915</view>
-				<view class="line">代练员等级：初级</view>
-				<view class="line red">余额：0.00元</view>
-				<view class="linebtn">
-					<navigator url="/pages/withdrawal/withdrawal">
-						<button type="primary">提现</button>
-					</navigator>
-					<navigator url="/pages/Recharge/Recharge">
-						<button type="primary">充值</button>
-					</navigator>
+		<view class="user-info">
+			<view class="user-info-box">
+				<view class="user-info-left">
+					<image src="../../static/img/qq.png" mode=""></image>
+				</view>
+				<view class="user-info-right">
+					<view class="user-info-desc">
+						<view class="user-info-name">
+							曾阿牛
+						</view>
+						<view class="user-info-phone">
+							18182514380
+						</view>
+					</view>
+					<view class="user-info-money">
+						<text class="user-money-title">余额</text>
+						<text class="user-money-bold">99</text>
+					</view>
+				</view>
+			</view>
+			<view class="user-img-box">
+				<view class="user-img-bg">
+					
 				</view>
 			</view>
 		</view>
-		<uni-list>
-			<navigator url="/pages/orderreceiving/orderreceiving">
-				<uni-list-item title="接单订单"/>
-			</navigator>
-			<navigator url="/pages/orderrelease/orderrelease">
-				<uni-list-item title="发单订单"/>
-			</navigator>
-		</uni-list>
-		<uni-list>
-			<!-- <navigator url="/pages/coupon/coupon">
-				<uni-list-item title="我的优惠券"  />
-			</navigator> -->
-			<navigator url="/pages/membershipcenter/membershipcenter">
-			<uni-list-item title="会员中心"  />
-			</navigator>
-			<uni-list-item title="邀请有奖" />
-			<!-- <uni-list-item title="我的钱包" /> -->
-		</uni-list>
-		<uni-list>
-			<!-- <uni-list-item title="我的关注"  />
-			<uni-list-item title="我的粉丝"  /> -->
-			<navigator url="/pages/calendar/calendar">
-			<uni-list-item title="在线签到"/>
-			</navigator>
-			<uni-list-item title="在线客服"/>
-		</uni-list>
-        <view class="btn-row">
-            <button v-if="hasLogin" type="primary" class="primary" @tap="bindLogin">登录</button>
-            <button v-if="!hasLogin" type="default" @tap="bindLogout">退出登录</button>
-        </view>
+		
+		<view class="feature-box">
+			<view class="feature-list">
+				<view class="feature-list-item">
+					<image class="left-icon" src="../../static/img/IC／qianbao／24@2x.png" mode="aspectFit"></image>
+					<view class="item-content">
+						钱包
+					</view>
+					<image class="right-icon" src="../../static/img/IC／arrow／right_24@2x.png" mode="aspectFit"></image>
+				</view>
+				<view class="feature-list-line"></view>
+			</view>
+		</view>
+		
+		
     </view>
 </template>
 
@@ -104,54 +99,107 @@
 <style>
 	.content{
 		padding: 0;
+		background-color: #fff;
 	}
-	.item{
-		margin: 10rpx;
+	
+	.user-info{
+		
 	}
-	.uni-list{
-		margin: 5rpx 0;
+	
+	.user-info .user-img-box{
+		padding:0 46rpx 0 48rpx;
 	}
-	.userinfo {
+	.user-img-bg{
+		height: 94rpx;
+		background:linear-gradient(135deg,rgba(62,62,61,1) 0%,rgba(58,59,60,1) 51%,rgba(54,54,55,1) 100%);
+		border-radius:16px;
+	}
+	
+	.user-info .user-info-box{
 		display: flex;
-		background: #fff;
-		padding: 20rpx;
+		height: 120rpx;
+		padding: 60rpx 36rpx 60rpx 32rpx;
 	}
-	.userinfo .userimg{
-		width: 200rpx;
+	
+	.user-info .user-info-box .user-info-left{
+		width: 120rpx;
+		height: 120rpx;
+		border-radius: 24rpx;
+		border:4rpx solid rgba(194,215,255,1);
+	}
+	
+	.user-info .user-info-box .user-info-left image{
+		width: 100%;
+		height: 100%;
+	}
+	
+	.user-info .user-info-box .user-info-right{
+		flex: 1;
 		display: flex;
+		padding-left: 20rpx;
+	}
+	
+	.user-info .user-info-box .user-info-right .user-info-desc{
+		flex: 1;
+		display: flex;
+		flex-direction: column;
 		justify-content: center;
+	}
+	.user-info .user-info-box .user-info-right .user-info-desc .user-info-name{
+		height: 48rpx;
+		padding-bottom: 8rpx;
+		font-size: 32rpx;
+		font-weight: 500;
+		color: rgba(47,48,52,1);
+		line-height: 48rpx;
+	}
+	.user-info .user-info-box .user-info-right .user-info-desc .user-info-phone{
+		width: 154rpx;
+		height: 36rpx;
+		font-size: 24rpx;
+		color: rgba(115,118,128,1);
+		line-height: 36rpx;
+	}
+	.user-info .user-info-box .user-info-right .user-info-money{
+		display: flex;
 		align-items: center;
 	}
-	.userinfo .userimg image{
-		width: 150rpx;
-		height: 150rpx;
-	}
-	.userinfo .userinfot{
-		flex: 1;
-	}
-	.userinfo .userinfot .line{
+	.user-info .user-info-box .user-info-right .user-info-money .user-money-title{
+		color: rgba(115,118,128,1);
 		font-size: 24rpx;
-		text-align: left;
+		line-height: 40rpx;
 	}
-	.linebtn{
+	.user-info .user-info-box .user-info-right .user-info-money .user-money-bold{
+		padding: 0 8rpx;
+		color:rgba(47,48,52,1);
+		font-size: 36rpx;
+		font-weight: 500;
+		line-height: 56rpx;
+	}
+	
+	.feature-list{
+		padding:0 32rpx;
+	}
+	.feature-list .feature-list-item{
 		display: flex;
-		justify-content:space-between;
+		padding: 32rpx 0;
 	}
-	.linebtn button{
-		width: 200rpx;
-		height: 50rpx;
-		font-size: 24rpx !important;
-		line-height: 50rpx !important;
-		margin-left:0 !important;
+	.feature-list .feature-list-item .item-content{
+		flex: 1;
+		height: 48rpx;
+		padding-left: 16rpx;
+		color: rgba(47,48,52,1);
+		font-size: 28rpx;
+		line-height: 48rpx;
+		
 	}
-	.uni-button{
-		font-size: 24rpx !important;
-		line-height: 50rpx !important;
+	.feature-list .feature-list-item .left-icon, .feature-list .feature-list-item .right-icon{
+		width: 48rpx;
+		height: 48rpx;
 	}
-	.red{
-		color: red;
+	.feature-list .feature-list-line{
+		height: 2rpx;
+		background:rgba(0,0,0,0.1);
 	}
-	.bold{
-		font-weight: bold;
-	}
+	
 </style>
