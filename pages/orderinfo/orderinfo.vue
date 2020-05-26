@@ -1,32 +1,30 @@
 <template>
     <view class="content">
 		<view class="lineinfo">
-			<view class="title">星耀30星 - 星耀22星  铭文150</view>
-			<view class="dec line">王者荣耀/安卓QQ区/默认服</view>
-			<view class="ordercode line">订单编号：DDDLJO202005181028882</view>
-			<view class="ordertime line">发布时间：2020-05-18 10:28:26</view>
-			<view class="line">接单代练员：初级以上代练员可接</view>
+			<view class="title">{{orderInfo.title}}</view>
+			<view class="dec line">{{orderInfo.game.name}}/{{orderInfo.game_area.name}}/{{orderInfo.platform.name}}</view>
+			<view class="ordercode line">订单编号：{{orderInfo.order_no}}</view>
+			<view class="ordertime line">发布时间：{{orderInfo.created_at}}</view>
 		</view>
 		<view class="lineinfo">
 			<view class="lineone">
-				<view class="line">代练费：<text>￥105.00</text></view>
-				<view class="line">安全保证金：<text>￥105.00</text></view>
-				<view class="line">效率保障金：<text>￥105.00</text></view>
+				<view class="line">代练费：<text>￥{{orderInfo.price}}</text></view>
+				<view class="line">安全保证金：<text>￥{{orderInfo.promise_price}}</text></view>
+				<view class="line">效率保障金：<text>￥{{orderInfo.eff_price}}</text></view>
 			</view>
 			<view class="lineone">
-				<view class="linetitle"><text class="titlel">发  布  者：</text><text class="blue">呼保义发单</text></view>
-				<view class="line">总发单数：1773808笔</view>
+				<view class="linetitle"><text class="titlel">发  布  者：</text><text class="blue">{{orderInfo.user.name ||　orderInfo.user.phone}}</text></view>
+				<view class="line">总发单数：{{orderInfo.user.rel_number}}笔</view>
 				<view class="line">总成交数：75872笔</view>
-				<view class="line">协  商  率：1%</view>
-				<view class="line">平均验收时间：157分钟</view>
+				<view class="line">协  商  率：{{orderInfo.user.negotiation}}%</view>
 			</view>
 			<view class="lineone pzero">
 				<view class="linetitle"><text class="titlel">当前游戏信息：</text></view>
-				<view class="linetextinfo">账号如果锁定自行联系号主解锁,手机号在密码后面 有问题提交异常,联系号主态度好点,眼熟打手验收更快</view>
+				<view class="linetextinfo">{{orderInfo.rel_message}}</view>
 			</view>
 		</view>
 		<view class="lineinfo">
-			<view class="linetitle"><text class="titlel">时间要求：</text><text class="red">1天1小时</text></view>
+			<view class="linetitle"><text class="titlel">时间要求：</text><text class="red">{{orderInfo.duration}}</text></view>
 		</view>
 		<view class="lineinfo">
 			<view class="linetitle"><text class="titlel">代练要求：</text></view>
@@ -46,15 +44,13 @@
 				4.订单完成后进裙验收处理订单742-067-549
 			</view>
 		</view>
-		<view class="next">
-			<button  type="default" @tap="nextStep">我来代练</button>
-		</view>
     </view>
 </template>
 <script>
 export default {
     data() {
         return {
+			orderInfo:{}
         }
     },
 	components: {
@@ -63,12 +59,27 @@ export default {
 		
     },
     methods: {
-		nextStep(){
-			uni.navigateTo({
-				url: '/pages/placeOrder/placeOrder'
+		//获取订单详情
+		getorderdetail(id){
+			let opts = {
+				url: '/api/order/get_order_info/'+id,
+				method: 'get'
+			}
+			let params = {
+			}
+			this.$http.httpTokenRequest(opts, params).then(res => {
+				if (res.data.code == 200) {
+					this.orderInfo=res.data.data
+				}
+			}, error => {
+				console.log(error);
 			})
 		}
-    }
+    },
+	onLoad: function (option) { 
+		console.log(option.id)
+		this.getorderdetail(option.id)
+	}
 }
 </script>
 <style>

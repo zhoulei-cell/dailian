@@ -1,6 +1,18 @@
 {
     "pages": [ //pages数组中第一项表示应用启动页,
         {
+            "path": "pages/login/login",
+            "style": {
+                "navigationBarTitleText": "账号登录"
+            }
+        }, 
+		{
+		    "path": "pages/dxlogin/dxlogin",
+		    "style": {
+		        "navigationBarTitleText": "短信登录"
+		    }
+		}, 
+		{
             "path": "pages/user/user",
             "style": {
                 "navigationBarTitleText": "我的"
@@ -54,6 +66,12 @@
 		    }
 		},
 		{
+		    "path": "pages/updatereleaseinfo/updatereleaseinfo",
+		    "style": {
+		        "navigationBarTitleText": "修改订单"
+		    }
+		},
+		{
 		    "path": "pages/orderreceiving/orderreceiving",
 		    "style": {
 		        "navigationBarTitleText": "接单订单"
@@ -62,7 +80,8 @@
 		{
 		    "path": "pages/orderrelease/orderrelease",
 		    "style": {
-		        "navigationBarTitleText": "发单订单"
+		        "navigationBarTitleText": "发单订单",
+				"enablePullDownRefresh": true
 		    }
 		},
 		{
@@ -108,11 +127,6 @@
 		    }
 		},
 		{
-            "path": "pages/login/login",
-            "style": {
-                "navigationBarTitleText": "登录"
-            }
-        }, {
             "path": "pages/reg/reg",
             "style": {
                 "navigationBarTitleText": "注册"
@@ -134,10 +148,15 @@
             "iconPath": "static/img/home.png",
             "selectedIconPath": "static/img/homeHL.png"
         },{
-            "pagePath": "pages/release/release",
+            "pagePath": "pages/releaseinfo/releaseinfo",
             "text": "发布",
             "iconPath": "static/img/public.png",
             "selectedIconPath": "static/img/publicsl.png"
+        },{
+            "pagePath": "pages/orderrelease/orderrelease",
+            "text": "订单",
+            "iconPath": "static/img/Confrontation.png",
+            "selectedIconPath": "static/img/Confrontationcheck.png"
         },{
             "pagePath": "pages/confrontation/confrontation",
             "text": "赛事",

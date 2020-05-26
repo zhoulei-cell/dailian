@@ -10,9 +10,12 @@ const store = new Vuex.Store({
          */
         forcedLogin: false,
         hasLogin: true,
-        userName: ""
+        userInfo: {}
     },
     mutations: {
+		updateUerinfo(state,userInfo){
+			state.userInfo=userInfo
+		},
         login(state, userName) {
             state.userName = userName || '新用户';
             state.hasLogin = true;

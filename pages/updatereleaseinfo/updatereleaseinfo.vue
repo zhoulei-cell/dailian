@@ -186,7 +186,7 @@
 			</checkbox-group>
 		</view>
 		<view class="next">
-			<button  type="default" @tap="submit">确认发布</button>
+			<button  type="default" @tap="submit">提交</button>
 		</view>
     </view>
 </template>
@@ -231,6 +231,22 @@ export default {
 		
     },
     methods: {
+		//获取订单详情
+		getorderdetail(id){
+			let opts = {
+				url: '/api/order/get_order_info/'+id,
+				method: 'get'
+			}
+			let params = {
+			}
+			this.$http.httpTokenRequest(opts, params).then(res => {
+				if (res.data.code == 200) {
+					this.orderInfo=res.data.data
+				}
+			}, error => {
+				console.log(error);
+			})
+		},
 		// 获取游戏平台
 		getGameplatforms() {
 			let opts = {
@@ -277,7 +293,7 @@ export default {
 			newobj.game_area_id=this.multiArray[1][this.multiIndex[1]].id
 			newobj.province=this.orderInfo.province?1:0
 			let opts = {
-				url: '/api/order/release',
+				url: '/api/order/edit',
 				method: 'post'
 			}
 			this.$http.httpTokenRequest(opts,Object.assign(newobj)).then(res => {
@@ -287,9 +303,9 @@ export default {
 						title: res.data.msg
 					})
 					setTimeout(()=>{
-						uni.reLaunch({
-							url:"/pages/main/main"
-						})
+						uni.navigateBack({
+						    delta: 1
+						});
 					},500)
 				}
 			}, error => {
@@ -314,8 +330,9 @@ export default {
             this.index = e.target.value
         }
     },
-	onLoad() {
+	onLoad: function (option) {
 		this.getGameplatforms()
+		this.getorderdetail(option.id)
 	}
 }
 </script>

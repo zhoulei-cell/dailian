@@ -40,7 +40,7 @@
 </template>
 
 <script>
-	var wx = require('jweixin-module')
+	// var wx = require('jweixin-module')
 	export default {
 		data() {
 			return {

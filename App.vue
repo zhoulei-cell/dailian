@@ -64,7 +64,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		background-color: #efeff4;
+		background-color: #fff;
 		padding: 20upx;
 	}
 

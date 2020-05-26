@@ -13,19 +13,17 @@
 				<text @tap="pushmessage" class="blue" v-if="time==60">发送验证码</text>
 				<text class="grey" v-else>重发（{{time}}）</text>
 			</view>
-			<view class="input-row">
-				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
-			</view>
 		</view>
 		<view class="btn">
 			<view class="btnleft"></view>
 			<view class="btnright">
-				<button @tap="bindLogin">注册</button>
+				<navigator url="../login/login">账号登录</navigator>
+				<button @tap="bindLogin">登录</button>
 			</view>
 		</view>
 		<view class="bottom">
-			<navigator url="../login/login" class="margin0">账号登录</navigator>
-			<navigator url="../dxlogin/dxlogin">短信登录</navigator>
+			<navigator url="../reg/reg" class="margin0">注册账户</navigator>
+			<navigator url="../pwd/pwd">找回密码</navigator>
 		</view>
 	</view>
 </template>
@@ -107,7 +105,7 @@
 						key: this.key,
 						phone: this.account
 					}
-					this.$http.httpRequest(opts,param).then(res => {
+					this.$http.httpTokenRequest(opts,param).then(res => {
 						uni.showToast({
 							icon: 'none',
 							title: res.data.msg
@@ -118,7 +116,7 @@
 					})
 				})
 			},
-			// 注册
+			// 登录
 			bindLogin() {
 				/**
 				 * 客户端对账号信息进行一些必要的校验。
@@ -131,30 +129,29 @@
 					});
 					return;
 				}
-				if (this.password.length < 6) {
-					uni.showToast({
-						icon: 'none',
-						title: '密码最短为 6 个字符'
-					});
-					return;
-				}
 				let opts = {
-					url: '/api/register',
+					url: '/api/code_login',
 					method: 'post'
 				};
 				let param = {
-					captcha: this.code,
-					password: this.password,
+					code: this.code,
 					phone: this.account
 				}
 				this.$http.httpRequest(opts,param).then(res => {
+					if(res.data.code==200){
+						uni.reLaunch({
+							url:"/pages/main/main"
+						})
+						uni.setStorage({
+						    key: 'userinfo',
+						    data: res.data.data,
+						})
+						this.$store.commit('updateUerinfo',res.data.data)
+					}
 					uni.showToast({
 						icon: 'none',
 						title: res.data.msg
 					});
-					uni.navigateTo({
-						url:"/pages/login/login"
-					})
 				}, error => {
 					console.log(error);
 				})

@@ -3,68 +3,96 @@
 		<view class="user-info">
 			<view class="user-info-box">
 				<view class="user-info-left">
-					<image src="../../static/img/qq.png" mode=""></image>
+					<image :src="userinfo.avatar || '../../static/img/qq.png'" mode=""></image>
 				</view>
 				<view class="user-info-right">
 					<view class="user-info-desc">
 						<view class="user-info-name">
-							曾阿牛
+							{{userinfo.real_name || '游客'}}
 						</view>
 						<view class="user-info-phone">
-							18182514380
+							{{ userinfo.phone || '无'}}
 						</view>
 					</view>
 					<view class="user-info-money">
 						<text class="user-money-title">余额</text>
-						<text class="user-money-bold">99</text>
+						<text class="user-money-bold">{{userinfo.balance || 0}}</text>
 					</view>
 				</view>
 			</view>
 			<view class="user-img-box">
 				<view class="user-img-bg">
-					
+					<view class="user-img-boxleft">
+						未开通
+					</view>
+					<view class="user-img-boxright">
+						加入SVIP，立享多项专属特权
+						<navigator url="../membershipcenter/membershipcenter">
+						<button>查看</button>
+						</navigator>
+					</view>
 				</view>
 			</view>
 		</view>
 		
 		<view class="feature-box">
 			<view class="feature-list">
-				<view class="feature-list-item">
-					<image class="left-icon" src="../../static/img/IC／qianbao／24@2x.png" mode="aspectFit"></image>
+				<view class="feature-list-item" v-for="(list,index) in itemData" :key="index" @tap="navigateTo(list.url)">
+					<image class="left-icon" :src="list.img" mode="aspectFit"></image>
 					<view class="item-content">
-						钱包
+						{{list.name}}
 					</view>
-					<image class="right-icon" src="../../static/img/IC／arrow／right_24@2x.png" mode="aspectFit"></image>
+					<image class="right-icon" src="../../static/img/IC／arrow／right.png" mode="aspectFit"></image>
+					<view class="feature-list-line"></view>
 				</view>
-				<view class="feature-list-line"></view>
+				
 			</view>
 		</view>
 		
-		
+		<view class="btn">
+			<button type="default" @tap="bindLogout()" v-if="loginflag()">退出登录</button>
+			<button type="default" @tap="bindlogin()" v-else>立即登录</button>
+		</view>
     </view>
 </template>
 
 <script>
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
-    import {
-        mapState,
-        mapMutations
-    } from 'vuex'
-
     export default {
 		data(){
 			return {
-				extraIcon1: {
-					color: '#007aff',
-					size: '22',
-					type: 'gear-filled'
-				},
-				extraIcon2: {
-					color: '#4cd964',
-					size: '22',
-					type: 'image'
-				}
+				itemData:[
+					{
+						url:"../Recharge/Recharge",
+						img:"../../static/img/IC／qianbao／24@2x.png",
+						name:"充值"
+					},
+					{
+						url:"../withdrawal/withdrawal",
+						img:"../../static/img/IC／qianbao／24@2x.png",
+						name:"提现"
+					},
+					{
+						url:"../calendar/calendar",
+						img:"../../static/img/IC／qiandao.png",
+						name:"签到有奖"
+					},
+					{
+						img:"../../static/img/IC／yaoqing.png",
+						name:"邀请有奖"
+					},
+					{
+						img:"../../static/img/IC／kefu.png",
+						name:"在线客服"
+					},
+					{
+						url:"../pwd/pwd",
+						img:"../../static/img/IC／shezhi.png",
+						name:"修改密码"
+					},
+				],
+				userinfo:{}
 			}
 		},
 		components: {
@@ -72,15 +100,21 @@
 			uniListItem
 		},
         computed: {
-            ...mapState(['hasLogin', 'forcedLogin'])
         },
         methods: {
-            ...mapMutations(['logout']),
-            bindLogin() {
-                uni.navigateTo({
-                    url: '../login/login',
-                });
-            },
+			//跳转登录
+			bindlogin(){
+				uni.navigateTo({
+				    url: "../login/login",
+				});
+			},
+			// 路径跳转
+			navigateTo(url){
+				uni.navigateTo({
+				    url: url,
+				});
+			},
+			// 退出登录
             bindLogout() {
                 this.logout();
                 /**
@@ -91,8 +125,68 @@
                         url: '../login/login',
                     });
                 }
-            }
-        }
+            },
+			// 退出登录
+			logout(){
+				let opts = {
+					url: '/api/loginout',
+					method: 'post'
+				};
+				let token = "";
+				uni.getStorage({
+					key: 'token',
+					success: function(ress) {
+						token = ress.data
+					}
+				});
+				let param = {
+					token:token
+				}
+				this.$http.httpRequest(opts,param).then(res => {
+					uni.removeStorage({
+					    key: 'userinfo'
+					})
+					uni.removeStorage({
+					    key: 'token'
+					})
+					uni.navigateTo({
+						url:"/pages/login/login"
+					})
+				})
+			},
+			// 判断是否登录
+			loginflag(){
+				if(JSON.stringify(this.userinfo)!='{}'){
+					return true
+				}else{
+					return false
+				}
+			},
+			// 获取用户信息
+			getuserinfo(){
+				let opts = {
+					url: '/api/getUserInfo',
+					method: 'get'
+				};
+				let token = "";
+				uni.getStorage({
+					key: 'token',
+					success: function(ress) {
+						token = ress.data
+					}
+				});
+				let param = {
+					token:token
+				}
+				this.$http.httpRequest(opts,param).then(res => {
+					this.userinfo = res.data
+				})
+			}
+        },
+		onLoad() {
+			this.loginflag()
+			this.getuserinfo()
+		}
     }
 </script>
 
@@ -108,13 +202,41 @@
 	
 	.user-info .user-img-box{
 		padding:0 46rpx 0 48rpx;
+		margin-bottom: 80rpx;
 	}
 	.user-img-bg{
 		height: 94rpx;
 		background:linear-gradient(135deg,rgba(62,62,61,1) 0%,rgba(58,59,60,1) 51%,rgba(54,54,55,1) 100%);
-		border-radius:16px;
+		border-radius:32rpx;
+		display: flex;
+		font-size:22rpx;
+		font-family:PingFangSC-Regular,PingFang SC;
+		font-weight:400;
+		color:rgba(248,184,115,1);
+		align-items: center;
+		box-sizing: border-box;
+		padding: 0 10px;
 	}
-	
+	.user-img-boxleft{
+		flex: 1;
+	}
+	.user-img-boxright{
+		display: flex;
+		align-items: center;
+	}
+	.user-img-bg .user-img-boxright button{
+		width:100rpx;
+		height:40rpx;
+		line-height: 40rpx;
+		background:linear-gradient(90deg,rgba(248,181,109,1) 0%,rgba(252,217,176,1) 100%);
+		border-radius:20rpx;
+		font-size:22rpx;
+		font-family:PingFangSC-Regular,PingFang SC;
+		font-weight:400;
+		color:rgba(47,48,52,1);
+		margin-left: 8rpx;
+		
+	}
 	.user-info .user-info-box{
 		display: flex;
 		height: 120rpx;
@@ -183,6 +305,7 @@
 	.feature-list .feature-list-item{
 		display: flex;
 		padding: 32rpx 0;
+		border-bottom: 2rpx solid rgba(0,0,0,0.1);
 	}
 	.feature-list .feature-list-item .item-content{
 		flex: 1;
@@ -197,9 +320,7 @@
 		width: 48rpx;
 		height: 48rpx;
 	}
-	.feature-list .feature-list-line{
-		height: 2rpx;
-		background:rgba(0,0,0,0.1);
+	.btn{
+		padding: 40rpx;
 	}
-	
 </style>

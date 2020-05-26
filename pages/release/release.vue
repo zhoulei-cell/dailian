@@ -6,8 +6,8 @@
 					游戏服务区
 				</view>
 				<view class="uni-list-cell-db">
-					<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray">
-						<view class="uni-input">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}</view>
+					<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray" :range-key="'name'">
+						<view class="uni-input">{{multiArray[0][multiIndex[0]].name}},{{multiArray[1][multiIndex[1]].name}}</view>
 					</picker>
 				</view>
 			</view>
@@ -28,25 +28,21 @@
 					当前段位
 				</view>
 				<view class="uni-list-cell-db">
-					<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray">
-						<view class="uni-input">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}</view>
-					</picker>
+					<input class="uni-input" placeholder="请输入当前段位" />
 				</view>
 			</view>
 		</view>
 		<view class="uni-list">
 			<view class="uni-list-cell">
 				<view class="uni-list-cell-left">
-					目前段位
+					目标段位
 				</view>
 				<view class="uni-list-cell-db">
-					<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray">
-						<view class="uni-input">{{multiArray[0][multiIndex[0]]}}，{{multiArray[1][multiIndex[1]]}}，{{multiArray[2][multiIndex[2]]}}</view>
-					</picker>
+					<input class="uni-input" placeholder="请输入目标段位" />
 				</view>
 			</view>
 		</view>
-		<view class="contentBottom">
+		<!-- <view class="contentBottom">
 			<view class="item">
 				<view class="itemtop">建议价格（元）</view>
 				<view class="itembottom">10</view>
@@ -63,7 +59,7 @@
 				<view class="itemtop">健康效率保证金（元）</view>
 				<view class="itembottom">10</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="next">
 			<button  type="default" @tap="nextStep">下一步</button>
 		</view>
@@ -73,19 +69,47 @@
 export default {
     data() {
         return {
-            array: ['中国', '美国', '巴西', '日本'],
-			multiArray: [
-				['亚洲', '欧洲'],
-				['中国', '日本'],
-				['北京', '上海', '广州']
-			],
-			multiIndex: [0, 0, 0],
+			multiArray: [],
+			multiIndex: [0, 0],
         }
     },
     computed: {
 		
     },
     methods: {
+		// 获取游戏平台
+		getGameplatforms() {
+			let opts = {
+				url: '/api/game/platforms?game_id=1',
+				method: 'get'
+			}
+			this.$http.httpRequest(opts).then(res => {
+				console.log(res.data)
+				if(res.data.code==200){
+					this.multiArray[0]=res.data.data
+					this.getGameAreas(res.data.data[0].id)
+				}
+			}, error => {
+				console.log(error);
+			})
+			
+		},
+		//根据平台获取区
+		getGameAreas(id) {
+			let opts = {
+				url: '/api/game/areas?platform_id='+id,
+				method: 'get'
+			}
+			this.$http.httpRequest(opts).then(res => {
+				if(res.data.code==200){
+					this.multiArray[1]=res.data.data
+					this.$forceUpdate()
+				}
+			}, error => {
+				console.log(error);
+			})
+			
+		},
 		nextStep:function(){
 			uni.navigateTo({
 			    url: '/pages/releaseinfo/releaseinfo'
@@ -96,43 +120,10 @@ export default {
 			this.multiIndex[e.detail.column] = e.detail.value
 			switch (e.detail.column) {
 				case 0: //拖动第1列
-					switch (this.multiIndex[0]) {
-						case 0:
-							this.multiArray[1] = ['中国', '日本']
-							this.multiArray[2] = ['北京', '上海', '广州']
-							break
-						case 1:
-							this.multiArray[1] = ['英国', '法国']
-							this.multiArray[2] = ['伦敦', '曼彻斯特']
-							break
-					}
-					this.multiIndex.splice(1, 1, 0)
-					this.multiIndex.splice(2, 1, 0)
+					let id = this.multiArray[e.detail.column][e.detail.value].id
+					this.getGameAreas(id)
 					break
-				case 1: //拖动第2列
-					switch (this.multiIndex[0]) { //判断第一列是什么
-						case 0:
-							switch (this.multiIndex[1]) {
-								case 0:
-									this.multiArray[2] = ['北京', '上海', '广州']
-									break
-								case 1:
-									this.multiArray[2] = ['东京','北海道']
-									break
-							}
-							break
-						case 1:
-							switch (this.multiIndex[1]) {
-								case 0:
-									this.multiArray[2] = ['伦敦', '曼彻斯特']
-									break
-								case 1:
-									this.multiArray[2] = ['巴黎', '马赛']
-									break
-							}
-							break
-					}
-					this.multiIndex.splice(2, 1, 0)
+					this.multiIndex.splice(2, 1)
 					break
 			}
 			this.$forceUpdate()
@@ -141,7 +132,10 @@ export default {
             console.log('picker发送选择改变，携带值为', e.target.value)
             this.index = e.target.value
         }
-    }
+    },
+	onReady() {
+		this.getGameplatforms()
+	}
 }
 </script>
 <style>

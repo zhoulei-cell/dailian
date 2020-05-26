@@ -1,53 +1,353 @@
 <template>
-    <view class="content">
-        <view class="input-group">
-            <view class="input-row">
-                <text class="title">邮箱：</text>
-                <m-input type="text" focus clearable v-model="email" placeholder="请输入邮箱"></m-input>
-            </view>
-        </view>
-
-        <view class="btn-row">
-            <button type="primary" class="primary" @tap="findPassword">提交</button>
-        </view>
-    </view>
+	<view class="content">
+		<view class="input-group">
+			<view class="input-row border">
+				<m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入手机号" ></m-input>
+			</view>
+			<view class="input-row border">
+				<m-input class="m-input" type="text" clearable focus v-model="captcha" placeholder="输入图片验证码"></m-input>
+				<image :src="imgcode" mode="" @tap="getImgCode"></image>
+			</view>
+			<view class="input-row border">
+				<m-input class="m-input" type="text" clearable focus v-model="code" placeholder="输入验证码"></m-input>
+				<text @tap="pushmessage" class="blue" v-if="time==60">发送验证码</text>
+				<text class="grey" v-else>重发（{{time}}）</text>
+			</view>
+			<view class="input-row">
+				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+			</view>
+		</view>
+		<view class="btn">
+			<view class="btnleft"></view>
+			<view class="btnright">
+				<button @tap="bindLogin">提交</button>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
-    import service from '../../service.js';
-    import mInput from '../../components/m-input.vue';
-
-    export default {
-        components: {
-            mInput
-        },
-        data() {
-            return {
-                email: ''
-            }
-        },
-        methods: {
-            findPassword() {
-                /**
-                 * 仅做示例
-                 */
-                if (this.email.length < 3 || !~this.email.indexOf('@')) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '邮箱地址不合法',
-                    });
-                    return;
-                }
-                uni.showToast({
-                    icon: 'none',
-                    title: '已发送重置邮件至注册邮箱，请注意查收。',
-                    duration: 3000
-                });
-            }
-        }
-    }
+	import service from '../../service.js';
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
+	import mInput from '../../components/m-input.vue'
+	import {
+		pathToBase64,
+		base64ToPath
+	} from 'image-tools'
+	export default {
+		components: {
+			mInput
+		},
+		data() {
+			return {
+				account: '',
+				password: '',
+				captcha: '',
+				t: null,
+				time: 60,
+				imgcode: '',
+				code: '',
+				key: '',
+				userinfo:{}
+			}
+		},
+		methods: {
+			// 获取验图片证码
+			getImgCode() {
+				let opts = {
+					url: '/api/get_captcha',
+					method: 'get'
+				};
+				this.$http.httpRequest(opts).then(res => {
+					this.key = res.data.key
+					const imgcode = res.data.img
+					base64ToPath(imgcode)
+						.then(path => {
+							console.log(path)
+							this.imgcode = path
+						})
+						.catch(error => {
+							console.error(error)
+						})
+					//打印请求返回的数据
+				}, error => {
+					console.log(error);
+				})
+			},
+			// 发送短信验证码
+			sendmessagecode() {
+				return new Promise((reslove,reject)=>{
+					if (this.account.length != 11) {
+						uni.showToast({
+							icon: 'none',
+							title: '请输入正确的手机号'
+						});
+						return;
+					}
+					if (this.captcha.length != 4) {
+						uni.showToast({
+							icon: 'none',
+							title: '请输入正确图片验证码'
+						});
+						return;
+					}
+					let opts = {
+						url: '/api/send_sms',
+						method: 'post'
+					};
+					let param = {
+						captcha: this.captcha,
+						key: this.key,
+						phone: this.account
+					}
+					this.$http.httpRequest(opts,param).then(res => {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						});
+						reslove(res)
+					}, error => {
+						console.log(error);
+					})
+				})
+			},
+			// 重置密码
+			bindLogin() {
+				/**
+				 * 客户端对账号信息进行一些必要的校验。
+				 * 实际开发中，根据业务需要进行处理，这里仅做示例。
+				 */
+				if (this.account.length != 11) {
+					uni.showToast({
+						icon: 'none',
+						title: '请输入正确的手机号'
+					});
+					return;
+				}
+				if (this.password.length < 6) {
+					uni.showToast({
+						icon: 'none',
+						title: '密码最短为 6 个字符'
+					});
+					return;
+				}
+				let opts = {
+					url: '/api/reset_password',
+					method: 'post'
+				};
+				let param = {
+					code: this.code,
+					password: this.password,
+					phone: this.account
+				}
+				this.$http.httpRequest(opts,param).then(res => {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.msg
+					})
+					this.logout()
+				}, error => {
+					console.log(error);
+				})
+			},
+			// 退出登录
+			logout(){
+				let opts = {
+					url: '/api/loginout',
+					method: 'post'
+				};
+				let token = "";
+				uni.getStorage({
+					key: 'token',
+					success: function(ress) {
+						token = ress.data
+					}
+				});
+				let param = {
+					token:token
+				}
+				this.$http.httpRequest(opts,param).then(res => {
+					uni.removeStorage({
+					    key: 'userinfo'
+					})
+					uni.removeStorage({
+					    key: 'token'
+					})
+					uni.navigateTo({
+						url:"/pages/login/login"
+					})
+				})
+			},
+			// 发送验证码
+			pushmessage() {
+				this.sendmessagecode().then(res=>{
+					if(res.data.code==200){
+						this.t = window.setInterval(() => {
+							this.time--
+							if (this.time <= 0) {
+								this.time = 60
+								window.clearInterval(this.t)
+							}
+						}, 1000)
+					}
+				})
+				
+			}
+		},
+		onReady() {
+			this.getImgCode()
+			uni.getStorage({
+				key:'userinfo',
+				success:(ress)=> {
+					this.userinfo = ress.data
+				}
+			})
+			this.account=this.userinfo.phone
+		}
+	}
 </script>
 
 <style>
+	.linetitle {
+		font-size: 48rpx;
+		font-family: PingFangSC-Medium, PingFang SC;
+		font-weight: 500;
+		color: rgba(47, 48, 52, 1);
+		padding-top: 120rpx;
+		padding-bottom: 40rpx;
+	}
 
+	.m-input {
+		padding: 36rpx 0;
+		font-size: 28rpx;
+		font-family: PingFangSC-Regular, PingFang SC;
+		font-weight: 400;
+		color: rgba(161, 165, 179, 1);
+	}
+
+	.input-row {
+		display: flex;
+		align-items: center;
+	}
+
+	.input-row text {
+		font-size: 28rpx;
+		font-family: PingFangSC-Regular, PingFang SC;
+		font-weight: 400;
+	}
+
+	.input-row image {
+		width: 100rpx;
+		height: 50rpx;
+	}
+
+	.action-row {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.action-row navigator {
+		color: #007aff;
+		padding: 0 20upx;
+	}
+
+	.oauth-row {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+	}
+
+	.oauth-image {
+		width: 100upx;
+		height: 100upx;
+		border: 1upx solid #dddddd;
+		border-radius: 100upx;
+		margin: 0 40upx;
+		background-color: #ffffff;
+	}
+
+	.oauth-image image {
+		width: 100upx;
+		margin: 20upx;
+	}
+
+	.btn {
+		font-size: 32rpx;
+		font-family: PingFangSC-Regular, PingFang SC;
+		font-weight: 400;
+		color: rgba(115, 118, 128, 1);
+		display: flex;
+		padding-top: 82rpx;
+	}
+
+	.btn button {
+		width: 208rpx;
+		height: 96rpx;
+		background: linear-gradient(90deg, rgba(23, 102, 255, 1) 0%, rgba(87, 144, 255, 1) 100%);
+		border-radius: 48rpx;
+		font-size: 32rpx;
+		font-family: PingFangSC-Medium, PingFang SC;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 1);
+		margin-left: 80rpx;
+	}
+
+	.btn uni-button {
+		height: auto;
+	}
+
+	.btn navigator {
+		margin-left: 70rpx;
+	}
+
+	.btnleft {
+		flex: 1;
+	}
+
+	.btnright {
+		display: flex;
+		align-items: center;
+	}
+
+	.blue {
+		color: #1766FF;
+	}
+
+	.grey {
+		color: #A1A5B3;
+	}
+
+	.bottom {
+		position: absolute;
+		width: 100%;
+		text-align: center;
+		bottom: 0;
+		left: 0;
+		line-height: 100rpx;
+	}
+
+	.bottom navigator {
+		display: inline-block;
+		font-size: 28rpx;
+		font-family: PingFangSC-Regular, PingFang SC;
+		font-weight: 400;
+		color: rgba(23, 102, 255, 1);
+		margin-left: 40rpx;
+	}
+
+	.margin0 {
+		margin-left: 0 !important;
+	}
+
+	.input-row.border::after {
+		left: 0;
+	}
 </style>
