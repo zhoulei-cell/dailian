@@ -15,7 +15,8 @@
         },{
             "path": "pages/main/main",
             "style": {
-                "navigationBarTitleText": "大厅"
+                "navigationBarTitleText": "大厅",
+				"enablePullDownRefresh": true
             }
         },
 		{
@@ -64,6 +65,12 @@
 		    "path": "pages/orderinfo2/orderinfo2",
 		    "style": {
 		        "navigationBarTitleText": "大厅订单详情"
+		    }
+		},
+		{
+		    "path": "pages/orderimgsubmit/orderimgsubmit",
+		    "style": {
+		        "navigationBarTitleText": "订单图片上传"
 		    }
 		},
 		{

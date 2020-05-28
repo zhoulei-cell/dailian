@@ -104,9 +104,35 @@ const httpTokenRequest = async (opts, data) => {
 	})
 	return promise
 };
-
+const uploadimg = async(imgFiles)=>{
+	let token =await gettoken();
+	// 上传图片
+	// 做成一个上传对象
+	return new Promise((resolve,reject)=>{
+		var uper = uni.uploadFile({
+		    // 需要上传的地址
+		    url:baseUrl+'/api/upload?token='+token,
+		    // filePath  需要上传的文件
+		    filePath: imgFiles,
+		    name: 'image[]',
+		    success(res1) {
+		        // 显示上传信息
+		        console.log(res1)
+				resolve(res1)
+		    }
+		})
+		// onProgressUpdate 上传对象更新的方法
+		uper.onProgressUpdate(function(res){
+		    // 进度条等于 上传到的进度
+		    console.log('上传进度' + res.progress)
+		    console.log('已经上传的数据长度' + res.totalBytesSent)
+		    console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend)
+		})
+	})
+}
 export default {
 	baseUrl,
 	httpRequest,
-	httpTokenRequest
+	httpTokenRequest,
+	uploadimg
 }

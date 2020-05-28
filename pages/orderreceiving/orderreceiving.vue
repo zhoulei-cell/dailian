@@ -24,11 +24,15 @@
 					<view class="orderbtn">
 						<view class="orderbtn_left"></view>
 						<view class="orderbtn_right">
-							<button @tap.stop="updateorder(item,index)">提交完成</button>
-							<button @tap.stop="updateorder(item,index)">上传截图</button>
-							<button @tap.stop="consult(item,index)">协商结算/退单</button>
-							<button @tap.stop="submitexception(item,index)" v-if="item.order_status!=3">提交异常</button>
-							<button @tap.stop="cancelexception(item,index)" v-else>取消异常</button>
+							<button @tap.stop="updateorder(item,index)" v-if="item.order_status==2">提交完成</button>
+							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
+							
+							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
+							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
+							
+							<button @tap.stop="agreeconsult(item,index)" v-if="item.order_status==3">申述</button>
+							<button @tap.stop="submitexception(item,index)" v-if="item.order_status==2">提交异常</button>
+							<button @tap.stop="cancelexception(item,index)" v-if="item.order_status==3">取消异常</button>
 						</view>
 					</view>
 				</view>
@@ -87,9 +91,22 @@
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			//订单详情
 			navtoDetail(item) {
 				uni.navigateTo({
 					url: '/pages/orderinfo3/orderinfo3?id='+item.id
+				});
+			},
+			//同意协商
+			agreeconsult(item,index){
+				uni.navigateTo({
+					url: '/pages/consult/consult?id='+item.id+'type=1'
+				});
+			},
+			//上传图片
+			uploadimg(item){
+				uni.navigateTo({
+					url: '/pages/orderimgsubmit/orderimgsubmit?id='+item.id
 				});
 			},
 			// 提交异常
@@ -126,7 +143,7 @@
 			//协商结算
 			consult(item){
 				uni.navigateTo({
-					url: '/pages/consult/consult?id='+item.id
+					url: '/pages/consult/consult?id='+item.id+'type=1'+'&orderinfo='+JSON.stringify(item)
 				});
 			},
 			choseItem(item) {

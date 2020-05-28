@@ -5,6 +5,7 @@
 		</view>
         
 		<sl-filter :independence="true" :color="titleColor" :themeColor="themeColor" :menuList.sync="menuList" @result="result"></sl-filter>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" style="position: absolute;top: 190rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;">
 		<view>
 			<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
 			<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
@@ -21,6 +22,7 @@
 			  </view>
 			</view>
 	  </view>
+	  </scroll-view>
     </view>
 </template>
 
@@ -197,7 +199,11 @@
 					}
 				],
 				listData:[],
-				page:1
+				page:1,
+				scrollTop: 0,
+				old: {
+					scrollTop: 0
+				},
 			}
 		},
 		components: {
@@ -209,7 +215,6 @@
 			this.getorderlist()
         },
 		async onPullDownRefresh() {
-			this.loadmore=true
 			this.page = 1
 			await this.getorderlist()
 			uni.stopPullDownRefresh();
@@ -244,6 +249,11 @@
 				}, error => {
 					console.log(error);
 				})
+			},
+			// 下拉加载
+			lower: function(e) {
+				this.page++
+				this.getorderlist()
 			},
 			result(val) {
 				console.log('filter_result:' + JSON.stringify(val));

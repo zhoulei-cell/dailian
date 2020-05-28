@@ -1,33 +1,34 @@
 <template>
 	<view class="content">
 		<view class="line">
-			订单编号：8113161561516
+			订单编号：{{orderinfo.order_no}}
 		</view>
 		<view class="line">
-			发单者预付代练费：￥20
+			发单者预付代练费：￥{{orderinfo.order_price}}
 		</view>
 		<view class="line">
-			代练员效率保证金：￥20
+			代练员效率保证金：￥{{orderinfo.eff_price}}
 		</view>
 		<view class="line">
-			代练员安全保证金：￥20
+			代练员安全保证金：￥{{orderinfo.promise_price}}
 		</view>
 		<view class="lineinput">
-			<text>需要对方支付代练费：</text><input class="uni-input" placeholder="代练费" placeholder-style="color:#F76260" type="number" v-model="price"/>
+			<text>需要对方支付代练费：</text><input class="uni-input" placeholder="代练费" placeholder-style="color:#F76260" type="number" :disabled="orderinfo.agree" v-model="orderinfo.price"/>
 		</view>
 		<view class="line">（支付金额不能超过<text class="red">21.00</text>元）</view>
 		<view class="lineinput">
-			<text>我愿意赔偿保证金：</text><input class="uni-input" placeholder="保证金" placeholder-style="color:#F76260" type="number" v-model="bond"/>
+			<text>我愿意赔偿保证金：</text><input class="uni-input" placeholder="保证金" placeholder-style="color:#F76260" type="number" :disabled="orderinfo.agree" v-model="orderinfo.bond"/>
 		</view>
 		<view class="line">（支付金额不能超过<text class="red">21.00</text>元）</view>
 		<view class="line">
 			撤单原因:
 		</view>
 		<view class="lineinput">
-		    <textarea  placeholder="撤单原因" v-model="reason"/>
+		    <textarea  placeholder="撤单原因" :disabled="orderinfo.agree" v-model="orderinfo.reason"/>
 		</view>
 		<view class="btn">
-			<button type="default" @tap="submit">提交</button>
+			<button type="default" @tap="submit" v-if="!orderinfo.agree">提交</button>
+			<button type="default" @tap="tysubmit" v-else>同意协商</button>
 		</view>
 	</view>
 </template>
@@ -40,7 +41,8 @@
 				price:"",
 				bond:"",
 				reason:"",
-				id:""
+				id:"",
+				type:1
 			}
 		},
 		methods: {
@@ -51,10 +53,10 @@
 					method: 'post'
 				}
 				let params={
-					order_id:this.id,
-					price:this.price,
-					bond:this.bond,
-					reason:this.reason
+					order_id:this.orderinfo.id,
+					price:this.orderinfo.price,
+					bond:this.orderinfo.bond,
+					reason:this.orderinfo.reason
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
@@ -74,11 +76,69 @@
 				}, error => {
 					console.log(error);
 				})
+			},
+			//获取异常信息
+			getinfo(){
+				let opts = {
+					url: '/api/order/consult/view',
+					method: 'get'
+				}
+				let params={
+					order_id:this.id,
+				}
+				this.$http.httpTokenRequest(opts,params).then(res => {
+					if(res.data.code==200){
+						this.orderinfo=res.data.data
+					}else{
+						uni.showToast({
+							icon:'none',
+							title:res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			//同意协商
+			tysubmit(){
+				let opts = {
+					url: '/api/order/consult/agree',
+					method: 'post'
+				}
+				let params = {
+					id: this.orderinfo.id
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+						uni.navigateBack({
+							delta:2
+						})
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
 			}
 		},
 		onLoad: function (option) {
 			console.log(option.id)
 			this.id=option.id
+			if(option.orderinfo){
+				this.orderinfo=JSON.parse(option.orderinfo)
+				this.orderinfo.order_price=this.orderinfo.price
+				this.orderinfo.price=""
+				console.log(this.orderinfo)
+			}else{
+				this.getinfo()
+			}
 		}
 	}
 </script>

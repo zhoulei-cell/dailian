@@ -26,8 +26,15 @@
 						<view class="orderbtn_right">
 							<button @tap.stop="lockorder(item,index)" v-if="item.locked==0">锁号</button>
 							<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
-							<button @tap.stop="cancelorder(item,index)" v-if="item.order_status!=6">取消订单</button>
-							<button @tap.stop="updateorder(item,index)" v-if="item.order_status!=6">修改订单</button>
+							
+							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
+							
+							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
+							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
+							
+							<button @tap.stop="agreeconsult(item,index)" v-if="item.order_status==3">申述</button>
+							<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
+							<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
 						</view>
 					</view>
 				</view>
@@ -90,6 +97,12 @@
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			//上传图片
+			uploadimg(item){
+				uni.navigateTo({
+					url: '/pages/orderimgsubmit/orderimgsubmit?id='+item.id
+				});
+			},
 			navtoDetail(item) {
 				uni.navigateTo({
 					url: '/pages/orderinfo/orderinfo?id='+item.id
@@ -99,6 +112,18 @@
 				this.selectindex = item.type
 				this.page=1
 				this.getorderlist()
+			},
+			//同意协商
+			agreeconsult(item,index){
+				uni.navigateTo({
+					url: '/pages/consult/consult?id='+item.id
+				});
+			},
+			//协商结算
+			consult(item){
+				uni.navigateTo({
+					url: '/pages/consult/consult?id='+item.id+'type=1'+'&orderinfo='+JSON.stringify(item)
+				});
 			},
 			// 获取订单列表
 			getorderlist() {
