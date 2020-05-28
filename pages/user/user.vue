@@ -23,9 +23,12 @@
 			<view class="user-img-box">
 				<view class="user-img-bg">
 					<view class="user-img-boxleft">
-						未开通
+						{{userinfo.is_member==1?'已开通svip':'未开通'}}
 					</view>
-					<view class="user-img-boxright">
+					<view class="user-img-boxright" v-if="userinfo.is_member==1">
+						会员到期时间：{{userinfo.member_time || '永久有效'}}
+					</view>
+					<view class="user-img-boxright" v-else>
 						加入SVIP，立享多项专属特权
 						<navigator url="../membershipcenter/membershipcenter">
 						<button>查看</button>
@@ -65,30 +68,31 @@
 				itemData:[
 					{
 						url:"../Recharge/Recharge",
-						img:"../../static/img/IC／qianbao／24@2x.png",
+						img:"../../static/img/qianbao.png",
 						name:"充值"
 					},
 					{
 						url:"../withdrawal/withdrawal",
-						img:"../../static/img/IC／qianbao／24@2x.png",
+						img:"../../static/img/qianbao.png",
 						name:"提现"
 					},
 					{
 						url:"../calendar/calendar",
-						img:"../../static/img/IC／qiandao.png",
+						img:"../../static/img/qiandao.png",
 						name:"签到有奖"
 					},
 					{
-						img:"../../static/img/IC／yaoqing.png",
+					    url:"../invitation/invitation",
+						img:"../../static/img/yaoqing.png",
 						name:"邀请有奖"
 					},
 					{
-						img:"../../static/img/IC／kefu.png",
+						img:"../../static/img/kefu.png",
 						name:"在线客服"
 					},
 					{
 						url:"../pwd/pwd",
-						img:"../../static/img/IC／shezhi.png",
+						img:"../../static/img/shezhi.png",
 						name:"修改密码"
 					},
 				],
@@ -131,18 +135,10 @@
 				let opts = {
 					url: '/api/loginout',
 					method: 'post'
-				};
-				let token = "";
-				uni.getStorage({
-					key: 'token',
-					success: function(ress) {
-						token = ress.data
-					}
-				});
-				let param = {
-					token:token
 				}
-				this.$http.httpRequest(opts,param).then(res => {
+				let param = {
+				}
+				this.$http.httpTokenRequest(opts,param).then(res => {
 					uni.removeStorage({
 					    key: 'userinfo'
 					})
@@ -167,19 +163,12 @@
 				let opts = {
 					url: '/api/getUserInfo',
 					method: 'get'
-				};
-				let token = "";
-				uni.getStorage({
-					key: 'token',
-					success: function(ress) {
-						token = ress.data
-					}
-				});
-				let param = {
-					token:token
 				}
-				this.$http.httpRequest(opts,param).then(res => {
-					this.userinfo = res.data
+				let param = {
+					
+				}
+				this.$http.httpTokenRequest(opts,param).then(res => {
+					this.userinfo = res.data.data
 				})
 			}
         },

@@ -6,12 +6,7 @@
                 "navigationBarTitleText": "账号登录"
             }
         }, 
-		{
-		    "path": "pages/dxlogin/dxlogin",
-		    "style": {
-		        "navigationBarTitleText": "短信登录"
-		    }
-		}, 
+		
 		{
             "path": "pages/user/user",
             "style": {
@@ -66,15 +61,34 @@
 		    }
 		},
 		{
+		    "path": "pages/orderinfo2/orderinfo2",
+		    "style": {
+		        "navigationBarTitleText": "大厅订单详情"
+		    }
+		},
+		{
+		    "path": "pages/orderinfo3/orderinfo3",
+		    "style": {
+		        "navigationBarTitleText": "发单订单详情"
+		    }
+		},
+		{
 		    "path": "pages/updatereleaseinfo/updatereleaseinfo",
 		    "style": {
 		        "navigationBarTitleText": "修改订单"
 		    }
 		},
 		{
+		    "path": "pages/invitation/invitation",
+		    "style": {
+		        "navigationBarTitleText": "我的邀请"
+		    }
+		},
+		{
 		    "path": "pages/orderreceiving/orderreceiving",
 		    "style": {
-		        "navigationBarTitleText": "接单订单"
+		        "navigationBarTitleText": "接单订单",
+				"enablePullDownRefresh": true
 		    }
 		},
 		{
@@ -103,6 +117,18 @@
 		    }
 		},
 		{
+		    "path": "pages/submitexception/submitexception",
+		    "style": {
+		        "navigationBarTitleText": "提交异常"
+		    }
+		},
+		{
+		    "path": "pages/consult/consult",
+		    "style": {
+		        "navigationBarTitleText": "协商结算"
+		    }
+		},
+		{
 		    "path": "pages/Recharge/Recharge",
 		    "style": {
 		        "navigationBarTitleText": "充值中心"
@@ -112,6 +138,12 @@
 		    "path": "pages/withdrawal/withdrawal",
 		    "style": {
 		        "navigationBarTitleText": "提现"
+		    }
+		},
+		{
+		    "path": "pages/ordercomfirm/ordercomfirm",
+		    "style": {
+		        "navigationBarTitleText": "提交订单"
 		    }
 		},
 		{
@@ -132,6 +164,11 @@
                 "navigationBarTitleText": "注册"
             }
         }, {
+            "path": "pages/dxlogin/dxlogin",
+            "style": {
+                "navigationBarTitleText": "短信登录"
+            }
+        },{
             "path": "pages/pwd/pwd",
             "style": {
                 "navigationBarTitleText": "找回密码"
@@ -154,14 +191,14 @@
             "selectedIconPath": "static/img/publicsl.png"
         },{
             "pagePath": "pages/orderrelease/orderrelease",
-            "text": "订单",
-            "iconPath": "static/img/Confrontation.png",
-            "selectedIconPath": "static/img/Confrontationcheck.png"
+            "text": "发单订单",
+            "iconPath": "static/img/order.png",
+            "selectedIconPath": "static/img/ordercheck.png"
         },{
-            "pagePath": "pages/confrontation/confrontation",
-            "text": "赛事",
-            "iconPath": "static/img/Confrontation.png",
-            "selectedIconPath": "static/img/Confrontationcheck.png"
+            "pagePath": "pages/orderreceiving/orderreceiving",
+            "text": "接单订单",
+            "iconPath": "static/img/order.png",
+            "selectedIconPath": "static/img/ordercheck.png"
         },{
             "pagePath": "pages/user/user",
             "text": "我的",

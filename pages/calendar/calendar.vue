@@ -11,6 +11,7 @@
 <script>
 	import uniSection from '@/components/uni-section/uni-section.vue'
 	import uniCalendar from '@/components/uni-calendar/uni-calendar.vue'
+	import util from '@/common/util.js'
 	export default {
 		components: {
 			uniSection,
@@ -29,44 +30,86 @@
 				}
 			}
 		},
-		onReady() {
-			// TODO 模拟请求异步同步数据
-			setTimeout(() => {
-				this.info.selected = [{
-						date: '2020-05-19',
-						info: '已签到'
-					},
-					{
-						date: '2020-05-18',
-						info: '签到',
-						data: {
-							custom: '自定义信息',
-							name: '自定义消息头'
-						}
-					},
-					{
-						date: '2020-05-17',
-						info: '已打卡'
-					}
-				]
-			}, 500)
-		},
 		methods: {
-			change(e) {
-				console.log('change 返回:', e)
-				// 模拟动态打卡
-				if (this.info.selected.length > 5) return
-				this.info.selected.push({
-					date: e.fulldate,
-					info: '打卡'
-				})
+			async change(e) {
+				var date = new Date()
+				var datetime = util.getTime(date)
+				if (e.fulldate == datetime) {
+					await this.sign()
+					this.info.selected.push({
+						date: datetime,
+						info: '已签到'
+					})
+				}
 			},
 			confirm(e) {
 				console.log('confirm 返回:', e)
 			},
 			monthSwitch(e) {
 				console.log('monthSwitchs 返回:', e)
+				this.getsignlist(e.year+'-'+e.month+'-01',e.year+'-'+e.month+'-31')
+			},
+			// 获取签到历史
+			getsignlist(begin_time,end_time) {
+				let opts = {
+					url: '/api/signin_list',
+					method: 'get'
+				};
+				let param = {
+					days: "",
+					begin_time: begin_time,
+					end_time: end_time
+				}
+				this.$http.httpTokenRequest(opts, param).then(res => {
+					if (res.data.code == 200) {
+						if(res.data.data.length>0){
+							console.log(res.data.data)
+							for (var i = 0; i < res.data.data.length; i++) {
+								let date=res.data.data[i].created_time.split(' ')
+								this.info.selected.push({
+									date: date[0],
+									info: '已签到'
+								})
+								console.log(this.info.selected)
+							}
+						}
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						});
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			// 签到
+			sign() {
+				let opts = {
+					url: '/api/signin',
+					method: 'post'
+				};
+				let param = {
+
+				}
+				this.$http.httpTokenRequest(opts, param).then(res => {
+					if (res.data.code == 200) {
+
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						});
+					}
+				}, error => {
+					console.log(error);
+				})
 			}
+		},
+		onLoad() {
+			let date=new Date()
+			let time=util.dateFormat('YYYY-mm',date)
+			this.getsignlist(time+'-01',time+'-31')
 		}
 	}
 </script>

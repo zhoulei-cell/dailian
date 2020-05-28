@@ -1,5 +1,5 @@
 {
-    "name" : "dailian",
+    "name" : "战狼电竞俱乐部",
     "appid" : "__UNI__DD88727",
     "description" : "登录模板",
     "versionName" : "1.0.0",
@@ -44,6 +44,17 @@
             /* SDK配置 */
             "sdkConfigs" : {
                 "ad" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : "",
+                    "xxxhdpi" : ""
+                },
+                "ios" : {
+                    "appstore" : ""
+                }
             }
         }
     },
@@ -69,6 +80,13 @@
     "h5" : {
         "devServer" : {
             "https" : false
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "YLXBZ-YWAHR-UXGWH-WURKV-UWIU6-CXFV2"
+                }
+            }
         }
     }
 }

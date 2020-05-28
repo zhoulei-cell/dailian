@@ -18,7 +18,7 @@
 				<view class="uni-list-cell-db">
 					<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray"
 					 :range-key="'name'">
-						<view class="uni-input">{{multiArray[0][multiIndex[0]].name}},{{multiArray[1][multiIndex[1]].name}}</view>
+						<view class="uni-input">{{multiArray[0][multiIndex[0]].name || ''}},{{multiArray[1][multiIndex[1]].name || ''}}</view>
 					</picker>
 				</view>
 			</view>
@@ -265,13 +265,6 @@ export default {
 			
 		},
 		submit(){
-			uni.getLocation({
-			    type: 'wgs84',
-			    success: function (res) {
-			        alert('当前位置的经度：' + res.longitude);
-			        alert('当前位置的纬度：' + res.latitude);
-			    }
-			});
 			const newobj=this.orderInfo
 			newobj.platform_id=this.multiArray[0][this.multiIndex[0]].id
 			newobj.game_area_id=this.multiArray[1][this.multiIndex[1]].id
@@ -295,6 +288,16 @@ export default {
 			}, error => {
 				console.log(error);
 			})
+			uni.getLocation({
+			    type: 'gcj02',
+			    success: function (res) {
+			        alert('当前位置的经度：' + res.longitude);
+			        alert('当前位置的纬度：' + res.latitude);
+			    },
+				fail:function(res){
+					console.log(res)
+				}
+			});
 		},
 		bindMultiPickerColumnChange: function(e) {
 			console.log('修改的列为：' + e.detail.column + '，值为：' + e.detail.value)

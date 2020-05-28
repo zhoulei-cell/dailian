@@ -9,7 +9,7 @@ function formatTime(time) {
 	time = time % 60
 	var second = time
 
-	return ([hour, minute, second]).map(function (n) {
+	return ([hour, minute, second]).map(function(n) {
 		n = n.toString()
 		return n[1] ? n : '0' + n
 	}).join(':')
@@ -38,7 +38,7 @@ var dateUtils = {
 		'分钟': 60000,
 		'秒': 1000
 	},
-	humanize: function (milliseconds) {
+	humanize: function(milliseconds) {
 		var humanize = '';
 		for (var key in this.UNITS) {
 			if (milliseconds >= this.UNITS[key]) {
@@ -48,26 +48,61 @@ var dateUtils = {
 		}
 		return humanize || '刚刚';
 	},
-	format: function (dateStr) {
+	format: function(dateStr) {
 		var date = this.parse(dateStr)
 		var diff = Date.now() - date.getTime();
 		if (diff < this.UNITS['天']) {
 			return this.humanize(diff);
 		}
-		var _format = function (number) {
+		var _format = function(number) {
 			return (number < 10 ? ('0' + number) : number);
 		};
 		return date.getFullYear() + '/' + _format(date.getMonth() + 1) + '/' + _format(date.getDate()) + '-' +
 			_format(date.getHours()) + ':' + _format(date.getMinutes());
 	},
-	parse: function (str) { //将"yyyy-mm-dd HH:MM:ss"格式的字符串，转化为一个Date对象
+	parse: function(str) { //将"yyyy-mm-dd HH:MM:ss"格式的字符串，转化为一个Date对象
 		var a = str.split(/[^0-9]/);
 		return new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
 	}
 };
 
+function getTime(time) {
+	var date = new Date(time),
+		year = date.getFullYear(),
+		month = date.getMonth() + 1,
+		day = date.getDate(),
+		hour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours(),
+		minute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes(),
+		second = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+	month >= 1 && month <= 9 ? (month = "0" + month) : "";
+	day >= 0 && day <= 9 ? (day = "0" + day) : "";
+	var timer = year + '-' + month + '-' + day;
+	return timer;
+}
+
+function dateFormat(fmt, date) {
+    let ret;
+    const opt = {
+        "Y+": date.getFullYear().toString(),        // 年
+        "m+": (date.getMonth() + 1).toString(),     // 月
+        "d+": date.getDate().toString(),            // 日
+        "H+": date.getHours().toString(),           // 时
+        "M+": date.getMinutes().toString(),         // 分
+        "S+": date.getSeconds().toString()          // 秒
+        // 有其他格式化字符需求可以继续添加，必须转化成字符串
+    };
+    for (let k in opt) {
+        ret = new RegExp("(" + k + ")").exec(fmt);
+        if (ret) {
+            fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+        };
+    };
+    return fmt;
+}
 module.exports = {
+	getTime:getTime,
 	formatTime: formatTime,
 	formatLocation: formatLocation,
-	dateUtils: dateUtils
+	dateUtils: dateUtils,
+	dateFormat:dateFormat
 }

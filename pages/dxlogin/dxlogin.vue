@@ -189,7 +189,7 @@
 	}
 
 	.m-input {
-		padding: 36rpx 0;
+		padding: 36rpx 0 !important;
 		font-size: 28rpx;
 		font-family: PingFangSC-Regular, PingFang SC;
 		font-weight: 400;

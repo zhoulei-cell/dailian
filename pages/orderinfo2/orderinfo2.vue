@@ -44,13 +44,17 @@
 				4.订单完成后进裙验收处理订单742-067-549
 			</view>
 		</view>
+		<view class="next">
+			<button type="default" @tap="naviteto">我来代练</button>
+		</view>
     </view>
 </template>
 <script>
 export default {
     data() {
         return {
-			orderInfo:{}
+			orderInfo:{},
+			id:""
         }
     },
 	components: {
@@ -62,7 +66,7 @@ export default {
 		//获取订单详情
 		getorderdetail(id){
 			let opts = {
-				url: '/api/order/get_order_info/'+id,
+				url: '/api/order/info?order_id='+id,
 				method: 'get'
 			}
 			let params = {
@@ -74,10 +78,17 @@ export default {
 			}, error => {
 				console.log(error);
 			})
+		},
+		//提交订单
+		naviteto(){
+			uni.navigateTo({
+				url:"../ordercomfirm/ordercomfirm?id="+this.id
+			})
 		}
     },
 	onLoad: function (option) { 
 		console.log(option.id)
+		this.id=option.id
 		this.getorderdetail(option.id)
 	}
 }

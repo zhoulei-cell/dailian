@@ -13,11 +13,11 @@
 		</view>
 
 		<view class="cont">
-			<view class="title">选择充值类型</view>
+			<!-- <view class="title">选择充值类型</view>
 			<view class="item" v-for="(item,index) in dataList" :key="index" :class="{check:checkindex==index}" @tap="checkitem(item,index)">
 				<view class="itemleft">{{item.month}}个月</view>
 				<view class="itemright">{{item.money}}元</view>
-			</view>
+			</view> -->
 		</view>
 
 		<view class="paytype">
@@ -34,7 +34,7 @@
 			</view>
 		</view>
 		<view class="button">
-			<button type="default">立即开通</button>
+			<button type="default" @tap="submit">立即开通</button>
 		</view>
 	</view>
 </template>
@@ -67,11 +67,11 @@
 					}
 				],
 				items: [{
-						value: 'weixin',
+						value: 'wechat_app_pay',
 						name: '微信支付'
 					},
 					{
-						value: 'apay',
+						value: 'ali_app_pay',
 						name: '支付宝支付',
 						checked: 'true'
 					},
@@ -94,6 +94,36 @@
 						break;
 					}
 				}
+			},
+			// 开通会员
+			submit(){
+				let opts = {
+					url: '/api/app/recharge',
+					method: 'post'
+				}
+				let params = {
+					payment_method: this.items[this.current].value,
+					amount:200,
+					type:0
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+						// uni.reLaunch({
+						// 	url: '../user/user'
+						// })
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
 			}
 		}
 	}

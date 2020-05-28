@@ -24,6 +24,8 @@
 					<view class="orderbtn">
 						<view class="orderbtn_left"></view>
 						<view class="orderbtn_right">
+							<button @tap.stop="lockorder(item,index)" v-if="item.locked==0">锁号</button>
+							<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
 							<button @tap.stop="cancelorder(item,index)" v-if="item.order_status!=6">取消订单</button>
 							<button @tap.stop="updateorder(item,index)" v-if="item.order_status!=6">修改订单</button>
 						</view>
@@ -41,9 +43,9 @@
 	export default {
 		data() {
 			return {
-				selectindex: 0,
+				selectindex: "",
 				ordertype: [{
-						type: 0,
+						type: "",
 						text: "全部"
 					},
 					{
@@ -56,10 +58,14 @@
 					},
 					{
 						type: 3,
-						text: "待验收"
+						text: "异常中"
 					},
 					{
 						type: 4,
+						text: "待验收"
+					},
+					{
+						type: 5,
 						text: "已结算"
 					}
 				],
@@ -71,7 +77,8 @@
 				},
 				threshold:"50px",
 				loadmore:true,
-				ordertext:['关闭','待接单','代练中','异常中','待验收','已结算','取消']
+				ordertext:['关闭','待接单','代练中','异常中','待验收','已结算','取消'],
+				orderstaus:''
 			}
 		},
 		components: {},
@@ -90,6 +97,8 @@
 			},
 			choseItem(item) {
 				this.selectindex = item.type
+				this.page=1
+				this.getorderlist()
 			},
 			// 获取订单列表
 			getorderlist() {
@@ -98,18 +107,15 @@
 					method: 'get'
 				}
 				let params = {
-					page: this.page
+					page: this.page,
+					status:this.selectindex
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						if(res.data.data.data.length>0){
-							if(this.page==1){
-								this.listData = res.data.data.data
-							}else{
-								this.listData.concat(this.listData,res.data.data.data)
-							}
+						if(this.page==1){
+							this.listData = res.data.data.data
 						}else{
-							this.loadmore=false
+							this.listData.concat(this.listData,res.data.data.data)
 						}
 					}
 				}, error => {
@@ -139,6 +145,11 @@
 							title: res.data.msg
 						})
 						this.listData[index].order_status=6
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
 					}
 				}, error => {
 					console.log(error);
@@ -148,6 +159,48 @@
 				uni.navigateTo({
 					url: '/pages/updatereleaseinfo/updatereleaseinfo?id='+item.id
 				});
+			},
+			//锁号
+			lockorder(item,index){
+				let opts = {
+					url: '/api/order/account/lock',
+					method: 'PUT'
+				}
+				let params = {
+					order_id: item.id
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+						this.listData[index].locked=1
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			//解锁
+			jslockorder(item,index){
+				let opts = {
+					url: '/api/order/account/unlock',
+					method: 'PUT'
+				}
+				let params = {
+					order_id: item.id
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+						this.listData[index].locked=0
+					}
+				}, error => {
+					console.log(error);
+				})
 			}
 		},
 		async onPullDownRefresh() {

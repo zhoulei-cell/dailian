@@ -11,12 +11,12 @@
 			  <view class="item">
 				<view class="item_left">
 					<view class="title">{{item.title}}</view>
-					<view class="dec elis">{{item.dec}}</view>
-					<view class="dec">发布者：{{item.person}}</view>
-					<view class="dec">保证金：{{item.cmoney}} 总时间：{{item.time}}</view>
+					<view class="dec elis">{{item.rel_message}}</view>
+					<view class="dec">发布者：{{item.user.name || ''}}</view>
+					<view class="dec">保证金：{{item.promise_price}} 总时间：{{item.duration}}小时</view>
 				</view>
 				<view class="item_right">
-					{{item.money}}
+					￥{{item.price}}
 				</view>
 			  </view>
 			</view>
@@ -196,17 +196,8 @@
 		
 					}
 				],
-				listData:[
-					{
-						title:"同城可接",
-						person:"梁来",
-						money:"￥100.00",
-						time:"1天1小时",
-						cmoney:"100.00",
-						dec:"同城可接",
-						id:1
-					}
-				]
+				listData:[],
+				page:1
 			}
 		},
 		components: {
@@ -215,20 +206,45 @@
 		},
         computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
         onLoad() {
-					let opts={
-                        url: '/api/device/add',
-                        method: 'post'
-                    };
-                    let param={
-                        deviceId:this.deviceCode,
-                        deviceName:this.deviceName
-                    };
-                    this.$http.httpTokenRequest(opts, param).then(res => {
-                        console.log(res.data);
-                       //打印请求返回的数据
-                    },error => {console.log(error);})   
+			this.getorderlist()
         },
+		async onPullDownRefresh() {
+			this.loadmore=true
+			this.page = 1
+			await this.getorderlist()
+			uni.stopPullDownRefresh();
+		},
 		methods:{
+			// 获取订单列表
+			getorderlist() {
+				let opts = {
+					url: '/api/order/orders',
+					method: 'get'
+				}
+				let params = {
+					page: this.page,
+					order:"",
+					price_min:"",
+					price_max:"",
+					search:"",
+					game_id:"",
+					platform_id:"",
+					game_area_id:"",
+					current_segment:"",
+					tag_segment:""
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						if(this.page==1){
+							this.listData = res.data.data.data
+						}else{
+							this.listData.concat(this.listData,res.data.data.data)
+						}
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
 			result(val) {
 				console.log('filter_result:' + JSON.stringify(val));
 			},
@@ -249,7 +265,7 @@
 			},
 			navtoDetail(item){
 				uni.navigateTo({
-				    url: '/pages/orderinfo/orderinfo'
+				    url: '/pages/orderinfo2/orderinfo2?id='+item.id
 				});
 			}
 		}

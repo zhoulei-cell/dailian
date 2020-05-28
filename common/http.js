@@ -29,9 +29,9 @@ const httpRequest = (opts, data) => {
 						icon: 'none',
 						title: res[1].data.message
 					});
-				}else if(res[1].statusCode == 401){
+				} else if (res[1].statusCode == 401) {
 					uni.navigateTo({
-						url:"/pages/login/login"
+						url: "/pages/login/login"
 					})
 				}
 			}
@@ -43,19 +43,25 @@ const httpRequest = (opts, data) => {
 	})
 	return promise
 };
+function gettoken(){
+	return new Promise((resolve, reject)=>{
+		uni.getStorage({
+			key: 'token',
+			success:(ress)=>{
+				resolve(ress.data)
+			}
+		})
+	})
+}
 //带Token请求
-const httpTokenRequest = (opts, data) => {
-	let token = "";
-	uni.getStorage({
-		key: 'token',
-		success: function(ress) {
-			token = ress.data
-		}
-	});
+const httpTokenRequest = async (opts, data) => {
+	let token =await gettoken();
 	//此token是登录成功后后台返回保存在storage中的
 	let httpDefaultOpts = {
 		url: baseUrl + opts.url,
-		data: Object.assign(data,{token}),
+		data: Object.assign(data, {
+			token
+		}),
 		method: opts.method,
 		header: opts.method == 'get' ? {
 			// 'Authorization' : '	Bearer' + token,
@@ -69,7 +75,7 @@ const httpTokenRequest = (opts, data) => {
 		},
 		dataType: 'json',
 	}
-	let promise = new Promise(function(resolve, reject) {
+	let promise = new Promise((resolve, reject)=>{
 		uni.request(httpDefaultOpts).then(
 			(res) => {
 				if (res[1].statusCode == 200) {
@@ -84,9 +90,9 @@ const httpTokenRequest = (opts, data) => {
 						icon: 'none',
 						title: res[1].data.message
 					});
-				}else if(res[1].statusCode == 401){
+				} else if (res[1].statusCode == 401) {
 					uni.navigateTo({
-						url:"/pages/login/login"
+						url: "/pages/login/login"
 					})
 				}
 			}
