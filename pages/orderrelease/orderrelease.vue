@@ -32,7 +32,7 @@
 							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
 							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 							
-							<button @tap.stop="agreeconsult(item,index)" v-if="item.order_status==3">申述</button>
+							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status==3">申述</button>
 							<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
 							<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
 						</view>
@@ -101,6 +101,12 @@
 			uploadimg(item){
 				uni.navigateTo({
 					url: '/pages/orderimgsubmit/orderimgsubmit?id='+item.id
+				});
+			},
+			//申诉
+			agreeappeal(){
+				uni.navigateTo({
+					url: '/pages/appeal/appeal?id='+item.id
 				});
 			},
 			navtoDetail(item) {
