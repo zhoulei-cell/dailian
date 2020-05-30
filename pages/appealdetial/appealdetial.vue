@@ -3,29 +3,54 @@
 		<view class="title" style="margin-top: 0;">
 			代练申诉订单信息
 		</view>
-		<view class="line">订单编号：{{orderinfo.order_no}}</view>
-		<view class="line">订单标题：{{orderinfo.title}}</view>
+		<view class="line">订单编号：{{orderinfo.order.order_no}}</view>
+		<view class="line">订单标题：{{orderinfo.order.title}}</view>
 		<view class="title">
 			申述类型及详情
 		</view>
 		<view class="uni-list">
-			<radio-group @change="radioChange">
-				<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
-					<view>
-						<radio :value="item.value" :checked="index === current" />
-					</view>
-					<view>{{item.name}}</view>
-				</label>
-			</radio-group>
+			<view class="line">发起人：{{orderinfo.user.name ||　orderinfo.user.phone}}</view>
+			<view class="line">发起时间：{{orderinfo.created_at}}</view>
+			<view class="line">申诉类型：{{items[orderinfo.type].name}}</view>
 		</view>
 		<view class="title">
 			问题希望及其描述：
 		</view>
 		<view class="textarea">
-			<textarea value="" placeholder="请输入问题希望及其描述" v-model="orderinfo.desc"/>
+			<textarea value="" placeholder="请输入问题希望及其描述" v-model="orderinfo.desc" />
+			</view>
+		<view class="title">
+			<text>凭证截图：</text>
+			<!-- <button type="primary" @tap="cI">上传图片</button> -->
+		</view>
+		<view class="imglist">
+			<view class="imgbox" v-for="(imglist,index) in orderinfo.order.images" :key="index">
+				<image :src="imglist.full || imglist.url"></image>
+			</view>
 		</view>
 		<view class="title">
-			<text>凭证截图：</text><button type="primary" @tap="cI">上传图片</button>
+			客户处理列表
+		</view>
+		<view class="reviwelist">
+			<view class="reviweitem" v-for="(re,index) in orderinfo.order_appeal_chat" :key="index">
+				<view class="line2 red">{{re.user.name || '无用户名'}}</view>
+				<view class="line2">{{re.content}}</view>
+				<view class="imglist">
+				<view class="imgbox" v-for="(imglist,index) in re.images" :key="index">
+					<image :src="imglist"></image>
+				</view>
+				</view>
+			</view>
+		</view>
+		<view class="title">
+			<text>我要发言：</text>
+		</view>
+		<view class="textinput">
+			<input type="text" value="" placeholder="请输入" v-model="reviwe"/>
+		</view>
+		<view class="title">
+			<text>凭证截图：</text>
+			<button type="primary" @tap="cI">上传图片</button>
 		</view>
 		<view class="imglist">
 			<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
@@ -79,7 +104,8 @@
 				current: 0,
 				orderid:0,
 				orderinfo:{},
-				imglist:[]
+				imglist:[],
+				reviwe:""
 			}
 		},
 		methods: {
@@ -94,8 +120,6 @@
 			            _this.$http.uploadimg(imgFiles).then((res)=>{
 							var data=JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
-							_this.imgsubmit(data.data[0].url)
-							console.log(_this.imglist)
 						})
 			        }
 			    })
@@ -130,17 +154,42 @@
 					}
 				}
 			},
+			// 获取申诉详情
+			getdetal(){
+				let opts = {
+					url: '/api/order/appeal/view',
+					method: 'get'
+				}
+				let params={
+					id:this.orderinfo.appeals,
+				}
+				this.$http.httpTokenRequest(opts,params).then(res => {
+					if(res.data.code==200){
+						this.orderinfo=res.data.data
+						console.log(this.orderinfo)
+					}else{
+						uni.showToast({
+							title:res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
 			// 提交申诉
 			submit(){
 				let opts = {
-					url: '/api/order/appeal',
+					url: '/api/order/appeal/sendchat',
 					method: 'post'
 				}
-				let type=this.items[this.current].value
+				let newarr=[]
+				for(var i=0;i<this.imglist.length;i++){
+					newarr.push(this.imglist[i].url)
+				}
 				let params={
-					order_id:this.orderinfo.id,
-					type:type,
-					desc:this.orderinfo.desc
+					content:this.reviwe,
+					appeal_id:this.orderinfo.id,
+					images:newarr
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
@@ -148,9 +197,7 @@
 							icon:'none',
 							title:res.data.msg
 						})
-						uni.navigateBack({
-							delta:2
-						})
+						this.getdetal()
 					}else{
 						uni.showToast({
 							icon:'none',
@@ -164,7 +211,7 @@
 		},
 		onLoad: function (option) {
 			this.orderinfo=JSON.parse(option.item)
-			console.log(this.orderinfo)
+			this.getdetal()
 		}
 	}
 </script>
@@ -209,6 +256,11 @@
 	color: #666;
 	line-height: 60rpx;
 }
+.line2{
+	font-size: 24rpx;
+	color: #666;
+	line-height: 40rpx;
+}
 	.imglist{
 		display: flex;
 		flex-wrap: wrap;
@@ -229,5 +281,14 @@
 .imgbox image{
 	width: 100%;
 	
+}
+.textinput input{
+	border: 1rpx solid #E0E0E0;
+	height: 80rpx;
+	line-height: 80rpx;
+	text-indent: 10rpx;
+}
+.red{
+	color: red;
 }
 </style>

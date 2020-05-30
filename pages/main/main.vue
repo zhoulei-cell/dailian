@@ -4,8 +4,8 @@
 			<uni-search-bar @confirm="search" @input="input" @cancel="cancel" />
 		</view>
         
-		<sl-filter :independence="true" :color="titleColor" :themeColor="themeColor" :menuList.sync="menuList" @result="result"></sl-filter>
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" style="position: absolute;top: 190rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;">
+		<!-- <sl-filter :independence="true" :color="titleColor" :themeColor="themeColor" :menuList.sync="menuList" @result="result"></sl-filter> -->
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" style="position: absolute;top: 100rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;">
 		<view>
 			<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
 			<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
@@ -204,6 +204,7 @@
 				old: {
 					scrollTop: 0
 				},
+				searchval:""
 			}
 		},
 		components: {
@@ -231,7 +232,7 @@
 					order:"",
 					price_min:"",
 					price_max:"",
-					search:"",
+					search:this.searchval,
 					game_id:"",
 					platform_id:"",
 					game_area_id:"",
@@ -259,13 +260,14 @@
 				console.log('filter_result:' + JSON.stringify(val));
 			},
 			search(res) {
-				uni.showModal({
-					content: '搜索：' + res.value,
-					showCancel: false
-				})
+				// uni.showModal({
+				// 	content: '搜索：' + res.value,
+				// 	showCancel: false
+				// })
 			},
 			input(res) {
-				this.searchVal = res.value
+				this.searchval=res.value
+				this.getorderlist()
 			},
 			cancel(res) {
 				uni.showModal({

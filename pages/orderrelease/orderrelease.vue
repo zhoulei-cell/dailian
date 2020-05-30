@@ -26,13 +26,14 @@
 						<view class="orderbtn_right">
 							<button @tap.stop="lockorder(item,index)" v-if="item.locked==0">锁号</button>
 							<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
-							
+							<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>
 							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
 							
 							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
 							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 							
-							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status==3">申述</button>
+							<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申述</button>
+							<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申述</button>
 							<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
 							<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
 						</view>
@@ -97,16 +98,41 @@
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			//同意结算
+			agreejs(item){
+				let opts = {
+					url: '/api/order/confirm',
+					method: 'post'
+				}
+				let params={
+					order_id:item.id
+				}
+				this.$http.httpTokenRequest(opts,params).then(res => {
+					if(res.data.code==200){
+						uni.showToast({
+							title:res.data.msg
+						})
+						this.page=1
+						this.getorderlist()
+					}else{
+						uni.showToast({
+							title:res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
 			//上传图片
 			uploadimg(item){
 				uni.navigateTo({
-					url: '/pages/orderimgsubmit/orderimgsubmit?id='+item.id
+					url: '/pages/orderimgsubmit/orderimgsubmit?item='+item.id
 				});
 			},
 			//申诉
-			agreeappeal(){
+			agreeappeal(item){
 				uni.navigateTo({
-					url: '/pages/appeal/appeal?id='+item.id
+					url: '/pages/appeal/appeal?item='+JSON.stringify(item)
 				});
 			},
 			navtoDetail(item) {

@@ -50,7 +50,17 @@
 export default {
     data() {
         return {
-			orderInfo:{}
+			orderInfo:{
+				game:{
+					name:''
+				},
+				game_area:{
+					name:''
+				},
+				platform:{
+					name:''
+				}
+			}
         }
     },
 	components: {

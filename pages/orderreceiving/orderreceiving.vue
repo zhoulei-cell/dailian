@@ -24,13 +24,14 @@
 					<view class="orderbtn">
 						<view class="orderbtn_left"></view>
 						<view class="orderbtn_right">
-							<button @tap.stop="updateorder(item,index)" v-if="item.order_status==2">提交完成</button>
+							<button @tap.stop="submitorder(item,index)" v-if="item.order_status==2">提交完成</button>
 							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
 							
 							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
 							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 							
-							<button @tap.stop="agreeconsult(item,index)" v-if="item.order_status==3">申述</button>
+							<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申述</button>
+							<button @tap.stop="lookappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申述</button>
 							<button @tap.stop="submitexception(item,index)" v-if="item.order_status==2">提交异常</button>
 							<button @tap.stop="cancelexception(item,index)" v-if="item.order_status==3">取消异常</button>
 						</view>
@@ -91,6 +92,43 @@
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			// 提交完成
+			submitorder(item){
+				let opts = {
+					url: '/api/order/complete',
+					method: 'post'
+				}
+				let params={
+					order_id:item.id
+				}
+				this.$http.httpTokenRequest(opts,params).then(res => {
+					if(res.data.code==200){
+						uni.showToast({
+							title:res.data.msg
+						})
+						this.page=1
+						this.getorderlist()
+					}else{
+						uni.showToast({
+							title:res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			//申诉
+			agreeappeal(item){
+				uni.navigateTo({
+					url: '/pages/appeal/appeal?item='+JSON.stringify(item)
+				});
+			},
+			//查看申诉
+			lookappeal(item){
+				uni.navigateTo({
+					url: '/pages/appealdetial/appealdetial?item='+JSON.stringify(item)
+				});
+			},
 			//订单详情
 			navtoDetail(item) {
 				uni.navigateTo({
@@ -130,7 +168,8 @@
 						uni.showToast({
 							title:res.data.msg
 						})
-						this.listData[index].order_status=2
+						this.page=1
+						this.getorderlist()
 					}else{
 						uni.showToast({
 							title:res.data.msg

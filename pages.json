@@ -1,227 +1,237 @@
 {
-    "pages": [ //pages数组中第一项表示应用启动页,
-        {
-            "path": "pages/login/login",
-            "style": {
-                "navigationBarTitleText": "账号登录"
-            }
-        }, 
-		
+	"pages": [ //pages数组中第一项表示应用启动页,
 		{
-            "path": "pages/user/user",
-            "style": {
-                "navigationBarTitleText": "我的"
-            }
-        },{
-            "path": "pages/main/main",
-            "style": {
-                "navigationBarTitleText": "大厅",
+			"path": "pages/main/main",
+			"style": {
+				"navigationBarTitleText": "大厅",
 				"enablePullDownRefresh": true
-            }
-        },
-		{
-		    "path": "pages/release/release",
-		    "style": {
-		        "navigationBarTitleText": "发布"
-		    }
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "账号登录"
+			}
 		},
 		{
-		    "path": "pages/releasepk/releasepk",
-		    "style": {
-		        "navigationBarTitleText": "发布对战"
-		    }
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
 		},
 		{
-		    "path": "pages/confrontation/confrontation",
-		    "style": {
-		        "navigationBarTitleText": "赛事"
-		    }
+			"path": "pages/release/release",
+			"style": {
+				"navigationBarTitleText": "发布"
+			}
 		},
 		{
-		    "path": "pages/arena/arena",
-		    "style": {
-		        "navigationBarTitleText": "竞技场"
-		    }
+			"path": "pages/releasepk/releasepk",
+			"style": {
+				"navigationBarTitleText": "发布对战"
+			}
 		},
 		{
-		    "path": "pages/arenadetial/arenadetial",
-		    "style": {
-		        "navigationBarTitleText": "房间"
-		    }
+			"path": "pages/confrontation/confrontation",
+			"style": {
+				"navigationBarTitleText": "赛事"
+			}
 		},
 		{
-		    "path": "pages/releaseinfo/releaseinfo",
-		    "style": {
-		        "navigationBarTitleText": "王者排位发单"
-		    }
+			"path": "pages/arena/arena",
+			"style": {
+				"navigationBarTitleText": "竞技场"
+			}
 		},
 		{
-		    "path": "pages/orderinfo/orderinfo",
-		    "style": {
-		        "navigationBarTitleText": "订单详情"
-		    }
+			"path": "pages/arenadetial/arenadetial",
+			"style": {
+				"navigationBarTitleText": "房间"
+			}
 		},
 		{
-		    "path": "pages/orderinfo2/orderinfo2",
-		    "style": {
-		        "navigationBarTitleText": "大厅订单详情"
-		    }
+			"path": "pages/releaseinfo/releaseinfo",
+			"style": {
+				"navigationBarTitleText": "王者排位发单"
+			}
 		},
 		{
-		    "path": "pages/orderimgsubmit/orderimgsubmit",
-		    "style": {
-		        "navigationBarTitleText": "订单图片上传"
-		    }
+			"path": "pages/orderinfo/orderinfo",
+			"style": {
+				"navigationBarTitleText": "订单详情"
+			}
 		},
 		{
-		    "path": "pages/orderinfo3/orderinfo3",
-		    "style": {
-		        "navigationBarTitleText": "发单订单详情"
-		    }
+			"path": "pages/orderinfo2/orderinfo2",
+			"style": {
+				"navigationBarTitleText": "大厅订单详情"
+			}
 		},
 		{
-		    "path": "pages/updatereleaseinfo/updatereleaseinfo",
-		    "style": {
-		        "navigationBarTitleText": "修改订单"
-		    }
+			"path": "pages/orderimgsubmit/orderimgsubmit",
+			"style": {
+				"navigationBarTitleText": "订单图片上传"
+			}
 		},
 		{
-		    "path": "pages/invitation/invitation",
-		    "style": {
-		        "navigationBarTitleText": "我的邀请"
-		    }
+			"path": "pages/orderinfo3/orderinfo3",
+			"style": {
+				"navigationBarTitleText": "发单订单详情"
+			}
 		},
 		{
-		    "path": "pages/orderreceiving/orderreceiving",
-		    "style": {
-		        "navigationBarTitleText": "接单订单",
+			"path": "pages/updatereleaseinfo/updatereleaseinfo",
+			"style": {
+				"navigationBarTitleText": "修改订单"
+			}
+		},
+		{
+			"path": "pages/invitation/invitation",
+			"style": {
+				"navigationBarTitleText": "我的邀请"
+			}
+		},
+		{
+			"path": "pages/orderreceiving/orderreceiving",
+			"style": {
+				"navigationBarTitleText": "接单订单",
 				"enablePullDownRefresh": true
-		    }
+			}
 		},
 		{
-		    "path": "pages/orderrelease/orderrelease",
-		    "style": {
-		        "navigationBarTitleText": "发单订单",
+			"path": "pages/orderrelease/orderrelease",
+			"style": {
+				"navigationBarTitleText": "发单订单",
 				"enablePullDownRefresh": true
-		    }
+			}
 		},
 		{
-		    "path": "pages/coupon/coupon",
-		    "style": {
-		        "navigationBarTitleText": "优惠券"
-		    }
+			"path": "pages/coupon/coupon",
+			"style": {
+				"navigationBarTitleText": "优惠券"
+			}
 		},
 		{
-		    "path": "pages/mwallet/mwallet",
-		    "style": {
-		        "navigationBarTitleText": "我的钱包"
-		    }
+			"path": "pages/mwallet/mwallet",
+			"style": {
+				"navigationBarTitleText": "我的钱包"
+			}
 		},
 		{
-		    "path": "pages/placeOrder/placeOrder",
-		    "style": {
-		        "navigationBarTitleText": "提交订单"
-		    }
+			"path": "pages/placeOrder/placeOrder",
+			"style": {
+				"navigationBarTitleText": "提交订单"
+			}
 		},
 		{
-		    "path": "pages/submitexception/submitexception",
-		    "style": {
-		        "navigationBarTitleText": "提交异常"
-		    }
+			"path": "pages/submitexception/submitexception",
+			"style": {
+				"navigationBarTitleText": "提交异常"
+			}
 		},
 		{
-		    "path": "pages/consult/consult",
-		    "style": {
-		        "navigationBarTitleText": "协商结算"
-		    }
+			"path": "pages/consult/consult",
+			"style": {
+				"navigationBarTitleText": "协商结算"
+			}
 		},
 		{
-		    "path": "pages/appeal/appeal",
-		    "style": {
-		        "navigationBarTitleText": "申诉"
-		    }
+			"path": "pages/appeal/appeal",
+			"style": {
+				"navigationBarTitleText": "申诉"
+			}
 		},
 		{
-		    "path": "pages/Recharge/Recharge",
-		    "style": {
-		        "navigationBarTitleText": "充值中心"
-		    }
+			"path": "pages/appealdetial/appealdetial",
+			"style": {
+				"navigationBarTitleText": "申诉详情"
+			}
 		},
 		{
-		    "path": "pages/withdrawal/withdrawal",
-		    "style": {
-		        "navigationBarTitleText": "提现"
-		    }
+			"path": "pages/Recharge/Recharge",
+			"style": {
+				"navigationBarTitleText": "充值中心"
+			}
 		},
 		{
-		    "path": "pages/ordercomfirm/ordercomfirm",
-		    "style": {
-		        "navigationBarTitleText": "提交订单"
-		    }
+			"path": "pages/withdrawal/withdrawal",
+			"style": {
+				"navigationBarTitleText": "提现"
+			}
 		},
 		{
-		    "path": "pages/membershipcenter/membershipcenter",
-		    "style": {
-		        "navigationBarTitleText": "会员中心"
-		    }
+			"path": "pages/ordercomfirm/ordercomfirm",
+			"style": {
+				"navigationBarTitleText": "提交订单"
+			}
 		},
 		{
-		    "path": "pages/calendar/calendar",
-		    "style": {
-		        "navigationBarTitleText": "在线签到"
-		    }
+			"path": "pages/membershipcenter/membershipcenter",
+			"style": {
+				"navigationBarTitleText": "会员中心"
+			}
 		},
 		{
-            "path": "pages/reg/reg",
-            "style": {
-                "navigationBarTitleText": "注册"
-            }
-        }, {
-            "path": "pages/dxlogin/dxlogin",
-            "style": {
-                "navigationBarTitleText": "短信登录"
-            }
-        },{
-            "path": "pages/pwd/pwd",
-            "style": {
-                "navigationBarTitleText": "找回密码"
-            }
-        }
-    ],
-    "tabBar": {
-        "color": "#7a7e83",
-        "selectedColor": "#0faeff",
-        "backgroundColor": "#ffffff",
-        "list": [{
-            "pagePath": "pages/main/main",
-            "text": "大厅",
-            "iconPath": "static/img/home.png",
-            "selectedIconPath": "static/img/homeHL.png"
-        },{
-            "pagePath": "pages/releaseinfo/releaseinfo",
-            "text": "发布",
-            "iconPath": "static/img/public.png",
-            "selectedIconPath": "static/img/publicsl.png"
-        },{
-            "pagePath": "pages/orderrelease/orderrelease",
-            "text": "发单订单",
-            "iconPath": "static/img/order.png",
-            "selectedIconPath": "static/img/ordercheck.png"
-        },{
-            "pagePath": "pages/orderreceiving/orderreceiving",
-            "text": "接单订单",
-            "iconPath": "static/img/order.png",
-            "selectedIconPath": "static/img/ordercheck.png"
-        },{
-            "pagePath": "pages/user/user",
-            "text": "我的",
-            "iconPath": "static/img/user.png",
-            "selectedIconPath": "static/img/userHL.png"
-        }]
-    },
-    "globalStyle": {
-        "navigationBarTextStyle": "white",
-        "navigationBarBackgroundColor": "#0faeff",
-        "backgroundColor": "#fff"
-    }
+			"path": "pages/calendar/calendar",
+			"style": {
+				"navigationBarTitleText": "在线签到"
+			}
+		},
+		{
+			"path": "pages/reg/reg",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		}, {
+			"path": "pages/dxlogin/dxlogin",
+			"style": {
+				"navigationBarTitleText": "短信登录"
+			}
+		}, {
+			"path": "pages/pwd/pwd",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
+		}, {
+			"path": "pages/updateuserinfo/updateuserinfo",
+			"style": {
+				"navigationBarTitleText": "修改资料"
+			}
+		}
+	],
+	"tabBar": {
+		"color": "#7a7e83",
+		"selectedColor": "#0faeff",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/main/main",
+			"text": "大厅",
+			"iconPath": "static/img/home.png",
+			"selectedIconPath": "static/img/homeHL.png"
+		}, {
+			"pagePath": "pages/releaseinfo/releaseinfo",
+			"text": "发布",
+			"iconPath": "static/img/public.png",
+			"selectedIconPath": "static/img/publicsl.png"
+		}, {
+			"pagePath": "pages/orderrelease/orderrelease",
+			"text": "发单订单",
+			"iconPath": "static/img/order.png",
+			"selectedIconPath": "static/img/ordercheck.png"
+		}, {
+			"pagePath": "pages/orderreceiving/orderreceiving",
+			"text": "接单订单",
+			"iconPath": "static/img/order.png",
+			"selectedIconPath": "static/img/ordercheck.png"
+		}, {
+			"pagePath": "pages/user/user",
+			"text": "我的",
+			"iconPath": "static/img/user.png",
+			"selectedIconPath": "static/img/userHL.png"
+		}]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#0faeff",
+		"backgroundColor": "#fff"
+	}
 }

@@ -3,7 +3,7 @@
 		<view class="user-info">
 			<view class="user-info-box">
 				<view class="user-info-left">
-					<image :src="userinfo.avatar || '../../static/img/qq.png'" mode=""></image>
+						<image :src="userinfo.avatar || '../../static/img/qq.png'" mode=""></image>
 				</view>
 				<view class="user-info-right">
 					<view class="user-info-desc">
@@ -45,7 +45,7 @@
 					<view class="item-content">
 						{{list.name}}
 					</view>
-					<image class="right-icon" src="../../static/img/IC／arrow／right.png" mode="aspectFit"></image>
+					<image class="right-icon" src="../../static/img/right.png" mode="aspectFit"></image>
 					<view class="feature-list-line"></view>
 				</view>
 				
@@ -91,9 +91,9 @@
 						name:"在线客服"
 					},
 					{
-						url:"../pwd/pwd",
+						url:"../updateuserinfo/updateuserinfo",
 						img:"../../static/img/shezhi.png",
-						name:"修改密码"
+						name:"修改资料"
 					},
 				],
 				userinfo:{}
@@ -229,7 +229,7 @@
 	.user-info .user-info-box{
 		display: flex;
 		height: 120rpx;
-		padding: 60rpx 36rpx 60rpx 32rpx;
+		padding: 30rpx;
 	}
 	
 	.user-info .user-info-box .user-info-left{
@@ -237,11 +237,14 @@
 		height: 120rpx;
 		border-radius: 24rpx;
 		border:4rpx solid rgba(194,215,255,1);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
 	}
 	
 	.user-info .user-info-box .user-info-left image{
 		width: 100%;
-		height: 100%;
 	}
 	
 	.user-info .user-info-box .user-info-right{
