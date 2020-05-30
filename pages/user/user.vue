@@ -8,7 +8,7 @@
 				<view class="user-info-right">
 					<view class="user-info-desc">
 						<view class="user-info-name">
-							{{userinfo.real_name || '游客'}}
+							{{userinfo.name || '游客'}}
 						</view>
 						<view class="user-info-phone">
 							{{ userinfo.phone || '无'}}
@@ -77,6 +77,16 @@
 						name:"提现"
 					},
 					{
+						url:"../withdrawallist/withdrawallist",
+						img:"../../static/img/shezhi.png",
+						name:"提现记录"
+					},
+					{
+						url:"../capitalflow/capitalflow",
+						img:"../../static/img/shezhi.png",
+						name:"资金流水"
+					},
+					{
 						url:"../calendar/calendar",
 						img:"../../static/img/qiandao.png",
 						name:"签到有奖"
@@ -95,6 +105,12 @@
 						img:"../../static/img/shezhi.png",
 						name:"修改资料"
 					},
+					{
+						url:"../authentication/authentication",
+						img:"../../static/img/shezhi.png",
+						name:"实名认证"
+					}
+					
 				],
 				userinfo:{}
 			}
@@ -172,7 +188,7 @@
 				})
 			}
         },
-		onLoad() {
+		onShow() {
 			this.loginflag()
 			this.getuserinfo()
 		}

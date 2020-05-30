@@ -3,42 +3,45 @@
 		<view class="tab">
 			<view class="tabitem" v-for="item in ordertype" :key="item.type" :class="{check:item.type==selectindex}" @tap="choseItem(item)">{{item.text}}</view>
 		</view>
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" :lower-threshold="threshold" style="position: absolute;top: 68rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;">
-			
-				<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
-				<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
-					<view class="ordertop">
-						<view class="ordertop_left">订单编号：{{item.order_no}}</view>
-						<view class="ordertop_right red">{{ordertext[item.order_status]}}</view>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltolower="lower" :lower-threshold="threshold"
+		 style="position: absolute;top: 68rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;" refresher-enabled="true"
+		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherpulling="onPulling" @refresherrefresh="onRefresh"
+		 @refresherrestore="onRestore" @refresherabort="onAbort">
+
+			<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
+			<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
+				<view class="ordertop">
+					<view class="ordertop_left">订单编号：{{item.order_no}}</view>
+					<view class="ordertop_right red">{{ordertext[item.order_status]}}</view>
+				</view>
+				<view class="item">
+					<view class="item_left">
+						<view class="title">{{item.title}}</view>
+						<view class="dec">游戏账号：{{item.game_account}}</view>
+						<view class="red">保证金：{{item.promise_price}} 发布时间：{{item.created_at}}</view>
 					</view>
-					<view class="item">
-						<view class="item_left">
-							<view class="title">{{item.title}}</view>
-							<view class="dec">游戏账号：{{item.game_account}}</view>
-							<view class="red">保证金：{{item.promise_price}} 发布时间：{{item.created_at}}</view>
-						</view>
-						<view class="item_right">
-							{{item.price}}
-						</view>
-					</view>
-					<view class="orderbtn">
-						<view class="orderbtn_left"></view>
-						<view class="orderbtn_right">
-							<button @tap.stop="lockorder(item,index)" v-if="item.locked==0">锁号</button>
-							<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
-							<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>
-							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
-							
-							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
-							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
-							
-							<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申述</button>
-							<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申述</button>
-							<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
-							<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
-						</view>
+					<view class="item_right">
+						{{item.price}}
 					</view>
 				</view>
+				<view class="orderbtn">
+					<view class="orderbtn_left"></view>
+					<view class="orderbtn_right">
+						<button @tap.stop="lockorder(item,index)" v-if="item.locked==0">锁号</button>
+						<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
+						<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>
+						<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
+
+						<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
+						<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
+
+						<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申述</button>
+						<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申述</button>
+						<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
+						<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
+					</view>
+				</view>
+			</view>
 		</scroll-view>
 	</view>
 </template>
@@ -83,10 +86,11 @@
 				old: {
 					scrollTop: 0
 				},
-				threshold:"50px",
-				loadmore:true,
-				ordertext:['关闭','待接单','代练中','异常中','待验收','已结算','取消'],
-				orderstaus:''
+				threshold: "50px",
+				loadmore: true,
+				ordertext: ['关闭', '待接单', '代练中', '异常中', '待验收', '已结算', '取消'],
+				orderstaus: '',
+				triggered:false
 			}
 		},
 		components: {},
@@ -98,25 +102,41 @@
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			onPulling(e) {
+				console.log("onpulling", e);
+			},
+			async onRefresh() {
+				this.triggered = true
+				this.loadmore = true
+				this.page = 1
+				await this.getorderlist()
+				this.triggered = false
+			},
+			onRestore() {
+				this.triggered = 'restore'; // 需要重置
+			},
+			onAbort() {
+				
+			},
 			//同意结算
-			agreejs(item){
+			agreejs(item) {
 				let opts = {
 					url: '/api/order/confirm',
 					method: 'post'
 				}
-				let params={
-					order_id:item.id
+				let params = {
+					order_id: item.id
 				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
 						uni.showToast({
-							title:res.data.msg
+							title: res.data.msg
 						})
-						this.page=1
+						this.page = 1
 						this.getorderlist()
-					}else{
+					} else {
 						uni.showToast({
-							title:res.data.msg
+							title: res.data.msg
 						})
 					}
 				}, error => {
@@ -124,37 +144,37 @@
 				})
 			},
 			//上传图片
-			uploadimg(item){
+			uploadimg(item) {
 				uni.navigateTo({
-					url: '/pages/orderimgsubmit/orderimgsubmit?item='+item.id
+					url: '/pages/orderimgsubmit/orderimgsubmit?id=' + item.id
 				});
 			},
 			//申诉
-			agreeappeal(item){
+			agreeappeal(item) {
 				uni.navigateTo({
-					url: '/pages/appeal/appeal?item='+JSON.stringify(item)
+					url: '/pages/appeal/appeal?item=' + JSON.stringify(item)
 				});
 			},
 			navtoDetail(item) {
 				uni.navigateTo({
-					url: '/pages/orderinfo/orderinfo?id='+item.id
+					url: '/pages/orderinfo/orderinfo?id=' + item.id
 				});
 			},
 			choseItem(item) {
 				this.selectindex = item.type
-				this.page=1
+				this.page = 1
 				this.getorderlist()
 			},
 			//同意协商
-			agreeconsult(item,index){
+			agreeconsult(item, index) {
 				uni.navigateTo({
-					url: '/pages/consult/consult?id='+item.id
+					url: '/pages/consult/consult?id=' + item.id
 				});
 			},
 			//协商结算
-			consult(item){
+			consult(item) {
 				uni.navigateTo({
-					url: '/pages/consult/consult?id='+item.id+'type=1'+'&orderinfo='+JSON.stringify(item)
+					url: '/pages/consult/consult?id=' + item.id + 'type=1' + '&orderinfo=' + JSON.stringify(item)
 				});
 			},
 			// 获取订单列表
@@ -165,14 +185,14 @@
 				}
 				let params = {
 					page: this.page,
-					status:this.selectindex
+					status: this.selectindex
 				}
-				this.$http.httpTokenRequest(opts, params).then(res => {
+				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						if(this.page==1){
+						if (this.page == 1) {
 							this.listData = res.data.data.data
-						}else{
-							this.listData.concat(this.listData,res.data.data.data)
+						} else {
+							this.listData.concat(this.listData, res.data.data.data)
 						}
 					}
 				}, error => {
@@ -181,19 +201,19 @@
 			},
 			// 下拉加载
 			lower: function(e) {
-				if(this.loadmore){
+				if (this.loadmore) {
 					this.page++
 					this.getorderlist()
 				}
 			},
 			//取消订单
-			cancelorder(item,index){
+			cancelorder(item, index) {
 				let opts = {
 					url: '/api/order/cancel',
 					method: 'post'
 				}
 				let params = {
-					order_id:item.id
+					order_id: item.id
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
@@ -201,8 +221,8 @@
 							icon: 'none',
 							title: res.data.msg
 						})
-						this.listData[index].order_status=6
-					}else{
+						this.listData[index].order_status = 6
+					} else {
 						uni.showToast({
 							icon: 'none',
 							title: res.data.msg
@@ -212,13 +232,13 @@
 					console.log(error);
 				})
 			},
-			updateorder(item){
+			updateorder(item) {
 				uni.navigateTo({
-					url: '/pages/updatereleaseinfo/updatereleaseinfo?id='+item.id
+					url: '/pages/updatereleaseinfo/updatereleaseinfo?id=' + item.id
 				});
 			},
 			//锁号
-			lockorder(item,index){
+			lockorder(item, index) {
 				let opts = {
 					url: '/api/order/account/lock',
 					method: 'PUT'
@@ -232,14 +252,15 @@
 							icon: 'none',
 							title: res.data.msg
 						})
-						this.listData[index].locked=1
+						this.listData[index].locked = 1
+						this.getorderlist()
 					}
 				}, error => {
 					console.log(error);
 				})
 			},
 			//解锁
-			jslockorder(item,index){
+			jslockorder(item, index) {
 				let opts = {
 					url: '/api/order/account/unlock',
 					method: 'PUT'
@@ -253,21 +274,20 @@
 							icon: 'none',
 							title: res.data.msg
 						})
-						this.listData[index].locked=0
+						this.listData[index].locked = 0
+						this.getorderlist()
 					}
 				}, error => {
 					console.log(error);
 				})
 			}
 		},
-		async onPullDownRefresh() {
-			this.loadmore=true
+		async onShow() {
+			this.triggered = true
+			this.loadmore = true
 			this.page = 1
 			await this.getorderlist()
-			uni.stopPullDownRefresh();
-		},
-		onLoad() {
-			this.getorderlist()
+			this.triggered = false
 		}
 	}
 </script>
@@ -357,19 +377,23 @@
 		color: red;
 		font-size: 24rpx;
 	}
-	.orderbtn{
+
+	.orderbtn {
 		display: flex;
 		background: #fff;
 		margin-bottom: 20rpx;
 		padding: 20rpx;
 	}
-	.orderbtn_left{
+
+	.orderbtn_left {
 		flex: 1;
 	}
-	.orderbtn_right{
+
+	.orderbtn_right {
 		display: flex;
 	}
-	.orderbtn_right button{
+
+	.orderbtn_right button {
 		height: 50rpx;
 		line-height: 50rpx;
 		font-size: 12px;

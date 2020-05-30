@@ -22,7 +22,7 @@ const httpRequest = (opts, data) => {
 				} else if (res[1].statusCode == 500) {
 					uni.showToast({
 						icon: 'none',
-						title: res[1].data.message
+						title: res[1].data.message || res[1].data.msg 
 					});
 				} else if (res[1].statusCode == 422) {
 					uni.showToast({
@@ -116,9 +116,15 @@ const uploadimg = async(imgFiles)=>{
 		    filePath: imgFiles,
 		    name: 'image[]',
 		    success(res1) {
-		        // 显示上传信息
-		        console.log(res1)
-				resolve(res1)
+				if(res1.data.code==200)
+				{
+					resolve(res1)
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: res1.data
+					});
+				}
 		    }
 		})
 		// onProgressUpdate 上传对象更新的方法

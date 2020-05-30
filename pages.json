@@ -3,15 +3,15 @@
 		{
 			"path": "pages/main/main",
 			"style": {
-				"navigationBarTitleText": "大厅",
-				"enablePullDownRefresh": true
-			}
-		}, {
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "账号登录"
+				"navigationBarTitleText": "大厅"
 			}
 		},
+		 {
+		 	"path": "pages/login/login",
+		 	"style": {
+		 		"navigationBarTitleText": "账号登录"
+		 	}
+		 },
 		{
 			"path": "pages/user/user",
 			"style": {
@@ -93,15 +93,13 @@
 		{
 			"path": "pages/orderreceiving/orderreceiving",
 			"style": {
-				"navigationBarTitleText": "接单订单",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "接单订单"
 			}
 		},
 		{
 			"path": "pages/orderrelease/orderrelease",
 			"style": {
-				"navigationBarTitleText": "发单订单",
-				"enablePullDownRefresh": true
+				"navigationBarTitleText": "发单订单"
 			}
 		},
 		{
@@ -195,6 +193,24 @@
 			"path": "pages/updateuserinfo/updateuserinfo",
 			"style": {
 				"navigationBarTitleText": "修改资料"
+			}
+		},
+	    {
+			"path": "pages/authentication/authentication",
+			"style": {
+				"navigationBarTitleText": "实名认证"
+			}
+		},
+		{
+			"path": "pages/withdrawallist/withdrawallist",
+			"style": {
+				"navigationBarTitleText": "提现记录"
+			}
+		},
+		{
+			"path": "pages/capitalflow/capitalflow",
+			"style": {
+				"navigationBarTitleText": "资金流水"
 			}
 		}
 	],

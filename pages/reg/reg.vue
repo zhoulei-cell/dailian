@@ -113,8 +113,6 @@
 							title: res.data.msg
 						});
 						reslove(res)
-					}, error => {
-						console.log(error);
 					})
 				})
 			},
@@ -163,12 +161,13 @@
 			pushmessage() {
 				this.sendmessagecode().then(res=>{
 					if(res.data.code==200){
-						this.t = window.setInterval(() => {
+						this.t = setInterval(() => {
 							this.time--
 							if (this.time <= 0) {
 								this.time = 60
-								window.clearInterval(this.t)
+								clearInterval(this.t)
 							}
+							this.$forceUpdate()
 						}, 1000)
 					}
 				})

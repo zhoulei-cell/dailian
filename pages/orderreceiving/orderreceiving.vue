@@ -3,7 +3,9 @@
 		<view class="tab">
 			<view class="tabitem" v-for="item in ordertype" :key="item.type" :class="{check:item.type==selectindex}" @tap="choseItem(item)">{{item.text}}</view>
 		</view>
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" :lower-threshold="threshold" style="position: absolute;top: 68rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;">
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" :lower-threshold="threshold" style="position: absolute;top: 68rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;" refresher-enabled="true"
+		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherpulling="onPulling" @refresherrefresh="onRefresh"
+		 @refresherrestore="onRestore" @refresherabort="onAbort">
 			
 				<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
 				<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
@@ -80,18 +82,32 @@
 				threshold:"50px",
 				loadmore:true,
 				ordertext:['关闭','待接单','代练中','异常中','待验收','已结算','取消'],
-				orderstaus:''
+				orderstaus:'',
+				triggered:false
 			}
 		},
 		components: {},
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
-		onLoad() {
-
-		},
 		result(val) {
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			onPulling(e) {
+				console.log("onpulling", e);
+			},
+			async onRefresh() {
+				this.triggered = true
+				this.loadmore = true
+				this.page = 1
+				await this.getorderlist()
+				this.triggered = false
+			},
+			onRestore() {
+				this.triggered = 'restore'; // 需要重置
+			},
+			onAbort() {
+				
+			},
 			// 提交完成
 			submitorder(item){
 				let opts = {
@@ -200,7 +216,7 @@
 					page: this.page,
 					status:this.selectindex
 				}
-				this.$http.httpTokenRequest(opts, params).then(res => {
+				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
 						if(this.page==1){
 							this.listData = res.data.data.data
@@ -221,14 +237,12 @@
 			},
 			
 		},
-		async onPullDownRefresh() {
-			this.loadmore=true
+		async onShow() {
+			this.triggered = true
+			this.loadmore = true
 			this.page = 1
 			await this.getorderlist()
-			uni.stopPullDownRefresh();
-		},
-		onLoad() {
-			this.getorderlist()
+			this.triggered = false
 		}
 	}
 </script>

@@ -199,7 +199,10 @@ export default {
 				size: '22',
 				type: 'gear-filled'
 			},
-            multiArray: [],
+            multiArray: [
+				[0],
+				[0]
+			],
             multiIndex: [0, 0],
 			orderInfo:{
 				title:'',
@@ -222,8 +225,10 @@ export default {
 				lat:'',
 				rel_qq:'',
 				rel_phone:''
-			}
-        }
+			},
+			lat:'',
+			lon:''
+		}
     },
 	components: {
 	},
@@ -269,6 +274,8 @@ export default {
 			newobj.platform_id=this.multiArray[0][this.multiIndex[0]].id
 			newobj.game_area_id=this.multiArray[1][this.multiIndex[1]].id
 			newobj.province=this.orderInfo.province?1:0
+			newobj.lat=this.lat
+			newobj.lon=this.lon
 			let opts = {
 				url: '/api/order/release',
 				method: 'post'
@@ -284,20 +291,29 @@ export default {
 							url:"/pages/main/main"
 						})
 					},500)
+				}else{
+					uni.showToast({
+						icon: 'none',
+						title: res.data.msg
+					})
 				}
 			}, error => {
 				console.log(error);
 			})
+		},
+		// 获取定位
+		getlocation(){
+			var _this=this
 			uni.getLocation({
 			    type: 'gcj02',
 			    success: function (res) {
-			        alert('当前位置的经度：' + res.longitude);
-			        alert('当前位置的纬度：' + res.latitude);
+					_this.lat=res.latitude
+					_this.lon=res.longitude
 			    },
 				fail:function(res){
-					console.log(res)
-				}
-			});
+					
+				},
+			})
 		},
 		bindMultiPickerColumnChange: function(e) {
 			console.log('修改的列为：' + e.detail.column + '，值为：' + e.detail.value)
@@ -319,6 +335,7 @@ export default {
     },
 	onLoad() {
 		this.getGameplatforms()
+		this.getlocation()
 	}
 }
 </script>

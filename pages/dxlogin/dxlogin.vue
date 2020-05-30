@@ -29,11 +29,6 @@
 </template>
 
 <script>
-	import service from '../../service.js';
-	import {
-		mapState,
-		mapMutations
-	} from 'vuex'
 	import mInput from '../../components/m-input.vue'
 	import {
 		pathToBase64,
@@ -55,7 +50,6 @@
 				key: ''
 			}
 		},
-		computed: mapState(['forcedLogin']),
 		methods: {
 			// 获取验图片证码
 			getImgCode() {
@@ -105,14 +99,12 @@
 						key: this.key,
 						phone: this.account
 					}
-					this.$http.httpTokenRequest(opts,param).then(res => {
+					this.$http.httpRequest(opts,param).then(res => {
 						uni.showToast({
 							icon: 'none',
 							title: res.data.msg
 						});
 						reslove(res)
-					}, error => {
-						console.log(error);
 					})
 				})
 			},
@@ -160,11 +152,11 @@
 			pushmessage() {
 				this.sendmessagecode().then(res=>{
 					if(res.data.code==200){
-						this.t = window.setInterval(() => {
+						this.t = setInterval(() => {
 							this.time--
 							if (this.time <= 0) {
 								this.time = 60
-								window.clearInterval(this.t)
+								clearInterval(this.t)
 							}
 						}, 1000)
 					}

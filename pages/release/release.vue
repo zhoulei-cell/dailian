@@ -133,7 +133,7 @@ export default {
             this.index = e.target.value
         }
     },
-	onReady() {
+	onShow() {
 		this.getGameplatforms()
 	}
 }

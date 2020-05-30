@@ -91,7 +91,6 @@
 								})
 						    }
 						})
-						
 					}else{
 						uni.showToast({
 							icon: 'none',
@@ -99,6 +98,10 @@
 						});
 					}
 				}, error => {
+					uni.showToast({
+						icon: 'none',
+						title: error
+					});
 					console.log(error);
 				})
             }
