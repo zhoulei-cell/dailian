@@ -1,60 +1,102 @@
 <template>
     <view class="content">
-		<view class="user-info">
-			<view class="user-info-box">
-				<view class="user-info-left">
-						<image :src="userinfo.avatar || '../../static/img/qq.png'" mode=""></image>
-				</view>
-				<view class="user-info-right">
-					<view class="user-info-desc">
-						<view class="user-info-name">
-							{{userinfo.name || '游客'}}
-						</view>
-						<view class="user-info-phone">
-							{{ userinfo.phone || '无'}}
+		<!-- 用户信息 -->
+		<view class="topuser">
+			<view class="usertopcont">
+				<view class="tag"></view>
+				<view class="userinfo">
+					<view class="userinfoimg">
+						<view class="img">
+							<image :src="userinfo.avatar || '../../static/img/qq.png'" mode=""></image>
 						</view>
 					</view>
-					<view class="user-info-money">
-						<text class="user-money-title">余额</text>
-						<text class="user-money-bold">{{userinfo.balance || 0}}</text>
+					<view class="userinfotext">
+						<view class="name">{{userinfo.name || '游客'}}</view>
+						<view class="phone">手机号：{{ userinfo.phone || '无'}}</view>
+						<view class="level">打手等级：初级</view>
 					</view>
 				</view>
-			</view>
-			<view class="user-img-box">
-				<view class="user-img-bg">
-					<view class="user-img-boxleft">
-						{{userinfo.is_member==1?'已开通svip':'未开通'}}
+				<view class="withdrawal">
+					<view class="item">
+						<view class="itemnumber">{{userinfo.balance || 0}}</view>
+						<view class="itemtext">账户余额（元）</view>
 					</view>
-					<view class="user-img-boxright" v-if="userinfo.is_member==1">
-						会员到期时间：{{userinfo.member_time || '永久有效'}}
+					<view class="item">
+						<view class="itemnumber blue">0</view>
+						<view class="itemtext">钻石余额（个）</view>
 					</view>
-					<view class="user-img-boxright" v-else>
-						加入SVIP，立享多项专属特权
-						<navigator url="../membershipcenter/membershipcenter">
-						<button>查看</button>
-						</navigator>
+					<view class="item">
+						<view class="itemnumber orange">0</view>
+						<view class="itemtext">优惠券（张）</view>
 					</view>
 				</view>
 			</view>
 		</view>
 		
-		<view class="feature-box">
-			<view class="feature-list">
-				<view class="feature-list-item" v-for="(list,index) in itemData" :key="index" @tap="navigateTo(list.url)">
-					<image class="left-icon" :src="list.img" mode="aspectFit"></image>
-					<view class="item-content">
-						{{list.name}}
-					</view>
-					<image class="right-icon" src="../../static/img/right.png" mode="aspectFit"></image>
-					<view class="feature-list-line"></view>
+		<!-- 中间部分 -->
+		<view class="usercenter">
+			<view class="usercentercont">
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/qianbao.png" mode=""></image></view>
+					<view class="itemtext">我的钱包</view>
 				</view>
-				
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+					<view class="itemtext">我的订单</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
+					<view class="itemtext">优惠券</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/pinglun.png" mode=""></image></view>
+					<view class="itemtext">评论</view>
+				</view>
 			</view>
 		</view>
 		
-		<view class="btn">
-			<button type="default" @tap="bindLogout()" v-if="loginflag()">退出登录</button>
-			<button type="default" @tap="bindlogin()" v-else>立即登录</button>
+		<!-- 底部部分 -->
+		<view class="usercenter bottom">
+			<view class="usercentercont">
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/gerenzhongx.png" mode=""></image></view>
+					<view class="itemtext">个人中心</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/huiyuan.png" mode=""></image></view>
+					<view class="itemtext">我的会员</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/yaoqin.png" mode=""></image></view>
+					<view class="itemtext">邀请有奖</view>
+				</view>
+				<view class="item">
+					<navigator url="../calendar/calendar">
+						<view class="itemimg"><image src="../../static/img/user/qiandao.png" mode=""></image></view>
+						<view class="itemtext">签到有奖</view>
+					</navigator>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/shouchang.png" mode=""></image></view>
+					<view class="itemtext">我的收藏</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/yijian.png" mode=""></image></view>
+					<view class="itemtext">意见反馈</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/bangzhu.png" mode=""></image></view>
+					<view class="itemtext">帮助中心</view>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/shezhi.png" mode=""></image></view>
+					<view class="itemtext">系统设置</view>
+				</view>
+				<view class="item" @tap="logout">
+					<view class="itemimg"><image src="../../static/img/user/kefu.png" mode=""></image></view>
+					<view class="itemtext">联系我们</view>
+				</view>
+			</view>
 		</view>
     </view>
 </template>
@@ -65,53 +107,6 @@
     export default {
 		data(){
 			return {
-				itemData:[
-					{
-						url:"../Recharge/Recharge",
-						img:"../../static/img/qianbao.png",
-						name:"充值"
-					},
-					{
-						url:"../withdrawal/withdrawal",
-						img:"../../static/img/qianbao.png",
-						name:"提现"
-					},
-					{
-						url:"../withdrawallist/withdrawallist",
-						img:"../../static/img/shezhi.png",
-						name:"提现记录"
-					},
-					{
-						url:"../capitalflow/capitalflow",
-						img:"../../static/img/shezhi.png",
-						name:"资金流水"
-					},
-					{
-						url:"../calendar/calendar",
-						img:"../../static/img/qiandao.png",
-						name:"签到有奖"
-					},
-					{
-					    url:"../invitation/invitation",
-						img:"../../static/img/yaoqing.png",
-						name:"邀请有奖"
-					},
-					{
-						img:"../../static/img/kefu.png",
-						name:"在线客服"
-					},
-					{
-						url:"../updateuserinfo/updateuserinfo",
-						img:"../../static/img/shezhi.png",
-						name:"修改资料"
-					},
-					{
-						url:"../authentication/authentication",
-						img:"../../static/img/shezhi.png",
-						name:"实名认证"
-					}
-					
-				],
 				userinfo:{}
 			}
 		},
@@ -166,14 +161,6 @@
 					})
 				})
 			},
-			// 判断是否登录
-			loginflag(){
-				if(JSON.stringify(this.userinfo)!='{}'){
-					return true
-				}else{
-					return false
-				}
-			},
 			// 获取用户信息
 			getuserinfo(){
 				let opts = {
@@ -189,146 +176,150 @@
 			}
         },
 		onShow() {
-			this.loginflag()
 			this.getuserinfo()
 		}
     }
 </script>
 
 <style>
+	
 	.content{
 		padding: 0;
-		background-color: #fff;
+		background-color: #f4f8fb;
 	}
 	
-	.user-info{
-		
+	.topuser{
+		height: 350rpx;
+		width: 100%;
+		background-image: url(../../static/img/user/top1.png);
+		background-size: cover;
+		position: relative;
+		margin-bottom: 94rpx;
 	}
-	
-	.user-info .user-img-box{
-		padding:0 46rpx 0 48rpx;
-		margin-bottom: 80rpx;
+	.usertopcont{
+		width: 630rpx;
+		height: 280rpx;
+		background-image: url(../../static/img/user/top2.png);
+		background-size: cover;
+		position: absolute;
+		left: 50%;
+		margin-left: -315rpx;
+		bottom: -10rpx;
 	}
-	.user-img-bg{
-		height: 94rpx;
-		background:linear-gradient(135deg,rgba(62,62,61,1) 0%,rgba(58,59,60,1) 51%,rgba(54,54,55,1) 100%);
-		border-radius:32rpx;
+	.usertopcont .tag{
+		background-image: url(../../static/img/user/tag.png);
+		background-size: cover;
+		width: 193rpx;
+		height: 193rpx;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+	.userinfo{
 		display: flex;
-		font-size:22rpx;
-		font-family:PingFangSC-Regular,PingFang SC;
-		font-weight:400;
-		color:rgba(248,184,115,1);
+		padding: 61rpx 47rpx;
 		align-items: center;
-		box-sizing: border-box;
-		padding: 0 10px;
 	}
-	.user-img-boxleft{
-		flex: 1;
-	}
-	.user-img-boxright{
-		display: flex;
-		align-items: center;
-	}
-	.user-img-bg .user-img-boxright button{
-		width:100rpx;
-		height:40rpx;
-		line-height: 40rpx;
-		background:linear-gradient(90deg,rgba(248,181,109,1) 0%,rgba(252,217,176,1) 100%);
-		border-radius:20rpx;
-		font-size:22rpx;
-		font-family:PingFangSC-Regular,PingFang SC;
-		font-weight:400;
-		color:rgba(47,48,52,1);
-		margin-left: 8rpx;
-		
-	}
-	.user-info .user-info-box{
-		display: flex;
-		height: 120rpx;
-		padding: 30rpx;
-	}
-	
-	.user-info .user-info-box .user-info-left{
-		width: 120rpx;
-		height: 120rpx;
-		border-radius: 24rpx;
-		border:4rpx solid rgba(194,215,255,1);
+	.userinfo .userinfoimg .img{
+		width: 105rpx;
+		height: 105rpx;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		overflow: hidden;
+		border-radius: 50%;
+		margin-right: 24rpx;
 	}
-	
-	.user-info .user-info-box .user-info-left image{
+	.userinfo .userinfoimg .img image{
 		width: 100%;
 	}
-	
-	.user-info .user-info-box .user-info-right{
-		flex: 1;
+	.userinfotext .name{
+		font-size:30rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,254,254,1);
+	}
+	.userinfotext .phone{
+		font-size:20rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(255,254,254,1);
+	}
+	.userinfotext .level{
+		font-size:20rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(255,254,254,1);
+	}
+	.withdrawal{
+		width: 529rpx;
+		height: 119rpx;
+		background-image: url(../../static/img/user/withdrawal.png);
+		background-size:cover;
+		position: absolute;
+		left: 50%;
+		margin-left: -264.5rpx;
+		bottom: -59.5rpx;
 		display: flex;
-		padding-left: 20rpx;
+		box-sizing: border-box;
+		padding:0 35rpx;
+		justify-content: space-between;
 	}
-	
-	.user-info .user-info-box .user-info-right .user-info-desc{
-		flex: 1;
+	.withdrawal .item{
+		text-align: center;
+	}
+	.withdrawal .item .itemnumber{
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(0,181,116,1);
+		text-align: center;
+	}
+	.withdrawal .item .itemtext{
+		font-size:20rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(128,128,128,1);
+		text-align: center;
+	}
+	.blue{
+		color:rgba(79,137,182,1) !important;
+	}
+	.orange{
+		color:rgba(235,135,49,1) !important;
+	}
+	.usercenter{
+		width: 100%;
+		padding: 22rpx;
+		box-sizing: border-box;
+	}
+	.usercenter .usercentercont{
+		background-image: url(../../static/img/user/center.png);
+		background-size:cover;
+		width: 100%;
+		height: 182rpx;
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
-	}
-	.user-info .user-info-box .user-info-right .user-info-desc .user-info-name{
-		height: 48rpx;
-		padding-bottom: 8rpx;
-		font-size: 32rpx;
-		font-weight: 500;
-		color: rgba(47,48,52,1);
-		line-height: 48rpx;
-	}
-	.user-info .user-info-box .user-info-right .user-info-desc .user-info-phone{
-		width: 154rpx;
-		height: 36rpx;
-		font-size: 24rpx;
-		color: rgba(115,118,128,1);
-		line-height: 36rpx;
-	}
-	.user-info .user-info-box .user-info-right .user-info-money{
-		display: flex;
+		justify-content:left;
 		align-items: center;
+		flex-wrap: wrap;
 	}
-	.user-info .user-info-box .user-info-right .user-info-money .user-money-title{
-		color: rgba(115,118,128,1);
-		font-size: 24rpx;
-		line-height: 40rpx;
+	.usercentercont .item{
+		text-align: center;
+		width: 25%;
 	}
-	.user-info .user-info-box .user-info-right .user-info-money .user-money-bold{
-		padding: 0 8rpx;
-		color:rgba(47,48,52,1);
-		font-size: 36rpx;
-		font-weight: 500;
-		line-height: 56rpx;
+	.usercentercont .item .itemimg image{
+		width: 70rpx;
+		height: 70rpx;
 	}
-	
-	.feature-list{
-		padding:0 32rpx;
+	.usercentercont .item .itemtext{
+		font-size:24rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(51,51,51,1);
 	}
-	.feature-list .feature-list-item{
-		display: flex;
-		padding: 32rpx 0;
-		border-bottom: 2rpx solid rgba(0,0,0,0.1);
-	}
-	.feature-list .feature-list-item .item-content{
-		flex: 1;
-		height: 48rpx;
-		padding-left: 16rpx;
-		color: rgba(47,48,52,1);
-		font-size: 28rpx;
-		line-height: 48rpx;
-		
-	}
-	.feature-list .feature-list-item .left-icon, .feature-list .feature-list-item .right-icon{
-		width: 48rpx;
-		height: 48rpx;
-	}
-	.btn{
-		padding: 40rpx;
+	.bottom .usercentercont{
+		background-image: url(../../static/img/user/bottom.png) !important;
+		height: 442rpx !important;
+		padding: 20rpx 0;
 	}
 </style>

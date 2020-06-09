@@ -1,9 +1,21 @@
 <template>
-	<view class="calendar-content">
-		<uni-section title="每日签到可得奖励" type="line"></uni-section>
-		<view>
-			<!-- 插入模式 -->
-			<uni-calendar :selected="info.selected" :showMonth="false" @change="change" @monthSwitch="monthSwitch" />
+	<view class="content">
+		<view class="cltop">
+			<view class="clcont">
+				<view class="left">
+					<view class="lefttop">已连续签到</view>
+					<view class="leftbottom"><text>02</text>天</view>
+				</view>
+				<view class="right">
+					<button @tap="lisign">立即签到</button>
+				</view>
+			</view>
+		</view>
+		<view class="calendar-content">
+			<view>
+				<!-- 插入模式 -->
+				<uni-calendar :selected="info.selected" :showMonth="false" @change="change" @monthSwitch="monthSwitch" />
+			</view>
 		</view>
 	</view>
 </template>
@@ -31,6 +43,13 @@
 			}
 		},
 		methods: {
+			// 立即签到
+			async lisign(){
+				var date = new Date()
+				var datetime = util.getTime(date)
+				await this.sign()
+				this.getsignlist()
+			},
 			async change(e) {
 				var date = new Date()
 				var datetime = util.getTime(date)
@@ -115,17 +134,10 @@
 </script>
 
 <style>
-	/* 头条小程序组件内不能引入字体 */
-	/* #ifdef MP-TOUTIAO */
-	@font-face {
-		font-family: uniicons;
-		font-weight: normal;
-		font-style: normal;
-		src: url('~@/static/uni.ttf') format('truetype');
+	.content{
+		padding: 0;
+		background-color: #f4f8fb;
 	}
-
-	/* #endif */
-
 	/* #ifndef APP-NVUE */
 	page {
 		display: flex;
@@ -222,5 +234,57 @@
 		flex: 1;
 		font-weight: bold;
 		font-size: 32rpx;
+	}
+	.cltop{
+		padding: 20rpx;
+	}
+	.clcont{
+		width: 100%;
+		height: 265rpx;
+		background: url(../../static/img/other/clender.png);
+		background-size: cover;
+		display: flex;
+	}
+	.clcont .left{
+		width: 40%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-left: 53rpx;
+	}
+	.clcont .left .lefttop{
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(255,255,255,1);
+	}
+	.clcont .left .leftbottom{
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(255,255,255,1);
+	}
+	.clcont .left .leftbottom text{
+		font-size:72rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+	}
+	.clcont .right{
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	} 
+	.clcont .right button{
+		width:270rpx;
+		height:60rpx;
+		line-height:60rpx;
+		background:rgba(255,255,255,1);
+		border-radius:30rpx;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(51,51,51,1);
 	}
 </style>

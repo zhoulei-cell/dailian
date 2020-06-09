@@ -1,13 +1,11 @@
 <template>
     <view class="content">
-        <view class="input-group">
-            <view class="input-row border">
-                <m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入手机号"></m-input>
-            </view>
-            <view class="input-row">
-                <m-input class="m-input" type="accountqq" v-model="accountqq" placeholder="请QQ号"></m-input>
-            </view>
-        </view>
+		<view class="inputline">
+			联系电话：<input type="text" placeholder="请输入您的电话" focus v-model="account"/>
+		</view>
+		<view class="inputline">
+			QQ：<input type="text" placeholder="请输入您的QQ" v-model="accountqq"/>
+		</view>
         <view class="btn">
         	<button type="default" @tap="ordercomfirm">提交订单</button>
         </view>
@@ -86,6 +84,28 @@
 </script>
 
 <style>
+	.content{
+		background-color: #f4f8fb;
+		padding: 0 20rpx;
+		position: relative;
+		padding-bottom: 150rpx;
+	}
+	.inputline{
+		display: flex;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
+		align-items: center;
+		padding:26rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		margin-top: 40rpx;
+	}
+	.inputline input{
+		font-size:28rpx;
+	}
     .action-row {
         display: flex;
         flex-direction: row;
@@ -114,24 +134,32 @@
     }
 
 	.btn{
-		font-size:32rpx;
-		font-family:PingFangSC-Regular,PingFang SC;
-		font-weight:400;
-		color:rgba(115,118,128,1);
-		padding-top: 82rpx;
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		height:120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
 	}
 	.btn button{
-		height:96rpx;
-		background:linear-gradient(90deg,rgba(23,102,255,1) 0%,rgba(87,144,255,1) 100%);
-		border-radius:48rpx;
-		font-size:32rpx;
-		font-family:PingFangSC-Medium,PingFang SC;
-		font-weight:500;
+		width:100%;
+		height:80rpx;
+		background:rgba(0,203,130,1);
+		box-shadow:0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		line-height: 80rpx;
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
 		color:rgba(255,255,255,1);
 	}
-	.btn uni-button{
-		height: auto;
+	/* #ifdef APP-PLUS */
+	.btn{
+		bottom: 0;
 	}
-	
+	/* #endif */
 	
 </style>

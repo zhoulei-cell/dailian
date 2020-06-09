@@ -49,6 +49,9 @@ function gettoken(){
 			key: 'token',
 			success:(ress)=>{
 				resolve(ress.data)
+			},
+			fail() {
+				resolve('')
 			}
 		})
 	})
@@ -98,6 +101,9 @@ const httpTokenRequest = async (opts, data) => {
 			}
 		).catch(
 			(response) => {
+				uni.navigateTo({
+					url: "/pages/login/login"
+				})
 				reject(response)
 			}
 		)

@@ -3,19 +3,51 @@
 		{
 			"path": "pages/main/main",
 			"style": {
-				"navigationBarTitleText": "大厅"
+				"navigationBarTitleText": "首页",
+				"enablePullDownRefresh": true
 			}
 		},
-		 {
-		 	"path": "pages/login/login",
-		 	"style": {
-		 		"navigationBarTitleText": "账号登录"
-		 	}
-		 },
+		{
+			"path": "pages/hall/hall",
+			"style": {
+				"navigationBarTitleText": "派单大厅",
+				"onReachBottomDistance": 50,
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSize": "22rpx",
+								"text":"发单",
+								"float": "right"
+							}
+						]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "账号登录"
+			}
+		},
+		{
+			"path": "pages/pay/pay",
+			"style": {
+				"navigationBarTitleText": "支付订单"
+			}
+		},
+		{
+			"path": "pages/paysuccess/paysuccess",
+			"style": {
+				"navigationBarTitleText": "支付成功"
+			}
+		},
 		{
 			"path": "pages/user/user",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -195,7 +227,7 @@
 				"navigationBarTitleText": "修改资料"
 			}
 		},
-	    {
+		{
 			"path": "pages/authentication/authentication",
 			"style": {
 				"navigationBarTitleText": "实名认证"
@@ -215,39 +247,39 @@
 		}
 	],
 	"tabBar": {
-		"color": "#7a7e83",
-		"selectedColor": "#0faeff",
+		"color": "#989898",
+		"selectedColor": "#00CB82",
 		"backgroundColor": "#ffffff",
 		"list": [{
 			"pagePath": "pages/main/main",
-			"text": "大厅",
-			"iconPath": "static/img/home.png",
-			"selectedIconPath": "static/img/homeHL.png"
+			"text": "首页",
+			"iconPath": "static/img/tabbar/index.png",
+			"selectedIconPath": "static/img/tabbar/indexchek.png"
 		}, {
-			"pagePath": "pages/releaseinfo/releaseinfo",
-			"text": "发布",
-			"iconPath": "static/img/public.png",
-			"selectedIconPath": "static/img/publicsl.png"
+			"pagePath": "pages/confrontation/confrontation",
+			"text": "赛事",
+			"iconPath": "static/img/tabbar/shaishi.png",
+			"selectedIconPath": "static/img/tabbar/shaishicheck.png"
 		}, {
-			"pagePath": "pages/orderrelease/orderrelease",
-			"text": "发单订单",
-			"iconPath": "static/img/order.png",
-			"selectedIconPath": "static/img/ordercheck.png"
+			"pagePath": "pages/hall/hall",
+			"text": "派单大厅",
+			"iconPath": "static/img/tabbar/order.png",
+			"selectedIconPath": "static/img/tabbar/ordercheck.png"
 		}, {
 			"pagePath": "pages/orderreceiving/orderreceiving",
-			"text": "接单订单",
-			"iconPath": "static/img/order.png",
-			"selectedIconPath": "static/img/ordercheck.png"
+			"text": "热聊",
+			"iconPath": "static/img/tabbar/qunliao.png",
+			"selectedIconPath": "static/img/tabbar/qunliaocheck.png"
 		}, {
 			"pagePath": "pages/user/user",
 			"text": "我的",
-			"iconPath": "static/img/user.png",
-			"selectedIconPath": "static/img/userHL.png"
+			"iconPath": "static/img/tabbar/wode.png",
+			"selectedIconPath": "static/img/tabbar/wodecheck.png"
 		}]
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarBackgroundColor": "#0faeff",
-		"backgroundColor": "#fff"
+		"navigationBarBackgroundColor": "#00CB82",
+		"backgroundColor": "#f4f8fb"
 	}
 }

@@ -284,7 +284,7 @@
 	}
 
 	.uni-calendar__content {
-		background-color: #fff;
+		/* background-color: #fff; */
 	}
 
 	.uni-calendar__header {

@@ -1,25 +1,43 @@
 <template>
 	<view class="content">
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					订单标题
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入订单标题" v-model="orderInfo.title" />
+		<view class="conright">
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						游戏分类
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" value="王者荣耀" disabled="true" style="text-align: right;"/>
+						<view class="right">
+							<image src="../../static/img/right.png" mode=""></image>
+						</view>
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					区服
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						订单标题
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入订单标题" v-model="orderInfo.title" />
+					</view>
 				</view>
-				<view class="uni-list-cell-db">
-					<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray"
-					 :range-key="'name'">
-						<view class="uni-input">{{multiArray[0][multiIndex[0]].name || ''}},{{multiArray[1][multiIndex[1]].name || ''}}</view>
-					</picker>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						游戏区服
+					</view>
+					<view class="uni-list-cell-db">
+						<picker mode="multiSelector" @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray"
+						 :range-key="'name'" style="flex: 1;">
+							<view class="uni-input">{{multiArray[0][multiIndex[0]].name || ''}},{{multiArray[1][multiIndex[1]].name || ''}}</view>
+						</picker>
+						<view class="right">
+							<image src="../../static/img/right.png" mode=""></image>
+						</view>
+					</view>
 				</view>
 			</view>
 			<view class="uni-list">
@@ -28,7 +46,7 @@
 						铭文等级
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入铭文等级"  v-model="orderInfo.inscription_level" type="number"/>
+						<input class="uni-input" placeholder="请输入铭文等级" v-model="orderInfo.inscription_level" type="number" />
 					</view>
 				</view>
 			</view>
@@ -38,7 +56,7 @@
 						英雄个数
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入目标段位" v-model="orderInfo.hero_num" type="number"/>
+						<input class="uni-input" placeholder="请输入目标段位" v-model="orderInfo.hero_num" type="number" />
 					</view>
 				</view>
 			</view>
@@ -62,131 +80,153 @@
 					</view>
 				</view>
 			</view>
-		</view>
-		<view class="uni-title">价格时限</view>
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					订单价格
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入订单价格" v-model="orderInfo.price" type="number"/>
-				</view>
-				<view class="tag">元</view>
-			</view>
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					时限要求
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入时限要求" v-model="orderInfo.duration" type="number"/>
-				</view>
-				<view class="tag">小时</view>
-			</view>
-		</view>
-		<view class="uni-title">账户信息</view>
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					游戏账号
-				</view>
-				<view class="uni-list-cell-db">
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						订单价格
+					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入游戏账号" v-model="orderInfo.game_account" type="number"/>
+						<input class="uni-input" placeholder="请输入订单价格" v-model="orderInfo.price" type="number" />
+						<view class="tag">元</view>
 					</view>
 				</view>
 			</view>
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					游戏密码
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入游戏密码" v-model="orderInfo.game_password" type="number"/>
-				</view>
-			</view>
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					游戏角色明
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入游戏角色明" v-model="orderInfo.game_role_name" />
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						时限要求
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入时限要求" v-model="orderInfo.duration" type="number" />
+						<view class="tag">小时</view>
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="uni-title">服务保障</view>
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					安全保障金
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						游戏账号
+					</view>
+					<view class="uni-list-cell-db">
+							<input class="uni-input" placeholder="请输入游戏账号" v-model="orderInfo.game_account" type="number" />
+					</view>
 				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入订单价格" v-model="orderInfo.promise_price" type="number"/>
-				</view>
-				<view class="tag">元</view>
 			</view>
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					效率保证金
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						游戏密码
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入游戏密码" v-model="orderInfo.game_password" type="number" />
+					</view>
 				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入时限要求" v-model="orderInfo.eff_price" type="number"/>
-				</view>
-				<view class="tag">小时</view>
 			</view>
-		</view>
-		<view class="uni-title">当前游戏信息</view>
-		<view class="uni-textarea">
-			<textarea placeholder="请输入当前游戏信息" v-model="orderInfo.rel_message" />
-		</view>
-		<view class="uni-title">代练要求</view>
-		<view class="text">
-			1.接单者半小时内上传好友排行段位首图，2小时内必须开始代练，每隔12小时上传好友排行段位进度图。
-			2. 提交完成前上传好友排行段位图完单图（好友排行只针对排位单 ，特殊类型订单请上传代练所需截图）。
-			3. 未经发布者同意不能动用账号内金币、点券、体验卡等物品。
-			4. 除登陆验证外，不能联系号主及号主好友加钱或补款，否则发布者有权终止订单并申请赔偿。
-			5. 接单后中途退单，需要赔偿相应的保证金。
-		</view>
-		<view class="uni-title">增值服务</view>
-		<view class="uni-list">
-			<view class="line">
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						游戏角色名
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入游戏角色明" v-model="orderInfo.game_role_name" />
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						安全保障金
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入订单价格" v-model="orderInfo.promise_price" type="number" />
+						<view class="tag">元</view>
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						效率保证金
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入时限要求" v-model="orderInfo.eff_price" type="number" />
+						<view class="tag">小时</view>
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						游戏信息
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请填写英雄、铭文等信息" v-model="orderInfo.rel_message" type="number" />
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						增值服务
+					</view>
+					<view class="uni-list-cell-db">
+						<view style="flex: 1;"></view>
+						<view class="right" style="padding: 14rpx 0;width: 300rpx;">
+							<checkbox-group>
+								<label>
+									<checkbox value="cb" :checked="orderInfo.province" @tap="orderInfo.province=!orderInfo.province"/>省内代理员可接<text></text>
+								</label>
+							</checkbox-group>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						联系手机
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入联系手机" v-model="orderInfo.rel_phone" type="number"/>
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						联系QQ
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="请输入联系QQ" v-model="orderInfo.rel_qq" type="number"/>
+					</view>
+				</view>
+			</view>
+			<view class="uni-list">
+				<view class="uni-list-cell">
+					<view class="uni-list-cell-left">
+						代练要求
+					</view>
+					<view class="uni-list-cell-db">
+						<input class="uni-input" placeholder="接单者半小时内上传好友排行段位首图..." disabled="true" style="text-align: right;"/>
+						<view class="right">
+							<image src="../../static/img/right.png" mode=""></image>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="att">
+			 温馨提示：订单默认选中为“公共频道”，即大厅内的“普通”订单，便于用户查看和出售。
+			</view>
+			<view class="line2">
 				<checkbox-group>
 					<label>
-						<checkbox value="cb" :checked="orderInfo.province" @tap="orderInfo.province=!orderInfo.province"/>省内代理员可接<text>（可选项额外收费订单金额5%）</text>
+						<checkbox value="cb" checked="true" disabled/>我已阅读并接受<text>发单协议</text>
 					</label>
 				</checkbox-group>
 			</view>
-		</view>
-		<view class="uni-title">联系方式</view>
-		<view class="uni-list">
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					联系手机
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入联系手机" v-model="orderInfo.rel_phone" type="number"/>
-				</view>
+			<view class="next">
+				<button  type="default" @tap="submit">确认发布</button>
 			</view>
-			<view class="uni-list-cell">
-				<view class="uni-list-cell-left">
-					联系QQ
-				</view>
-				<view class="uni-list-cell-db">
-					<input class="uni-input" placeholder="请输入联系QQ" v-model="orderInfo.rel_qq" type="number"/>
-				</view>
-			</view>
-		</view>
-		<view class="att">
-       	 温馨提示：订单默认选中为“公共频道”，即大厅内的“普通”订单，便于用户查看和出售。
-		</view>
-		<view class="line2">
-			<checkbox-group>
-				<label>
-					<checkbox value="cb" checked="true" disabled/>我已阅读并接受<text>发单协议</text>
-				</label>
-			</checkbox-group>
-		</view>
-		<view class="next">
-			<button  type="default" @tap="submit">确认发布</button>
 		</view>
     </view>
 </template>
@@ -227,7 +267,7 @@ export default {
 				rel_phone:''
 			},
 			lat:'',
-			lon:''
+			lon:'',
 		}
     },
 	components: {
@@ -235,6 +275,10 @@ export default {
     computed: {
 		
     },
+	onShow() {
+		this.getGameplatforms()
+		this.getlocation()
+	},
     methods: {
 		// 获取游戏平台
 		getGameplatforms() {
@@ -243,7 +287,6 @@ export default {
 				method: 'get'
 			}
 			this.$http.httpRequest(opts).then(res => {
-				console.log(res.data)
 				if(res.data.code==200){
 					this.multiArray[0]=res.data.data
 					this.getGameAreas(res.data.data[0].id)
@@ -251,7 +294,6 @@ export default {
 			}, error => {
 				console.log(error);
 			})
-			
 		},
 		//根据平台获取区
 		getGameAreas(id) {
@@ -333,78 +375,176 @@ export default {
             this.index = e.target.value
         }
     },
-	onLoad() {
-		this.getGameplatforms()
-		this.getlocation()
-	}
 }
 </script>
 <style>
-	.line2{
-		padding: 20rpx;
-	}
-	.att{
-		color: #fb9c80;
-		padding: 20rpx;
-	}
-	.line{
-	background: #fff;	
-	padding: 20rpx;
-	position: relative;
-	}
-	.line::after{
-		position: absolute;
-		z-index: 10;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		height: 1px;
-		content: '';
-		-webkit-transform: scaleY(.5);
-		-ms-transform: scaleY(.5);
-		transform: scaleY(.5);
-		background-color: #c8c7cc;
-	}
-	.line text{
-		color: #D3D3D3;
-	}
-	.text{
-		background: #fff;
-		padding: 20rpx;
-	}
-	.tag{
-		padding-right: 10rpx;
-	}
-	.uni-list-cell::after{
-	left: 0;	
-	}
-	.cellfirst::before {
-	    position: absolute;
-	    z-index: 3;
-	    right: 0;
-	    top: 0;
-	    left: 0;
-	    height: 1px;
-	    content: '';
-	    -webkit-transform: scaleY(.5);
-	    -ms-transform: scaleY(.5);
-	    transform: scaleY(.5);
-	    background-color: #c8c7cc;
-	}
 	.content{
-		padding: 0;
+		background-color: #f4f8fb;
+		padding: 0 20rpx;
+		position: relative;
+		padding-bottom: 150rpx;
 	}
-	.next{
-		padding: 20rpx;
+	.uni-list{
+		background: none !important;
 	}
-	.next button{
-		width: 100%;
+	.uni-list:after{
+		background: none !important;
+	}
+	.uni-list-cell-db{
+		border-bottom: 1px solid rgba(220,220,220,1) !important;
+		display: flex;
+		align-items: center;
 	}
 	.uni-list::before{
 		background: none;
+		height: 0 !important;
 	}
-	.uni-title{
+	.uni-list-cell-left{
+		width: 140rpx !important;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(128,128,128,1);
+		padding: 0 !important;
+	}
+	.uni-input{
+		background: none !important;
+		text-align: right !important; 
+	}
+	.uni-list-cell-db .right{
+		display: flex;
+		align-items: center;
+	}
+	.uni-list-cell-db .right image{
+		width: 13px;
+		height: 22px;
+	}
+	.uni-list-cell-db input{
+		text-align: right !important;
+	}
+	.uni-list-cell-db .tag{
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(51,51,51,1);
+	}
+	.att{
+		font-size:20rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
+		padding: 40rpx 0;
+	}
+	.line2{
+		font-size:24rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(0,203,130,1);
+		line-height:25rpx;
+		display: flex;
+		align-items: center;
+	}
+	.next{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		height:120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
+	}
+	.next button{
+		width:100%;
+		height:80rpx;
+		background:rgba(0,203,130,1);
+		box-shadow:0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		line-height: 80rpx;
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+	}
+	/* #ifdef APP-PLUS */
+	.next{
+		bottom: 0;
+	}
+	/* #endif */
+	.orderlist .item {
+		display: flex;
+		padding: 30rpx 20rpx;
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius: 15px;
+		margin-top: 20rpx;
+		position: relative;
+	}
+	
+	.orderlist .item .tag1 {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 78rpx;
+		height: 78rpx;
+	}
+	
+	.orderlist .item .tag1 image {
+		width: 100%;
+		height: 100%;
+	}
+	
+	.orderlist .item .itemimg {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-right: 20rpx;
+	}
+	
+	.orderlist .item .itemimg image {
+		width: 131rpx;
+		height: 131rpx;
+	}
+	
+	.orderlist .itemright {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+	
+	.orderlist .itemright .title {
+		font-size: 28rpx;
+		font-family: PingFang SC;
 		font-weight: bold;
-		padding-left: 20rpx;
+		color: rgba(0, 203, 130, 1);
+	}
+	
+	.orderlist .itemright .desc {
+		font-size: 20rpx;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: rgba(51, 51, 51, 1);
+	}
+	
+	.orderlist .itemright .fabuzhe {
+		font-size: 20rpx;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: rgba(51, 51, 51, 1);
+	}
+	
+	.orderlist .itemright .comfirm {
+		font-size: 24rpx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(51, 51, 51, 1);
+		display: flex;
+		align-items: center;
+	}
+	
+	.orderlist .itemright .tag {
+		padding: 0 10rpx;
 	}
 </style>

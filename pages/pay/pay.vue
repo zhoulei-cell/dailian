@@ -1,0 +1,147 @@
+<template>
+	<view class="content">
+		<view class="topinfo">
+			<view class="topinfoleft">实付金额</view>
+			<view class="topinforight">￥3180</view>
+		</view>
+		<view class="paytype">
+			<view class="paytypetitle">请选择支付方式</view>
+			<view class="payitem">
+				<view class="img"><image src="../../static/img/common/yue.png" mode=""></image></view>
+				<view class="text">余额支付</view>
+				<view class="check" @tap="check=1">
+					<view class="checkbox" :class="{check:check==1}"></view>
+				</view>
+			</view>
+			<view class="payitem">
+				<view class="img"><image src="../../static/img/common/weixin.png" mode=""></image></view>
+				<view class="text">微信支付</view>
+				<view class="check" @tap="check=2">
+					<view class="checkbox" :class="{check:check==2}"></view>
+				</view>
+			</view>
+			<view class="payitem">
+				<view class="img"><image src="../../static/img/common/zhifubao.png" mode=""></image></view>
+				<view class="text">支付宝支付</view>
+				<view class="check" @tap="check=3">
+					<view class="checkbox" :class="{check:check==3}"></view>
+				</view>
+			</view>
+		</view>
+		<view class="btn">
+			<button>立即支付</button>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		components: {},
+		data() {
+			return {
+				check:1
+			}
+		},
+		methods: {
+
+		},
+		onReady() {
+
+		}
+	}
+</script>
+
+<style>
+	.content {
+		background-color: #f4f8fb;
+	}
+	.topinfo{
+		width:100%;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		display: flex;
+		box-sizing: border-box;
+		padding: 26rpx;
+	}
+	.topinfo .topinfoleft{
+		flex: 1;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
+	}
+	.topinfo .topinforight{
+		font-size:32rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(103,221,179,1);
+	}
+	.paytype{
+		margin-top: 20rpx;
+		width:100%;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		box-sizing: border-box;
+		padding: 26rpx;
+	}
+	.paytype .paytypetitle{
+		font-size:24rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(128,128,128,1);
+		width: 100%;
+		margin-bottom: 46rpx;
+	}
+	.payitem{
+		display: flex;
+		align-items: center;
+		margin-bottom: 49rpx;
+	}
+	.payitem .img{
+		display: flex;
+		align-items: center;
+	}
+	.payitem .img image{
+		width: 49rpx;
+		height: 49rpx;
+		padding-right: 16rpx;
+	}
+	.payitem .text{
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
+		flex: 1;
+		display: flex;
+		align-items: center;
+	}
+	.btn{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
+	}
+	.btn button{
+		background:rgba(0,203,130,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+	}
+	.checkbox{
+		width:30rpx;
+		height:30rpx;
+		border:2rpx solid rgba(104,221,179,1);
+		border-radius:50%;
+	}
+	.checkbox.check{
+		background: rgba(104,221,179,1);
+	}
+</style>

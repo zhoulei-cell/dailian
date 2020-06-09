@@ -110,10 +110,12 @@
 		position: absolute;
 		top: 5px;
 		right: 5px;
-		width: 8px;
-		height: 8px;
+		width: 13px;
+		height: 9px;
 		border-radius: 8px;
-		background-color: #dd524d;
+		/* background-color: rgb(0, 203, 130); */
+		background-image: url(right.png);
+		background-size: cover;
 
 	}
 
@@ -123,7 +125,7 @@
 	}
 
 	.uni-calendar-item--isDay-text {
-		color: #007aff;
+		color: rgb(0, 203, 130);
 	}
 
 	.uni-calendar-item--isDay {
@@ -133,12 +135,12 @@
 	}
 
 	.uni-calendar-item--extra {
-		color: #dd524d;
+		color: rgb(0, 203, 130);
 		opacity: 0.8;
 	}
 
 	.uni-calendar-item--checked {
-		background-color: #007aff;
+		background-color: rgb(0, 203, 130);
 		color: #fff;
 		opacity: 0.8;
 	}

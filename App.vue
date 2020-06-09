@@ -82,7 +82,7 @@
 		right: 0;
 		top: 0;
 		left: 0;
-		height: 1upx;
+		height: 1rpx;
 		content: '';
 		-webkit-transform: scaleY(.5);
 		transform: scaleY(.5);

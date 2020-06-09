@@ -1,235 +1,159 @@
 <template>
 	<view class="content">
-		<view class="example-body">
-			<uni-search-bar @confirm="search" @input="input" @cancel="cancel" />
+		<view class="status_bar">
+			<view class="status_barleft">首页</view>
+			<view class="status_barcenter">
+				<uni-search-bar @confirm="search" @input="input" @cancel="cancel" />
+			</view>
+			<view class="status_barright">
+				<view class="canlder">{{day}}</view>
+			</view>
 		</view>
-
-		<!-- <sl-filter :independence="true" :color="titleColor" :themeColor="themeColor" :menuList.sync="menuList" @result="result"></sl-filter> -->
-		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltolower="lower" style="position: absolute;top: 100rpx;left: 0;right: 0;bottom: 0;"
-		 refresher-enabled="true" :refresher-triggered="triggered" :refresher-threshold="50" @refresherpulling="onPulling"
-		 @refresherrefresh="onRefresh" @refresherrestore="onRestore" @refresherabort="onAbort">
-			<view>
-				<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
-				<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
-					<view class="item">
-						<view class="item_left">
-							<view class="title">{{item.title}}</view>
-							<view class="dec elis">{{item.rel_message}}</view>
-							<view class="dec">发布者：{{item.user.name || ''}}</view>
-							<view class="dec">保证金：{{item.promise_price}} 总时间：{{item.duration}}小时</view>
+		<!-- <view class="fixedline"></view> -->
+		<!-- 轮播图 -->
+		<view class="banner">
+			<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
+				<swiper class="swiper-box" @change="change">
+					<swiper-item v-for="(item ,index) in info" :key="index">
+						<view class="swiper-item">
+							<image :src="item.content" mode=""></image>
 						</view>
-						<view class="item_right">
-							￥{{item.price}}
-						</view>
-					</view>
+					</swiper-item>
+				</swiper>
+			</uni-swiper-dot>
+		</view>
+		<!-- 导航 -->
+		<view class="navicon">
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/wangzhe.png" mode=""></image>
+				</view>
+				<view class="itemtext">王者荣耀</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/heping.png" mode=""></image>
+				</view>
+				<view class="itemtext">和平精英</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/yinxiong.png" mode=""></image>
+				</view>
+				<view class="itemtext">英雄联盟</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/jundi.png" mode=""></image>
+				</view>
+				<view class="itemtext">绝地求生</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/shaishi.png" mode=""></image>
+				</view>
+				<view class="itemtext">竞技赛事</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/wangzhe.png" mode=""></image>
+				</view>
+				<view class="itemtext">地下城与勇士</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/dixia.png" mode=""></image>
+				</view>
+				<view class="itemtext">穿越火线</view>
+			</view>
+			<view class="item">
+				<view class="itemimg">
+					<image src="../../static/img/index/all.png" mode=""></image>
+				</view>
+				<view class="itemtext">全部分类</view>
+			</view>
+		</view>
+		<!-- 竞技赛事 -->
+		<view class="title">竞技赛事</view>
+		<view class="ad">
+			<view class="adimg">
+				<image src="../../static/img/index/banner.png" mode=""></image>
+			</view>
+			<view class="adimg">
+				<image src="../../static/img/index/banner2.png" mode=""></image>
+			</view>
+		</view>
+		<view class="title">代练接单</view>
+		<view class="orderlist">
+			<view class="item" v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
+				<view class="tag1" v-show="item.province">
+					<image src="../../static/img/index/shenlei.png" mode=""></image>
+				</view>
+				<view class="itemimg">
+					<image src="../../static/img/index/wanz.png" mode=""></image>
+				</view>
+				<view class="itemright">
+					<view class="title">{{item.title}}</view>
+					<view class="desc">{{item.rel_message}}</view>
+					<view class="fabuzhe">发布者：{{item.user.name || ''}}</view>
+					<view class="comfirm">保证金：{{item.promise_price}}元<view class="tag">|</view>时间：{{item.duration}}小时</view>
 				</view>
 			</view>
-		</scroll-view>
+		</view>
 	</view>
 </template>
 
 <script>
 	import slFilter from '@/components/sl-filter/sl-filter.vue';
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
+	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue"
 	export default {
 		data() {
 			return {
-				themeColor: '#000000',
-				titleColor: '#666666',
-				filterResult: '',
-				menuList: [{
-						'title': '游戏服务区',
-						'detailTitle': '请选择职位类型（可多选）',
-						'isMutiple': true,
-						'key': 'jobType',
-						'defaultSelectedIndex': [1, 2, 5],
-						'detailList': [{
-								'title': '不限',
-								'value': ''
-							},
-							{
-								'title': 'uni-app',
-								'value': 'uni-app'
-							},
-							{
-								'title': 'java开发',
-								'value': 'java'
-							},
-							{
-								'title': 'web开发',
-								'value': 'web'
-							},
-							{
-								'title': 'Android开发',
-								'value': 'Android'
-							},
-							{
-								'title': 'iOS开发',
-								'value': 'iOS'
-							},
-							{
-								'title': '测试工程师',
-								'value': '测试'
-							},
-							{
-								'title': 'UI设计',
-								'value': 'UI'
-							},
-							{
-								'title': 'Ruby开发',
-								'value': 'Ruby'
-							},
-							{
-								'title': 'C#开发',
-								'value': 'C#'
-							},
-							{
-								'title': 'PHP开发',
-								'value': 'php'
-							},
-							{
-								'title': 'Python开发',
-								'value': 'Python'
-							}
-						]
-
-					},
-					{
-						'title': '综合排行',
-						'key': 'salary',
-						'isMutiple': true,
-						'detailList': [{
-								'title': '不限',
-								'value': ''
-							},
-							{
-								'title': '0~2000',
-								'value': '0~2000'
-							},
-							{
-								'title': '2000~3000',
-								'value': '2000~3000'
-							},
-							{
-								'title': '3000~4000',
-								'value': '3000~4000'
-							},
-							{
-								'title': '4000~5000',
-								'value': '4000~5000'
-							},
-							{
-								'title': '5000~6000',
-								'value': '5000~6000'
-							},
-							{
-								'title': '6000~7000',
-								'value': '6000~7000'
-							},
-							{
-								'title': '7000~8000',
-								'value': '7000~8000'
-							},
-							{
-								'title': '8000~9000',
-								'value': '8000~9000'
-							},
-							{
-								'title': '9000~10000',
-								'value': '9000~10000'
-							},
-							{
-								'title': '10000以上',
-								'value': '10000~1000000'
-							}
-						]
-
-					}, {
-						'title': '高级筛选',
-						'key': 'salary',
-						'isMutiple': true,
-						'detailList': [{
-								'title': '不限',
-								'value': ''
-							},
-							{
-								'title': '0~2000',
-								'value': '0~2000'
-							},
-							{
-								'title': '2000~3000',
-								'value': '2000~3000'
-							},
-							{
-								'title': '3000~4000',
-								'value': '3000~4000'
-							},
-							{
-								'title': '4000~5000',
-								'value': '4000~5000'
-							},
-							{
-								'title': '5000~6000',
-								'value': '5000~6000'
-							},
-							{
-								'title': '6000~7000',
-								'value': '6000~7000'
-							},
-							{
-								'title': '7000~8000',
-								'value': '7000~8000'
-							},
-							{
-								'title': '8000~9000',
-								'value': '8000~9000'
-							},
-							{
-								'title': '9000~10000',
-								'value': '9000~10000'
-							},
-							{
-								'title': '10000以上',
-								'value': '10000~1000000'
-							}
-						]
-
-					}
-				],
 				listData: [],
 				page: 1,
-				scrollTop: 0,
-				old: {
-					scrollTop: 0
-				},
 				searchval: "",
-				triggered: false
+				info: [{
+					content: '../../static/img/index/banner3.png'
+				}, {
+					content: '../../static/img/index/banner.png'
+				}, {
+					content: '../../static/img/index/banner2.png'
+				}],
+				current: 0,
+				mode: 'round',
+				day: '',
+				fixed: false
 			}
 		},
 		components: {
 			slFilter,
-			uniSearchBar
+			uniSearchBar,
+			uniSwiperDot
 		},
 		async onShow() {
-			this.triggered = false
+			this.getday()
 			await this.getorderlist()
-			this.triggered = true
+		},
+		async onPullDownRefresh() {
+			this.getday()
+			this.page=1
+			await this.getorderlist()
+			uni.stopPullDownRefresh()
 		},
 		methods: {
-			onPulling(e) {
-				console.log("onpulling", e);
+			//图片轮播
+			change(e) {
+				this.current = e.detail.current;
 			},
-			async onRefresh() {
-				this.triggered = true
-				this.page=1
-				await this.getorderlist()
-				this.triggered = false
+			//获取当前日期
+			getday() {
+				let now = new Date()
+				let day = now.getDate()
+				if (day < 10) day = "0" + day;
+				this.day = day
 			},
-			onRestore() {
-				this.triggered = 'restore'; // 需要重置
-			},
-			onAbort() {
-			},
+			
 			// 获取订单列表
 			getorderlist() {
 				let opts = {
@@ -248,6 +172,7 @@
 					current_segment: "",
 					tag_segment: ""
 				}
+
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
 						if (this.page == 1) {
@@ -260,14 +185,6 @@
 					console.log(error);
 				})
 			},
-			// 下拉加载
-			lower: function(e) {
-				this.page++
-				this.getorderlist()
-			},
-			result(val) {
-				console.log('filter_result:' + JSON.stringify(val));
-			},
 			search(res) {
 				// uni.showModal({
 				// 	content: '搜索：' + res.value,
@@ -279,10 +196,10 @@
 				this.getorderlist()
 			},
 			cancel(res) {
-				uni.showModal({
-					content: '点击取消，输入值为：' + res.value,
-					showCancel: false
-				})
+				// uni.showModal({
+				// 	content: '点击取消，输入值为：' + res.value,
+				// 	showCancel: false
+				// })
 			},
 			navtoDetail(item) {
 				uni.navigateTo({
@@ -294,65 +211,188 @@
 </script>
 
 <style>
-	.elis {
-		display: -webkit-box;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		word-wrap: break-word;
-		white-space: normal !important;
-		-webkit-line-clamp: 1;
-		-webkit-box-orient: vertical;
-	}
-
-	.example-body {
-		background: #efeff4;
-	}
-
-	.inputcont {
-		padding: 10rpx;
-	}
-
 	.content {
-		padding: 0;
-		background: #fff;
+		background-color: #f4f8fb;
 	}
 
-	.cont {
+	.fixedline {
+		height: 100rpx;
+	}
+
+	.status_bar {
 		width: 100%;
 	}
 
-	.uni-input {
-		background: #fff;
-		padding: 15rpx;
-		border-radius: ;
+	.banner {
+		width: 100%;
+		height: 312rpx;
 	}
 
-	.item {
+	.swiper-item {
 		display: flex;
-		border-bottom: 1px solid #E0E0E0;
-		padding: 20rpx;
+		justify-content: center;
+		align-items: center;
 	}
 
-	.item .item_left {
+	.swiper-item image {
+		width: 100%;
+	}
+
+	.navicon {
+		display: flex;
+		flex-wrap: wrap;
+		padding-bottom: 25rpx;
+	}
+
+	.navicon .item {
+		width: 25%;
+		text-align: center;
+		padding-top: 25rpx;
+	}
+
+	.navicon .item .itemimg {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.navicon .item .itemimg image {
+		width: 107rpx;
+		height: 108rpx;
+	}
+
+	.navicon .item .itemtext {
+		font-size: 24rpx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(51, 51, 51, 1);
+	}
+
+	.title {
+		font-size: 32rpx;
+		font-family: PingFang SC;
+		font-weight: bold;
+		color: rgba(51, 51, 51, 1);
+	}
+
+	.ad {
+		display: flex;
+	}
+
+	.ad .adimg {
 		flex: 1;
 	}
 
-	.item .item_left .title {
-		font-size: 30rpx;
-		font-weight: bold;
+	.ad .adimg image {
+		width: 352rpx;
+		height: 212rpx;
 	}
 
-	.item .item_left .dec {
+	.orderlist .item {
+		display: flex;
+		padding: 30rpx 20rpx;
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius: 15px;
+		margin-top: 20rpx;
+		position: relative;
+	}
+
+	.orderlist .item .tag1 {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 78rpx;
+		height: 78rpx;
+	}
+
+	.orderlist .item .tag1 image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.orderlist .item .itemimg {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-right: 20rpx;
+	}
+
+	.orderlist .item .itemimg image {
+		width: 131rpx;
+		height: 131rpx;
+	}
+
+	.orderlist .itemright {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.orderlist .itemright .title {
+		font-size: 28rpx;
+		font-family: PingFang SC;
+		font-weight: bold;
+		color: rgba(0, 203, 130, 1);
+	}
+
+	.orderlist .itemright .desc {
+		font-size: 20rpx;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: rgba(51, 51, 51, 1);
+	}
+
+	.orderlist .itemright .fabuzhe {
+		font-size: 20rpx;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: rgba(51, 51, 51, 1);
+	}
+
+	.orderlist .itemright .comfirm {
 		font-size: 24rpx;
-		color: #999999;
-		line-height: 36rpx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(51, 51, 51, 1);
+		display: flex;
+		align-items: center;
 	}
 
-	.item .item_right {
-		color: red;
+	.orderlist .itemright .tag {
+		padding: 0 10rpx;
+	}
+
+	.example-body {
+		display: flex;
+	}
+
+	.status_bar {
+		display: flex;
+		align-items: center;
+	}
+
+	.status_barleft {
 		font-size: 36rpx;
+		font-family: PingFang SC;
 		font-weight: bold;
-		padding-left: 10rpx;
+		color: rgba(51, 51, 51, 1);
+	}
+
+	.status_barcenter {
+		flex: 1;
+	}
+
+	.status_barright .canlder {
+		width: 37rpx;
+		height: 38rpx;
+		background: url(../../static/img/index/clender.png);
+		background-size: cover;
+		font-size: 24rpx;
+		font-family: PingFang SC;
+		font-weight: 400;
+		color: rgba(51, 51, 51, 1);
 		display: flex;
 		justify-content: center;
 		align-items: center;
