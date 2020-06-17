@@ -1,50 +1,24 @@
 <template>
     <view class="content">
-		<sl-filter :independence="true" :color="titleColor" :themeColor="themeColor" :menuList.sync="menuList" @result="result"></sl-filter>
-        <navigator url="/pages/arenadetial/arenadetial">
-			<view class="item">
-				<view class="titleline">
-					<view class="titleleft">
-						<view class="titletag">星耀</view>
-						房号：7632
-					</view>
-					<text>待应战</text>
-				</view>
-				<view class="dec">
-					<view class="line">应战区服：QQ</view>
-					<view class="linet">胜者奖金<text class="red">￥19.00</text></view>
-				</view>
-			</view>
-		</navigator>
-		<view class="item">
+		<HMfilterDropdown :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
+		<view class="item" v-for="(list,index) in listData" :key="index" @tap="navtodetail(list)">
 			<view class="titleline">
 				<view class="titleleft">
-					<view class="titletag">星耀</view>
-					房号：7632
+					<!-- <view class="titletag">星耀</view> -->
+					房号：{{list.id}}
 				</view>
-				<text>待应战</text>
+				<text>{{list.status}}</text>
 			</view>
 			<view class="dec">
-				<view class="line">应战区服：QQ</view>
-				<view class="linet">胜者奖金<text class="red">￥19.00</text></view>
+				<view class="line">应战区服：{{list.platforms.name}}</view>
+				<view class="linet">胜者奖金<text class="red">￥{{list.totalAmount}}</text></view>
 			</view>
 		</view>
-		<view class="item">
-			<view class="titleline">
-				<view class="titleleft">
-					<view class="titletag">星耀</view>
-					房号：7632
-				</view>
-				<text>待应战</text>
-			</view>
-			<view class="dec">
-				<view class="line">应战区服：QQ</view>
-				<view class="linet">胜者奖金<text class="red">￥19.00</text></view>
-			</view>
-		</view>
-		<view class="btn">
+		<!-- 站位 -->
+		<view style="height: 150rpx;"></view>
+		<view class="next">
 			<navigator url="/pages/releasepk/releasepk" class="publicbtn">
-				<view>发布对战</view>
+				<button>发布对战</button>
 			</navigator>
 			<!-- <view class="mybtn">我的角色</view> -->
 		</view>
@@ -52,189 +26,111 @@
 </template>
 
 <script>
-	import slFilter from '@/components/sl-filter/sl-filter.vue';
+	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue';
+	import data2 from '@/common/data2.js';//筛选菜单数据
     export default {
         components: {
-			slFilter
+			'HMfilterDropdown':HMfilterDropdown
         },
         data() {
             return {
-				themeColor: '#000000',
-				titleColor: '#666666',
-				filterResult: '',
-				menuList: [{
-						'title': '游戏服务区',
-						'detailTitle': '请选择职位类型（可多选）',
-						'isMutiple': true,
-						'key': 'jobType',
-						'defaultSelectedIndex': [1,2,5],
-						'detailList': [{
-								'title': '不限',
-								'value': ''
-							},
-							{
-								'title': 'uni-app',
-								'value': 'uni-app'
-							},
-							{
-								'title': 'java开发',
-								'value': 'java'
-							},
-							{
-								'title': 'web开发',
-								'value': 'web'
-							},
-							{
-								'title': 'Android开发',
-								'value': 'Android'
-							},
-							{
-								'title': 'iOS开发',
-								'value': 'iOS'
-							},
-							{
-								'title': '测试工程师',
-								'value': '测试'
-							},
-							{
-								'title': 'UI设计',
-								'value': 'UI'
-							},
-							{
-								'title': 'Ruby开发',
-								'value': 'Ruby'
-							},
-							{
-								'title': 'C#开发',
-								'value': 'C#'
-							},
-							{
-								'title': 'PHP开发',
-								'value': 'php'
-							},
-							{
-								'title': 'Python开发',
-								'value': 'Python'
-							}
-						]
-						
-					},
-					{
-						'title': '综合排行',
-						'key': 'salary',
-						'isMutiple': true,
-						'detailList': [{
-								'title': '不限',
-								'value': ''
-							},
-							{
-								'title': '0~2000',
-								'value': '0~2000'
-							},
-							{
-								'title': '2000~3000',
-								'value': '2000~3000'
-							},
-							{
-								'title': '3000~4000',
-								'value': '3000~4000'
-							},
-							{
-								'title': '4000~5000',
-								'value': '4000~5000'
-							},
-							{
-								'title': '5000~6000',
-								'value': '5000~6000'
-							},
-							{
-								'title': '6000~7000',
-								'value': '6000~7000'
-							},
-							{
-								'title': '7000~8000',
-								'value': '7000~8000'
-							},
-							{
-								'title': '8000~9000',
-								'value': '8000~9000'
-							},
-							{
-								'title': '9000~10000',
-								'value': '9000~10000'
-							},
-							{
-								'title': '10000以上',
-								'value': '10000~1000000'
-							}
-						]
-						
-					},{
-						'title': '高级筛选',
-						'key': 'salary',
-						'isMutiple': true,
-						'detailList': [{
-								'title': '不限',
-								'value': ''
-							},
-							{
-								'title': '0~2000',
-								'value': '0~2000'
-							},
-							{
-								'title': '2000~3000',
-								'value': '2000~3000'
-							},
-							{
-								'title': '3000~4000',
-								'value': '3000~4000'
-							},
-							{
-								'title': '4000~5000',
-								'value': '4000~5000'
-							},
-							{
-								'title': '5000~6000',
-								'value': '5000~6000'
-							},
-							{
-								'title': '6000~7000',
-								'value': '6000~7000'
-							},
-							{
-								'title': '7000~8000',
-								'value': '7000~8000'
-							},
-							{
-								'title': '8000~9000',
-								'value': '8000~9000'
-							},
-							{
-								'title': '9000~10000',
-								'value': '9000~10000'
-							},
-							{
-								'title': '10000以上',
-								'value': '10000~1000000'
-							}
-						]
-						
-					}
-				],
-				
+				filterData:[],
+				filterDropdownValue:[],
+				page:1,
+				listData:[],
+				area_id:'',
+				order:''
             }
         },
+		async onPullDownRefresh() {
+			this.page=1
+			await this.getlist()
+			uni.stopPullDownRefresh()
+		},
+		onReachBottom(){
+			this.page++
+			this.getlist()
+		},
         methods: {
-            result(val) {
-            	console.log('filter_result:' + JSON.stringify(val));
+			navtodetail(list){
+				uni.navigateTo({
+					url:'../arenadetial/arenadetial?list='+JSON.stringify(list)
+				})
+			},
+            // 获取筛选数据
+            async getGameplatforms() {
+            		let opts = {
+            			url: '/api/game/platforms?game_id=1',
+            			method: 'get'
+            		}
+            		let data1 = await this.$http.httpRequest(opts)
+            		let newarr=[
+            			{
+            				name:'全部',
+            				value:''
+            			}
+            		]
+            		for(var i=0;i<data1.data.data.length;i++){
+            			var newobj=data1.data.data[i]
+            			newobj.value=newobj.id
+            			newarr.push(newobj)
+            		}
+            		this.filterData=data2
+            		this.filterData[0]['submenu']=newarr
+            		this.filterDropdownValue = [
+            			[0],
+            			[0]
+            		];
             },
+			//接收菜单结果
+			confirm(e){
+				this.page=1
+				this.area_id=e.value[0][0]
+				this.order=e.value[1][0]
+				this.getlist()
+			},
+			// 获取列表
+			getlist() {
+				let opts = {
+					url: '/api/match/index',
+					method: 'get'
+				}
+				let params = {
+					type:'',
+					page:this.page,
+					order:this.order,
+					area_id:this.area_id,
+					type:0
+				}
+				return this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						if (this.page == 1) {
+							this.listData = res.data.data.data
+						} else {
+							this.listData.concat(this.listData, res.data.data.data)
+						}
+					}
+				}, error => {
+					console.log(error);
+				})
+			}
         },
-        onReady() {
-        }
+        async onLoad() {
+			await this.getGameplatforms()
+        },
+		onShow() {
+			this.getlist()
+		}
     }
 </script>
 
 <style>
+	.content{
+		background-color: #f4f8fb;
+		position: relative;
+		padding-bottom: 150rpx;
+		padding: 0 !important;
+	}
     .item{
 		padding: 20rpx;
 		border-radius: 10rpx;
@@ -264,6 +160,9 @@
 		border-radius: 0 10rpx 10rpx 0 ;
 		margin-right: 10rpx;
 	}
+	.dec{
+		padding-top: 20rpx;
+	}
 	.dec .line{
 		color: #666;
 		font-size: 24rpx;
@@ -275,30 +174,27 @@
 	.red{
 		color: red;
 	}
-	.btn {
-		display: flex;
-		width: 100%;
+	.next{
 		position: fixed;
 		bottom: 0;
-		left: 0;
-	}
-	.btn .publicbtn{
-		background-color: red;
-		color: #fff;
-		font-size: 36rpx;
 		width: 100%;
-		height: 100rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+		left: 0;
+		height:120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
 	}
-	.btn .mybtn{
-		flex: 1;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		color: #fff;
-		font-size: 36rpx;
-		background-color: yellow;
+	.next button{
+		width:100%;
+		height:80rpx;
+		background:rgba(0,203,130,1);
+		box-shadow:0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		line-height: 80rpx;
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
 	}
 </style>

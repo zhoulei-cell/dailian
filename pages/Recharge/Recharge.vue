@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="topbg">
-			<text>0.00</text>元
+			<text>￥{{userinfo.balance}}</text>元
 			<view class="rechergenumber">
 				<view class="title">充值金额</view>
 				<view class="rechergenumbercont">
@@ -53,17 +53,7 @@
 		components: {},
 		data() {
 			return {
-				items: [{
-						value: 'weixin',
-						name: '微信支付'
-					},
-					{
-						value: 'apay',
-						name: '支付宝支付',
-						checked: 'true'
-					},
-				],
-				current: 0,
+				userinfo:{},
 				check:2
 			}
 		},
@@ -75,10 +65,23 @@
 						break;
 					}
 				}
-			}
+			},
+			// 获取用户信息
+			getuserinfo() {
+				let opts = {
+					url: '/api/getUserInfo',
+					method: 'get'
+				}
+				let param = {
+			
+				}
+				this.$http.httpTokenRequest(opts, param).then(res => {
+					this.userinfo = res.data.data
+				})
+			},
 		},
 		onReady() {
-
+			this.getuserinfo()
 		}
 	}
 </script>

@@ -148,7 +148,7 @@
 			//订单详情
 			navtoDetail(item) {
 				uni.navigateTo({
-					url: '/pages/orderinfo3/orderinfo3?id='+item.id
+					url: '/pages/orderinfo2/orderinfo2?id='+item.id+'&type=1'
 				});
 			},
 			//同意协商

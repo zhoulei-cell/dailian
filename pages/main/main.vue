@@ -98,6 +98,9 @@
 					<view class="fabuzhe">发布者：{{item.user.name || ''}}</view>
 					<view class="comfirm">保证金：{{item.promise_price}}元<view class="tag">|</view>时间：{{item.duration}}小时</view>
 				</view>
+				<view class="itemprice">
+					￥{{item.price}}
+				</view>
 			</view>
 		</view>
 	</view>
@@ -396,5 +399,13 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+	}
+	.itemprice{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 36rpx;
+		color: red;
+		font-weight: bold;
 	}
 </style>

@@ -1179,7 +1179,7 @@ export default [
 				"value": "price_asc"
 			},
 			{
-				"name": "保证金由低到高",
+				"name": "保证金由高到底",
 				"value": "promise_price_asc"
 			},
 			{

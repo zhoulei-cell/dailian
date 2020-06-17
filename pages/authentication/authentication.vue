@@ -135,38 +135,23 @@
 	}
 
 	.btn {
-		font-size: 32rpx;
-		font-family: PingFangSC-Regular, PingFang SC;
-		font-weight: 400;
-		color: rgba(115, 118, 128, 1);
-		padding-top: 82rpx;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background: rgba(255, 255, 255, 1);
+		box-shadow: 2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
 	}
-
+	
 	.btn button {
-		height: 96rpx;
-		background: linear-gradient(90deg, rgba(23, 102, 255, 1) 0%, rgba(87, 144, 255, 1) 100%);
-		border-radius: 48rpx;
-		font-size: 32rpx;
-		font-family: PingFangSC-Medium, PingFang SC;
-		font-weight: 500;
+		background: rgba(0, 203, 130, 1);
+		box-shadow: 2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		font-size: 36rpx;
+		font-family: PingFang SC;
+		font-weight: bold;
 		color: rgba(255, 255, 255, 1);
-	}
-
-	.btn uni-button {
-		height: auto;
-	}
-
-	.btn navigator {
-		margin-left: 70rpx;
-	}
-
-	.btnleft {
-		flex: 1;
-	}
-
-	.btnright {
-		display: flex;
-		align-items: center;
 	}
 
 	.blue {

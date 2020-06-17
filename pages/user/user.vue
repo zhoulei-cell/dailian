@@ -32,43 +32,90 @@
 				</view>
 			</view>
 		</view>
-		
 		<!-- 中间部分 -->
 		<view class="usercenter">
 			<view class="usercentercont">
 				<view class="item">
+					<navigator url="../mwallet/mwallet">
 					<view class="itemimg"><image src="../../static/img/user/qianbao.png" mode=""></image></view>
-					<view class="itemtext">我的钱包</view>
+					<view class="itemtext">钱包</view>
+					</navigator>
+				</view>
+				<!-- <view class="item">
+					<navigator url="../withdrawal/withdrawal">
+					<view class="itemimg"><image src="../../static/img/user/qianbao.png" mode=""></image></view>
+					<view class="itemtext">提现</view>
+					</navigator>
+				</view> -->
+				<view class="item">
+					<navigator url="../orderreceiving/orderreceiving">
+						<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+						<view class="itemtext">接单订单</view>
+					</navigator>
 				</view>
 				<view class="item">
+					<navigator url="../orderrelease/orderrelease">
 					<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
-					<view class="itemtext">我的订单</view>
+					<view class="itemtext">发单订单</view>
+					</navigator>
 				</view>
 				<view class="item">
 					<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
 					<view class="itemtext">优惠券</view>
 				</view>
-				<view class="item">
+				<!-- <view class="item">
 					<view class="itemimg"><image src="../../static/img/user/pinglun.png" mode=""></image></view>
 					<view class="itemtext">评论</view>
+				</view> -->
+			</view>
+		</view>
+		<!-- 中间部分 -->
+		<view class="usercenter">
+			<view class="usercentercont">
+				<view class="item">
+					<navigator url="../opposingrole/opposingrole">
+					<view class="itemimg"><image src="../../static/img/user/qianbao.png" mode=""></image></view>
+					<view class="itemtext">对战角色</view>
+					</navigator>
+				</view>
+				<view class="item">
+					<navigator url="../orderreceiving/orderreceiving">
+						<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+						<view class="itemtext">接单订单</view>
+					</navigator>
+				</view>
+				<view class="item">
+					<navigator url="../orderrelease/orderrelease">
+					<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+					<view class="itemtext">发单订单</view>
+					</navigator>
+				</view>
+				<view class="item">
+					<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
+					<view class="itemtext">优惠券</view>
 				</view>
 			</view>
 		</view>
-		
 		<!-- 底部部分 -->
 		<view class="usercenter bottom">
 			<view class="usercentercont">
 				<view class="item">
+					<navigator url="../updateuserinfo/updateuserinfo">
 					<view class="itemimg"><image src="../../static/img/user/gerenzhongx.png" mode=""></image></view>
-					<view class="itemtext">个人中心</view>
+					<view class="itemtext">修改资料</view>
+					</navigator>
 				</view>
 				<view class="item">
+					<navigator url="../membershipcenter/membershipcenter">
 					<view class="itemimg"><image src="../../static/img/user/huiyuan.png" mode=""></image></view>
 					<view class="itemtext">我的会员</view>
+					</navigator>
 				</view>
 				<view class="item">
+					<navigator url="../invitation/invitation">
 					<view class="itemimg"><image src="../../static/img/user/yaoqin.png" mode=""></image></view>
 					<view class="itemtext">邀请有奖</view>
+					</navigator>
 				</view>
 				<view class="item">
 					<navigator url="../calendar/calendar">
@@ -77,8 +124,10 @@
 					</navigator>
 				</view>
 				<view class="item">
+					<navigator url="../authentication/authentication">
 					<view class="itemimg"><image src="../../static/img/user/shouchang.png" mode=""></image></view>
-					<view class="itemtext">我的收藏</view>
+					<view class="itemtext">实名认证</view>
+					</navigator>
 				</view>
 				<view class="item">
 					<view class="itemimg"><image src="../../static/img/user/yijian.png" mode=""></image></view>
@@ -92,9 +141,13 @@
 					<view class="itemimg"><image src="../../static/img/user/shezhi.png" mode=""></image></view>
 					<view class="itemtext">系统设置</view>
 				</view>
-				<view class="item" @tap="logout">
+				<view class="item">
 					<view class="itemimg"><image src="../../static/img/user/kefu.png" mode=""></image></view>
 					<view class="itemtext">联系我们</view>
+				</view>
+				<view class="item" @tap="logout">
+					<view class="itemimg"><image src="../../static/img/common/loginout.png" mode=""></image></view>
+					<view class="itemtext">退出登录</view>
 				</view>
 			</view>
 		</view>

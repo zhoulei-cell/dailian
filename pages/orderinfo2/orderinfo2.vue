@@ -72,7 +72,7 @@
 				</label>
 			</checkbox-group>
 		</view>
-		<view class="next">
+		<view class="next" v-if="!type">
 			<button  type="default" @tap="naviteto">我来代练</button>
 		</view>
     </view>
@@ -82,7 +82,8 @@ export default {
     data() {
         return {
 			orderInfo:{},
-			id:""
+			id:"",
+			type:""
         }
     },
 	components: {
@@ -118,6 +119,7 @@ export default {
 		console.log(option.id)
 		this.id=option.id
 		this.getorderdetail(option.id)
+		this.type=option.type
 	}
 }
 </script>

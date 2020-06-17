@@ -8,6 +8,32 @@
 			}
 		},
 		{
+			"path": "pages/addrole/addrole",
+			"style": {
+				"navigationBarTitleText": "对战角色管理",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/opposingrole/opposingrole",
+			"style": {
+				"navigationBarTitleText": "添加角色",
+				"enablePullDownRefresh": true,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSize": "30rpx",
+								"text":"添加角色",
+								"float": "right"
+							}
+						]
+					}
+				}
+				
+			}
+		},
+		{
 			"path": "pages/hall/hall",
 			"style": {
 				"navigationBarTitleText": "派单大厅",
@@ -17,7 +43,7 @@
 					"titleNView": {
 						"buttons": [
 							{
-								"fontSize": "22rpx",
+								"fontSize": "30rpx",
 								"text":"发单",
 								"float": "right"
 							}
@@ -71,7 +97,9 @@
 		{
 			"path": "pages/arena/arena",
 			"style": {
-				"navigationBarTitleText": "竞技场"
+				"navigationBarTitleText": "竞技场",
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": 50
 			}
 		},
 		{
@@ -266,7 +294,7 @@
 			"iconPath": "static/img/tabbar/order.png",
 			"selectedIconPath": "static/img/tabbar/ordercheck.png"
 		}, {
-			"pagePath": "pages/orderreceiving/orderreceiving",
+			"pagePath": "pages/reg/reg",
 			"text": "热聊",
 			"iconPath": "static/img/tabbar/qunliao.png",
 			"selectedIconPath": "static/img/tabbar/qunliaocheck.png"

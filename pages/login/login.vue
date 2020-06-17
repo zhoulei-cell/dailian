@@ -23,13 +23,7 @@
 </template>
 
 <script>
-    import service from '../../service.js';
-    import {
-        mapState,
-        mapMutations
-    } from 'vuex'
     import mInput from '../../components/m-input.vue'
-
     export default {
         components: {
             mInput
@@ -42,7 +36,6 @@
         },
         computed: mapState(['forcedLogin']),
         methods: {
-            ...mapMutations(['login']),
 			// 登录
             bindLogin() {
                 /**

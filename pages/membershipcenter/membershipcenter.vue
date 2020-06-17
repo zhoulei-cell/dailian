@@ -1,40 +1,35 @@
 <template>
 	<view class="content">
-		<view class="topbg">
-			<view class="userinfo">
-				<view class="img">
-					<image src="http://dl.m.3yx.com/images/new-wap/pic-Photo.png" mode=""></image>
-				</view>
-				<view class="right">
-					<view class="linename">18117961915</view>
-					<view class="line red">vip0</view>
-				</view>
-			</view>
+		<view class="topinfo">
+			<view class="topinfoleft">开通会员</view>
+			<view class="topinforight">￥200</view>
 		</view>
-
-		<view class="cont">
-			<!-- <view class="title">选择充值类型</view>
-			<view class="item" v-for="(item,index) in dataList" :key="index" :class="{check:checkindex==index}" @tap="checkitem(item,index)">
-				<view class="itemleft">{{item.month}}个月</view>
-				<view class="itemright">{{item.money}}元</view>
-			</view> -->
-		</view>
-
 		<view class="paytype">
-			<view class="title">选择支付方式</view>
-			<view class="line">
-				<radio-group @change="radioChange">
-					<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
-						<view class="flex">
-							<radio :value="item.value" :checked="index === current" />
-							<view>{{item.name}}</view>
-						</view>
-					</label>
-				</radio-group>
+			<view class="paytypetitle">请选择支付方式</view>
+			<view class="payitem">
+				<view class="img"><image src="../../static/img/common/yue.png" mode=""></image></view>
+				<view class="text">余额支付</view>
+				<view class="check" @tap="check=1">
+					<view class="checkbox" :class="{check:check==1}"></view>
+				</view>
+			</view>
+			<view class="payitem">
+				<view class="img"><image src="../../static/img/common/weixin.png" mode=""></image></view>
+				<view class="text">微信支付</view>
+				<view class="check" @tap="check=2">
+					<view class="checkbox" :class="{check:check==2}"></view>
+				</view>
+			</view>
+			<view class="payitem">
+				<view class="img"><image src="../../static/img/common/zhifubao.png" mode=""></image></view>
+				<view class="text">支付宝支付</view>
+				<view class="check" @tap="check=3">
+					<view class="checkbox" :class="{check:check==3}"></view>
+				</view>
 			</view>
 		</view>
-		<view class="button">
-			<button type="default" @tap="submit">立即开通</button>
+		<view class="btn">
+			<button @tap="submit">立即支付</button>
 		</view>
 	</view>
 </template>
@@ -44,39 +39,7 @@
 	export default {
 		data() {
 			return {
-				checkindex: 1,
-				dataList: [{
-						month: 1,
-						money: 10,
-						check: true
-					},
-					{
-						month: 2,
-						money: 20,
-						check: false
-					},
-					{
-						month: 3,
-						money: 30,
-						check: false
-					},
-					{
-						month: 4,
-						money: 40,
-						check: false
-					}
-				],
-				items: [{
-						value: 'wechat_app_pay',
-						name: '微信支付'
-					},
-					{
-						value: 'ali_app_pay',
-						name: '支付宝支付',
-						checked: 'true'
-					},
-				],
-				current: 0
+				check:1
 			}
 		},
 		components: {},
@@ -84,17 +47,6 @@
 			
 		},
 		methods: {
-			checkitem(item, index) {
-				this.checkindex = index
-			},
-			radioChange: function(evt) {
-				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].value === evt.target.value) {
-						this.current = i;
-						break;
-					}
-				}
-			},
 			// 开通会员
 			submit(){
 				let opts = {
@@ -130,137 +82,96 @@
 </script>
 
 <style>
-	.title {
-		font-weight: bold;
-		font-size: 28rpx;
-		width: 100%;
-		margin-bottom: 10rpx;
-	}
-
 	.content {
-		padding: 0;
+		background-color: #f4f8fb;
 	}
-
-	.topbg {
-		width: 100%;
-		height: 300rpx;
-		background-color: red;
-		/* 浏览器不支持的时候显示 */
-		background-image: linear-gradient(#0faeff, #b1e3fc);
-		position: relative;
-	}
-
-	.topbg .userinfo {
-		width: 600rpx;
-		height: 100rpx;
-		padding: 20rpx 0;
+	.topinfo{
+		width:100%;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
 		display: flex;
-		position: absolute;
-		bottom: -70rpx;
-		left: 50%;
-		margin-left: -300rpx;
-		border-radius: 10rpx;
-		background-image: linear-gradient(#0faeff, #b1e3fc);
+		box-sizing: border-box;
+		padding: 26rpx;
 	}
-
-	.topbg .userinfo .img {
-		width: 120rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.topbg .userinfo .img image {
-		width: 100rpx;
-		height: 100rpx;
-	}
-
-	.topbg .userinfo .right .linename {
-		color: #fff;
-		font-weight: bold;
-	}
-
-	.red {
-		color: red;
-	}
-
-	.cont {
-
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: space-around;
-		background: #fff;
-		padding: 20rpx;
-		margin: 0 20rpx;
-		margin-top: 80rpx;
-	}
-
-	.item {
-		width: 250rpx;
-		height: 50rpx;
-		border: 1px solid #E0E0E0;
-		border-radius: 100rpx;
-		display: flex;
-		padding: 0 20rpx;
-		margin-bottom: 20rpx;
-	}
-
-	.item.check {
-		background: rgba(0, 162, 216, 0.1);
-		color: rgba(0, 162, 216, 1);
-		border: 1px solid rgba(0, 162, 216, 1);
-	}
-
-	.itemleft {
-		text-align: left;
+	.topinfo .topinfoleft{
 		flex: 1;
-		font-size: 28rpx;
-		color: #333;
-		font-weight: bold;
-		display: flex;
-		align-items: center;
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
 	}
-
-	.itemright {
-		text-align: right;
-		font-size: 24rpx;
-		color: #666666;
-		display: flex;
-		align-items: center;
+	.topinfo .topinforight{
+		font-size:32rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(103,221,179,1);
 	}
-
-	.button {
-		position: fixed;
-		bottom: 0;
+	.paytype{
+		margin-top: 20rpx;
+		width:100%;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		box-sizing: border-box;
+		padding: 26rpx;
+	}
+	.paytype .paytypetitle{
+		font-size:24rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(128,128,128,1);
 		width: 100%;
+		margin-bottom: 46rpx;
 	}
-
-	.button button {
-		background-image: linear-gradient(#0faeff, #b1e3fc);
-		color: #fff;
-	}
-
-	.paytype {
-		margin-top: 10rpx;
-		background: #fff;
-		padding: 20rpx;
-		margin: 20rpx;
-	}
-
-	.paytype .title {
-		font-weight: bold;
-		font-size: 28rpx;
-	}
-
-	.flex {
+	.payitem{
 		display: flex;
+		align-items: center;
+		margin-bottom: 49rpx;
 	}
-
-	.uni-list-cell::after {
+	.payitem .img{
+		display: flex;
+		align-items: center;
+	}
+	.payitem .img image{
+		width: 49rpx;
+		height: 49rpx;
+		padding-right: 16rpx;
+	}
+	.payitem .text{
+		font-size:28rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
+		flex: 1;
+		display: flex;
+		align-items: center;
+	}
+	.btn{
+		position: absolute;
+		bottom: 0;
 		left: 0;
+		width: 100%;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
 	}
-
-	.uni-list-cell-pd {
-		padding-left: 0;
+	.btn button{
+		background:rgba(0,203,130,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+	}
+	.checkbox{
+		width:30rpx;
+		height:30rpx;
+		border:2rpx solid rgba(104,221,179,1);
+		border-radius:50%;
+	}
+	.checkbox.check{
+		background: rgba(104,221,179,1);
 	}
 </style>
