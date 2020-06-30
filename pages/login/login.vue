@@ -34,7 +34,6 @@
                 password: ''
             }
         },
-        computed: mapState(['forcedLogin']),
         methods: {
 			// 登录
             bindLogin() {
