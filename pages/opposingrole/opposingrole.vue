@@ -27,6 +27,12 @@ export default {
 	},
     computed: {
     },
+	onNavigationBarButtonTap(e) {
+	    console.log(e)   
+		uni.navigateTo({
+			url:'../addrole/addrole'
+		})
+	},
 	async onShow() {
 		await this.getorderlist()
 	},

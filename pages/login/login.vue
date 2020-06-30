@@ -77,7 +77,6 @@
 								    key: 'userinfo',
 								    data: res.data.data.user,
 								})
-								this.$store.commit('updateUerinfo',res.data.data.user)
 								uni.reLaunch({
 									url: '../main/main'
 								})
