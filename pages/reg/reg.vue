@@ -10,8 +10,7 @@
 			</view>
 			<view class="input-row border">
 				<m-input class="m-input" type="text" clearable focus v-model="code" placeholder="输入验证码"></m-input>
-				<text @tap="pushmessage" class="blue" v-if="time==60">发送验证码</text>
-				<text class="grey" v-else>重发（{{time}}）</text>
+				<text @tap="pushmessage" :class="colorText">{{codeText}}</text>
 			</view>
 			<view class="input-row">
 				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
@@ -50,11 +49,11 @@
 				account: '',
 				password: '',
 				captcha: '',
-				t: null,
-				time: 60,
 				imgcode: '',
 				code: '',
-				key: ''
+				key: '',
+				codeText: "获取验证码",
+				colorText: "blue"
 			}
 		},
 		computed: mapState(['forcedLogin']),
@@ -159,19 +158,27 @@
 			},
 			// 发送验证码
 			pushmessage() {
-				this.sendmessagecode().then(res=>{
-					if(res.data.code==200){
-						this.t = setInterval(() => {
-							this.time--
-							if (this.time <= 0) {
-								this.time = 60
-								clearInterval(this.t)
-							}
-							this.$forceUpdate()
-						}, 1000)
+				this.sendmessagecode().then(res => {
+					if (res.data.code === 200) {
+						this.countDown()
 					}
 				})
-				
+			},
+			countDown() {
+				let num = 60;
+				this.colorText = "grey"
+				const fn = () => {
+					num--;
+					if (num === 0) {
+						this.codeText = "重新获取验证码"
+						this.colorText = "blue"
+						clearInterval(this.timer)
+					} else {
+						this.codeText = `${num}秒后重试`
+					}
+				}
+				fn()
+				this.timer = setInterval(fn, 1000)
 			}
 		},
 		onReady() {
