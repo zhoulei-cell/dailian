@@ -81,7 +81,7 @@
 				<view class="item">
 					<navigator url="../orderreceiving/orderreceiving">
 						<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
-						<view class="itemtext">接单订单</view>
+						<view class="itemtext">对战记录</view>
 					</navigator>
 				</view>
 				<view class="item">

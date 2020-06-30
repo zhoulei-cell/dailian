@@ -54,7 +54,7 @@
 					method: 'post'
 				}
 				let params = {
-					payment_method: this.items[this.current].value,
+					payment_method: this.check==1?'ali_app_pay':'wechat_app_pay',
 					amount:200,
 					type:0
 				}

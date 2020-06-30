@@ -4,6 +4,7 @@
 			<uni-steps :options="list1" :active="active" />
 		</view>
 		<view class="example-title">对战信息</view>
+		<view class="line">发起人：<text>{{detailinfo.user.name}}</text></view>
 		<view class="line">游戏：<text>王者荣耀</text></view>
 		<view class="line">模式：<text>墨家机关1V1</text></view>
 		<view class="line">胜条件：<text>率先摧毁水晶获胜</text></view>
@@ -12,7 +13,7 @@
 		<view class="line">订单号：<text>{{detailinfo.match_no}}</text></view>
 		<view class="line">获胜获得：<text class="red">{{detailinfo.totalAmount}}</text></view>
 		
-		<view class="example-title">对战角色</view>
+		<view class="example-title">对方角色</view>
 		<view class="line">挑战后，如对手<text class="red">30分钟</text>超时未启动，补偿你<text class="red">{{detailinfo.totalAmount*0.75}}币</text></view>
 		<view class="line">对方角色：{{detailinfo.user_role.role_name}}</view>
 		
@@ -170,6 +171,7 @@
 <style>
 	.content{
 		padding-bottom: 150rpx;
+		background: #F0F0F0;
 	}
 	.red{
 		color: red;

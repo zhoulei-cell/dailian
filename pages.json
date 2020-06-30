@@ -273,7 +273,13 @@
 				"navigationBarTitleText": "资金流水"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/chat/chat",
+            "style" : {
+				"navigationBarTitleText": "群聊"
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#989898",
 		"selectedColor": "#00CB82",
@@ -294,7 +300,7 @@
 			"iconPath": "static/img/tabbar/order.png",
 			"selectedIconPath": "static/img/tabbar/ordercheck.png"
 		}, {
-			"pagePath": "pages/reg/reg",
+			"pagePath": "pages/chat/chat",
 			"text": "热聊",
 			"iconPath": "static/img/tabbar/qunliao.png",
 			"selectedIconPath": "static/img/tabbar/qunliaocheck.png"
