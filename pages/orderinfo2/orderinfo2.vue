@@ -81,46 +81,47 @@
 export default {
     data() {
         return {
-			orderInfo:{},
-			id:"",
-			type:""
+					orderInfo:{
+						game: {},
+						game_area: {},
+						platform: {},
+						user: {}
+					},
+					id:"",
+					type:""
         }
     },
-	components: {
-	},
-    computed: {
-		
-    },
     methods: {
-		//获取订单详情
-		getorderdetail(id){
-			let opts = {
-				url: '/api/order/info?order_id='+id,
-				method: 'get'
-			}
-			let params = {
-			}
-			this.$http.httpTokenRequest(opts, params).then(res => {
-				if (res.data.code == 200) {
-					this.orderInfo=res.data.data
+			//获取订单详情
+			getorderdetail(id){
+				let opts = {
+					url: '/api/order/info?order_id='+id,
+					method: 'get'
 				}
-			}, error => {
-				console.log(error);
-			})
-		},
-		//提交订单
-		naviteto(){
-			uni.navigateTo({
-				url:"../ordercomfirm/ordercomfirm?id="+this.id
-			})
-		}
+				let params = {
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						this.orderInfo=res.data.data
+						console.log(this.orderInfo)
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			//提交订单
+			naviteto(){
+				uni.navigateTo({
+					url:"../ordercomfirm/ordercomfirm?id="+this.id
+				})
+			}
     },
-	onLoad: function (option) { 
-		console.log(option.id)
-		this.id=option.id
-		this.getorderdetail(option.id)
-		this.type=option.type
-	}
+		onLoad: function (option) { 
+			console.log(option.id)
+			this.id=option.id
+			this.getorderdetail(option.id)
+			this.type=option.type
+		}
 }
 </script>
 <style>

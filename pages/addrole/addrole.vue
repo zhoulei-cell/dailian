@@ -88,6 +88,9 @@ export default {
 						icon:'none',
 						title:res.data.msg
 					})
+					uni.navigateBack({
+						delta: 1
+					})
 				}
 			}, error => {
 				console.log(error);

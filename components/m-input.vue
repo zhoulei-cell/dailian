@@ -27,7 +27,10 @@
 			/**
 			 * 值
 			 */
-			value: String,
+			value: {
+				type: String,
+				default: ''
+			},
 			/**
 			 * 占位符
 			 */

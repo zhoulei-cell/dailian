@@ -109,6 +109,7 @@
 					name: '全部',
 					value: ''
 				}]
+				console.log(data1)
 				for (var i = 0; i < data1.data.data.length; i++) {
 					var newobj = data1.data.data[i]
 					newobj.value = newobj.id
@@ -132,6 +133,7 @@
 			},
 			//接收菜单结果
 			confirm(e) {
+				console.log(e)
 				this.page = 1
 				this.ordertype = e.value[1][0]
 				this.platform_id = e.value[0][0]
@@ -424,7 +426,7 @@
 		display: block;
 		background: #000000;
 		left: 0;
-		bottom: 0;
+		bottom: -5px;
 		width: 68rpx;
 		height: 10rpx;
 		background: linear-gradient(45deg, rgba(0, 203, 130, 1) 0%, rgba(113, 222, 183, 1) 100%);
