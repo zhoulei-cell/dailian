@@ -279,6 +279,12 @@
 				"navigationBarTitleText": "群聊"
 			}
         }
+        ,{
+            "path" : "pages/battledetails/battledetails",
+            "style" : {
+				"navigationBarTitleText": "对战详情"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",
