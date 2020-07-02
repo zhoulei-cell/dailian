@@ -103,7 +103,11 @@ export default {
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
 						this.orderInfo=res.data.data
-						console.log(this.orderInfo)
+					}else{
+						uni.showToast({
+							icon:'none',
+							title:res.data.message|| res.data.msg 
+						})
 					}
 				}, error => {
 					console.log(error);
@@ -112,7 +116,7 @@ export default {
 			//提交订单
 			naviteto(){
 				uni.navigateTo({
-					url:"../ordercomfirm/ordercomfirm?id="+this.id
+					url:"../ordercomfirm/ordercomfirm?data="+JSON.stringify(this.orderInfo)
 				})
 			}
     },

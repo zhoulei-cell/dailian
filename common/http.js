@@ -27,7 +27,7 @@ const httpRequest = (opts, data) => {
 				} else if (res[1].statusCode == 422) {
 					uni.showToast({
 						icon: 'none',
-						title: res[1].data.message
+						title: res[1].data.message|| res[1].data.msg 
 					});
 				} else if (res[1].statusCode == 401) {
 					uni.navigateTo({
@@ -86,12 +86,12 @@ const httpTokenRequest = async (opts, data) => {
 				} else if (res[1].statusCode == 500) {
 					uni.showToast({
 						icon: 'none',
-						title: res[1].data.message
+						title: res[1].data.message|| res[1].data.msg 
 					});
 				} else if (res[1].statusCode == 422) {
 					uni.showToast({
 						icon: 'none',
-						title: res[1].data.message
+						title: res[1].data.message|| res[1].data.msg 
 					});
 				} else if (res[1].statusCode == 401) {
 					uni.navigateTo({

@@ -5,12 +5,12 @@
 			<view class="rechergenumber">
 				<view class="title">充值金额</view>
 				<view class="rechergenumbercont">
-					<view class="item" :class="{check:true}">50.00元</view>
+					<!-- <view class="item" :class="{check:true}">50.00元</view>
 					<view class="item">100.00元</view>
 					<view class="item">500.00元</view>
 					<view class="item">1000.00元</view>
 					<view class="item">2000.00元</view>
-					<view class="item">3000.00元</view>
+					<view class="item">3000.00元</view> -->
 					<view class="item iteminput">
 						￥<input type="text" placeholder="0" />自定义金额
 					</view>
@@ -118,13 +118,13 @@
 
 	.rechergenumber {
 		width: 700rpx;
-		height: 493rpx;
+		height: 253rpx;
 		background: rgba(255, 255, 255, 1);
 		border-radius: 15rpx;
 		position: absolute;
 		margin-left: -350rpx;
 		left: 50%;
-		bottom: -393rpx;
+		bottom: -160rpx;
 		z-index: 1;
 	}
 
@@ -179,7 +179,7 @@
 	}
 
 	.zw {
-		height: 450rpx;
+		height: 180rpx;
 	}
 	.contpay{
 		padding: 0 20rpx;

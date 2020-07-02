@@ -23,7 +23,7 @@
 			</uni-swiper-dot>
 		</view>
 		<!-- 导航 -->
-		<view class="navicon">
+		<!-- <view class="navicon">
 			<view class="item">
 				<view class="itemimg">
 					<image src="../../static/img/index/wangzhe.png" mode=""></image>
@@ -72,9 +72,9 @@
 				</view>
 				<view class="itemtext">全部分类</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 竞技赛事 -->
-		<view class="title">竞技赛事</view>
+		<!-- <view class="title">竞技赛事</view>
 		<view class="ad">
 			<view class="adimg">
 				<image src="../../static/img/index/banner.png" mode=""></image>
@@ -82,7 +82,7 @@
 			<view class="adimg">
 				<image src="../../static/img/index/banner2.png" mode=""></image>
 			</view>
-		</view>
+		</view> -->
 		<view class="title">代练接单</view>
 		<view class="orderlist">
 			<view class="item" v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">

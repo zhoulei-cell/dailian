@@ -9,24 +9,71 @@
         <view class="btn">
         	<button type="default" @tap="ordercomfirm">提交订单</button>
         </view>
+		<uni-popup ref="showtip" :type="type" :mask-click="true">
+			<view class="uni-tip">
+				<text class="uni-tip-title">警告</text>
+				<view class="uni-tip-content">将支安全保证金 <text style="color: red;">{{infodata.promise_price}}</text> 元效，率保证金<text style="color: red;">{{infodata.promise_price}}</text> 元</view>
+				<view class="uni-tip-group-button">
+					<text class="uni-tip-button" @click="cancel()">取消</text>
+					<text class="uni-tip-button" @click="ok()">确定</text>
+				</view>
+			</view>
+		</uni-popup>
     </view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue'
     import mInput from '../../components/m-input.vue'
 
     export default {
         components: {
-            mInput
+            mInput,
+			uniPopup
         },
         data() {
             return {
                 account: '',
                 accountqq: '',
-				order_id:''
+				infodata:'',
+				type:'center'
             }
         },
         methods: {
+			cancel(type) {
+				this.$refs['showtip'].close()
+			},
+			ok(){
+				let opts = {
+					url: '/api/order/receive',
+					method: 'post'
+				};
+				let param = {
+					order_id:this.infodata.id,
+					rec_qq: this.accountqq,
+					rec_phone: this.account
+				}
+				this.$http.httpTokenRequest(opts,param).then(res => {
+					if(res.data.code==200){
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+						setTimeout(()=>{
+							uni.reLaunch({
+								url: '../main/main'
+							})
+						},500)
+					}else{
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						});
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
 			//提交订单
             ordercomfirm() {
                 /**
@@ -47,38 +94,11 @@
                     });
                     return;
                 }
-				let opts = {
-					url: '/api/order/receive',
-					method: 'post'
-				};
-				let param = {
-					order_id:this.order_id,
-					rec_qq: this.accountqq,
-					rec_phone: this.account
-				}
-				this.$http.httpTokenRequest(opts,param).then(res => {
-					if(res.data.code==200){
-						uni.showToast({
-							icon: 'none',
-							title: res.data.msg
-						})
-						uni.reLaunch({
-							url: '../main/main'
-						})
-						
-					}else{
-						uni.showToast({
-							icon: 'none',
-							title: res.data.msg
-						});
-					}
-				}, error => {
-					console.log(error);
-				})
+				this.$refs['showtip'].open()
             }
         },
 		onLoad: function (option) {
-			this.order_id=option.id
+			this.infodata=JSON.parse(option.data)
 		}
     }
 </script>
@@ -161,5 +181,45 @@
 		bottom: 0;
 	}
 	/* #endif */
+	/* 提示窗口 */
+		.uni-tip {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			flex-direction: column;
+			/* #endif */
+			padding: 15px;
+			width: 300px;
+			background-color: #fff;
+			border-radius: 10px;
+		}
 	
+		.uni-tip-title {
+			margin-bottom: 10px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 16px;
+			color: #333;
+		}
+	
+		.uni-tip-content {
+			/* padding: 15px;
+	*/
+			font-size: 14px;
+			color: #666;
+		}
+	
+		.uni-tip-group-button {
+			/* #ifndef APP-NVUE */
+			display: flex;
+			/* #endif */
+			flex-direction: row;
+			margin-top: 20px;
+		}
+	
+		.uni-tip-button {
+			flex: 1;
+			text-align: center;
+			font-size: 14px;
+			color: #3b4144;
+		}
 </style>
