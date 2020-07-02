@@ -138,7 +138,7 @@
 						安全保障金
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入订单价格" v-model="orderInfo.promise_price" type="number" />
+						<input class="uni-input" placeholder="请输入安全保障金" v-model="orderInfo.promise_price" type="number" />
 						<view class="tag">元</view>
 					</view>
 				</view>
@@ -149,8 +149,8 @@
 						效率保证金
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入时限要求" v-model="orderInfo.eff_price" type="number" />
-						<view class="tag">小时</view>
+						<input class="uni-input" placeholder="请输入效率保证金" v-model="orderInfo.eff_price" type="number" />
+						<view class="tag">元</view>
 					</view>
 				</view>
 			</view>
@@ -160,7 +160,7 @@
 						游戏信息
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请填写英雄、铭文等信息" v-model="orderInfo.rel_message" type="number" />
+						<input class="uni-input" placeholder="请填写英雄、铭文等信息" v-model="orderInfo.rel_message"/>
 					</view>
 				</view>
 			</view>
