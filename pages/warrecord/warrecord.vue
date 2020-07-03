@@ -55,7 +55,7 @@
 			navtodetail(list){
 				uni.navigateTo({
 					// url:'../arenadetial/arenadetial?list='+JSON.stringify(list)
-					url:'../battledetails/battledetails?list='+JSON.stringify(list)
+					url:'../battledetails/battledetails?list='+JSON.stringify(list)+'&type=1'
 				})
 			},
             // 获取筛选数据
@@ -97,6 +97,7 @@
 					method: 'get'
 				}
 				let params = {
+					self:1,
 					type:'',
 					page:this.page,
 					order:this.order,

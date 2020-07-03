@@ -6,13 +6,13 @@
 		</view>
 		<view class="paytype">
 			<view class="paytypetitle">请选择支付方式</view>
-			<view class="payitem">
+			<!-- <view class="payitem">
 				<view class="img"><image src="../../static/img/common/yue.png" mode=""></image></view>
 				<view class="text">余额支付</view>
 				<view class="check" @tap="check=1">
 					<view class="checkbox" :class="{check:check==1}"></view>
 				</view>
-			</view>
+			</view> -->
 			<view class="payitem">
 				<view class="img"><image src="../../static/img/common/weixin.png" mode=""></image></view>
 				<view class="text">微信支付</view>
@@ -39,7 +39,7 @@
 	export default {
 		data() {
 			return {
-				check:1
+				check:2
 			}
 		},
 		components: {},
@@ -54,7 +54,7 @@
 					method: 'post'
 				}
 				let params = {
-					payment_method: this.check==1?'ali_app_pay':'wechat_app_pay',
+					payment_method: this.check==3?'ali_app_pay':'wechat_app_pay',
 					amount:200,
 					type:0
 				}

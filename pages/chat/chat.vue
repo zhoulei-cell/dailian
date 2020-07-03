@@ -1,68 +1,21 @@
 <template>
 	<view class="chat-with">
-		<scroll-view class="scroll" :scroll-y="true">
-			<view class="container">
-				<view class="chat-list-group">
-					<view class="chat-time">2019-04-15 15:32</view>
-					<view class="chat-content d-flex ai-center">
-						<view class="chat-photo"></view>
-						<view class="chat-info">你有多少货，货好的话我全要了。</view>
+		<scroll-view class="scroll" :scroll-y="true" :show-scrollbar="false" >
+			<view class="container" ref="scroll">
+				<view v-for="(list,index) in chatdata" :key="index">
+					<view class="chat-list-group" v-if="user.user.id==list.user.id">
+						<view class="chat-time" >{{list.date}}</view>
+						<view class="chat-content d-flex ai-center jc-end">
+							<view class="chat-info my-info">{{list.content}}</view>
+							<view class="chat-photo my-chat"></view>
+						</view>
 					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time" v-if="false">2019-04-15 15:32</view>
-					<view class="chat-content d-flex ai-center jc-end">
-						<view class="chat-info my-info">要多少有多少，都是好货</view>
-						<view class="chat-photo my-chat"></view>
-					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time">2016-04-15 15:56</view>
-					<view class="chat-content d-flex ai-center">
-						<view class="chat-photo"></view>
-						<view class="chat-info">23号在九龙港码头交易，你一个人来。</view>
-					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time" v-if="false">2019-04-15 15:32</view>
-					<view class="chat-content d-flex ai-center jc-end">
-						<view class="chat-info my-info">可以带家伙吗...</view>
-						<view class="chat-photo my-chat"></view>
-					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time" v-if="false">2016-04-15 15:56</view>
-					<view class="chat-content d-flex ai-center">
-						<view class="chat-photo"></view>
-						<view class="chat-info">随便你，我反正带了。</view>
-					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time">2016-04-15 16:32</view>
-					<view class="chat-content d-flex ai-center jc-end">
-						<view class="chat-info my-info">好...23号见，带好现金，我只收人民币</view>
-						<view class="chat-photo my-chat"></view>
-					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time" v-if="false">2016-04-15 15:56</view>
-					<view class="chat-content d-flex ai-center">
-						<view class="chat-photo"></view>
-						<view class="chat-info">随便你，我反正带了。</view>
-					</view>
-				</view>
-
-				<view class="chat-list-group">
-					<view class="chat-time">2016-04-15 16:32</view>
-					<view class="chat-content d-flex ai-center jc-end">
-						<view class="chat-info my-info">好...23号见，带好现金，我只收人民币</view>
-						<view class="chat-photo my-chat"></view>
+					<view class="chat-list-group" v-else>
+						<view class="chat-time">{{list.date}}</view>
+						<view class="chat-content d-flex ai-center">
+							<view class="chat-photo" :style="{background:list.user.avatar}"></view>
+							<view class="chat-info">{{list.content}}</view>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -74,10 +27,10 @@
 					<image src="../../static/img/chat/voice.png"></image>
 				</view>
 				<view class="enter flex-1">
-					<input type="text" placeholder="请输入文字内容" placeholder-style="color: #aaa">
+					<input type="text" placeholder="请输入文字内容" placeholder-style="color: #aaa" v-model="content">
 				</view>
 			</view>
-			<view class="send">发送</view>
+			<view class="send" @tap="sendmessage">发送</view>
 		</view>
 	</view>
 </template>
@@ -86,7 +39,12 @@
 	export default {
 		data() {
 			return {
-				title: "包小花"
+				title: "包小花",
+				content:"",
+				userinfo:{},
+				chatdata:[],
+				user:{},
+				once:true
 			};
 		},
 		methods: {
@@ -94,7 +52,58 @@
 				uni.navigateBack({
 					delta: 1
 				})
+			},
+			sendmessage(){
+				uni.sendSocketMessage({
+				  data: '{"type":"text","content":"'+this.content+'"}'
+				});
+			},
+			// 获取用户信息
+			getuserinfo(){
+				let opts = {
+					url: '/api/getUserInfo',
+					method: 'get'
+				}
+				let param = {
+					
+				}
+				this.$http.httpTokenRequest(opts,param).then(res => {
+					const that=this
+					this.userinfo = res.data.data
+					uni.connectSocket({
+					    url: 'ws://192.168.0.121:9511?id='+this.userinfo.id+'',
+					    header: {
+					        'Upgrade': 'websocket',
+							'Connection': 'Upgrade'
+					    },
+						success:function(e){
+							console.log(e)
+						},
+						fail:function(e){
+							console.log(e)
+						}
+					})
+					uni.onSocketMessage(function (res) {
+					  console.log('收到服务器内容：' + res.data);
+					  if(that.once){
+						  that.user=JSON.parse(res.data)
+						  that.once=false
+					  }else{
+						  that.chatdata.push(JSON.parse(res.data))
+					  }
+					  console.log(that.chatdata)
+					});
+					uni.onSocketOpen(function (res) {
+					  console.log('WebSocket连接已打开！');
+					});
+					uni.onSocketError(function (res) {
+					  console.log('WebSocket连接打开失败，请检查！');
+					});
+				})
 			}
+		},
+		onLoad() {
+			this.getuserinfo()
 		}
 	}
 </script>
@@ -111,7 +120,7 @@
 		.scroll{
 			position: fixed;
 			top: 90rpx;
-			bottom: 91rpx;
+			bottom: 230rpx;
 			left: 0;
 			width: 100%;
 			padding: 0 30rpx 10rpx;
@@ -165,7 +174,7 @@
 		.btn-box{
 			position: fixed;
 			left: 0;
-			bottom: 0;
+			bottom: 90rpx;
 			width: 100%;
 			height: 98rpx;
 			.left-box{

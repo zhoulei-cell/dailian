@@ -284,6 +284,21 @@
             "style" : {
 				"navigationBarTitleText": "对战详情"
 			}
+        },{
+            "path" : "pages/warrecord/warrecord",
+            "style" : {
+				"navigationBarTitleText": "发布对战"
+			}
+        },{
+            "path" : "pages/acceptthewar/acceptthewar",
+            "style" : {
+				"navigationBarTitleText": "接受对战"
+			}
+        },{
+            "path" : "pages/uploadresults/uploadresults",
+            "style" : {
+				"navigationBarTitleText": "上传赛果"
+			}
         }
     ],
 	"tabBar": {

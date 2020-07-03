@@ -12,7 +12,7 @@
 					<view class="item">2000.00元</view>
 					<view class="item">3000.00元</view> -->
 					<view class="item iteminput">
-						￥<input type="text" placeholder="0" />自定义金额
+						￥<input type="text" placeholder="0" v-model="acount"/>自定义金额
 					</view>
 				</view>
 			</view>
@@ -43,7 +43,7 @@
 		</view>
 		
 		<view class="btn">
-			<button type="primary">确认充值</button>
+			<button type="primary" @click="recharge">确认充值</button>
 		</view>
 	</view>
 </template>
@@ -54,7 +54,8 @@
 		data() {
 			return {
 				userinfo:{},
-				check:2
+				check:2,
+				acount:0
 			}
 		},
 		methods: {
@@ -79,6 +80,23 @@
 					this.userinfo = res.data.data
 				})
 			},
+			recharge(){
+				let opts = {
+					url: '/api/app/recharge',
+					method: 'post'
+				}
+				let param = {
+						payment_method:this.check==2?'wechat_app_pay':'ali_app_pay',
+						amount:this.acount,
+						type:1
+				}
+				this.$http.httpTokenRequest(opts, param).then(res => {
+					uni.showToast({
+						icon:'none',
+						title:res.data.msg
+					})
+				})
+			}
 		},
 		onReady() {
 			this.getuserinfo()

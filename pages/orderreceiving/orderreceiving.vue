@@ -17,6 +17,7 @@
 						<view class="item_left">
 							<view class="title">{{item.title}}</view>
 							<view class="dec">游戏账号：{{item.game_account}}</view>
+							<view class="dec">发布者：{{item.user.name}}</view>
 							<view class="red">保证金：{{item.promise_price}} 发布时间：{{item.created_at}}</view>
 						</view>
 						<view class="item_right">
@@ -282,7 +283,7 @@
 	.item .item_left .dec {
 		font-size: 24rpx;
 		color: #999999;
-		line-height: 36rpx;
+		line-height: 50rpx;
 	}
 
 	.item .item_right {

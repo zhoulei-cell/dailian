@@ -6,11 +6,11 @@
 				<view class="card-box">
 					<view class="card-desc">
 						<text>发起人：</text>
-						<text>凌凌漆</text>
+						<text>{{detailinfo.user.name}}</text>
 					</view>
 					<view class="card-desc">
 						<text>联系方式：</text>
-						<text>13344455566</text>
+						<text>{{detailinfo.user_role.contact}}</text>
 					</view>
 					<view class="card-desc">
 						<text>游戏：</text>
@@ -18,7 +18,7 @@
 					</view>
 					<view class="card-desc">
 						<text>区服：</text>
-						<text>QQ</text>
+						<text>{{detailinfo.platforms.name}}</text>
 					</view>
 					<view class="card-desc">
 						<text>模式：</text>
@@ -29,8 +29,16 @@
 						<text>率先摧毁敌方水晶获胜</text>
 					</view>
 					<view class="card-desc">
+						<text>发布方禁用职业：</text>
+						<text>{{detailinfo.release_ban}}</text>
+					</view>
+					<view class="card-desc">
+						<text>接受方禁用职业：</text>
+						<text>{{detailinfo.partake_ban}}</text>
+					</view>
+					<view class="card-desc">
 						<text>参赛金额：</text>
-						<text>双方各出25帮币（含手续费）</text>
+						<text>双方各出{{detailinfo.amount}}帮币（含手续费）</text>
 					</view>
 				</view>
 			</view>
@@ -39,13 +47,13 @@
 				<view class="card-box">
 					<view class="desc">
 						<text>胜利者可赢得奖金 </text>
-						<text class="red">50帮币</text>
+						<text class="red">{{detailinfo.totalAmount}}帮币</text>
 					</view>
 					<view class="desc">
 						发起挑战后，如对手超过
 						<text class="red">30.00分钟</text>
 						未启动，补偿您
-						<text class="red">10帮币</text>                                       
+						<text class="red">{{detailinfo.totalAmount*0.75}}帮币</text>                                       
 					</view>
 				</view>
 			</view>
@@ -55,18 +63,47 @@
 				<view class="card-box d-flex jc-between">
 					<view class="avatar-box">
 						<view class="avatar"></view>
-						<view class="text">xxxx</view>
+						<view class="text">{{detailinfo.user_role.role_name}}</view>
+						<view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view>
 					</view>
-					<view class="avatar-box">
+					<view class="avatar-box" v-if="detailinfo.partake_role">
 						<view class="avatar"></view>
-						<view class="text">角色信息</view>
+						<view class="text">{{detailinfo.partake_role.role_name || '请选择'}}</view>
+						<view class="text">{{detailinfo.partake_ready?'已准备':'未准备'}}</view>
+					</view>
+					<view class="avatar-box" v-else>
+						<navigator url="../opposingrole/opposingrole?type=1">
+							<view class="avatar"></view>
+							<view class="text">{{role.role_name || '请选择'}}</view>
+						</navigator>
 					</view>
 				</view>
-				<view class="btn-box">
+				<!-- <view class="btn-box">
 					<button>联系对手</button>
+				</view> -->
+			</view>
+			
+			<view class="consult" v-if="detailinfo.winners">
+				胜利者：{{detailinfo.winners.name}}
+			</view>
+			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]'">
+				<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[0].images" :key="index"></image>
+			</view>
+			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]'">
+				<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[1].images" :key="index"></image>
+			</view>
+			<view class="info-card" v-if="type!=1&&type!=2">
+				<view class="card-title">英雄禁用</view>
+				<view class="card-box d-flex jc-between">
+					<view class="zylist">
+						<view class="zyitem" v-for="(list,index) in zydata" :key="index" :class="{check:checkzy==list.value}" @click="checkzy=list.value">
+							{{list.text}}
+						</view>
+					</view>
 				</view>
 			</view>
-			<view class="info-card">
+			
+			<!-- <view class="info-card">
 				<view class="card-title">订单流程</view>
 				<view class="card-box steps-box">
 					<evan-steps :active="stepsActive" direction="horizontal" primaryColor="#00CB82">
@@ -75,18 +112,40 @@
 						</block>
 					</evan-steps>
 				</view>
-			</view>
+			</view> -->
 		</view>
-		<view class="fixed-btn d-flex">
-			<view class="btn flex-1 d-flex ai-center jc-center">
-				<view class="pay">支付25帮币</view>
+		<view class="fixed-btn d-flex" v-if="detailinfo.status==1">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="nextStep">
+				<view class="pay">支付{{detailinfo.amount}}帮币</view>
 				<view class="go">发起挑战</view>
 			</view>
+		</view>
+		<view class="fixed-btn d-flex" v-if="detailinfo.status==2">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="start">
+				<view class="go">开始对战</view>
+			</view>
+		</view>
+		<view class="fixed-btn d-flex" v-if="detailinfo.status==2&&type==1">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="cancel">
+				<view class="go">取消对战</view>
+			</view>
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="start" style="margin-left: 10rpx;">
+				<view class="go">开始对战</view>
+			</view>
+		</view>
+		<view class="fixed-btn d-flex" v-if="type==1&&detailinfo.release_finish==0&&detailinfo.status==3 || detailinfo.status==4 ||　type==2&&detailinfo.partake_finish==0&&detailinfo.status==3 || detailinfo.status==4 ">
+				<view class="btn flex-1 d-flex ai-center jc-center" @tap="result">
+						<view class="go">结算上传</view>
+				</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations
+	} from 'vuex'
 	import EvanSteps from '@/components/evan-steps/evan-steps.vue'
 	import EvanStep from '@/components/evan-steps/evan-step.vue'
 	export default {
@@ -106,11 +165,158 @@
 					id: 3,
 					title: '结算审核'
 				}],
-				stepsActive: 1
+				stepsActive: 1,
+				detailinfo:{
+					platforms:{
+						name:''
+					},
+					user_role:{
+						role_name:''
+					},
+					images:[]
+				},
+				match_id:'',
+				checkzy:0,
+				zydata: [{
+						text: "不限",
+						value: 0
+					},
+					{
+						text: "法师",
+						value: 1
+					},
+					{
+						text: "刺客",
+						value: 2
+					},
+					{
+						text: "战士",
+						value: 3
+					},
+					{
+						text: "坦克",
+						value: 4
+					},
+					{
+						text: "辅助",
+						value: 5
+					},
+					{
+						text: "射手",
+						value: 6
+					}
+				],
+				type:''
 			}
 		},
+		computed: mapState({
+			// 箭头函数可使代码更简练
+			role: state => state.role
+		}),
 		methods: {
+			result(){
+				uni.navigateTo({
+					url:'../uploadresults/uploadresults?id='+this.match_id
+				})
+			},
+			cancel(){
+				let opts = {
+					url: '/api/match/cancel',
+					method: 'put'
+				}
+				let params = {
+					match_id: this.match_id
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.msg
+					})
+					if (res.data.msg == 200) {
+						uni.navigateBack({
+							delta:1
+						})
+					}
+							
+				}, error => {
+					console.log(error);
+				})
+			},
+			start(){
+				let opts = {
+					url: '/api/match/begin',
+					method: 'post'
+				}
+				let params = {
+					match_id: this.match_id
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.msg
+					})
+					if (res.data.msg == 200) {
+						uni.navigateBack({
+							delta:1
+						})
+					}
+							
+				}, error => {
+					console.log(error);
+				})
+			},
+			// 获取详情
+			getlist() {
+				let opts = {
+					url: '/api/match/show',
+					method: 'get'
+				}
+				let params = {
+					match_id:this.match_id
+				}
+				return this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						this.detailinfo=res.data.data
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			//提交
+			nextStep: function() {
+				let opts = {
+					url: '/api/match/partake',
+					method: 'post'
+				}
+				let params = {
+					partake_game_role_id: this.role.id,
+					partake_ban: this.checkzy,
+					match_id: this.match_id
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					uni.showToast({
+						icon: 'none',
+						title: res.data.msg
+					})
+					if (res.data.msg == 200) {
+						setTimeout(() => {
+							uni.navigateTo({
+								url: '../arena/arena'
+							})
+						}, 500)
+					}
 			
+				}, error => {
+					console.log(error);
+				})
+			}
+		},
+		onLoad:function(option) {
+			this.match_id=JSON.parse(option.list).id
+			this.type=option.type
+		},
+		onShow() {
+			this.getlist()
 		}
 	}
 </script>
@@ -203,6 +409,36 @@
 					color:rgba(255,255,255,1);
 				}
 			}
+		}
+	}
+	.zylist {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		background: #fff;
+		padding: 20rpx;
+	}
+	
+	.zylist .zyitem {
+		border: 2rpx solid #01A861;
+		color: #01A861;
+		font-size: 24rpx;
+		width: 200rpx;
+		height: 50rpx;
+		text-align: center;
+		line-height: 50rpx;
+		border-radius: 10rpx;
+		margin-top: 20rpx;
+	}
+	
+	.zylist .zyitem.check {
+		background: #01A861;
+		color: #fff;
+	}
+	.imglist {
+		display: flex;
+		image{
+			width: 50%;
 		}
 	}
 </style>

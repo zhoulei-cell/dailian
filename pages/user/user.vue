@@ -79,15 +79,15 @@
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../orderreceiving/orderreceiving">
+					<navigator url="../warrecord/warrecord">
 						<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
-						<view class="itemtext">对战记录</view>
+						<view class="itemtext">我的发布</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../orderrelease/orderrelease">
+					<navigator url="../acceptthewar/acceptthewar">
 					<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
-					<view class="itemtext">发单订单</view>
+					<view class="itemtext">接受对战</view>
 					</navigator>
 				</view>
 				<view class="item">

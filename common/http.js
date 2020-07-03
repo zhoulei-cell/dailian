@@ -126,10 +126,11 @@ const uploadimg = async(imgFiles)=>{
 				{
 					resolve(res1)
 				}else{
-					uni.showToast({
-						icon: 'none',
-						title: res1.data
-					});
+					resolve(res1)
+					// uni.showToast({
+					// 	icon: 'none',
+					// 	title: res1.data
+					// });
 				}
 		    }
 		})
