@@ -74,6 +74,9 @@
 			},
 			// 提现
 			submit() {
+				if(!this.amount){
+					return false
+				}
 				let opts = {
 					url: '/api/finance/withdraw',
 					method: 'post'

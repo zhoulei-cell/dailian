@@ -1,20 +1,23 @@
 <template>
 	<view class="chat-with">
-		<scroll-view class="scroll" :scroll-y="true" :show-scrollbar="false" >
-			<view class="container" ref="scroll">
+		<scroll-view class="scroll" :scroll-y="true" :show-scrollbar="false"  id="scrollcont" :scroll-top="scrolltop">
+			<view class="container" id="scroll">
 				<view v-for="(list,index) in chatdata" :key="index">
 					<view class="chat-list-group" v-if="user.user.id==list.user.id">
 						<view class="chat-time" >{{list.date}}</view>
 						<view class="chat-content d-flex ai-center jc-end">
-							<view class="chat-info my-info">{{list.content}}</view>
-							<view class="chat-photo my-chat"></view>
+							<view class="chat-info my-info">{{list.content||'来啦'}}</view>
+							<view style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+								<view class="chat-photo my-chat"> <image :src="user.user.avatar" mode="widthFix"></image> </view>
+								<view style="color: #333;font-size: 20rpx;text-align: center;">{{user.user.name}}</view>
+							</view>
 						</view>
 					</view>
 					<view class="chat-list-group" v-else>
 						<view class="chat-time">{{list.date}}</view>
 						<view class="chat-content d-flex ai-center">
-							<view class="chat-photo" :style="{background:list.user.avatar}"></view>
-							<view class="chat-info">{{list.content}}</view>
+							<view class="chat-photo">  <image :src="user.user.avatar" mode="widthFix"></image>  </view>
+							<view class="chat-info">{{list.content||'来啦'}}</view>
 						</view>
 					</view>
 				</view>
@@ -44,7 +47,8 @@
 				userinfo:{},
 				chatdata:[],
 				user:{},
-				once:true
+				once:true,
+				scrolltop:0
 			};
 		},
 		methods: {
@@ -54,9 +58,13 @@
 				})
 			},
 			sendmessage(){
+				if(this.content==""){
+					return false
+				}
 				uni.sendSocketMessage({
 				  data: '{"type":"text","content":"'+this.content+'"}'
 				});
+				this.content=""
 			},
 			// 获取用户信息
 			getuserinfo(){
@@ -71,7 +79,7 @@
 					const that=this
 					this.userinfo = res.data.data
 					uni.connectSocket({
-					    url: 'ws://192.168.0.121:9511?id='+this.userinfo.id+'',
+					    url: 'ws://'+this.$http.baseUrl+':9511?id='+this.userinfo.id+'',
 					    header: {
 					        'Upgrade': 'websocket',
 							'Connection': 'Upgrade'
@@ -84,14 +92,23 @@
 						}
 					})
 					uni.onSocketMessage(function (res) {
-					  console.log('收到服务器内容：' + res.data);
 					  if(that.once){
 						  that.user=JSON.parse(res.data)
+						  that.chatdata.push(JSON.parse(res.data))
 						  that.once=false
 					  }else{
 						  that.chatdata.push(JSON.parse(res.data))
 					  }
-					  console.log(that.chatdata)
+					  let height1=0;
+					  let height2=0;
+					  const query = uni.createSelectorQuery().in(that);
+					  query.select('#scroll').boundingClientRect(data => {
+					      height1=data.height
+					  }).exec();
+					  query.select('#scrollcont').boundingClientRect(data => {
+					      height2=data.height
+					  }).exec();
+					  that.scrolltop=height1-height2+1000
 					});
 					uni.onSocketOpen(function (res) {
 					  console.log('WebSocket连接已打开！');
@@ -119,16 +136,21 @@
 		}
 		.scroll{
 			position: fixed;
+			/* #ifdef APP-PLUS */
+			bottom: 98rpx;
+			top: 0rpx;
+			/* #endif */
+			/* #ifndef APP-PLUS */
+			bottom: 200rpx;
 			top: 90rpx;
-			bottom: 230rpx;
+			/* #endif */
 			left: 0;
 			width: 100%;
 			padding: 0 30rpx 10rpx;
 			box-sizing: border-box;
 			.container{
-				padding-bottom: 20rpx;
 				.chat-list-group{
-					padding-top: 60rpx;
+					margin-top: 60rpx;
 					.chat-time{
 						font-size: 26rpx;
 						font-weight: 400;
@@ -144,6 +166,12 @@
 							margin-right: 16rpx;
 							border-radius: 50%;
 							background-color: #fd7651;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							image{
+								width: 100%;
+							}
 							&.my-chat{
 								margin-right: 0;
 								margin-left: 16rpx;
@@ -174,7 +202,12 @@
 		.btn-box{
 			position: fixed;
 			left: 0;
-			bottom: 90rpx;
+			/* #ifdef APP-PLUS */
+			bottom: 0rpx;
+			/* #endif */
+			/* #ifndef APP-PLUS */
+			bottom: 98rpx;
+			/* #endif */
 			width: 100%;
 			height: 98rpx;
 			.left-box{
@@ -193,7 +226,6 @@
 						font-size: 28rpx;
 						font-weight: 400;
 						color: #000;
-						line-height: 79rpx;
 					}
 				}
 			}

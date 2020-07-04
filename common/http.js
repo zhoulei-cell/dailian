@@ -1,7 +1,9 @@
-const baseUrl = 'http://192.168.0.121';
+// const baseUrl = 'http://192.168.0.121';
+const baseUrl = '47.94.34.165';
+const base='http://'+baseUrl
 const httpRequest = (opts, data) => {
 	let httpDefaultOpts = {
-		url: baseUrl + opts.url,
+		url: base + opts.url,
 		data: data,
 		method: opts.method,
 		header: opts.method == 'get' ? {
@@ -61,7 +63,7 @@ const httpTokenRequest = async (opts, data) => {
 	let token =await gettoken();
 	//此token是登录成功后后台返回保存在storage中的
 	let httpDefaultOpts = {
-		url: baseUrl + opts.url,
+		url: base + opts.url,
 		data: Object.assign(data, {
 			token
 		}),
@@ -117,7 +119,7 @@ const uploadimg = async(imgFiles)=>{
 	return new Promise((resolve,reject)=>{
 		var uper = uni.uploadFile({
 		    // 需要上传的地址
-		    url:baseUrl+'/api/upload?token='+token,
+		    url:base+'/api/upload?token='+token,
 		    // filePath  需要上传的文件
 		    filePath: imgFiles,
 		    name: 'image[]',
