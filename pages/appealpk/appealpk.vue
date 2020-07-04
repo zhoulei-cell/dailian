@@ -1,56 +1,32 @@
 <template>
 	<view class="content">
-		<view class="title" style="margin-top: 0;">
-			代练申诉订单信息
+		<view class="title">
+			申述金额
 		</view>
-		<view class="line">订单编号：{{orderinfo.order.order_no}}</view>
-		<view class="line">订单标题：{{orderinfo.order.title}}</view>
+		<view class="textarea" style="padding: 10rpx;">
+			<input type="text" placeholder="0" v-model="amount"/>
+		</view>
 		<view class="title">
 			申述类型及详情
 		</view>
 		<view class="uni-list">
-			<view class="line">发起人：{{orderinfo.user.name ||　orderinfo.user.phone}}</view>
-			<view class="line">发起时间：{{orderinfo.created_at}}</view>
-			<view class="line">申诉类型：{{items[orderinfo.type].name}}</view>
+			<radio-group @change="radioChange">
+				<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+					<view>
+						<radio :value="item.value" :checked="index === current" />
+					</view>
+					<view>{{item.name}}</view>
+				</label>
+			</radio-group>
 		</view>
 		<view class="title">
 			问题希望及其描述：
 		</view>
 		<view class="textarea">
-			<textarea value="" placeholder="请输入问题希望及其描述" v-model="orderinfo.desc" />
-			</view>
-		<view class="title">
-			<text>凭证截图：</text>
-			<!-- <button type="primary" @tap="cI">上传图片</button> -->
-		</view>
-		<view class="imglist">
-			<view class="imgbox" v-for="(imglist,index) in orderinfo.order.images" :key="index">
-				<image :src="imglist.full || imglist.url"></image>
-			</view>
+			<textarea value="" placeholder="请输入问题希望及其描述" v-model="desc"/>
 		</view>
 		<view class="title">
-			客户处理列表
-		</view>
-		<view class="reviwelist">
-			<view class="reviweitem" v-for="(re,index) in orderinfo.order_appeal_chat" :key="index">
-				<view class="line2 red" v-if="re.user">{{re.user.name || '无用户名'}}</view>
-				<view class="line2">{{re.content}}</view>
-				<view class="imglist">
-				<view class="imgbox" v-for="(imglist,index) in re.images" :key="index">
-					<image :src="imglist"></image>
-				</view>
-				</view>
-			</view>
-		</view>
-		<view class="title">
-			<text>我要发言：</text>
-		</view>
-		<view class="textinput">
-			<input type="text" value="" placeholder="请输入" v-model="reviwe"/>
-		</view>
-		<view class="title">
-			<text>凭证截图：</text>
-			<button type="primary" @tap="cI">上传图片</button>
+			<text>凭证截图：</text><button type="primary" @tap="cI">上传图片</button>
 		</view>
 		<view class="imglist">
 			<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
@@ -103,23 +79,12 @@
 				],
 				current: 0,
 				orderid:0,
-				orderinfo:{
-					order:{
-						
-					},
-					user:{
-						
-					},
-					type:0,
-					order_appeal_chat:[
-						{
-							user:{}
-						}
-					]
-				},
+				info:{},
+				match_id:'',
+				amount:0,
 				imglist:[],
-				reviwe:"",
-				appeals:''
+				desc:'',
+				imgdata:[]
 			}
 		},
 		methods: {
@@ -134,31 +99,10 @@
 			            _this.$http.uploadimg(imgFiles).then((res)=>{
 							var data=JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
+							_this.imgdata.push(data.data[0].url)
 						})
 			        }
 			    })
-			},
-			//图片上传提交
-			imgsubmit(url){
-				let opts = {
-					url: '/api/order/image',
-					method: 'post'
-				}
-				let params={
-					order_id:this.orderinfo.id,
-					type:5,
-					url:url
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
-					}
-				}, error => {
-					console.log(error);
-				})
 			},
 			radioChange: function(evt) {
 				for (let i = 0; i < this.items.length; i++) {
@@ -168,42 +112,19 @@
 					}
 				}
 			},
-			// 获取申诉详情
-			getdetal(){
-				let opts = {
-					url: '/api/order/appeal/view',
-					method: 'get'
-				}
-				let params={
-					id:this.appeals,
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					this.orderinfo=res.data.data
-					if(res.data.code==200){
-						this.orderinfo=res.data.data
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
-					}
-				}, error => {
-					console.log(error);
-				})
-			},
 			// 提交申诉
 			submit(){
 				let opts = {
-					url: '/api/order/appeal/sendchat',
+					url: '/api/match/appeal',
 					method: 'post'
 				}
-				let newarr=[]
-				for(var i=0;i<this.imglist.length;i++){
-					newarr.push(this.imglist[i].url)
-				}
+				let type=this.items[this.current].value
 				let params={
-					content:this.reviwe,
-					appeal_id:this.orderinfo.id,
-					images:newarr
+					match_id:this.match_id,
+					reason:type,
+					description:this.desc,
+					amount:this.amount,
+					images:String(this.imgdata)
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
@@ -211,7 +132,9 @@
 							icon:'none',
 							title:res.data.msg
 						})
-						this.getdetal()
+						uni.navigateBack({
+							delta:2
+						})
 					}else{
 						uni.showToast({
 							icon:'none',
@@ -224,10 +147,7 @@
 			}
 		},
 		onLoad: function (option) {
-			this.appeals=JSON.parse(option.item).appeals
-		},
-		onShow() {
-			this.getdetal()
+			this.match_id=option.id
 		}
 	}
 </script>
@@ -272,11 +192,6 @@
 	color: #666;
 	line-height: 60rpx;
 }
-.line2{
-	font-size: 24rpx;
-	color: #666;
-	line-height: 40rpx;
-}
 	.imglist{
 		display: flex;
 		flex-wrap: wrap;
@@ -297,14 +212,5 @@
 .imgbox image{
 	width: 100%;
 	
-}
-.textinput input{
-	border: 1rpx solid #E0E0E0;
-	height: 80rpx;
-	line-height: 80rpx;
-	text-indent: 10rpx;
-}
-.red{
-	color: red;
 }
 </style>

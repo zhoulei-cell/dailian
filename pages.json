@@ -205,6 +205,12 @@
 			}
 		},
 		{
+			"path": "pages/appealpk/appealpk",
+			"style": {
+				"navigationBarTitleText": "对战申诉"
+			}
+		},
+		{
 			"path": "pages/Recharge/Recharge",
 			"style": {
 				"navigationBarTitleText": "充值中心"

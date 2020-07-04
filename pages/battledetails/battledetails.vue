@@ -89,7 +89,7 @@
 			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]'">
 				<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[0].images" :key="index"></image>
 			</view>
-			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]'">
+			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]' && detailinfo.images[1] ">
 				<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[1].images" :key="index"></image>
 			</view>
 			<view class="info-card" v-if="type!=1&&type!=2">
@@ -133,9 +133,12 @@
 				<view class="go">开始对战</view>
 			</view>
 		</view>
-		<view class="fixed-btn d-flex" v-if="type==1&&detailinfo.release_finish==0&&detailinfo.status==3 || detailinfo.status==4 ||　type==2&&detailinfo.partake_finish==0&&detailinfo.status==3 || detailinfo.status==4 ">
+		<view class="fixed-btn d-flex" v-if="((type==1&&detailinfo.release_finish==0&&detailinfo.status==3) || (type==1&&detailinfo.release_finish==0&&detailinfo.status==4)) ||　((type==2&&detailinfo.partake_finish==0&&detailinfo.status==3) || (type==2&&detailinfo.partake_finish==0&&detailinfo.status==4)) ">
 				<view class="btn flex-1 d-flex ai-center jc-center" @tap="result">
 						<view class="go">结算上传</view>
+				</view>
+				<view class="btn flex-1 d-flex ai-center jc-center" @tap="apeal" style="margin-left: 10rpx;">
+						<view class="go">申诉</view>
 				</view>
 		</view>
 	</view>
@@ -219,6 +222,11 @@
 					url:'../uploadresults/uploadresults?id='+this.match_id
 				})
 			},
+			apeal(){
+				uni.navigateTo({
+					url:'../appealpk/appealpk?id='+this.match_id
+				})
+			},
 			cancel(){
 				let opts = {
 					url: '/api/match/cancel',
@@ -260,7 +268,7 @@
 							delta:1
 						})
 					}
-							
+					this.getlist()
 				}, error => {
 					console.log(error);
 				})
@@ -325,6 +333,7 @@
 	page{
 		padding: 0 20rpx;
 		background-color: #F0F0F0;
+		box-sizing: border-box;
 	}
 	.battle-details{
 		width: 100%;
@@ -344,6 +353,7 @@
 					line-height: 26rpx;
 				}
 				.card-box{
+					box-sizing: border-box;
 					padding: 15rpx 20rpx;
 					&.steps-box{
 						padding: 30rpx 20rpx 15rpx;
