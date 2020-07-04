@@ -141,6 +141,11 @@
 						<view class="go">申诉</view>
 				</view>
 		</view>
+		<view class="fixed-btn d-flex" v-if="detailinfo.status==6">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="apealdetial">
+				<view class="go">申诉详情</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -217,6 +222,11 @@
 			role: state => state.role
 		}),
 		methods: {
+			apealdetial(){
+				uni.navigateTo({
+					url:'../appealpkdetail/appealpkdetail?id='+this.detailinfo.appeal_id+'&orderid='+this.match_id
+				})
+			},
 			result(){
 				uni.navigateTo({
 					url:'../uploadresults/uploadresults?id='+this.match_id

@@ -211,6 +211,12 @@
 			}
 		},
 		{
+			"path": "pages/appealpkdetail/appealpkdetail",
+			"style": {
+				"navigationBarTitleText": "申诉详情"
+			}
+		},
+		{
 			"path": "pages/Recharge/Recharge",
 			"style": {
 				"navigationBarTitleText": "充值中心"
