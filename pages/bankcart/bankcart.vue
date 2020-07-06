@@ -3,25 +3,25 @@
 		<view class="input-group">
 			<view class="input-row">
 				姓名：
-				<m-input class="m-input" type="text"  v-model="userinfo.name" placeholder="请输入姓名"></m-input>
+				<m-input class="m-input" type="text"  v-model="name" placeholder="请输入姓名"></m-input>
 			</view>
 		</view>
 		<view class="input-group">
 			<view class="input-row">
 				电话：
-				<m-input class="m-input" type="text"  v-model="userinfo.mobile" placeholder="请输入电话"></m-input>
+				<m-input class="m-input" type="text"  v-model="mobile" placeholder="请输入电话"></m-input>
 			</view>
 		</view>
 		<view class="input-group">
 			<view class="input-row">
 				银行账户：
-				<m-input class="m-input" type="text"  v-model="userinfo.bank_no" placeholder="请输入银行账户"></m-input>
+				<m-input class="m-input" type="text"  v-model="bank_no" placeholder="请输入银行账户"></m-input>
 			</view>
 		</view>
 		<view class="input-group">
 			<view class="input-row border">
 				银行卡开户行：
-				<m-input class="m-input" type="text" v-model="userinfo.bank" placeholder="请输入银行卡开户行"></m-input>
+				<m-input class="m-input" type="text" v-model="bank" placeholder="请输入银行卡开户行"></m-input>
 			</view>
 		</view>
 		<view class="btn">
@@ -38,12 +38,10 @@
 		},
 		data() {
 			return {
-				userinfo:{
-					mobile:"",
-					bank_no:"",
-					name:"",
-					bank:""
-				},
+				mobile:"",
+				bank_no:"",
+				name:"",
+				bank:"",
 				path:null,
 			}
 		},
@@ -58,29 +56,63 @@
 					
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
-					this.userinfo = res.data.data
+					this.mobile=res.data.data.mobile
+					this.bank_no=res.data.data.bank_no
+					this.name=res.data.data.name
+					this.bank=res.data.data.bank
 				})
 			},
 			//提交
-			submit(url){
-				let opts = {
-					url: '/api/withdraw/account',
-					method: 'post'
-				}
-				let params=this.userinfo
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-						uni.showToast({
-							title:res.data.msg
-						})
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
+			submit(){
+				if(this.mobile){
+					let opts = {
+						url: '/api/withdraw/account/edit',
+						method: 'put'
 					}
-				}, error => {
-					console.log(error);
-				})
+					let params={
+						mobile:this.mobile,
+						bank_no:this.bank_no,
+						name:this.name,
+						bank:this.bank,
+					}
+					this.$http.httpTokenRequest(opts,params).then(res => {
+						if(res.data.code==200){
+							uni.showToast({
+								title:res.data.msg
+							})
+						}else{
+							uni.showToast({
+								title:res.data.msg
+							})
+						}
+					}, error => {
+						console.log(error);
+					})
+				}else{
+					let opts = {
+						url: '/api/withdraw/account',
+						method: 'post'
+					}
+					let params={
+						mobile:this.mobile,
+						bank_no:this.bank_no,
+						name:this.name,
+						bank:this.bank,
+					}
+					this.$http.httpTokenRequest(opts,params).then(res => {
+						if(res.data.code==200){
+							uni.showToast({
+								title:res.data.msg
+							})
+						}else{
+							uni.showToast({
+								title:res.data.msg
+							})
+						}
+					}, error => {
+						console.log(error);
+					})
+				}
 			}
 		},
 		onLoad() {

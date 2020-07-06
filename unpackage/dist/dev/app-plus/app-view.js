@@ -24719,7 +24719,7 @@ var render = function() {
                 model: {
                   value: _vm._$g(3, "v-model"),
                   callback: function() {},
-                  expression: "userinfo.name"
+                  expression: "name"
                 }
               })
             ],
@@ -24743,7 +24743,7 @@ var render = function() {
                 model: {
                   value: _vm._$g(6, "v-model"),
                   callback: function() {},
-                  expression: "userinfo.mobile"
+                  expression: "mobile"
                 }
               })
             ],
@@ -24767,7 +24767,7 @@ var render = function() {
                 model: {
                   value: _vm._$g(9, "v-model"),
                   callback: function() {},
-                  expression: "userinfo.bank_no"
+                  expression: "bank_no"
                 }
               })
             ],
@@ -24791,7 +24791,7 @@ var render = function() {
                 model: {
                   value: _vm._$g(12, "v-model"),
                   callback: function() {},
-                  expression: "userinfo.bank"
+                  expression: "bank"
                 }
               })
             ],
