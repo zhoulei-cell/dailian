@@ -56,7 +56,7 @@
 						英雄个数
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入目标段位" v-model="orderInfo.hero_num" type="number" />
+						<input class="uni-input" placeholder="请输入英雄个数" v-model="orderInfo.hero_num" type="number" />
 					</view>
 				</view>
 			</view>

@@ -62,7 +62,9 @@
 				<view class="card-title">对战双方</view>
 				<view class="card-box d-flex jc-between">
 					<view class="avatar-box">
-						<view class="avatar"></view>
+						<view class="avatar">
+							<image :src="detailinfo.user.avatar" mode="widthFix"></image>
+						</view>
 						<view class="text">{{detailinfo.user_role.role_name}}</view>
 						<view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view>
 					</view>
@@ -387,7 +389,15 @@
 						.avatar{
 							width: 188rpx;
 							height: 188rpx;
-							background-color: red;
+							border: 1rpx dashed #BEBEBE;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							overflow: hidden;
+							box-sizing: border-box;
+							image{
+								width: 100%;
+							}
 						}
 						.text{
 							padding: 20rpx 0;

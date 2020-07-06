@@ -35,8 +35,8 @@
 						<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
 						<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 
-						<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申述</button>
-						<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申述</button>
+						<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申诉</button>
+						<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申诉</button>
 						<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
 						<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
 					</view>

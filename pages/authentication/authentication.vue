@@ -2,10 +2,10 @@
 	<view class="content">
 		<view class="input-group">
 			<view class="input-row border">
-				<m-input class="m-input" type="text" focus v-model="userinfo.real_name" placeholder="姓名"></m-input>
+				<m-input class="m-input" type="text" focus v-model="real_name" placeholder="姓名"></m-input>
 			</view>
 			<view class="input-row">
-				<m-input class="m-input" type="number" v-model="userinfo.id_card" placeholder="身份证号"></m-input>
+				<m-input class="m-input" type="number" v-model="id_card" placeholder="身份证号"></m-input>
 			</view>
 		</view>
 		<view class="btn">
@@ -22,7 +22,8 @@
 		},
 		data() {
 			return {
-				userinfo:{}
+				real_name:"",
+				id_card:""
 			}
 		},
 		methods: {
@@ -33,8 +34,8 @@
 					method: 'post'
 				};
 				let param = {
-					real_name: this.name,
-					id_card: this.card
+					real_name: this.real_name,
+					id_card: this.id_card
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
 					uni.showToast({
@@ -55,7 +56,8 @@
 					
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
-					this.userinfo = res.data.data
+					this.real_name=res.data.data.real_name
+					this.id_card=res.data.data.id_card
 				})
 			}
 		},

@@ -3,13 +3,13 @@
 		<view class="status_barcenter">
 			<uni-search-bar @confirm="search" @input="input" @cancel="cancel" />
 		</view>
-		<view class="">
+		<!-- <view class="">
 			<scroll-view id="tab-bar" class="scroll-h" :scroll-x="true">
 				<view v-for="(tab,index) in tabBars" :key="tab.id" class="uni-tab-item" :id="tab.id" :data-current="index" @click="ontabtap">
 					<text class="uni-tab-item-title" :class="tabIndex==index ? 'uni-tab-item-title-active' : ''">{{tab.name}}</text>
 				</view>
 			</scroll-view>
-		</view>
+		</view> -->
 		<HMfilterDropdown :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
 		 dataFormat="Object"></HMfilterDropdown>
 		<view class="conleft">

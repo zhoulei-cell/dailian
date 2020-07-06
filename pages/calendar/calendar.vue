@@ -4,7 +4,7 @@
 			<view class="clcont">
 				<view class="left">
 					<view class="lefttop">已连续签到</view>
-					<view class="leftbottom"><text>02</text>天</view>
+					<view class="leftbottom"><text>{{daylx}}</text>天</view>
 				</view>
 				<view class="right">
 					<button @tap="lisign">立即签到</button>
@@ -39,7 +39,8 @@
 					range: true,
 					insert: false,
 					selected: []
-				}
+				},
+				daylx:0
 			}
 		},
 		methods: {
@@ -91,6 +92,8 @@
 								})
 								console.log(this.info.selected)
 							}
+							let num=res.data.data.length-1
+							this.daylx=res.data.data[num].sign_in_num
 						}
 					} else {
 						uni.showToast({

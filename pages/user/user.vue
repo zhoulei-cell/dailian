@@ -3,7 +3,7 @@
 		<!-- 用户信息 -->
 		<view class="topuser">
 			<view class="usertopcont">
-				<view class="tag"></view>
+				<view class="tag" v-if="userinfo.is_member"></view>
 				<view class="userinfo">
 					<view class="userinfoimg">
 						<view class="img">

@@ -92,7 +92,7 @@
 				</view>
 				<view class="uni-list-cell-db">
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入游戏账号" v-model="orderInfo.game_account" type="number"/>
+						<input class="uni-input" placeholder="请输入游戏账号" v-model="orderInfo.game_account" type="number" disabled="true"/>
 					</view>
 				</view>
 			</view>
