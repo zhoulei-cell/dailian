@@ -1,6 +1,6 @@
 <template>
 	<view class="chat-with">
-		<scroll-view class="scroll" :scroll-y="true" :show-scrollbar="false"  id="scrollcont" :scroll-top="scrolltop">
+		<scroll-view class="scroll" :style="{height: scrollHeight+'px'}" :scroll-y="true" :show-scrollbar="false" :scroll-top="scrolltop" :scroll-with-animation="true">
 			<view class="container" id="scroll">
 				<view v-for="(list,index) in chatdata" :key="index">
 					<view class="chat-list-group" v-if="user.user.id==list.user.id">
@@ -48,7 +48,8 @@
 				chatdata:[],
 				user:{},
 				once:true,
-				scrolltop:0
+				scrolltop:0,
+				scrollHeight: 0
 			};
 		},
 		methods: {
@@ -94,21 +95,15 @@
 					uni.onSocketMessage(function (res) {
 					  if(that.once){
 						  that.user=JSON.parse(res.data)
-						  that.chatdata.push(JSON.parse(res.data))
+						  // that.chatdata.push(JSON.parse(res.data))
 						  that.once=false
 					  }else{
 						  that.chatdata.push(JSON.parse(res.data))
+						  
 					  }
-					  let height1=0;
-					  let height2=0;
-					  const query = uni.createSelectorQuery().in(that);
-					  query.select('#scroll').boundingClientRect(data => {
-					      height1=data.height
-					  }).exec();
-					  query.select('#scrollcont').boundingClientRect(data => {
-					      height2=data.height
-					  }).exec();
-					  that.scrolltop=height1-height2+1000
+					  that.$nextTick(function(){
+					  	that.getContainerHeight()
+					  })
 					});
 					uni.onSocketOpen(function (res) {
 					  console.log('WebSocket连接已打开！');
@@ -117,10 +112,33 @@
 					  console.log('WebSocket连接打开失败，请检查！');
 					});
 				})
+			},
+			getContainerHeight() {
+				let height = 0
+				const query = uni.createSelectorQuery();
+				query.selectAll('.chat-list-group').boundingClientRect(data => {
+				  console.log("得到布局位置信息" + JSON.stringify(data));
+				  data.forEach(item => {
+					  height += item.height
+				  })
+				  this.scrolltop = height
+				  console.log("高度" + this.scrolltop)
+				}).exec();
+			},
+			getHeight() {
+				uni.getSystemInfo({
+				    success: (res) => {
+				        this.scrollHeight = res.windowHeight - uni.upx2px(98)
+				    }
+				})
 			}
 		},
 		onLoad() {
 			this.getuserinfo()
+			this.getHeight()
+		},
+		onReady() {
+			this.getContainerHeight()
 		}
 	}
 </script>
@@ -130,27 +148,18 @@
 		background-color: #eee;
 	}
 	.chat-with{
+		width: 100%;
 		font-family: Microsoft YaHei;
 		.uni-navbar{
 			background-image: linear-gradient(90deg,rgba(255,115,80,1),rgba(253,182,150,1));
 		}
 		.scroll{
-			position: fixed;
-			/* #ifdef APP-PLUS */
-			bottom: 98rpx;
-			top: 0rpx;
-			/* #endif */
-			/* #ifndef APP-PLUS */
-			bottom: 200rpx;
-			top: 90rpx;
-			/* #endif */
-			left: 0;
-			width: 100%;
-			padding: 0 30rpx 10rpx;
-			box-sizing: border-box;
 			.container{
+				.chat-list-group:nth-child(1){
+					padding-top: 60rpx;
+				}
 				.chat-list-group{
-					margin-top: 60rpx;
+					padding-bottom: 60rpx;
 					.chat-time{
 						font-size: 26rpx;
 						font-weight: 400;
