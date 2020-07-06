@@ -187,8 +187,8 @@
 			display: flex;
 			flex-direction: column;
 			/* #endif */
-			padding: 15px;
 			width: 300px;
+			box-sizing: border-box;
 			background-color: #fff;
 			border-radius: 10px;
 		}
