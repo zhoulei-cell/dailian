@@ -17,14 +17,14 @@
 		{
 			"path": "pages/opposingrole/opposingrole",
 			"style": {
-				"navigationBarTitleText": "添加角色",
+				"navigationBarTitleText": "添加",
 				"enablePullDownRefresh": true,
 				"app-plus": {
 					"titleNView": {
 						"buttons": [
 							{
 								"fontSize": "30rpx",
-								"text":"添加角色",
+								"text":"添加",
 								"float": "right"
 							}
 						]

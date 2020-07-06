@@ -7,7 +7,7 @@
 				<view class="userinfo">
 					<view class="userinfoimg">
 						<view class="img">
-							<image :src="userinfo.avatar || '../../static/img/qq.png'" mode=""></image>
+							<image :src="userinfo.avatar || '../../static/img/qq.png'" mode="widthFix"></image>
 						</view>
 					</view>
 					<view class="userinfotext">
@@ -49,13 +49,13 @@
 				</view> -->
 				<view class="item">
 					<navigator url="../orderreceiving/orderreceiving">
-						<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+						<view class="itemimg"><image src="../../static/img/user/jd.png" mode=""></image></view>
 						<view class="itemtext">接单订单</view>
 					</navigator>
 				</view>
 				<view class="item">
 					<navigator url="../orderrelease/orderrelease">
-					<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+					<view class="itemimg"><image src="../../static/img/user/fd.png" mode=""></image></view>
 					<view class="itemtext">发单订单</view>
 					</navigator>
 				</view>
@@ -74,7 +74,7 @@
 			<view class="usercentercont">
 				<view class="item">
 					<navigator url="../opposingrole/opposingrole">
-					<view class="itemimg"><image src="../../static/img/user/qianbao.png" mode=""></image></view>
+					<view class="itemimg"><image src="../../static/img/user/js.png" mode=""></image></view>
 					<view class="itemtext">对战角色</view>
 					</navigator>
 				</view>
