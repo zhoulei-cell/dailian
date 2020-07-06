@@ -311,7 +311,13 @@
             "style" : {
 				"navigationBarTitleText": "上传赛果"
 			}
-        }
+        },
+		{
+		    "path" : "pages/bankcart/bankcart",
+		    "style" : {
+				"navigationBarTitleText": "银行卡管理"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#989898",

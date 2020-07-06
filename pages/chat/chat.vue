@@ -163,6 +163,7 @@
 						.chat-photo{
 							width: 91rpx;
 							height: 91rpx;
+							overflow: hidden;
 							margin-right: 16rpx;
 							border-radius: 50%;
 							background-color: #fd7651;

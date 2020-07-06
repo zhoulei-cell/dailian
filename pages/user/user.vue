@@ -91,8 +91,10 @@
 					</navigator>
 				</view>
 				<view class="item">
-					<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
-					<view class="itemtext">优惠券</view>
+					<navigator url="../bankcart/bankcart">
+						<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
+						<view class="itemtext">银行卡管理</view>
+					</navigator>
 				</view>
 			</view>
 		</view>
