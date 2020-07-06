@@ -147,18 +147,20 @@
 					<view class="itemimg"><image src="../../static/img/user/kefu.png" mode=""></image></view>
 					<view class="itemtext">联系我们</view>
 				</view>
-				<view class="item" @tap="logout">
+				<view class="item" @tap="openLogoutPopup">
 					<view class="itemimg"><image src="../../static/img/common/loginout.png" mode=""></image></view>
 					<view class="itemtext">退出登录</view>
 				</view>
 			</view>
 		</view>
+		<custom-popup ref="customPopupLogout" title="是否退出登录？" @cancel="cancelLogout" @confirm="confirmLogout"/>
     </view>
 </template>
 
 <script>
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
+	import customPopup from '@/components/custom-popup/custom-popup.vue'
     export default {
 		data(){
 			return {
@@ -167,7 +169,8 @@
 		},
 		components: {
 			uniList,
-			uniListItem
+			uniListItem,
+			customPopup
 		},
         computed: {
         },
@@ -196,6 +199,16 @@
                     });
                 }
             },
+			openLogoutPopup() {
+				this.$refs['customPopupLogout'].open()
+			},
+			cancelLogout() {
+				this.$refs['customPopupLogout'].close()
+			},
+			confirmLogout() {
+				this.logout()
+				this.$refs['customPopupLogout'].close()
+			},
 			// 退出登录
 			logout(){
 				let opts = {
