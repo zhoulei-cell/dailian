@@ -9,14 +9,17 @@
 							<view class="chat-info my-info">{{list.content||'来啦'}}</view>
 							<view style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
 								<view class="chat-photo my-chat"> <image :src="user.user.avatar" mode="widthFix"></image> </view>
-								<view style="color: #333;font-size: 20rpx;text-align: center;">{{user.user.name}}</view>
+								<view style="color: #333;font-size: 20rpx;text-align: center; ">{{user.user.name}}</view>
 							</view>
 						</view>
 					</view>
 					<view class="chat-list-group" v-else>
 						<view class="chat-time">{{list.date}}</view>
 						<view class="chat-content d-flex ai-center">
-							<view class="chat-photo">  <image :src="user.user.avatar" mode="widthFix"></image>  </view>
+							<view style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+								<view class="chat-photo my-chat"> <image :src="user.user.avatar" mode="widthFix"></image> </view>
+								<view style="color: #333;font-size: 20rpx;text-align: center; ">{{list.user.name}}</view>
+							</view>
 							<view class="chat-info">{{list.content||'来啦'}}</view>
 						</view>
 					</view>
@@ -146,18 +149,18 @@
 <style lang="scss">
 	page{
 		background-color: #eee;
+		height: 100%;
 	}
 	.chat-with{
 		width: 100%;
+		height: 100%;
 		font-family: Microsoft YaHei;
 		.uni-navbar{
 			background-image: linear-gradient(90deg,rgba(255,115,80,1),rgba(253,182,150,1));
 		}
 		.scroll{
 			.container{
-				.chat-list-group:nth-child(1){
-					padding-top: 60rpx;
-				}
+				padding:0 20rpx;
 				.chat-list-group{
 					padding-bottom: 60rpx;
 					.chat-time{
@@ -206,6 +209,9 @@
 							}
 						}
 					}
+				}
+				&:first-child{
+					padding-top: 60rpx;
 				}
 			}
 		}

@@ -22186,11 +22186,12 @@ var render = function() {
         "v-uni-scroll-view",
         {
           staticClass: _vm._$g(1, "sc"),
+          style: _vm._$g(1, "s"),
           attrs: {
             "scroll-y": true,
             "show-scrollbar": false,
-            id: "scrollcont",
             "scroll-top": _vm._$g(1, "a-scroll-top"),
+            "scroll-with-animation": true,
             _i: 1
           }
         },
@@ -22309,27 +22310,54 @@ var render = function() {
                               _c(
                                 "v-uni-view",
                                 {
-                                  staticClass: _vm._$g("15-" + $30, "sc"),
+                                  staticStyle: {
+                                    display: "flex",
+                                    "flex-direction": "column",
+                                    "justify-content": "center",
+                                    "align-items": "center"
+                                  },
                                   attrs: { _i: "15-" + $30 }
                                 },
                                 [
-                                  _c("v-uni-image", {
-                                    attrs: {
-                                      src: _vm._$g("16-" + $30, "a-src"),
-                                      mode: "widthFix",
-                                      _i: "16-" + $30
-                                    }
-                                  })
+                                  _c(
+                                    "v-uni-view",
+                                    {
+                                      staticClass: _vm._$g("16-" + $30, "sc"),
+                                      attrs: { _i: "16-" + $30 }
+                                    },
+                                    [
+                                      _c("v-uni-image", {
+                                        attrs: {
+                                          src: _vm._$g("17-" + $30, "a-src"),
+                                          mode: "widthFix",
+                                          _i: "17-" + $30
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  ),
+                                  _c(
+                                    "v-uni-view",
+                                    {
+                                      staticStyle: {
+                                        color: "#333",
+                                        "font-size": "20rpx",
+                                        "text-align": "center"
+                                      },
+                                      attrs: { _i: "18-" + $30 }
+                                    },
+                                    [_vm._v(_vm._$g("18-" + $30, "t0-0"))]
+                                  )
                                 ],
                                 1
                               ),
                               _c(
                                 "v-uni-view",
                                 {
-                                  staticClass: _vm._$g("17-" + $30, "sc"),
-                                  attrs: { _i: "17-" + $30 }
+                                  staticClass: _vm._$g("19-" + $30, "sc"),
+                                  attrs: { _i: "19-" + $30 }
                                 },
-                                [_vm._v(_vm._$g("17-" + $30, "t0-0"))]
+                                [_vm._v(_vm._$g("19-" + $30, "t0-0"))]
                               )
                             ],
                             1
@@ -22348,37 +22376,37 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(18, "sc"), attrs: { _i: 18 } },
+        { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(19, "sc"), attrs: { _i: 19 } },
+            { staticClass: _vm._$g(21, "sc"), attrs: { _i: 21 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(20, "sc"), attrs: { _i: 20 } },
+                { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
                 [
                   _c("v-uni-image", {
-                    attrs: { src: _vm._$g(21, "a-src"), _i: 21 }
+                    attrs: { src: _vm._$g(23, "a-src"), _i: 23 }
                   })
                 ],
                 1
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(22, "sc"), attrs: { _i: 22 } },
+                { staticClass: _vm._$g(24, "sc"), attrs: { _i: 24 } },
                 [
                   _c("v-uni-input", {
                     attrs: {
                       type: "text",
                       placeholder: "请输入文字内容",
                       "placeholder-style": "color: #aaa",
-                      _i: 23
+                      _i: 25
                     },
                     model: {
-                      value: _vm._$g(23, "v-model"),
+                      value: _vm._$g(25, "v-model"),
                       callback: function($$v) {
-                        _vm.$handleVModelEvent(23, $$v)
+                        _vm.$handleVModelEvent(25, $$v)
                       },
                       expression: "content"
                     }
@@ -22392,8 +22420,8 @@ var render = function() {
           _c(
             "v-uni-view",
             {
-              staticClass: _vm._$g(24, "sc"),
-              attrs: { _i: 24 },
+              staticClass: _vm._$g(26, "sc"),
+              attrs: { _i: 26 },
               on: {
                 click: function($event) {
                   return _vm.$handleViewEvent($event)
@@ -22497,7 +22525,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../HBuilderX.2.7.5.20200519.full/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 16);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "body {\n  background-color: #eee;\n}\n.chat-with {\n  font-family: Microsoft YaHei;\n}\n.chat-with .uni-navbar {\n  background-image: -webkit-gradient(linear, left top, right top, from(#ff7350), to(#fdb696));\n  background-image: -webkit-linear-gradient(left, #ff7350, #fdb696);\n  background-image: linear-gradient(90deg, #ff7350, #fdb696);\n}\n.chat-with .scroll {\n  position: fixed;\n  bottom: 98rpx;\n  top: 0rpx;\n  left: 0;\n  width: 100%;\n  padding: 0 30rpx 10rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.chat-with .scroll .container .chat-list-group {\n  margin-top: 60rpx;\n}\n.chat-with .scroll .container .chat-list-group .chat-time {\n  font-size: 26rpx;\n  font-weight: 400;\n  color: #aaaaaa;\n  line-height: 35rpx;\n  text-align: center;\n  opacity: 0.5;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-photo {\n  width: 91rpx;\n  height: 91rpx;\n  overflow: hidden;\n  margin-right: 16rpx;\n  -webkit-border-radius: 50%;\n          border-radius: 50%;\n  background-color: #fd7651;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-photo uni-image {\n  width: 100%;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-photo.my-chat {\n  margin-right: 0;\n  margin-left: 16rpx;\n  background-color: #fdc750;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-info {\n  -webkit-flex-shrink: 0;\n          flex-shrink: 0;\n  max-width: 490rpx;\n  padding: 19rpx 35rpx;\n  -webkit-border-radius: 20rpx;\n          border-radius: 20rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-image: -webkit-linear-gradient(248deg, #fd734e, #fd9a7a);\n  background-image: linear-gradient(202deg, #fd734e, #fd9a7a);\n  font-size: 28rpx;\n  font-weight: 400;\n  color: white;\n  line-height: 35rpx;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-info.my-info {\n  background-image: none;\n  background-color: #F1F1F1;\n  color: #666666;\n}\n.chat-with .btn-box {\n  position: fixed;\n  left: 0;\n  bottom: 0rpx;\n  width: 100%;\n  height: 98rpx;\n}\n.chat-with .btn-box .left-box {\n  height: 100%;\n  background-color: #fff;\n}\n.chat-with .btn-box .left-box .voice {\n  padding: 0 40rpx;\n}\n.chat-with .btn-box .left-box .voice uni-image {\n  display: block;\n  width: 27rpx;\n  height: 45rpx;\n}\n.chat-with .btn-box .left-box .enter uni-input {\n  font-size: 28rpx;\n  font-weight: 400;\n  color: #000;\n}\n.chat-with .btn-box .send {\n  width: 162rpx;\n  height: 98rpx;\n  background-image: -webkit-linear-gradient(248deg, #fd734e, #fd9a7a);\n  background-image: linear-gradient(202deg, #fd734e, #fd9a7a);\n  font-size: 30rpx;\n  font-weight: 400;\n  color: #fffefe;\n  text-align: center;\n  line-height: 98rpx;\n}\n", ""]);
+exports.push([module.i, "body {\n  background-color: #eee;\n  height: 100%;\n}\n.chat-with {\n  width: 100%;\n  height: 100%;\n  font-family: Microsoft YaHei;\n}\n.chat-with .uni-navbar {\n  background-image: -webkit-gradient(linear, left top, right top, from(#ff7350), to(#fdb696));\n  background-image: -webkit-linear-gradient(left, #ff7350, #fdb696);\n  background-image: linear-gradient(90deg, #ff7350, #fdb696);\n}\n.chat-with .scroll .container {\n  padding: 0 20rpx;\n}\n.chat-with .scroll .container .chat-list-group {\n  padding-bottom: 60rpx;\n}\n.chat-with .scroll .container .chat-list-group .chat-time {\n  font-size: 26rpx;\n  font-weight: 400;\n  color: #aaaaaa;\n  line-height: 35rpx;\n  text-align: center;\n  opacity: 0.5;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-photo {\n  width: 91rpx;\n  height: 91rpx;\n  overflow: hidden;\n  margin-right: 16rpx;\n  -webkit-border-radius: 50%;\n          border-radius: 50%;\n  background-color: #fd7651;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: flex;\n  -webkit-box-pack: center;\n  -webkit-justify-content: center;\n          justify-content: center;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n          align-items: center;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-photo uni-image {\n  width: 100%;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-photo.my-chat {\n  margin-right: 0;\n  margin-left: 16rpx;\n  background-color: #fdc750;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-info {\n  -webkit-flex-shrink: 0;\n          flex-shrink: 0;\n  max-width: 490rpx;\n  padding: 19rpx 35rpx;\n  -webkit-border-radius: 20rpx;\n          border-radius: 20rpx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-image: -webkit-linear-gradient(248deg, #fd734e, #fd9a7a);\n  background-image: linear-gradient(202deg, #fd734e, #fd9a7a);\n  font-size: 28rpx;\n  font-weight: 400;\n  color: white;\n  line-height: 35rpx;\n}\n.chat-with .scroll .container .chat-list-group .chat-content .chat-info.my-info {\n  background-image: none;\n  background-color: #F1F1F1;\n  color: #666666;\n}\n.chat-with .scroll .container:first-child {\n  padding-top: 60rpx;\n}\n.chat-with .btn-box {\n  position: fixed;\n  left: 0;\n  bottom: 0rpx;\n  width: 100%;\n  height: 98rpx;\n}\n.chat-with .btn-box .left-box {\n  height: 100%;\n  background-color: #fff;\n}\n.chat-with .btn-box .left-box .voice {\n  padding: 0 40rpx;\n}\n.chat-with .btn-box .left-box .voice uni-image {\n  display: block;\n  width: 27rpx;\n  height: 45rpx;\n}\n.chat-with .btn-box .left-box .enter uni-input {\n  font-size: 28rpx;\n  font-weight: 400;\n  color: #000;\n}\n.chat-with .btn-box .send {\n  width: 162rpx;\n  height: 98rpx;\n  background-image: -webkit-linear-gradient(248deg, #fd734e, #fd9a7a);\n  background-image: linear-gradient(202deg, #fd734e, #fd9a7a);\n  font-size: 30rpx;\n  font-weight: 400;\n  color: #fffefe;\n  text-align: center;\n  line-height: 98rpx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
