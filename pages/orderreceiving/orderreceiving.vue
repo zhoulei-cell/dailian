@@ -33,18 +33,20 @@
 							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
 							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 							
-							<button @tap.stop="agreeappeal(item,index)" v-if="(item.order_status!=1 && item.appeals==0)|| (item.order_status!=5 && item.appeals==0)">申诉</button>
-							<button @tap.stop="lookappeal(item,index)" v-if="(item.order_status!=1 && item.appeals!=0)|| (item.order_status!=5 && item.appeals!=0)">查看申诉</button>
+							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals==0 && item.order_status!=5">申诉</button>
+							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
 							<button @tap.stop="submitexception(item,index)" v-if="item.order_status==2">提交异常</button>
 							<button @tap.stop="cancelexception(item,index)" v-if="item.order_status==3">取消异常</button>
 						</view>
 					</view>
 				</view>
 		</scroll-view>
+		<custom-popup ref="customPopupLogout" :title="contenttext" @cancel="cancelLogout" @confirm="confirmLogout"/>
 	</view>
 </template>
 
 <script>
+	import customPopup from '@/components/custom-popup/custom-popup.vue'
 	import {
 		mapState
 	} from 'vuex'
@@ -52,6 +54,7 @@
 	export default {
 		data() {
 			return {
+				contenttext:"",
 				selectindex: "",
 				ordertype: [{
 						type: "",
@@ -84,15 +87,74 @@
 				loadmore:true,
 				ordertext:['关闭','待接单','代练中','异常中','待验收','已结算','取消'],
 				orderstaus:'',
-				triggered:false
+				triggered:false,
+				submittype:"",
+				order_id:""
 			}
 		},
-		components: {},
+		components: {
+			customPopup
+		},
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
 		result(val) {
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
+			cancelLogout() {
+				this.$refs['customPopupLogout'].close()
+			},
+			confirmLogout() {
+				if(this.submittype==1){
+					let opts = {
+						url: '/api/order/complete',
+						method: 'post'
+					}
+					let params={
+						order_id:this.order_id
+					}
+					this.$http.httpTokenRequest(opts,params).then(res => {
+						if(res.data.code==200){
+							uni.showToast({
+								title:res.data.msg
+							})
+							this.page=1
+							this.getorderlist()
+							this.$refs['customPopupLogout'].close()
+						}else{
+							uni.showToast({
+								title:res.data.msg
+							})
+						}
+					}, error => {
+						console.log(error);
+					})
+				}else{
+					let opts = {
+						url: '/api/order/abnormal',
+						method: 'post'
+					}
+					let params={
+						order_id:this.order_id,
+						status:0
+					}
+					this.$http.httpTokenRequest(opts,params).then(res => {
+						if(res.data.code==200){
+							uni.showToast({
+								title:res.data.msg
+							})
+							this.page=1
+							this.getorderlist()
+							this.$refs['customPopupLogout'].close()
+						}else{
+							uni.showToast({
+								title:res.data.msg
+							})
+						}
+					}, error => {
+						console.log(error);
+					})
+				}
+			},
 			onPulling(e) {
 				console.log("onpulling", e);
 			},
@@ -111,28 +173,11 @@
 			},
 			// 提交完成
 			submitorder(item){
-				let opts = {
-					url: '/api/order/complete',
-					method: 'post'
-				}
-				let params={
-					order_id:item.id
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-						uni.showToast({
-							title:res.data.msg
-						})
-						this.page=1
-						this.getorderlist()
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
-					}
-				}, error => {
-					console.log(error);
-				})
+				this.contenttext="确认提交完成？"
+				this.submittype=1
+				this.order_id=item.id
+				this.$refs['customPopupLogout'].open()
+				return false
 			},
 			//申诉
 			agreeappeal(item){
@@ -172,29 +217,11 @@
 			},
 			//取消异常
 			cancelexception(item,index){
-				let opts = {
-					url: '/api/order/abnormal',
-					method: 'post'
-				}
-				let params={
-					order_id:item.id,
-					status:0
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-						uni.showToast({
-							title:res.data.msg
-						})
-						this.page=1
-						this.getorderlist()
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
-					}
-				}, error => {
-					console.log(error);
-				})
+				this.contenttext="确认取消异常？"
+				this.submittype=2
+				this.order_id=item.id
+				this.$refs['customPopupLogout'].open()
+				return false
 			},
 			//协商结算
 			consult(item){
