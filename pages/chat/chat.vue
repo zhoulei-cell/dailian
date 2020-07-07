@@ -9,7 +9,7 @@
 							<view class="time">{{list.date}}</view>
 							<view class="chat-box d-flex">
 								<view class="chat-photo">
-									<image :src="list.user.avatar || '../../static/img/qq.png'" ></image>
+									<image :src="list.user.avatar || '../../static/img/qq.png'" mode="center"></image>
 								</view>
 								<view class="chat-content">
 									<view class="chat-name text-overflow">{{list.user.name}}</view>
@@ -28,7 +28,7 @@
 									<view class="chat-info">{{list.content}}</view>
 								</view>
 								<view class="chat-photo">
-									<image :src="user.user.avatar || '../../static/img/qq.png'" mode="widthFix"></image>
+									<image :src="user.user.avatar || '../../static/img/qq.png'" mode="center"></image>
 								</view>
 							</view>
 						</view>
@@ -221,10 +221,6 @@
 			}
 		}
 		.btn-box{
-			position: fixed;
-			left: 0;
-			bottom: 0;
-			width: 100%;
 			height: 108upx;
 			padding: 0 20upx 10upx;
 			box-sizing: border-box;
