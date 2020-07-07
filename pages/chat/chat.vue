@@ -6,7 +6,7 @@
 					<!-- 不是自己发的消息 -->
 					<template v-if="user.user.id !== list.user.id"> 
 						<view class="chat-list-group">
-							<view class="time">{{list.data}}</view>
+							<view class="time">{{list.date}}</view>
 							<view class="chat-box d-flex">
 								<view class="chat-photo">
 									<image :src="list.user.avatar || '../../static/img/qq.png'" ></image>
@@ -133,7 +133,7 @@
 			getHeight() {
 				uni.getSystemInfo({
 				    success: (res) => {
-				        this.scrollHeight = res.windowHeight - uni.upx2px(98)
+				        this.scrollHeight = res.windowHeight - uni.upx2px(108)
 				    }
 				})
 			}
@@ -146,7 +146,6 @@
 			this.getContainerHeight()
 		},
 		onBackPress(options) {  
-			console.log(111)
 			if (options.from === 'navigateBack') {  
 					return false;  
 			}  
@@ -226,12 +225,14 @@
 			left: 0;
 			bottom: 0;
 			width: 100%;
-			height: 98upx;
+			height: 108upx;
+			padding: 0 20upx 10upx;
+			box-sizing: border-box;
+			background-color: #fff;
 			.left-box{
 				height: 98upx;
 				padding: 15upx;
 				box-sizing: border-box;
-				background-color: #fff;
 				.input{
 					font-size: 28upx;
 					text-indent: 24upx;
@@ -244,8 +245,8 @@
 				}
 			}
 			.send{
-				width: 162upx;
-				height: 98upx;
+				width: 140upx;
+				height: 78upx;
 				border-radius: 10upx;
 				background-color: rgb(0, 203, 130);
 				.iconfont{
@@ -253,7 +254,7 @@
 					font-weight: 400;
 					color: #fff;
 					text-align: center;
-					line-height: 98upx;
+					line-height: 78upx;
 				}
 			}
 		}
