@@ -43,6 +43,7 @@
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
 					this.userinfo = res.data.data
+					console.log(this.userinfo)
 				})
 			},
 			//图片上传

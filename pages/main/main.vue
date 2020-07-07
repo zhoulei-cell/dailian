@@ -134,14 +134,14 @@
 			uniSearchBar,
 			uniSwiperDot
 		},
-		async onShow() {
+		async onLoad() {
 			this.getday()
-			await this.getorderlist()
+			this.getDataList()
 		},
 		async onPullDownRefresh() {
 			this.getday()
 			this.page=1
-			await this.getorderlist()
+			this.getDataList()
 			uni.stopPullDownRefresh()
 		},
 		methods: {
@@ -155,6 +155,29 @@
 				let day = now.getDate()
 				if (day < 10) day = "0" + day;
 				this.day = day
+			},
+			
+			//获取所有订单列表
+			async getDataList() {
+				this.listData = []
+				await this.getsameorderlist()
+				await this.getorderlist()
+			},
+			
+			//获取同城订单列表
+			getsameorderlist() {
+				let opts = {
+					url: '/api/order/province/order',
+					method: 'get'
+				}
+				return this.$http.httpTokenRequest(opts, {}).then(res => {
+					if (res.data.code == 200) {
+						const data = res.data.data
+						this.listData.push(...data)
+					}
+				}, error => {
+					console.log(error);
+				})
 			},
 			
 			// 获取订单列表
@@ -178,11 +201,8 @@
 
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						if (this.page == 1) {
-							this.listData = res.data.data.data
-						} else {
-							this.listData.concat(this.listData, res.data.data.data)
-						}
+						const data = res.data.data.data
+						this.listData.push(...data)
 					}
 				}, error => {
 					console.log(error);
@@ -195,8 +215,13 @@
 				// })
 			},
 			input(res) {
-				this.searchval = res.value
-				this.getorderlist()
+				if (res.value === "") {
+					this.getDataList()
+				} else {
+					this.searchval = res.value
+					this.listData = []
+					this.getorderlist()
+				}
 			},
 			cancel(res) {
 				// uni.showModal({
@@ -208,7 +233,11 @@
 				uni.navigateTo({
 					url: '/pages/orderinfo2/orderinfo2?id=' + item.id
 				});
-			}
+			},
+		},
+		//监听滚动到距离底部50px事件
+		onReachBottom() {
+			console.log(1)
 		}
 	}
 </script>
