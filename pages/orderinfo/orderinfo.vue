@@ -76,7 +76,7 @@
     			</view>
     		</view>
     	</view>
-    	<view class="line2">
+    	<!-- <view class="line2">
     		<checkbox-group>
     			<label>
     				<checkbox value="cb" checked="true" disabled/>我已阅读并接受<text>发单协议</text>
@@ -85,7 +85,7 @@
     	</view>
     	<view class="next" v-if="!type">
     		<button  type="default" @tap="naviteto">我来代练</button>
-    	</view>
+    	</view> -->
     </view>
 </template>
 <script>

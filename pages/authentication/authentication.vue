@@ -5,7 +5,7 @@
 				<m-input class="m-input" type="text" focus v-model="real_name" placeholder="姓名"></m-input>
 			</view>
 			<view class="input-row">
-				<m-input class="m-input" type="number" v-model="id_card" placeholder="身份证号"></m-input>
+				<m-input class="m-input" type="text" v-model="id_card" placeholder="身份证号"></m-input>
 			</view>
 		</view>
 		<view class="btn">
