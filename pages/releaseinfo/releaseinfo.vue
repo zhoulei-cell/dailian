@@ -118,7 +118,7 @@
 						游戏密码
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入游戏密码" v-model="orderInfo.game_password" type="number" />
+						<input class="uni-input" placeholder="请输入游戏密码" v-model="orderInfo.game_password" type="text" />
 					</view>
 				</view>
 			</view>
@@ -312,6 +312,27 @@ export default {
 			
 		},
 		submit(){
+			if(!this.orderInfo.title){
+				uni.showToast({
+					icon:'none',
+					title:'标题不能为空'
+				})
+				return false
+			}
+			if(!this.orderInfo.inscription_level){
+				uni.showToast({
+					icon:'none',
+					title:'铭文等级不能为空'
+				})
+				return false
+			}
+			if(!this.orderInfo.hero_num){
+				uni.showToast({
+					icon:'none',
+					title:'英雄个数不能为空'
+				})
+				return false
+			}
 			const newobj=this.orderInfo
 			newobj.platform_id=this.multiArray[0][this.multiIndex[0]].id
 			newobj.game_area_id=this.multiArray[1][this.multiIndex[1]].id

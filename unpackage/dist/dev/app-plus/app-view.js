@@ -10039,7 +10039,7 @@ var render = function() {
                         staticClass: _vm._$g(63, "sc"),
                         attrs: {
                           placeholder: "请输入游戏密码",
-                          type: "number",
+                          type: "text",
                           _i: 63
                         },
                         model: {
@@ -10956,59 +10956,7 @@ var render = function() {
           )
         ],
         1
-      ),
-      _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(48, "sc"), attrs: { _i: 48 } },
-        [
-          _c(
-            "v-uni-checkbox-group",
-            { attrs: { _i: 49 } },
-            [
-              _c(
-                "v-uni-label",
-                { attrs: { _i: 50 } },
-                [
-                  _c("v-uni-checkbox", {
-                    attrs: {
-                      value: "cb",
-                      checked: "true",
-                      disabled: true,
-                      _i: 51
-                    }
-                  }),
-                  _vm._v("我已阅读并接受"),
-                  _c("v-uni-text", { attrs: { _i: 52 } }, [_vm._v("发单协议")])
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._$g(53, "i")
-        ? _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(53, "sc"), attrs: { _i: 53 } },
-            [
-              _c(
-                "v-uni-button",
-                {
-                  attrs: { type: "default", _i: 54 },
-                  on: {
-                    click: function($event) {
-                      return _vm.$handleViewEvent($event)
-                    }
-                  }
-                },
-                [_vm._v("我来代练")]
-              )
-            ],
-            1
-          )
-        : _vm._e()
+      )
     ],
     1
   )
