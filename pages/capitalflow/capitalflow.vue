@@ -11,6 +11,7 @@
 				<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
 					<view class="item">
 						<view class="line">金额：{{item.amount}}</view>
+						<view class="line">类型：{{item.financial_type}}</view>
 						<view class="line">资金类型：{{item.type}}</view>
 						<view class="line">时间：{{item.created_time}}</view>
 					</view>
