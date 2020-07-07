@@ -5,7 +5,7 @@
 			"style": {
 				"navigationBarTitleText": "首页",
 				"enablePullDownRefresh": true,
-				"onReachBottomDistance": "50px"
+				"onReachBottomDistance": 50
 			}
 		},
 		{
