@@ -7,6 +7,8 @@
 				<view class="dec line">游戏区服：{{orderInfo.game.name}}/{{orderInfo.game_area.name}}/{{orderInfo.platform.name}}</view>
 				<view class="ordercode line">订单编号：{{orderInfo.order_no}}</view>
 				<view class="ordertime line">发布时间：{{orderInfo.created_at}}</view>
+				<view class="ordertime line">当前段位：{{orderInfo.current_segment}}</view>
+				<view class="ordertime line">目标段位：{{orderInfo.tag_segment}}</view>
 			</view>
 		</view>
 		<view class="lineinfo">
@@ -37,6 +39,15 @@
 				<view class="line">总发单数：{{orderInfo.user.rel_number}}笔</view>
 				<view class="line">总成交数：75872笔</view>
 				<view class="line">协  商  率：{{orderInfo.user.negotiation}}</view>
+				<view class="line">电话：{{orderInfo.rel_phone}}</view>
+				<view class="line">QQ：{{orderInfo.rel_qq}}</view>
+			</view>
+		</view>
+		<view class="lineinfo">
+			<view class="title">账号信息</view>
+			<view class="cont">
+				<view class="line">账号：{{orderInfo.game_account}}</view>
+				<view class="line">密码：{{orderInfo.game_password}}</view>
 			</view>
 		</view>
 		<view class="lineinfo">
