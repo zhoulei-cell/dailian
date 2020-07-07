@@ -69,6 +69,11 @@ form {
 .ta-center{
 	text-align: center;
 }
+.text-overflow{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
 
 .uni-flex {
 	display: flex;

@@ -1,42 +1,50 @@
 <template>
 	<view class="chat-with">
 		<scroll-view class="scroll" :style="{height: scrollHeight+'px'}" :scroll-y="true" :show-scrollbar="false" :scroll-top="scrolltop" :scroll-with-animation="true">
-			<view class="container" id="scroll">
-				<view v-for="(list,index) in chatdata" :key="index">
-					<view class="chat-list-group" v-if="user.user.id==list.user.id">
-						<view class="chat-time" >{{list.date}}</view>
-						<view class="chat-content d-flex ai-center jc-end">
-							<view class="chat-info my-info">{{list.content||'来啦'}}</view>
-							<view style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-								<view class="chat-photo my-chat"> <image :src="user.user.avatar" mode="widthFix"></image> </view>
-								<!-- <view style="color: #333;font-size: 20rpx;text-align: center; ">{{user.user.name}}</view> -->
+			<view class="container">
+				<block v-for="(list,index) in chatdata" :key="index">
+					<!-- 不是自己发的消息 -->
+					<template v-if="user.user.id !== list.user.id"> 
+						<view class="chat-list-group">
+							<view class="time">{{list.data}}</view>
+							<view class="chat-box d-flex">
+								<view class="chat-photo">
+									<image :src="list.user.avatar || '../../static/img/qq.png'" ></image>
+								</view>
+								<view class="chat-content">
+									<view class="chat-name text-overflow">{{list.user.name}}</view>
+									<view class="chat-info">{{list.content}}</view>
+								</view>
 							</view>
 						</view>
-					</view>
-					<view class="chat-list-group" v-else>
-						<view class="chat-time">{{list.date}}</view>
-						<view class="chat-content d-flex ai-center">
-							<view style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
-								<view class="chat-photo my-chat"> <image :src="user.user.avatar" mode="widthFix"></image> </view>
-								<view style="color: #333;font-size: 20rpx;text-align: center; ">{{list.user.name}}</view>
+					</template>
+					<!-- 自己发的消息 -->
+					<template v-else>
+						<view class="chat-list-group">
+							<view class="time">{{list.date}}</view>
+							<view class="chat-box d-flex jc-end">
+								<view class="chat-content chat-content-me">
+									<view class="chat-name chat-name-me text-overflow">{{user.user.name}}</view>
+									<view class="chat-info">{{list.content}}</view>
+								</view>
+								<view class="chat-photo">
+									<image :src="user.user.avatar || '../../static/img/qq.png'" mode="widthFix"></image>
+								</view>
 							</view>
-							<view class="chat-info">{{list.content||'来啦'}}</view>
 						</view>
-					</view>
-				</view>
+					</template>
+				</block>
+
 			</view>
 		</scroll-view>
 
 		<view class="btn-box d-flex ai-center">
 			<view class="left-box d-flex flex-1 ai-center">
-				<view class="voice">
-					<image src="../../static/img/chat/voice.png"></image>
-				</view>
-				<view class="enter flex-1">
-					<input type="text" placeholder="请输入文字内容" placeholder-style="color: #aaa" v-model="content">
-				</view>
+				<input class="input flex-1" type="text" placeholder="请输入文字内容"  placeholder-class="place" v-model="content">
 			</view>
-			<view class="send" @tap="sendmessage">发送</view>
+			<view class="send" @tap="sendmessage">
+				<view class="iconfont icon-fasong"></view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -45,22 +53,16 @@
 	export default {
 		data() {
 			return {
-				title: "包小花",
-				content:"",
+				content: "",
 				userinfo:{},
 				chatdata:[],
-				user:{},
-				once:true,
-				scrolltop:0,
+				user: {},
+				once: true,
+				scrolltop: 0,
 				scrollHeight: 0
 			};
 		},
 		methods: {
-			back() {
-				uni.navigateBack({
-					delta: 1
-				})
-			},
 			sendmessage(){
 				if(this.content==""){
 					return false
@@ -97,7 +99,8 @@
 					})
 					uni.onSocketMessage(function (res) {
 					  if(that.once){
-						  that.user=JSON.parse(res.data)
+							that.user=JSON.parse(res.data)
+							console.log(that.user)
 						  // that.chatdata.push(JSON.parse(res.data))
 						  that.once=false
 					  }else{
@@ -120,12 +123,10 @@
 				let height = 0
 				const query = uni.createSelectorQuery();
 				query.selectAll('.chat-list-group').boundingClientRect(data => {
-				  console.log("得到布局位置信息" + JSON.stringify(data));
 				  data.forEach(item => {
 					  height += item.height
 				  })
 				  this.scrolltop = height
-				  console.log("高度" + this.scrolltop)
 				}).exec();
 			},
 			getHeight() {
@@ -142,119 +143,117 @@
 		},
 		onReady() {
 			this.getContainerHeight()
+		},
+		onBackPress(options) {  
+			console.log(111)
+			if (options.from === 'navigateBack') {  
+					return false;  
+			}  
+			uni.switchTab({
+				url: '/pages/main/main'
+			})
+			return true
 		}
 	}
 </script>
 
 <style lang="scss">
 	page{
-		background-color: #eee;
-		height: 100%;
+		background-color: #f4f8fb;
 	}
 	.chat-with{
 		width: 100%;
 		height: 100%;
 		font-family: Microsoft YaHei;
+		background-color: #f4f8fb;
 		.uni-navbar{
 			background-image: linear-gradient(90deg,rgba(255,115,80,1),rgba(253,182,150,1));
 		}
 		.scroll{
 			.container{
-				padding:0 20rpx;
+				padding:0 20upx;
 				.chat-list-group{
-					padding-bottom: 60rpx;
-					.chat-time{
-						font-size: 26rpx;
-						font-weight: 400;
-						color:rgba(170,170,170,1);
-						line-height: 35rpx;
+					padding: 25upx 0;
+					.time{
+						padding-bottom: 20upx;
+						color: #999;
+						font-size: 24upx;
 						text-align: center;
-						opacity: 0.5;
+						line-height: 24upx;
 					}
-					.chat-content{
+					.chat-box{
 						.chat-photo{
-							width: 91rpx;
-							height: 91rpx;
-							overflow: hidden;
-							margin-right: 16rpx;
-							border-radius: 50%;
-							background-color: #fd7651;
-							display: flex;
-							justify-content: center;
-							align-items: center;
+							flex-shrink: 0;
 							image{
-								width: 100%;
-								height: 100%;
-							}
-							&.my-chat{
-								margin-right: 0;
-								margin-left: 16rpx;
-								background-color: #fdc750;
+								display: block;
+								width: 70upx;
+								height: 70upx;
+								border-radius: 50%;
 							}
 						}
-						.chat-info{
-							flex-shrink: 0;
-							max-width: 490rpx;
-							padding: 19rpx 35rpx;
-							border-radius: 20rpx;
-							box-sizing: border-box;
-							background-image: linear-gradient(202deg,rgba(253,115,78,1),rgba(253,154,122,1));
-							font-size: 28rpx;
-							font-weight: 400;
-							color:rgba(255,255,255,1);
-							line-height: 35rpx;
-							&.my-info{
-								background-image: none;
-								background-color: #F1F1F1;
-								color:rgba(102,102,102,1);
+						.chat-content{
+							max-width: 480upx;
+							padding-left: 20upx;
+							&.chat-content-me{
+								padding-left: 0;
+								padding-right: 20upx; 
+							}
+							.chat-name{
+								color: #999;
+								font-size: 24upx;
+								line-height: 24upx;
+								padding-bottom: 20upx;
+								&.chat-name-me{
+									text-align: right;
+								}
+							}
+							.chat-info{
+								padding: 20upx;
+								border-radius: 15upx;
+								background-color: #fff;
+								color: #000;
+								font-size: 32upx;
+								line-height: 42upx;
 							}
 						}
 					}
-				}
-				&:first-child{
-					padding-top: 60rpx;
 				}
 			}
 		}
 		.btn-box{
 			position: fixed;
 			left: 0;
-			/* #ifdef APP-PLUS */
-			bottom: 0rpx;
-			/* #endif */
-			/* #ifndef APP-PLUS */
-			bottom: 50px;
-			/* #endif */
+			bottom: 0;
 			width: 100%;
-			height: 98rpx;
+			height: 98upx;
 			.left-box{
-				height: 100%;
+				height: 98upx;
+				padding: 15upx;
+				box-sizing: border-box;
 				background-color: #fff;
-				.voice{
-					padding: 0 40rpx;
-					image{
-						display: block;
-						width: 27rpx;
-						height: 45rpx;
-					}
+				.input{
+					font-size: 28upx;
+					text-indent: 24upx;
+					height: 100%;
+					border-radius: 10upx;
+					background-color: #f4f8fb;
 				}
-				.enter{
-					input{
-						font-size: 28rpx;
-						font-weight: 400;
-						color: #000;
-					}
+				.place{
+					color: #aaa;
 				}
 			}
 			.send{
-				width: 162rpx;
-				height: 98rpx;
-				background-image: linear-gradient(202deg,rgba(253,115,78,1),rgba(253,154,122,1));
-				font-size: 30rpx;
-				font-weight: 400;
-				color:rgba(255,254,254,1);
-				text-align: center;
-				line-height: 98rpx;
+				width: 162upx;
+				height: 98upx;
+				border-radius: 10upx;
+				background-color: rgb(0, 203, 130);
+				.iconfont{
+					font-size: 50upx;
+					font-weight: 400;
+					color: #fff;
+					text-align: center;
+					line-height: 98upx;
+				}
 			}
 		}
 	}
