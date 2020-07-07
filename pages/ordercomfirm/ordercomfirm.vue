@@ -24,22 +24,22 @@
 
 <script>
 	import uniPopup from '@/components/uni-popup/uni-popup.vue'
-    import mInput from '../../components/m-input.vue'
+  import mInput from '../../components/m-input.vue'
 
-    export default {
-        components: {
-            mInput,
+	export default {
+		components: {
+			mInput,
 			uniPopup
-        },
-        data() {
-            return {
-                account: '',
-                accountqq: '',
+		},
+		data() {
+			return {
+				account: '',
+				accountqq: '',
 				infodata:'',
 				type:'center'
-            }
-        },
-        methods: {
+			}
+		},
+		methods: {
 			cancel(type) {
 				this.$refs['showtip'].close()
 			},
@@ -68,39 +68,39 @@
 						uni.showToast({
 							icon: 'none',
 							title: res.data.msg
-						});
+						})
 					}
 				}, error => {
 					console.log(error);
 				})
-			},
-			//提交订单
-            ordercomfirm() {
-                /**
-                 * 客户端对账号信息进行一些必要的校验。
-                 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-                 */
-                if (this.account.length != 11) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '请输入正确的账号'
-                    });
-                    return;
-                }
-                if (this.accountqq.length <= 0) {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '请输入QQ号'
-                    });
-                    return;
-                }
-				this.$refs['showtip'].open()
-            }
-        },
+		  },
+		//提交订单
+			ordercomfirm() {
+					/**
+					 * 客户端对账号信息进行一些必要的校验。
+					 * 实际开发中，根据业务需要进行处理，这里仅做示例。
+					 */
+					if (this.account.length != 11) {
+							uni.showToast({
+									icon: 'none',
+									title: '请输入正确的账号'
+							});
+							return;
+					}
+					if (this.accountqq.length <= 0) {
+							uni.showToast({
+									icon: 'none',
+									title: '请输入QQ号'
+							});
+							return;
+					}
+					this.$refs['showtip'].open()
+			}
+	  },
 		onLoad: function (option) {
 			this.infodata=JSON.parse(option.data)
 		}
-    }
+	}
 </script>
 
 <style>

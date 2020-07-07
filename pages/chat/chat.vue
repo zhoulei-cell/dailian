@@ -212,6 +212,7 @@
 								border-radius: 15upx;
 								background-color: #fff;
 								color: #000;
+								word-wrap: break-word;
 								font-size: 32upx;
 								line-height: 42upx;
 							}
@@ -241,8 +242,8 @@
 				}
 			}
 			.send{
-				width: 140upx;
-				height: 78upx;
+				width: 120upx;
+				height: 70upx;
 				border-radius: 10upx;
 				background-color: rgb(0, 203, 130);
 				.iconfont{
@@ -250,7 +251,7 @@
 					font-weight: 400;
 					color: #fff;
 					text-align: center;
-					line-height: 78upx;
+					line-height: 70upx;
 				}
 			}
 		}
