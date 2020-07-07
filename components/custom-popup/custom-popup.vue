@@ -47,18 +47,18 @@ export default {
         display: flex;
         flex-direction: column;
         /* #endif */
-        padding: 15px;
-        width: 300px;
+		width: 540upx;
+        padding: 15upx;
         background-color: #fff;
-        border-radius: 10px;
+        border-radius: 10upx;
 		box-sizing: border-box;
     }
 
     .uni-tip-title {
-        margin-bottom: 10px;
+        margin-bottom: 10upx;
         text-align: center;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 16upx;
         color: #333;
     }
 

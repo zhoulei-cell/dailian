@@ -85,11 +85,11 @@
 		},
 		async onLoad() {
 			await this.getGameplatforms()
-			await this.getorderlist()
+			this.getDataList()
 		},
 		async onPullDownRefresh() {
 			this.page = 1
-			await this.getorderlist()
+			this.getDataList()
 			uni.stopPullDownRefresh()
 		},
 		//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
@@ -116,6 +116,7 @@
 					newarr.push(newobj)
 				}
 				this.filterData = data
+				console.log(data)
 				this.filterData[0]['submenu'] = newarr
 				this.filterDropdownValue = [
 					[0],
@@ -141,6 +142,7 @@
 				let val = e.value[2][0][0]
 				this.min = val.split(',')[0]
 				this.max = val.split(',')[1]
+				this.listData = []
 				this.getorderlist()
 			},
 			search(res) {
@@ -150,14 +152,40 @@
 				// })
 			},
 			input(res) {
-				this.searchval = res.value
-				this.getorderlist()
+				if (res.value === "") {
+					this.getDataList()
+				} else {
+					this.searchval = res.value
+					this.listData = []
+					this.getorderlist()
+				}
 			},
 			cancel(res) {
 				// uni.showModal({
 				// 	content: '点击取消，输入值为：' + res.value,
 				// 	showCancel: false
 				// })
+			},
+			//获取所有订单列表
+			async getDataList() {
+				this.listData = []
+				await this.getsameorderlist()
+				await this.getorderlist()
+			},
+			//获取同城订单列表
+			getsameorderlist() {
+				let opts = {
+					url: '/api/order/province/order',
+					method: 'get'
+				}
+				return this.$http.httpTokenRequest(opts, {}).then(res => {
+					if (res.data.code == 200) {
+						const data = res.data.data
+						this.listData.push(...data)
+					}
+				}, error => {
+					console.log(error);
+				})
 			},
 			// 获取订单列表
 			getorderlist() {
@@ -179,10 +207,9 @@
 				}
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						if (this.page == 1) {
-							this.listData = res.data.data.data
-						} else {
-							this.listData.concat(this.listData, res.data.data.data)
+						if (res.data.code == 200) {
+							const data = res.data.data.data
+							this.listData.push(...data)
 						}
 					}
 				}, error => {

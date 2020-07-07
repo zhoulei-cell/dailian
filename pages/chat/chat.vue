@@ -9,7 +9,7 @@
 							<view class="chat-info my-info">{{list.content||'来啦'}}</view>
 							<view style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
 								<view class="chat-photo my-chat"> <image :src="user.user.avatar" mode="widthFix"></image> </view>
-								<view style="color: #333;font-size: 20rpx;text-align: center; ">{{user.user.name}}</view>
+								<!-- <view style="color: #333;font-size: 20rpx;text-align: center; ">{{user.user.name}}</view> -->
 							</view>
 						</view>
 					</view>
@@ -184,6 +184,7 @@
 							align-items: center;
 							image{
 								width: 100%;
+								height: 100%;
 							}
 							&.my-chat{
 								margin-right: 0;
@@ -222,7 +223,7 @@
 			bottom: 0rpx;
 			/* #endif */
 			/* #ifndef APP-PLUS */
-			bottom: 98rpx;
+			bottom: 50px;
 			/* #endif */
 			width: 100%;
 			height: 98rpx;

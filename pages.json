@@ -4,7 +4,8 @@
 			"path": "pages/main/main",
 			"style": {
 				"navigationBarTitleText": "首页",
-				"enablePullDownRefresh": true
+				"enablePullDownRefresh": true,
+				"onReachBottomDistance": "50px"
 			}
 		},
 		{

@@ -187,7 +187,7 @@
 			display: flex;
 			flex-direction: column;
 			/* #endif */
-			width: 300px;
+			width: 540upx;
 			box-sizing: border-box;
 			background-color: #fff;
 			border-radius: 10px;
