@@ -37,7 +37,7 @@
     		<view class="cont">
     			<view class="linetitle">发  布  者：{{orderInfo.user.name ||　orderInfo.user.phone}}</view>
     			<view class="line">总发单数：{{orderInfo.user.rel_number}}笔</view>
-    			<view class="line">总成交数：75872笔</view>
+    			<view class="line">总成交数：{{orderInfo.user.rec_number+orderInfo.user.rel_number}}笔</view>
     			<view class="line">协  商  率：{{orderInfo.user.negotiation}}</view>
     			<view class="line">电话：{{orderInfo.rel_phone}}</view>
     			<view class="line">QQ：{{orderInfo.rel_qq}}</view>

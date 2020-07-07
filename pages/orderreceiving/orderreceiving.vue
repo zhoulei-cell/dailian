@@ -247,9 +247,9 @@
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
 						if(this.page==1){
-							this.listData = res.data.data
+							this.listData = res.data.data.data
 						}else{
-							this.listData.concat(this.listData,res.data.data)
+							this.listData.concat(this.listData,res.data.data.data)
 						}
 					}
 				}, error => {
