@@ -33,12 +33,14 @@
 				</view>
 			</view>
 		</view>
+		<load-more v-if="listData.length !== 0" :text="loadText"></load-more>
 	</view>
 </template>
 <script>
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
 	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue';
 	import data from '@/common/data.js'; //筛选菜单数据
+	import loadMore from "@/components/load-more.vue"
 	export default {
 		data() {
 			return {
@@ -68,12 +70,15 @@
 				platform_id: '',
 				current_segment: '',
 				max: '',
-				min: ''
+				min: '',
+				loadText: "上拉加载更多...",
+				isLoadMore: true
 			}
 		},
 		components: {
 			uniSearchBar,
-			'HMfilterDropdown': HMfilterDropdown
+			'HMfilterDropdown': HMfilterDropdown,
+			loadMore
 		},
 		computed: {
 
@@ -94,8 +99,11 @@
 		},
 		//上拉加载，需要自己在page.json文件中配置"onReachBottomDistance"
 		onReachBottom() {
-			this.page++
-			this.getorderlist()
+			if (this.isLoadMore) {
+				this.page++
+				this.loadText = "加载中..."
+				this.getorderlist()
+			}
 		},
 		methods: {
 			// 获取筛选数据
@@ -109,7 +117,6 @@
 					name: '全部',
 					value: ''
 				}]
-				console.log(data1)
 				for (var i = 0; i < data1.data.data.length; i++) {
 					var newobj = data1.data.data[i]
 					newobj.value = newobj.id
@@ -207,10 +214,12 @@
 				}
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						if (res.data.code == 200) {
-							const data = res.data.data.data
-							this.listData.push(...data)
+						const data = res.data.data
+						if (data.data.length < data.per_page) {
+							this.isLoadMore = false
+							this.loadText = "没有更多数据了..."
 						}
+						this.listData.push(...data.data)
 					}
 				}, error => {
 					console.log(error);

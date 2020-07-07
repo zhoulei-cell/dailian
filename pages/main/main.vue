@@ -103,6 +103,7 @@
 				</view>
 			</view>
 		</view>
+		<load-more v-if="listData.length !== 0" :text="loadText"></load-more>
 	</view>
 </template>
 
@@ -110,6 +111,7 @@
 	import slFilter from '@/components/sl-filter/sl-filter.vue';
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
 	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue"
+	import loadMore from "@/components/load-more.vue"
 	export default {
 		data() {
 			return {
@@ -126,13 +128,16 @@
 				current: 0,
 				mode: 'round',
 				day: '',
-				fixed: false
+				fixed: false,
+				loadText: "上拉加载更多...",
+				isLoadMore: true
 			}
 		},
 		components: {
 			slFilter,
 			uniSearchBar,
-			uniSwiperDot
+			uniSwiperDot,
+			loadMore
 		},
 		async onLoad() {
 			this.getday()
@@ -201,8 +206,12 @@
 
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						const data = res.data.data.data
-						this.listData.push(...data)
+						const data = res.data.data
+						if (data.data.length < data.per_page) {
+							this.isLoadMore = false
+							this.loadText = "没有更多数据了..."
+						}
+						this.listData.push(...data.data)
 					}
 				}, error => {
 					console.log(error);
@@ -237,7 +246,11 @@
 		},
 		//监听滚动到距离底部50px事件
 		onReachBottom() {
-			console.log(1)
+			if (this.isLoadMore) {
+				this.page++
+				this.loadText = "加载中..."
+				this.getorderlist()
+			}
 		}
 	}
 </script>
