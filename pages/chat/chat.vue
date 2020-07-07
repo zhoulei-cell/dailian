@@ -99,13 +99,14 @@
 					})
 					uni.onSocketMessage(function (res) {
 					  if(that.once){
-							that.user=JSON.parse(res.data)
-							console.log(that.user)
+						  that.user=JSON.parse(res.data)
 						  // that.chatdata.push(JSON.parse(res.data))
 						  that.once=false
 					  }else{
-						  that.chatdata.push(JSON.parse(res.data))
-						  
+						  let msg=JSON.parse(res.data)
+						  if(msg.type!='init'){
+							  that.chatdata.push(JSON.parse(res.data))
+						  }
 					  }
 					  that.$nextTick(function(){
 					  	that.getContainerHeight()
