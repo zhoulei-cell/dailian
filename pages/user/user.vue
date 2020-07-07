@@ -80,7 +80,7 @@
 				</view>
 				<view class="item">
 					<navigator url="../warrecord/warrecord">
-						<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
+						<view class="itemimg"><image src="../../static/img/user/dz.png" mode=""></image></view>
 						<view class="itemtext">我的发布</view>
 					</navigator>
 				</view>
@@ -92,7 +92,7 @@
 				</view>
 				<view class="item">
 					<navigator url="../bankcart/bankcart">
-						<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
+						<view class="itemimg"><image src="../../static/img/user/yhk.png" mode=""></image></view>
 						<view class="itemtext">银行卡管理</view>
 					</navigator>
 				</view>

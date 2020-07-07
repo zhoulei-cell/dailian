@@ -11387,7 +11387,7 @@ var render = function() {
               _c(
                 "v-uni-view",
                 { staticClass: _vm._$g(30, "sc"), attrs: { _i: 30 } },
-                [_vm._v("总成交数：75872笔")]
+                [_vm._v("总成交数：" + _vm._$g(30, "t0-0") + "笔")]
               ),
               _c(
                 "v-uni-view",
