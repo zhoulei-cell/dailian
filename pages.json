@@ -124,7 +124,7 @@
 		{
 			"path": "pages/orderinfo2/orderinfo2",
 			"style": {
-				"navigationBarTitleText": "大厅订单详情"
+				"navigationBarTitleText": "订单详情"
 			}
 		},
 		{

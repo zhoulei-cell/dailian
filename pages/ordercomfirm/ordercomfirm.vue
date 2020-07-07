@@ -61,7 +61,7 @@
 						})
 						setTimeout(()=>{
 							uni.reLaunch({
-								url: '../main/main'
+								url: '../orderreceiving/orderreceiving'
 							})
 						},500)
 					}else{

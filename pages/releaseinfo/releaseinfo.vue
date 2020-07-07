@@ -349,7 +349,7 @@
 							})
 							setTimeout(() => {
 								uni.reLaunch({
-									url: "/pages/main/main"
+									url: "/pages/releaseinfo/releaseinfo"
 								})
 							}, 500)
 						} else {

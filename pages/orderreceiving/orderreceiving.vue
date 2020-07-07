@@ -27,7 +27,7 @@
 					<view class="orderbtn">
 						<view class="orderbtn_left"></view>
 						<view class="orderbtn_right">
-							<button @tap.stop="submitorder(item,index)" v-if="item.order_status==2">提交完成</button>
+							<button @tap.stop="submitorder(item,index)" v-if="item.order_status==2&&item.locked!=1">提交完成</button>
 							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
 							
 							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
@@ -194,7 +194,7 @@
 			//订单详情
 			navtoDetail(item) {
 				uni.navigateTo({
-					url: '/pages/orderinfo2/orderinfo2?id='+item.id+'&type=1'
+					url: '/pages/orderinfo3/orderinfo3?id='+item.id+'&type=1'
 				});
 			},
 			//同意协商

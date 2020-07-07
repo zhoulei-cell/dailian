@@ -1,52 +1,88 @@
 <template>
     <view class="content">
-		<view class="lineinfo">
-			<view class="title">{{orderInfo.title}}</view>
-			<view class="dec line">{{orderInfo.game.name}}/{{orderInfo.game_area.name}}/{{orderInfo.platform.name}}</view>
-			<view class="ordercode line">订单编号：{{orderInfo.order_no}}</view>
-			<view class="ordertime line">发布时间：{{orderInfo.created_at}}</view>
-		</view>
-		<view class="lineinfo">
-			<view class="lineone">
-				<view class="line">代练费：<text>￥{{orderInfo.price}}</text></view>
-				<view class="line">安全保证金：<text>￥{{orderInfo.promise_price}}</text></view>
-				<view class="line">效率保障金：<text>￥{{orderInfo.eff_price}}</text></view>
-			</view>
-			<view class="lineone">
-				<view class="linetitle"><text class="titlel">发  布  者：</text><text class="blue">{{orderInfo.user.name ||　orderInfo.user.phone}}</text></view>
-				<view class="line">总发单数：{{orderInfo.user.rel_number}}笔</view>
-				<view class="line">总成交数：75872笔</view>
-				<view class="line">协  商  率：{{orderInfo.user.negotiation}}</view>
-			</view>
-			<view class="lineone pzero">
-				<view class="linetitle"><text class="titlel">当前游戏信息：</text></view>
-				<view class="linetextinfo">{{orderInfo.rel_message}}</view>
-			</view>
-		</view>
-		<view class="lineinfo">
-			<view class="linetitle"><text class="titlel">时间要求：</text><text class="red">{{orderInfo.duration}}</text>小时</view>
-		</view>
-		<view class="lineinfo">
-			<view class="linetitle"><text class="titlel">代练要求：</text></view>
-			<view class="red">(请仔细阅读，如遇纠纷将以此要求和平台协议为准)</view>
-			<view class="linetextinfo">
-				【代练要求】
-				★★如qq区无法正常登陆需要验证码,请打手卸载qq后直接游戏界面登陆
-				★ 指定英雄订单上传战力初始图,别掉原来的战力分,被ban被选务必每场截图上传。
-				★ ★接单后30分钟内上号开打,接单又退单将扣除效率金
-				★ ★高级套餐:胜率低于70%或打手原因单方面中途撤单支付代练费0元
-				WX区: 号主电话,在当前密码的后面,验证码或密码错自己问一下态度好点。
-				QQ区: 先进游戏,然后后台登录账号,不可以登录玩家QQ,QQ区如有异地冻结密码后面是手机号联系号主改密码即可。
-				需要验证码不联系号主直接撤单者必扣效率
-				1.动用金币钻石铭文体验卡等必须先经过我同意之后才能使用
-				2.接单10分钟内开打并传首图,完成传图(带有号主名字的排行榜截图)
-				3.拖单不打,一页四红,三连跪,掉星,我方有权中途撤单要求赔付效率金
-				4.订单完成后进裙验收处理订单742-067-549
-			</view>
-		</view>
-		<!-- <view class="next">
-			<button type="default" @tap="naviteto">我来代练</button>
-		</view> -->
+    	<view class="lineinfo">
+    		<view class="title">游戏信息</view>
+    		<view class="cont">
+    			<view class="ordercode line">订单标题：{{orderInfo.title}}</view>
+    			<view class="dec line">游戏区服：{{orderInfo.game.name}}/{{orderInfo.game_area.name}}/{{orderInfo.platform.name}}</view>
+    			<view class="ordercode line">订单编号：{{orderInfo.order_no}}</view>
+    			<view class="ordertime line">发布时间：{{orderInfo.created_at}}</view>
+    			<view class="ordertime line">当前段位：{{orderInfo.current_segment}}</view>
+    			<view class="ordertime line">目标段位：{{orderInfo.tag_segment}}</view>
+    		</view>
+    	</view>
+    	<view class="lineinfo">
+    		<view class="title">费用信息</view>
+    		<view class="cont2">
+    			<view class="contitem">
+    				<view class="contitemtop">{{orderInfo.duration}}小时</view>
+    				<view class="contitembottom">时间要求</view>
+    			</view>
+    			<view class="contitem">
+    				<view class="contitemtop">￥{{orderInfo.promise_price}}</view>
+    				<view class="contitembottom">安全保证金</view>
+    			</view>
+    			<view class="contitem">
+    				<view class="contitemtop">￥{{orderInfo.eff_price}}</view>
+    				<view class="contitembottom">效率保证金</view>
+    			</view>
+    			<view class="contitem" style="border-right: 0;">
+    				<view class="contitemtop">￥{{orderInfo.price}}</view>
+    				<view class="contitembottom">代练费</view>
+    			</view>
+    		</view>
+    	</view>
+    	<view class="lineinfo">
+    		<view class="title">发布者信息</view>
+    		<view class="cont">
+    			<view class="linetitle">发  布  者：{{orderInfo.user.name ||　orderInfo.user.phone}}</view>
+    			<view class="line">总发单数：{{orderInfo.user.rel_number}}笔</view>
+    			<view class="line">总成交数：{{orderInfo.user.rec_number+orderInfo.user.rel_number}}笔</view>
+    			<view class="line">协  商  率：{{orderInfo.user.negotiation}}</view>
+    			<view class="line">电话：{{orderInfo.rel_phone}}</view>
+    			<view class="line">QQ：{{orderInfo.rel_qq}}</view>
+    		</view>
+    	</view>
+    	<view class="lineinfo">
+    		<view class="title">账号信息</view>
+    		<view class="cont">
+    			<view class="line">账号：{{orderInfo.game_account}}</view>
+    			<view class="line">密码：{{orderInfo.game_password}}</view>
+    		</view>
+    	</view>
+    	<view class="lineinfo">
+    		<view class="title">当前游戏信息</view>
+    		<view class="cont">
+    			{{orderInfo.rel_message}}
+    		</view>
+    	</view>
+    	<view class="lineinfo">
+    		<view class="title">代练要求</view>
+    		<view class="cont">
+    			<view class="linetitle"><text class="titlel">代练要求：</text></view>
+    			<view class="linetextinfo">
+    				【代练要求】
+    				★★如qq区无法正常登陆需要验证码,请打手卸载qq后直接游戏界面登陆
+    				★ 指定英雄订单上传战力初始图,别掉原来的战力分,被ban被选务必每场截图上传。
+    				★ ★接单后30分钟内上号开打,接单又退单将扣除效率金
+    				★ ★高级套餐:胜率低于70%或打手原因单方面中途撤单支付代练费0元
+    				WX区: 号主电话,在当前密码的后面,验证码或密码错自己问一下态度好点。
+    				QQ区: 先进游戏,然后后台登录账号,不可以登录玩家QQ,QQ区如有异地冻结密码后面是手机号联系号主改密码即可。
+    				需要验证码不联系号主直接撤单者必扣效率
+    				1.动用金币钻石铭文体验卡等必须先经过我同意之后才能使用
+    				2.接单10分钟内开打并传首图,完成传图(带有号主名字的排行榜截图)
+    				3.拖单不打,一页四红,三连跪,掉星,我方有权中途撤单要求赔付效率金
+    				4.订单完成后进裙验收处理订单742-067-549
+    			</view>
+    		</view>
+    	</view>
+    	<view class="line2">
+    		<checkbox-group>
+    			<label>
+    				<checkbox value="cb" checked="true" disabled/>我已阅读并接受<text>发单协议</text>
+    			</label>
+    		</checkbox-group>
+    	</view>
     </view>
 </template>
 <script>
@@ -151,5 +187,26 @@ export default {
 	}
 	.next button{
 		width: 100%;
+	}
+	.cont2{
+		display: flex;
+		padding: 20rpx 0;
+	}
+	.cont2 .contitem{
+		text-align: center;
+		flex: 1;
+		border-right: 1px solid rgba(220,220,220,1);
+	}
+	.cont2 .contitem .contitemtop{
+		font-size:32rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(0,203,130,1);
+	}
+	.cont2 .contitem .contitembottom{
+		font-size:24rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(51,51,51,1);
 	}
 </style>
