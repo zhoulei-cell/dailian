@@ -28,7 +28,7 @@
 									<view class="chat-info">{{list.content}}</view>
 								</view>
 								<view class="chat-photo">
-									<image :src="user.user.avatar || '../../static/img/qq.png'" mode="center"></image>
+									<image :src="user.user.avatar || '../../static/img/qq.png'" mode="scaleToFill"></image>
 								</view>
 							</view>
 						</view>
@@ -209,8 +209,8 @@
 							flex-shrink: 0;
 							image{
 								display: block;
-								width: 70upx;
-								height: 70upx;
+								width: 100upx;
+								height: 100upx;
 								border-radius: 50%;
 							}
 						}

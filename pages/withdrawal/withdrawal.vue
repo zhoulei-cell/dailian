@@ -41,10 +41,31 @@
 				</view>
 			</view>
 		</view> -->
+		<view class="card-box" v-if="bind">
+			<view class="card">
+				<view class="title">银行卡信息: </view>
+				<view class="list-group d-flex jc-between">
+					<view class="item-left">姓名: </view>
+					<view class="item-right">{{bankinfo.name}}</view>
+				</view>
+				<view class="list-group d-flex jc-between">
+					<view class="item-left">手机号: </view>
+					<view class="item-right">{{bankinfo.mobile}}</view>
+				</view>
+				<view class="list-group d-flex jc-between">
+					<view class="item-left">银行卡开户行: </view>
+					<view class="item-right">{{bankinfo.bank}}</view>
+				</view>
+				<view class="list-group d-flex jc-between">
+					<view class="item-left">提现至银行账户: </view>
+					<view class="item-right">{{bankinfo.bank_no}}</view>
+				</view>
+			</view>
+		</view>
 		<custom-popup ref="withdraw" title="您真的要提现吗？" @cancel="close('withdraw')" @confirm="withdraw"/>
 		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="close('popup')"/>
 		<view class="btn">
-			<button type="primary" @tap="open('withdraw')">确认提现</button>
+			<button type="primary" @tap="confirmWithdraw">确认提现</button>
 		</view>
 	</view>
 </template>
@@ -58,6 +79,8 @@
 		data() {
 			return {
 				userinfo: {},
+				bankinfo: {},
+				bind: false,
 				amount: '',
 				check:2,
 				content: "提现申请已提交，48小时内将转到您的银行卡，扣款详情请看资金流水"
@@ -75,6 +98,26 @@
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
 					this.userinfo = res.data.data
+				})
+			},
+			// 获取提现账户
+			getbankinfo(){
+				let opts = {
+					url: '/api/withdraw/account',
+					method: 'get'
+				}
+				let param = {
+					
+				}
+				this.$http.httpTokenRequest(opts,param).then(res => {
+					const data = res.data.data
+					if(data){
+						console.log(data)
+						this.bankinfo = data
+						this.bind = true
+					}else{
+						this.bind = false
+					}
 				})
 			},
 			// 提现
@@ -115,15 +158,22 @@
 			withdraw() {
 				this.close('withdraw')
 				this.submit()
+			},
+			confirmWithdraw() {
+				if (this.amount === "") {
+					return null
+				}
+				this.open('withdraw');
 			}
 		},
 		onLoad() {
 			this.getuserinfo()
+			this.getbankinfo()
 		}
 	}
 </script>
 
-<style>
+<style lang="scss">
 	.content {
 		padding: 0;
 		background-color: #f4f8fb;
@@ -265,6 +315,32 @@
 		flex: 1;
 		display: flex;
 		align-items: center;
+	}
+
+	.card-box{
+		padding: 0 25upx;
+		margin-top: 50upx;
+		.card{
+			padding-bottom: 25upx;
+			border-radius: 15upx;
+			background-color: #fff;
+			.title{
+				padding: 20upx;
+				border-bottom: 1upx solid #eee;
+				color: #333;
+				font-size: 28upx;
+				font-weight: 500;
+				line-height: 28upx;
+			}
+			.list-group{
+				padding: 20upx;
+				view{
+					color: #888;
+					font-size: 20upx;
+					line-height: 20upx;
+				}
+			}
+		}
 	}
 	
 	.btn {
