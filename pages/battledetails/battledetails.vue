@@ -73,7 +73,9 @@
 						<view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view>
 					</view>
 					<view class="avatar-box" v-if="detailinfo.partake_role">
-						<view class="avatar"></view>
+						<view class="avatar">
+							<image :src="detailinfo.partake.avatar" mode="widthFix"></image>
+						</view>
 						<view class="text">{{detailinfo.partake_role.role_name || '请选择'}}</view>
 						<view class="text">{{detailinfo.partake_ready?'已准备':'未准备'}}</view>
 					</view>
