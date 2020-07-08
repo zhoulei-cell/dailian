@@ -43,13 +43,13 @@
 				<view class="line">QQ：{{orderInfo.rel_qq}}</view>
 			</view>
 		</view>
-		<view class="lineinfo">
+		<!-- <view class="lineinfo">
 			<view class="title">账号信息</view>
 			<view class="cont">
 				<view class="line">账号：{{orderInfo.game_account}}</view>
 				<view class="line">密码：{{orderInfo.game_password}}</view>
 			</view>
-		</view>
+		</view> -->
 		<view class="lineinfo">
 			<view class="title">当前游戏信息</view>
 			<view class="cont">
