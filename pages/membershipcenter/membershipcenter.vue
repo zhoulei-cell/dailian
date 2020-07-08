@@ -13,17 +13,17 @@
 					<view class="checkbox" :class="{check:check==1}"></view>
 				</view>
 			</view> -->
-			<view class="payitem">
+			<view class="payitem" @tap="check=2">
 				<view class="img"><image src="../../static/img/common/weixin.png" mode=""></image></view>
 				<view class="text">微信支付</view>
-				<view class="check" @tap="check=2">
+				<view class="check">
 					<view class="checkbox" :class="{check:check==2}"></view>
 				</view>
 			</view>
-			<view class="payitem">
+			<view class="payitem" @tap="check=3">
 				<view class="img"><image src="../../static/img/common/zhifubao.png" mode=""></image></view>
 				<view class="text">支付宝支付</view>
-				<view class="check" @tap="check=3">
+				<view class="check">
 					<view class="checkbox" :class="{check:check==3}"></view>
 				</view>
 			</view>
