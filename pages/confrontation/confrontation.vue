@@ -2,8 +2,9 @@
     <view class="content">
 		<navigator url="/pages/arena/arena">
 			<view class="item">
-				<view class="title">竞技场</view>
-				<view class="dec">王者荣耀solo赚零花钱</view>
+				<image src="../../static/img/jjc.png" mode="widthFix"></image>
+				<!-- <view class="title">竞技场</view>
+				<view class="dec">王者荣耀solo赚零花钱</view> -->
 			</view>
 		</navigator>
     </view>
@@ -29,7 +30,9 @@
     .item{
 		padding: 20rpx;
 		border-radius: 10rpx;
-		background: #0faeff;
+	}
+	.item image{
+		width: 100%;
 	}
 	.item .title{
 		color: #fff;
