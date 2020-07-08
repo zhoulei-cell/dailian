@@ -1,8 +1,8 @@
 <template>
 	<view class="content">
-		<view class="tab">
+		<!-- <view class="tab">
 			<view class="tabitem" v-for="item in ordertype" :key="item.type" :class="{check:item.type==selectindex}" @tap="choseItem(item)">{{item.text}}</view>
-		</view>
+		</view> -->
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" :lower-threshold="threshold" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #F4F5F6;" refresher-enabled="true"
 		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherpulling="onPulling" @refresherrefresh="onRefresh"
 		 @refresherrestore="onRestore" @refresherabort="onAbort">

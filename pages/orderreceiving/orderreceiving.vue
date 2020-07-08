@@ -202,7 +202,7 @@
 			//同意协商
 			agreeconsult(item,index){
 				uni.navigateTo({
-					url: '/pages/consult/consult?id='+item.id+'type=1'
+					url: '/pages/consult/consult?id='+item.id+'&type=1'
 				});
 			},
 			//上传图片
@@ -373,9 +373,11 @@
 	}
 	.orderbtn_right{
 		display: flex;
+		flex-wrap: wrap;
 	}
 	.orderbtn_right button{
 		height: 50rpx;
+		margin: 10rpx 0 0;
 		line-height: 50rpx;
 		font-size: 12px;
 		margin-left: 10rpx;

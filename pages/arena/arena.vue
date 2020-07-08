@@ -1,5 +1,16 @@
 <template>
     <view class="content">
+		<!-- <swiper class="swiper" current="1" previous-margin="23rpx" next-margin="23rpx" :indicator-dots="true" indicator-color="#DDDDDD" indicator-active-color="#666666">
+			<swiper-item>
+				<image src="../../static/img/index/banner.png" mode="scaleToFill"></image>
+			</swiper-item>
+			<swiper-item>
+				<image src="../../static/img/other/banner.png" mode="scaleToFill"></image>
+			</swiper-item>
+			<swiper-item>
+				<image src="../../static/img/index/banner2.png" mode="scaleToFill"></image>
+			</swiper-item>
+		</swiper> -->
 		<HMfilterDropdown :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
 		<view class="item" v-for="(list,index) in listData" :key="index" @tap="navtodetail(list)">
 			<view class="titleline">
@@ -30,60 +41,60 @@
 	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue';
 	import data2 from '@/common/data2.js';//筛选菜单数据
     export default {
-        components: {
-			'HMfilterDropdown':HMfilterDropdown
-        },
-        data() {
-            return {
-				filterData:[],
-				filterDropdownValue:[],
-				page:1,
-				listData:[],
-				area_id:'',
-				order:''
-            }
-        },
-		async onPullDownRefresh() {
-			this.page=1
-			await this.getlist()
-			uni.stopPullDownRefresh()
-		},
-		onReachBottom(){
-			this.page++
-			this.getlist()
-		},
-        methods: {
-			navtodetail(list){
-				uni.navigateTo({
-					// url:'../arenadetial/arenadetial?list='+JSON.stringify(list)
-					url:'../battledetails/battledetails?list='+JSON.stringify(list)
-				})
+			components: {
+				'HMfilterDropdown':HMfilterDropdown
 			},
-            // 获取筛选数据
-            async getGameplatforms() {
-            		let opts = {
-            			url: '/api/game/platforms?game_id=1',
-            			method: 'get'
-            		}
-            		let data1 = await this.$http.httpRequest(opts)
-            		let newarr=[
-            			{
-            				name:'全部',
-            				value:''
-            			}
-            		]
-            		for(var i=0;i<data1.data.data.length;i++){
-            			var newobj=data1.data.data[i]
-            			newobj.value=newobj.id
-            			newarr.push(newobj)
-            		}
-            		this.filterData=data2
-            		this.filterData[0]['submenu']=newarr
-            		this.filterDropdownValue = [
-            			[0],
-            			[0]
-            		];
-            },
+			data() {
+				return {
+					filterData:[],
+					filterDropdownValue:[],
+					page:1,
+					listData:[],
+					area_id:'',
+					order:''
+				}
+			},
+			async onPullDownRefresh() {
+				this.page=1
+				await this.getlist()
+				uni.stopPullDownRefresh()
+			},
+			onReachBottom(){
+				this.page++
+				this.getlist()
+			},
+			methods: {
+				navtodetail(list){
+					uni.navigateTo({
+						// url:'../arenadetial/arenadetial?list='+JSON.stringify(list)
+						url:'../battledetails/battledetails?list='+JSON.stringify(list)
+					})
+				},
+				// 获取筛选数据
+				async getGameplatforms() {
+						let opts = {
+							url: '/api/game/platforms?game_id=1',
+							method: 'get'
+						}
+						let data1 = await this.$http.httpRequest(opts)
+						let newarr=[
+							{
+								name:'全部',
+								value:''
+							}
+						]
+						for(var i=0;i<data1.data.data.length;i++){
+							var newobj=data1.data.data[i]
+							newobj.value=newobj.id
+							newarr.push(newobj)
+						}
+						this.filterData=data2
+						this.filterData[0]['submenu']=newarr
+						this.filterDropdownValue = [
+							[0],
+							[0]
+						];
+				},
 			//接收菜单结果
 			confirm(e){
 				this.page=1
@@ -115,29 +126,42 @@
 				}, error => {
 					console.log(error);
 				})
+				}
+      },
+      async onLoad() {
+				await this.getGameplatforms()
+      },
+			onShow() {
+				this.getlist()
 			}
-        },
-        async onLoad() {
-			await this.getGameplatforms()
-        },
-		onShow() {
-			this.getlist()
-		}
     }
 </script>
 
-<style>
+<style lang="scss">
+	.pos{
+		position: fixed;
+		top: 88rpx;
+		left: 0;
+		z-index: 999;
+	}
 	.content{
 		background-color: #f4f8fb;
 		position: relative;
 		padding-bottom: 150rpx;
 		padding: 0 !important;
 	}
-    .item{
+	.swiper{
+		height: 355rpx;
+		image{
+			width: 704rpx;
+			height: 349rpx;
+		}
+	}
+  .item{
 		padding: 20rpx;
 		border-radius: 10rpx;
 		background: #fff;
-		margin-top: 20rpx;
+		margin: 20rpx;
 	}
 	.titleline{
 		display: flex;

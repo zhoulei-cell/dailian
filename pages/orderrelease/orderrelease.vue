@@ -27,7 +27,7 @@
 				<view class="orderbtn">
 					<view class="orderbtn_left"></view>
 					<view class="orderbtn_right">
-						<button @tap.stop="lockorder(item,index)" v-if="item.locked==0">锁号</button>
+						<button @tap.stop="lockorder(item,index)" v-if="item.locked==0 && item.order_status !== 5">锁号</button>
 						<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
 						<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>
 						<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
@@ -197,6 +197,7 @@
 					if (res.data.code == 200) {
 						if (this.page == 1) {
 							this.listData = res.data.data.data
+							console.log(this.listData)
 						} else {
 							this.listData.concat(this.listData, res.data.data.data)
 						}

@@ -133,11 +133,11 @@
 		padding-bottom: 150rpx;
 		padding: 0 !important;
 	}
-    .item{
+  .item{
 		padding: 20rpx;
 		border-radius: 10rpx;
 		background: #fff;
-		margin-top: 20rpx;
+		margin: 20rpx;
 	}
 	.titleline{
 		display: flex;

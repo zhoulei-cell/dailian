@@ -89,7 +89,7 @@
 			font-weight: 400;
 			color:rgba(153,153,153,1);
 			.list{
-				padding: 28upx 20upx;
+				padding: 28upx 30upx;
 				border-bottom: 1upx solid #DBDADA; 
 				&.top{
 					border-top: 1upx solid #DBDADA;

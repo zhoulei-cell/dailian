@@ -28,7 +28,7 @@
 		</view>
 		<view class="btn">
 			<button type="default" @tap="submit" v-if="submittype">提交</button>
-			<button type="default" @tap="tysubmit" v-if="orderinfo.agree">同意协商</button>
+			<button type="default" @tap="tysubmit" v-if="orderinfo.agree && orderinfo.consult_status !== 3">同意协商</button>
 			<button type="default" @tap="cssubmit" v-if="!orderinfo.agree && !submittype">撤销协商</button>
 		</view>
 	</view>
@@ -93,6 +93,7 @@
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						this.orderinfo=res.data.data
+						console.log(this.orderinfo)
 					}else{
 						uni.showToast({
 							icon:'none',
@@ -163,8 +164,9 @@
 			}
 		},
 		onLoad: function (option) {
-			console.log(option.id)
+			//console.log(option.id)
 			this.id=option.id
+			console.log(option)
 			if(option.orderinfo){
 				this.orderinfo=JSON.parse(option.orderinfo)
 				this.orderinfo.order_price=this.orderinfo.price
