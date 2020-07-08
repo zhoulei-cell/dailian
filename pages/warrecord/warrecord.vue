@@ -16,12 +16,12 @@
 		</view>
 		<!-- 站位 -->
 		<view style="height: 150rpx;"></view>
-		<view class="next">
+		<!-- <view class="next">
 			<navigator url="/pages/releasepk/releasepk" class="publicbtn">
 				<button>发布对战</button>
 			</navigator>
-			<!-- <view class="mybtn">我的角色</view> -->
-		</view>
+			<view class="mybtn">我的角色</view>
+		</view> -->
     </view>
 </template>
 

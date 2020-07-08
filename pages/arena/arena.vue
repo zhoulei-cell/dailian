@@ -93,7 +93,7 @@
 			// 获取列表
 			getlist() {
 				let opts = {
-					url: '/api/match/index',
+					url: '/api/match/index?home=true',
 					method: 'get'
 				}
 				let params = {

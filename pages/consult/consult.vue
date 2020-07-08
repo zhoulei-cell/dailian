@@ -13,11 +13,11 @@
 			代练员安全保证金：￥{{orderinfo.promise_price}}
 		</view>
 		<view class="lineinput">
-			<text>需要对方支付代练费：</text><input class="uni-input" placeholder="代练费" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.price"/>
+			<text>需要发单者支付代练费：</text><input class="uni-input" placeholder="代练费" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.price"/>
 		</view>
 		<view class="line">（支付金额不能超过<text class="red">￥{{orderinfo.order_price}}</text>元）</view>
 		<view class="lineinput">
-			<text>我愿意赔偿保证金：</text><input class="uni-input" placeholder="保证金" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.bond"/>
+			<text>接单者愿意赔偿保证金：</text><input class="uni-input" placeholder="保证金" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.bond"/>
 		</view>
 		<view class="line">（支付金额不能超过<text class="red">￥{{orderinfo.promise_price}}</text>元）</view>
 		<view class="line">
@@ -66,9 +66,11 @@
 							icon:'none',
 							title:res.data.msg
 						})
-						uni.navigateBack({
-							delta:2
-						})
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							})
+						},500)
 					}else{
 						uni.showToast({
 							icon:'none',
@@ -116,9 +118,11 @@
 							icon: 'none',
 							title: res.data.msg
 						})
-						uni.navigateBack({
-							delta:2
-						})
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta:1
+							})
+						},500)
 					}else{
 						uni.showToast({
 							icon: 'none',

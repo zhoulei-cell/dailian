@@ -34,7 +34,7 @@
 							<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 							
 							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals==0 && item.order_status!=5">申诉</button>
-							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
+							<button @tap.stop="lookappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
 							<button @tap.stop="submitexception(item,index)" v-if="item.order_status==2">提交异常</button>
 							<button @tap.stop="cancelexception(item,index)" v-if="item.order_status==3">取消异常</button>
 						</view>
