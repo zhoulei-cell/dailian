@@ -5,6 +5,10 @@
 				<view class="card-title">对战信息</view>
 				<view class="card-box">
 					<view class="card-desc">
+						<text>房间号：</text>
+						<text>{{detailinfo.match_no}}</text>
+					</view>
+					<view class="card-desc">
 						<text>发起人：</text>
 						<text>{{detailinfo.user.name}}</text>
 					</view>

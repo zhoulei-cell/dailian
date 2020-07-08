@@ -43,7 +43,7 @@
     			<view class="line">QQ：{{orderInfo.rel_qq}}</view>
     		</view>
     	</view>
-		<view class="lineinfo">
+		<view class="lineinfo" v-if="orderInfo.order_status!=1">
 			<view class="title">接单者信息</view>
 			<view class="cont">
 				<view class="linetitle">接单者：{{orderInfo.received.name ||　orderInfo.received.phone}}</view>

@@ -76,10 +76,12 @@
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						uni.showToast({
+							icon:'none',
 							title:res.data.msg
 						})
 					}else{
 						uni.showToast({
+							icon:'none',
 							title:res.data.msg
 						})
 					}

@@ -1,13 +1,13 @@
 <template>
 	<view class="content">
 		<view class="title">
-			申述金额
+			申诉金额
 		</view>
 		<view class="textarea" style="padding: 10rpx;">
 			<input type="text" placeholder="0" v-model="amount"/>
 		</view>
 		<view class="title">
-			申述类型及详情
+			申类型及详情
 		</view>
 		<view class="uni-list">
 			<radio-group @change="radioChange">

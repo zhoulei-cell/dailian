@@ -5,7 +5,7 @@
 			<view class="titleline">
 				<view class="titleleft">
 					<!-- <view class="titletag">星耀</view> -->
-					房号：{{list.id}}
+					房号：{{list.match_no}}
 				</view>
 				<text>{{list.showStatus}}</text>
 			</view>
