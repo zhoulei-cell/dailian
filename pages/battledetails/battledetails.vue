@@ -304,6 +304,12 @@
 			},
 			//提交
 			nextStep: function() {
+				if(!this.role.id){
+					uni.showToast({
+						icon:'none',
+						title:'请选择角色'
+					})
+				}
 				let opts = {
 					url: '/api/match/partake',
 					method: 'post'

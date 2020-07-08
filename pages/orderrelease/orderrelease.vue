@@ -36,7 +36,7 @@
 						<button @tap.stop="agreeconsult(item,index)" v-if="(item.order_status==2 && item.consult!=0) || (item.order_status==3 && item.consult!=0) ">查看协商信息</button>
 
 						<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals==0 && item.order_status!=5">申诉</button>
-						<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
+						<button @tap.stop="lookappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
 						<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
 						<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
 					</view>
@@ -153,6 +153,12 @@
 			agreeappeal(item) {
 				uni.navigateTo({
 					url: '/pages/appeal/appeal?item=' + JSON.stringify(item)
+				});
+			},
+			//查看申诉
+			lookappeal(item){
+				uni.navigateTo({
+					url: '/pages/appealdetial/appealdetial?item='+JSON.stringify(item)
 				});
 			},
 			navtoDetail(item) {
