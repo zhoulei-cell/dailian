@@ -341,7 +341,9 @@
         }
         ,{
             "path" : "pages/helpcenter/helpcenter",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "帮助中心"
+			}
         }
     ],
 	"tabBar": {

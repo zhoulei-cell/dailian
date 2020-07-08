@@ -136,8 +136,10 @@
 					<view class="itemtext">意见反馈</view>
 				</view> -->
 				<view class="item">
-					<view class="itemimg"><image src="../../static/img/user/bangzhu.png" mode=""></image></view>
-					<view class="itemtext">帮助中心</view>
+					<navigator url="../helpcenter/helpcenter" hover-class="none">
+						<view class="itemimg"><image src="../../static/img/user/bangzhu.png" mode=""></image></view>
+						<view class="itemtext">帮助中心</view>
+					</navigator>
 				</view>
 				<!-- <view class="item">
 					<view class="itemimg"><image src="../../static/img/user/shezhi.png" mode=""></image></view>
