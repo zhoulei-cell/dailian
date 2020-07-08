@@ -28,20 +28,20 @@
 <script>
 	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue';
 	import data2 from '@/common/data2.js';//筛选菜单数据
-    export default {
-        components: {
+	export default {
+		components: {
 			'HMfilterDropdown':HMfilterDropdown
-        },
-        data() {
-            return {
+		},
+		data() {
+			return {
 				filterData:[],
 				filterDropdownValue:[],
 				page:1,
 				listData:[],
 				area_id:'',
 				order:''
-            }
-        },
+			}
+		},
 		async onPullDownRefresh() {
 			this.page=1
 			await this.getlist()
@@ -51,79 +51,79 @@
 			this.page++
 			this.getlist()
 		},
-        methods: {
+		methods: {
 			navtodetail(list){
 				uni.navigateTo({
 					// url:'../arenadetial/arenadetial?list='+JSON.stringify(list)
 					url:'../battledetails/battledetails?list='+JSON.stringify(list)+'&type=2'
-				})
-			},
-            // 获取筛选数据
-            async getGameplatforms() {
-            		let opts = {
-            			url: '/api/game/platforms?game_id=1',
-            			method: 'get'
-            		}
-            		let data1 = await this.$http.httpRequest(opts)
-            		let newarr=[
-            			{
-            				name:'全部',
-            				value:''
-            			}
-            		]
-            		for(var i=0;i<data1.data.data.length;i++){
-            			var newobj=data1.data.data[i]
-            			newobj.value=newobj.id
-            			newarr.push(newobj)
-            		}
-            		this.filterData=data2
-            		this.filterData[0]['submenu']=newarr
-            		this.filterDropdownValue = [
-            			[0],
-            			[0]
-            		];
-            },
-			//接收菜单结果
-			confirm(e){
-				this.page=1
-				this.area_id=e.value[0][0]
-				this.order=e.value[1][0]
-				this.getlist()
-			},
-			// 获取列表
-			getlist() {
+			})
+		},
+		// 获取筛选数据
+		async getGameplatforms() {
 				let opts = {
-					url: '/api/match/index',
+					url: '/api/game/platforms?game_id=1',
 					method: 'get'
 				}
-				let params = {
-					self:2,
-					type:'',
-					page:this.page,
-					order:this.order,
-					area_id:this.area_id,
-					type:0
-				}
-				return this.$http.httpTokenRequest(opts, params).then(res => {
-					if (res.data.code == 200) {
-						if (this.page == 1) {
-							this.listData = res.data.data.data
-						} else {
-							this.listData.concat(this.listData, res.data.data.data)
-						}
+				let data1 = await this.$http.httpRequest(opts)
+				let newarr=[
+					{
+						name:'全部',
+						value:''
 					}
-				}, error => {
-					console.log(error);
-				})
+				]
+				for(var i=0;i<data1.data.data.length;i++){
+					var newobj=data1.data.data[i]
+					newobj.value=newobj.id
+					newarr.push(newobj)
+				}
+				this.filterData=data2
+				this.filterData[0]['submenu']=newarr
+				this.filterDropdownValue = [
+					[0],
+					[0]
+				];
+		},
+		//接收菜单结果
+		confirm(e){
+			this.page=1
+			this.area_id=e.value[0][0]
+			this.order=e.value[1][0]
+			this.getlist()
+		},
+		// 获取列表
+		getlist() {
+			let opts = {
+				url: '/api/match/index',
+				method: 'get'
 			}
-        },
-        async onLoad() {
+			let params = {
+				self:2,
+				type:'',
+				page:this.page,
+				order:this.order,
+				area_id:this.area_id,
+				type:0
+			}
+			return this.$http.httpTokenRequest(opts, params).then(res => {
+				if (res.data.code == 200) {
+					if (this.page == 1) {
+						this.listData = res.data.data.data
+					} else {
+						this.listData.concat(this.listData, res.data.data.data)
+					}
+				}
+			}, error => {
+				console.log(error)
+			})
+			}
+		},
+		async onLoad() {
 			await this.getGameplatforms()
-        },
+		},
 		onShow() {
 			this.getlist()
 		}
-    }
+	}
 </script>
 
 <style>
