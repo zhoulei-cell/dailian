@@ -108,7 +108,7 @@
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../membershipcenter/membershipcenter" hover-class="none">
+					<navigator :url="toVipUrl" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/huiyuan.png" mode=""></image></view>
 					<view class="itemtext">我的会员</view>
 					</navigator>
@@ -168,7 +168,17 @@
     export default {
 		data(){
 			return {
-				userinfo:{}
+				userinfo:{},
+				user: {}
+			}
+		},
+		computed: {
+			toVipUrl() {
+				if (this.userinfo.is_member !== 1) {
+					return '../membershipcenter/membershipcenter'
+				} {
+					return '../vipcenter/vipcenter?userinfo=' + JSON.stringify(this.user)
+				}
 			}
 		},
 		components: {
@@ -242,6 +252,12 @@
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
 					this.userinfo = res.data.data
+					this.user = {
+						phone: this.userinfo.phone,
+						name: this.userinfo.name,
+						avatar: this.userinfo.avatar,
+						is_member: this.userinfo.is_member
+					}
 				})
 			}
     },

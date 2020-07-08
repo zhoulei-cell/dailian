@@ -41,13 +41,12 @@
 	export default {
 		data() {
 			return {
-				check:2,
+				check: 2,
 				content: "后台订单已生成，点击确认获取向银行卡转账信息，向银行卡转账成功以后联系客服充值"
 			}
 		},
-		components: {},
 		onLoad() {
-			
+			this.getuserinfo()
 		},
 		methods: {
 			// 开通会员
@@ -86,7 +85,7 @@
 				uni.redirectTo({
 					url: '/pages/paymentguide/paymentguide'
 				})
-			}
+			},
 		}
 	}
 </script>

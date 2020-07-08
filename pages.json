@@ -345,6 +345,12 @@
 				"navigationBarTitleText": "帮助中心"
 			}
         }
+        ,{
+            "path" : "pages/vipcenter/vipcenter",
+            "style" : {
+				"navigationBarTitleText": "会员中心"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",
