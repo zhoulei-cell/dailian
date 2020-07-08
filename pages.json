@@ -333,6 +333,16 @@
 				"navigationBarTitleText": "支付教程"
 			}
         }
+        ,{
+            "path" : "pages/contactus/contactus",
+            "style" : {
+				"navigationBarTitleText": "联系我们"
+			}
+        }
+        ,{
+            "path" : "pages/helpcenter/helpcenter",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",

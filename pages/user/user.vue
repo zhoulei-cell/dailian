@@ -131,21 +131,23 @@
 					<view class="itemtext">实名认证</view>
 					</navigator>
 				</view>
-				<view class="item">
+				<!-- <view class="item">
 					<view class="itemimg"><image src="../../static/img/user/yijian.png" mode=""></image></view>
 					<view class="itemtext">意见反馈</view>
-				</view>
+				</view> -->
 				<view class="item">
 					<view class="itemimg"><image src="../../static/img/user/bangzhu.png" mode=""></image></view>
 					<view class="itemtext">帮助中心</view>
 				</view>
-				<view class="item">
+				<!-- <view class="item">
 					<view class="itemimg"><image src="../../static/img/user/shezhi.png" mode=""></image></view>
 					<view class="itemtext">系统设置</view>
-				</view>
+				</view> -->
 				<view class="item">
-					<view class="itemimg"><image src="../../static/img/user/kefu.png" mode=""></image></view>
-					<view class="itemtext">联系我们</view>
+					<navigator url="../contactus/contactus" hover-class="none">
+						<view class="itemimg"><image src="../../static/img/user/kefu.png" mode=""></image></view>
+						<view class="itemtext">联系我们</view>
+					</navigator>
 				</view>
 				<view class="item" @tap="openLogoutPopup">
 					<view class="itemimg"><image src="../../static/img/common/loginout.png" mode=""></image></view>
@@ -172,14 +174,12 @@
 			uniListItem,
 			customPopup
 		},
-        computed: {
-        },
-        methods: {
+    methods: {
 			//跳转登录
 			bindlogin(){
 				uni.navigateTo({
 				    url: "../login/login",
-				});
+				})
 			},
 			// 路径跳转
 			navigateTo(url){
@@ -188,17 +188,17 @@
 				});
 			},
 			// 退出登录
-            bindLogout() {
-                this.logout();
-                /**
-                 * 如果需要强制登录跳转回登录页面
-                 */
-                if (this.forcedLogin) {
-                    uni.reLaunch({
-                        url: '../login/login',
-                    });
-                }
-            },
+			bindLogout() {
+					this.logout();
+					/**
+					 * 如果需要强制登录跳转回登录页面
+					 */
+					if (this.forcedLogin) {
+							uni.reLaunch({
+									url: '../login/login',
+							});
+					}
+			},
 			openLogoutPopup() {
 				this.$refs['customPopupLogout'].open()
 			},
@@ -242,11 +242,11 @@
 					this.userinfo = res.data.data
 				})
 			}
-        },
+    },
 		onShow() {
 			this.getuserinfo()
 		}
-    }
+  }
 </script>
 
 <style>
