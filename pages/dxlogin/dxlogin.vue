@@ -131,14 +131,23 @@
 				}
 				this.$http.httpRequest(opts,param).then(res => {
 					if(res.data.code==200){
-						uni.reLaunch({
-							url:"/pages/main/main"
-						})
 						uni.setStorage({
-						    key: 'userinfo',
-						    data: res.data.data,
+						    key: 'token',
+						    data: res.data.data.token,
+						    success: () =>{
+						        uni.showToast({
+						        	icon: 'none',
+						        	title: res.data.msg
+						        })
+								uni.setStorage({
+								    key: 'userinfo',
+								    data: res.data.data.user,
+								})
+								uni.reLaunch({
+									url: '../main/main'
+								})
+						    }
 						})
-						this.$store.commit('updateUerinfo',res.data.data)
 					}
 					uni.showToast({
 						icon: 'none',

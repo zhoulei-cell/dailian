@@ -143,17 +143,16 @@
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					uni.showToast({
-						icon: 'none',
 						title: res.data.msg
 					})
-					if (res.data.msg == 200) {
+					if(res.data.code==200){
 						setTimeout(() => {
 							uni.navigateTo({
 								url: '../arena/arena'
 							})
 						}, 500)
 					}
-
+					
 				}, error => {
 					console.log(error);
 				})

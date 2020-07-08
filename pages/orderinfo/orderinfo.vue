@@ -43,6 +43,17 @@
     			<view class="line">QQ：{{orderInfo.rel_qq}}</view>
     		</view>
     	</view>
+		<view class="lineinfo">
+			<view class="title">接单者信息</view>
+			<view class="cont">
+				<view class="linetitle">接单者：{{orderInfo.received.name ||　orderInfo.received.phone}}</view>
+				<view class="line">总发单数：{{orderInfo.received.rel_number}}笔</view>
+				<view class="line">总成交数：{{orderInfo.received.rec_number+orderInfo.received.rel_number}}笔</view>
+				<view class="line">协  商  率：{{orderInfo.received.negotiation}}</view>
+				<view class="line">电话：{{orderInfo.received.phone}}</view>
+				<view class="line">QQ：{{orderInfo.received.qq}}</view>
+			</view>
+		</view>
     	<view class="lineinfo">
     		<view class="title">账号信息</view>
     		<view class="cont">

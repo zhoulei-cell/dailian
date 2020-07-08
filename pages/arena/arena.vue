@@ -5,11 +5,12 @@
 			<view class="titleline">
 				<view class="titleleft">
 					<!-- <view class="titletag">星耀</view> -->
-					房号：{{list.id}}
+					房号：{{list.match_no}}
 				</view>
 				<text>{{list.showStatus}}</text>
 			</view>
 			<view class="dec">
+				<view class="line">发布者：{{list.user.name}}</view>
 				<view class="line">应战区服：{{list.platforms.name}}</view>
 				<view class="linet">胜者奖金<text class="red">￥{{list.totalAmount}}</text></view>
 			</view>

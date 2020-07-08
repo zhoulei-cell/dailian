@@ -33,7 +33,10 @@
 		</view>
 		<view class="reviwelist">
 			<view class="reviweitem" v-for="(re,index) in orderinfo.order_appeal_chat" :key="index">
-				<view class="line2 red" v-if="re.user">{{re.user.name || '无用户名'}}</view>
+				<view class="time">
+					{{re.created_at}}
+				</view>
+				<view class="line2 red">{{re.username || '无用户名'}}</view>
 				<view class="line2">{{re.content}}</view>
 				<view class="imglist">
 				<view class="imgbox" v-for="(imglist,index) in re.images" :key="index">
@@ -121,6 +124,9 @@
 				reviwe:"",
 				appeals:''
 			}
+		},
+		onNavigationBarButtonTap() {
+			this.getdetal()
 		},
 		methods: {
 			//图片上传
@@ -211,6 +217,7 @@
 							icon:'none',
 							title:res.data.msg
 						})
+						this.imglist=[]
 						this.getdetal()
 					}else{
 						uni.showToast({
@@ -306,5 +313,10 @@
 }
 .red{
 	color: red;
+}
+.time{
+	font-size: 20rpx;
+	color: #BEBEBE;
+	text-align: center;
 }
 </style>

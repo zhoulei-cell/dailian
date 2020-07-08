@@ -18,7 +18,7 @@
 			</view>
 		</view>
 		<view class="zw"></view>
-		<view class="contpay">
+		<!-- <view class="contpay">
 			<view class="paytype">
 				<view class="paytypetitle">请选择支付方式</view>
 				<view class="payitem">
@@ -40,7 +40,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<custom-popup ref="withdraw" title="您真的要提现吗？" @cancel="close('withdraw')" @confirm="withdraw"/>
 		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="close('popup')"/>
 		<view class="btn">
@@ -59,7 +59,7 @@
 			return {
 				userinfo: {},
 				amount: '',
-				check:0,
+				check:2,
 				content: "提现申请已提交，48小时内将转到您的银行卡，扣款详情请看资金流水"
 			}
 		},

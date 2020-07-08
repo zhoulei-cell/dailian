@@ -86,13 +86,17 @@
 			</view>
 			
 			<view class="consult" v-if="detailinfo.winners">
-				胜利者：{{detailinfo.winners.name}}
+				胜利者：<text style="color: red;">{{detailinfo.winners.name}}</text>
 			</view>
 			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]'">
-				<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[0].images" :key="index"></image>
+				<view class="imgcont">
+					<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[0].images" :key="index"></image>
+				</view>
 			</view>
 			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]' && detailinfo.images[1] ">
-				<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[1].images" :key="index"></image>
+				<view class="imgcont">
+					<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[1].images" :key="index"></image>
+				</view>
 			</view>
 			<view class="info-card" v-if="type!=1&&type!=2">
 				<view class="card-title">英雄禁用</view>
@@ -116,22 +120,11 @@
 				</view>
 			</view> -->
 		</view>
-		<view class="fixed-btn d-flex" v-if="detailinfo.status==1">
-			<view class="btn flex-1 d-flex ai-center jc-center" @tap="nextStep">
-				<view class="pay">支付{{detailinfo.amount}}帮币</view>
-				<view class="go">发起挑战</view>
-			</view>
-		</view>
-		<view class="fixed-btn d-flex" v-if="detailinfo.status==2">
-			<view class="btn flex-1 d-flex ai-center jc-center" @tap="start">
-				<view class="go">开始对战</view>
-			</view>
-		</view>
-		<view class="fixed-btn d-flex" v-if="detailinfo.status==2&&type==1">
-			<view class="btn flex-1 d-flex ai-center jc-center" @tap="cancel">
+		<view class="fixed-btn d-flex" v-if="(detailinfo.status==1&&userinfo.id==detailinfo.user.id)||detailinfo.status==2">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="cancel" v-if="detailinfo.status==1&&userinfo.id==detailinfo.user.id">
 				<view class="go">取消对战</view>
 			</view>
-			<view class="btn flex-1 d-flex ai-center jc-center" @tap="start" style="margin-left: 10rpx;">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="start" style="margin-left: 10rpx;" v-if="detailinfo.status==2">
 				<view class="go">开始对战</view>
 			</view>
 		</view>
@@ -146,6 +139,12 @@
 		<view class="fixed-btn d-flex" v-if="detailinfo.status==6">
 			<view class="btn flex-1 d-flex ai-center jc-center" @tap="apealdetial">
 				<view class="go">申诉详情</view>
+			</view>
+		</view>
+		<view class="fixed-btn d-flex" v-if="detailinfo.status==1&&userinfo.id!=detailinfo.user.id">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="nextStep">
+				<view class="pay">支付{{detailinfo.amount}}帮币</view>
+				<view class="go">发起挑战</view>
 			</view>
 		</view>
 	</view>
@@ -216,7 +215,8 @@
 						value: 6
 					}
 				],
-				type:''
+				type:'',
+				userinfo:{}
 			}
 		},
 		computed: mapState({
@@ -224,6 +224,21 @@
 			role: state => state.role
 		}),
 		methods: {
+			getuserinfo(){
+				let that=this
+				return new Promise((resolve, reject)=>{
+					uni.getStorage({
+						key: 'userinfo',
+						success:(ress)=>{
+							that.userinfo=ress.data
+							resolve(ress.data)
+						},
+						fail() {
+							resolve('')
+						}
+					})
+				})
+			},
 			apealdetial(){
 				uni.navigateTo({
 					url:'../appealpkdetail/appealpkdetail?id='+this.detailinfo.appeal_id+'&orderid='+this.match_id
@@ -309,6 +324,7 @@
 						icon:'none',
 						title:'请选择角色'
 					})
+					return false
 				}
 				let opts = {
 					url: '/api/match/partake',
@@ -324,24 +340,25 @@
 						icon: 'none',
 						title: res.data.msg
 					})
-					if (res.data.msg == 200) {
+					if(res.data.code==200){
 						setTimeout(() => {
 							uni.navigateTo({
-								url: '../arena/arena'
+								url: '../acceptthewar/acceptthewar'
 							})
 						}, 500)
 					}
-			
 				}, error => {
 					console.log(error);
 				})
 			}
 		},
-		onLoad:function(option) {
+		async onLoad(option) {
 			this.match_id=JSON.parse(option.list).id
 			this.type=option.type
+			this.getuserinfo()
 		},
 		onShow() {
+			
 			this.getlist()
 		}
 	}
@@ -473,8 +490,19 @@
 	}
 	.imglist {
 		display: flex;
-		image{
+		flex-wrap: wrap;
+		.imgcont{
 			width: 50%;
+			height: 400rpx;
+			box-sizing: content-box;
+			padding: 10rpx;
+			overflow: hidden;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			image{
+				width: 100%;
+			}
 		}
 	}
 </style>
