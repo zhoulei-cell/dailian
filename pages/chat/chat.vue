@@ -108,7 +108,7 @@
 						  that.once=false
 					  }else{
 						  let msg=JSON.parse(res.data)
-						  if(msg.type !== 'init' && msg !== "close"){
+						  if(msg.type !== 'init' && msg.type !== "close"){
 							  that.chatdata.push(JSON.parse(res.data))
 						  }
 					  }
