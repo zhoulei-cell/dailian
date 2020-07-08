@@ -11418,65 +11418,36 @@ var render = function() {
           _c(
             "v-uni-view",
             { staticClass: _vm._$g(35, "sc"), attrs: { _i: 35 } },
-            [_vm._v("账号信息")]
-          ),
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
-            [
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(37, "sc"), attrs: { _i: 37 } },
-                [_vm._v("账号：" + _vm._$g(37, "t0-0"))]
-              ),
-              _c(
-                "v-uni-view",
-                { staticClass: _vm._$g(38, "sc"), attrs: { _i: 38 } },
-                [_vm._v("密码：" + _vm._$g(38, "t0-0"))]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _c(
-        "v-uni-view",
-        { staticClass: _vm._$g(39, "sc"), attrs: { _i: 39 } },
-        [
-          _c(
-            "v-uni-view",
-            { staticClass: _vm._$g(40, "sc"), attrs: { _i: 40 } },
             [_vm._v("当前游戏信息")]
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(41, "sc"), attrs: { _i: 41 } },
-            [_vm._v(_vm._$g(41, "t0-0"))]
+            { staticClass: _vm._$g(36, "sc"), attrs: { _i: 36 } },
+            [_vm._v(_vm._$g(36, "t0-0"))]
           )
         ],
         1
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(42, "sc"), attrs: { _i: 42 } },
+        { staticClass: _vm._$g(37, "sc"), attrs: { _i: 37 } },
         [
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(43, "sc"), attrs: { _i: 43 } },
+            { staticClass: _vm._$g(38, "sc"), attrs: { _i: 38 } },
             [_vm._v("代练要求")]
           ),
           _c(
             "v-uni-view",
-            { staticClass: _vm._$g(44, "sc"), attrs: { _i: 44 } },
+            { staticClass: _vm._$g(39, "sc"), attrs: { _i: 39 } },
             [
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(45, "sc"), attrs: { _i: 45 } },
+                { staticClass: _vm._$g(40, "sc"), attrs: { _i: 40 } },
                 [
                   _c(
                     "v-uni-text",
-                    { staticClass: _vm._$g(46, "sc"), attrs: { _i: 46 } },
+                    { staticClass: _vm._$g(41, "sc"), attrs: { _i: 41 } },
                     [_vm._v("代练要求：")]
                   )
                 ],
@@ -11484,7 +11455,7 @@ var render = function() {
               ),
               _c(
                 "v-uni-view",
-                { staticClass: _vm._$g(47, "sc"), attrs: { _i: 47 } },
+                { staticClass: _vm._$g(42, "sc"), attrs: { _i: 42 } },
                 [
                   _vm._v(
                     "【代练要求】\n\t\t\t\t\t★★如qq区无法正常登陆需要验证码,请打手卸载qq后直接游戏界面登陆\n\t\t\t\t\t★ 指定英雄订单上传战力初始图,别掉原来的战力分,被ban被选务必每场截图上传。\n\t\t\t\t\t★ ★接单后30分钟内上号开打,接单又退单将扣除效率金\n\t\t\t\t\t★ ★高级套餐:胜率低于70%或打手原因单方面中途撤单支付代练费0元\n\t\t\t\t\tWX区: 号主电话,在当前密码的后面,验证码或密码错自己问一下态度好点。\n\t\t\t\t\tQQ区: 先进游戏,然后后台登录账号,不可以登录玩家QQ,QQ区如有异地冻结密码后面是手机号联系号主改密码即可。\n\t\t\t\t\t需要验证码不联系号主直接撤单者必扣效率\n\t\t\t\t\t1.动用金币钻石铭文体验卡等必须先经过我同意之后才能使用\n\t\t\t\t\t2.接单10分钟内开打并传首图,完成传图(带有号主名字的排行榜截图)\n\t\t\t\t\t3.拖单不打,一页四红,三连跪,掉星,我方有权中途撤单要求赔付效率金\n\t\t\t\t\t4.订单完成后进裙验收处理订单742-067-549"
@@ -11499,26 +11470,26 @@ var render = function() {
       ),
       _c(
         "v-uni-view",
-        { staticClass: _vm._$g(48, "sc"), attrs: { _i: 48 } },
+        { staticClass: _vm._$g(43, "sc"), attrs: { _i: 43 } },
         [
           _c(
             "v-uni-checkbox-group",
-            { attrs: { _i: 49 } },
+            { attrs: { _i: 44 } },
             [
               _c(
                 "v-uni-label",
-                { attrs: { _i: 50 } },
+                { attrs: { _i: 45 } },
                 [
                   _c("v-uni-checkbox", {
                     attrs: {
                       value: "cb",
                       checked: "true",
                       disabled: true,
-                      _i: 51
+                      _i: 46
                     }
                   }),
                   _vm._v("我已阅读并接受"),
-                  _c("v-uni-text", { attrs: { _i: 52 } }, [_vm._v("发单协议")])
+                  _c("v-uni-text", { attrs: { _i: 47 } }, [_vm._v("发单协议")])
                 ],
                 1
               )
@@ -11528,15 +11499,15 @@ var render = function() {
         ],
         1
       ),
-      _vm._$g(53, "i")
+      _vm._$g(48, "i")
         ? _c(
             "v-uni-view",
-            { staticClass: _vm._$g(53, "sc"), attrs: { _i: 53 } },
+            { staticClass: _vm._$g(48, "sc"), attrs: { _i: 48 } },
             [
               _c(
                 "v-uni-button",
                 {
-                  attrs: { type: "default", _i: 54 },
+                  attrs: { type: "default", _i: 49 },
                   on: {
                     click: function($event) {
                       return _vm.$handleViewEvent($event)
@@ -22750,7 +22721,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../HBuilderX.2.7.5.20200519.full/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 16);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, "body {\n  background-color: #f4f8fb;\n}\n.chat-with {\n  width: 100%;\n  height: 100%;\n  font-family: Microsoft YaHei;\n  background-color: #f4f8fb;\n}\n.chat-with .uni-navbar {\n  background-image: -webkit-gradient(linear, left top, right top, from(#ff7350), to(#fdb696));\n  background-image: -webkit-linear-gradient(left, #ff7350, #fdb696);\n  background-image: linear-gradient(90deg, #ff7350, #fdb696);\n}\n.chat-with .scroll .container {\n  padding: 0 20upx;\n}\n.chat-with .scroll .container .chat-list-group {\n  padding: 25upx 0;\n}\n.chat-with .scroll .container .chat-list-group .time {\n  padding-bottom: 20upx;\n  color: #999;\n  font-size: 24upx;\n  text-align: center;\n  line-height: 24upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-photo {\n  -webkit-flex-shrink: 0;\n          flex-shrink: 0;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-photo uni-image {\n  display: block;\n  width: 70upx;\n  height: 70upx;\n  -webkit-border-radius: 50%;\n          border-radius: 50%;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content {\n  max-width: 480upx;\n  padding-left: 20upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content.chat-content-me {\n  padding-left: 0;\n  padding-right: 20upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content .chat-name {\n  color: #999;\n  font-size: 24upx;\n  line-height: 24upx;\n  padding-bottom: 20upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content .chat-name.chat-name-me {\n  text-align: right;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content .chat-info {\n  padding: 20upx;\n  -webkit-border-radius: 15upx;\n          border-radius: 15upx;\n  background-color: #fff;\n  color: #000;\n  font-size: 32upx;\n  line-height: 42upx;\n}\n.chat-with .btn-box {\n  height: 108upx;\n  padding: 0 20upx 10upx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #fff;\n}\n.chat-with .btn-box .left-box {\n  height: 98upx;\n  padding: 15upx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.chat-with .btn-box .left-box .input {\n  font-size: 28upx;\n  text-indent: 24upx;\n  height: 100%;\n  -webkit-border-radius: 10upx;\n          border-radius: 10upx;\n  background-color: #f4f8fb;\n}\n.chat-with .btn-box .left-box .place {\n  color: #aaa;\n}\n.chat-with .btn-box .send {\n  width: 140upx;\n  height: 78upx;\n  -webkit-border-radius: 10upx;\n          border-radius: 10upx;\n  background-color: #00cb82;\n}\n.chat-with .btn-box .send .iconfont {\n  font-size: 50upx;\n  font-weight: 400;\n  color: #fff;\n  text-align: center;\n  line-height: 78upx;\n}\n", ""]);
+exports.push([module.i, "body {\n  background-color: #f4f8fb;\n}\n.chat-with {\n  width: 100%;\n  height: 100%;\n  font-family: Microsoft YaHei;\n  background-color: #f4f8fb;\n}\n.chat-with .uni-navbar {\n  background-image: -webkit-gradient(linear, left top, right top, from(#ff7350), to(#fdb696));\n  background-image: -webkit-linear-gradient(left, #ff7350, #fdb696);\n  background-image: linear-gradient(90deg, #ff7350, #fdb696);\n}\n.chat-with .scroll .container {\n  padding: 0 20upx;\n}\n.chat-with .scroll .container .chat-list-group {\n  padding: 25upx 0;\n}\n.chat-with .scroll .container .chat-list-group .time {\n  padding-bottom: 20upx;\n  color: #999;\n  font-size: 24upx;\n  text-align: center;\n  line-height: 24upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-photo {\n  -webkit-flex-shrink: 0;\n          flex-shrink: 0;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-photo uni-image {\n  display: block;\n  width: 70upx;\n  height: 70upx;\n  -webkit-border-radius: 50%;\n          border-radius: 50%;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content {\n  max-width: 480upx;\n  padding-left: 20upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content.chat-content-me {\n  padding-left: 0;\n  padding-right: 20upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content .chat-name {\n  color: #999;\n  font-size: 24upx;\n  line-height: 24upx;\n  padding-bottom: 20upx;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content .chat-name.chat-name-me {\n  text-align: right;\n}\n.chat-with .scroll .container .chat-list-group .chat-box .chat-content .chat-info {\n  padding: 20upx;\n  -webkit-border-radius: 15upx;\n          border-radius: 15upx;\n  background-color: #fff;\n  color: #000;\n  word-wrap: break-word;\n  font-size: 32upx;\n  line-height: 42upx;\n}\n.chat-with .btn-box {\n  height: 108upx;\n  padding: 0 20upx 10upx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  background-color: #fff;\n}\n.chat-with .btn-box .left-box {\n  height: 98upx;\n  padding: 15upx;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n}\n.chat-with .btn-box .left-box .input {\n  font-size: 28upx;\n  text-indent: 24upx;\n  height: 100%;\n  -webkit-border-radius: 10upx;\n          border-radius: 10upx;\n  background-color: #f4f8fb;\n}\n.chat-with .btn-box .left-box .place {\n  color: #aaa;\n}\n.chat-with .btn-box .send {\n  width: 120upx;\n  height: 70upx;\n  -webkit-border-radius: 10upx;\n          border-radius: 10upx;\n  background-color: #00cb82;\n}\n.chat-with .btn-box .send .iconfont {\n  font-size: 50upx;\n  font-weight: 400;\n  color: #fff;\n  text-align: center;\n  line-height: 70upx;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

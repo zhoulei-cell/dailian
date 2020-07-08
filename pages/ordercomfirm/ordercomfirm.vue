@@ -60,8 +60,8 @@
 							title: res.data.msg
 						})
 						setTimeout(()=>{
-							uni.reLaunch({
-								url: '../orderreceiving/orderreceiving'
+							uni.navigateTo({
+								url:'../orderinfo3/orderinfo3?id='+this.infodata.id
 							})
 						},500)
 					}else{

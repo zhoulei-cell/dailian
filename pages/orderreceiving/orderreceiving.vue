@@ -122,6 +122,7 @@
 							this.$refs['customPopupLogout'].close()
 						}else{
 							uni.showToast({
+								icon:'none',
 								title:res.data.msg
 							})
 						}
@@ -147,6 +148,7 @@
 							this.$refs['customPopupLogout'].close()
 						}else{
 							uni.showToast({
+								icon:'none',
 								title:res.data.msg
 							})
 						}
