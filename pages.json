@@ -327,6 +327,12 @@
 				
 			}
         }
+        ,{
+            "path" : "pages/paymentguide/paymentguide",
+            "style" : {
+				"navigationBarTitleText": "支付教程"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",

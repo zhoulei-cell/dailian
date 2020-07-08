@@ -41,21 +41,26 @@
 				</view>
 			</view>
 		</view>
-		
+		<custom-popup ref="withdraw" title="您真的要提现吗？" @cancel="close('withdraw')" @confirm="withdraw"/>
+		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="close('popup')"/>
 		<view class="btn">
-			<button type="primary" @tap="submit">确认提现</button>
+			<button type="primary" @tap="open('withdraw')">确认提现</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import customPopup from '../../components/custom-popup/custom-popup.vue'
 	export default {
-		components: {},
+		components: {
+			customPopup
+		},
 		data() {
 			return {
 				userinfo: {},
 				amount: '',
-				check:0
+				check:0,
+				content: "提现申请已提交，48小时内将转到您的银行卡，扣款详情请看资金流水"
 			}
 		},
 		methods: {
@@ -87,10 +92,11 @@
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
 					if (res.data.code == 200) {
-						uni.showToast({
+						/*uni.showToast({
 							icon: 'none',
 							title: res.data.msg
-						})
+						})*/
+						this.open('popup')
 						this.getuserinfo()
 					} else {
 						uni.showToast({
@@ -99,6 +105,16 @@
 						});
 					}
 				})
+			},
+			close(type) {
+				this.$refs[type].close()
+			},
+			open(type) {
+				this.$refs[type].open()
+			},
+			withdraw() {
+				this.close('withdraw')
+				this.submit()
 			}
 		},
 		onLoad() {

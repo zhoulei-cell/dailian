@@ -36,7 +36,7 @@
 		<view class="usercenter">
 			<view class="usercentercont">
 				<view class="item">
-					<navigator url="../mwallet/mwallet">
+					<navigator url="../mwallet/mwallet" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/qianbao.png" mode=""></image></view>
 					<view class="itemtext">钱包</view>
 					</navigator>
@@ -48,13 +48,13 @@
 					</navigator>
 				</view> -->
 				<view class="item">
-					<navigator url="../orderreceiving/orderreceiving">
+					<navigator url="../orderreceiving/orderreceiving" hover-class="none">
 						<view class="itemimg"><image src="../../static/img/user/jd.png" mode=""></image></view>
 						<view class="itemtext">接单订单</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../orderrelease/orderrelease">
+					<navigator url="../orderrelease/orderrelease" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/fd.png" mode=""></image></view>
 					<view class="itemtext">发单订单</view>
 					</navigator>
@@ -73,25 +73,25 @@
 		<view class="usercenter">
 			<view class="usercentercont">
 				<view class="item">
-					<navigator url="../opposingrole/opposingrole">
+					<navigator url="../opposingrole/opposingrole" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/js.png" mode=""></image></view>
 					<view class="itemtext">对战角色</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../warrecord/warrecord">
+					<navigator url="../warrecord/warrecord" hover-class="none">
 						<view class="itemimg"><image src="../../static/img/user/dz.png" mode=""></image></view>
 						<view class="itemtext">我的发布</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../acceptthewar/acceptthewar">
+					<navigator url="../acceptthewar/acceptthewar" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/dindan.png" mode=""></image></view>
 					<view class="itemtext">接受对战</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../bankcart/bankcart">
+					<navigator url="../bankcart/bankcart" hover-class="none">
 						<view class="itemimg"><image src="../../static/img/user/yhk.png" mode=""></image></view>
 						<view class="itemtext">银行卡管理</view>
 					</navigator>
@@ -102,31 +102,31 @@
 		<view class="usercenter bottom">
 			<view class="usercentercont">
 				<view class="item">
-					<navigator url="../updateuserinfo/updateuserinfo">
+					<navigator url="../updateuserinfo/updateuserinfo" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/gerenzhongx.png" mode=""></image></view>
 					<view class="itemtext">修改资料</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../membershipcenter/membershipcenter">
+					<navigator url="../membershipcenter/membershipcenter" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/huiyuan.png" mode=""></image></view>
 					<view class="itemtext">我的会员</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../invitation/invitation">
+					<navigator url="../invitation/invitation" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/yaoqin.png" mode=""></image></view>
 					<view class="itemtext">邀请有奖</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../calendar/calendar">
+					<navigator url="../calendar/calendar" hover-class="none">
 						<view class="itemimg"><image src="../../static/img/user/qiandao.png" mode=""></image></view>
 						<view class="itemtext">签到有奖</view>
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../authentication/authentication">
+					<navigator url="../authentication/authentication" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/shouchang.png" mode=""></image></view>
 					<view class="itemtext">实名认证</view>
 					</navigator>

@@ -1,6 +1,6 @@
 <template>
 	<view class="chat-with">
-		<scroll-view class="scroll" :style="{height: scrollHeight+'px'}" :scroll-y="true" :show-scrollbar="false" :scroll-top="scrolltop" :scroll-with-animation="true">
+		<scroll-view class="scroll" @scroll="scroll" :style="{height: scrollHeight+'px'}" :scroll-y="true" :show-scrollbar="false" :scroll-top="scrolltop" :scroll-with-animation="true">
 			<view class="container">
 				<block v-for="(list,index) in chatdata" :key="index">
 					<!-- 不是自己发的消息 -->
@@ -59,7 +59,9 @@
 				user: {},
 				once: true,
 				scrolltop: 0,
-				scrollHeight: 0
+				scrollHeight: 0,
+				scrollContentHeight: 0,
+				tag: true
 			};
 		},
 		methods: {
@@ -71,6 +73,8 @@
 				  data: '{"type":"text","content":"'+this.content+'"}'
 				});
 				this.content=""
+				this.tag = true
+				this.scrollToBottom()
 			},
 			// 获取用户信息
 			getuserinfo(){
@@ -87,8 +91,8 @@
 					uni.connectSocket({
 					    url: 'ws://'+this.$http.baseUrl+':9511?id='+this.userinfo.id+'',
 					    header: {
-					        'Upgrade': 'websocket',
-							'Connection': 'Upgrade'
+					      'Upgrade': 'websocket',
+								'Connection': 'Upgrade'
 					    },
 						success:function(e){
 							console.log(e)
@@ -104,12 +108,12 @@
 						  that.once=false
 					  }else{
 						  let msg=JSON.parse(res.data)
-						  if(msg.type!='init'){
+						  if(msg.type !== 'init' && msg !== "close"){
 							  that.chatdata.push(JSON.parse(res.data))
 						  }
 					  }
 					  that.$nextTick(function(){
-					  	that.getContainerHeight()
+					  	that.scrollToBottom()
 					  })
 					});
 					uni.onSocketOpen(function (res) {
@@ -120,15 +124,21 @@
 					});
 				})
 			},
-			getContainerHeight() {
+			scrollToBottom() {
 				let height = 0
 				const query = uni.createSelectorQuery();
 				query.selectAll('.chat-list-group').boundingClientRect(data => {
 				  data.forEach(item => {
 					  height += item.height
 				  })
-				  this.scrolltop = height
+					if ( height > this.scrollHeight ) {
+						if (this.tag) {
+							this.scrolltop = height
+						}
+						//console.log("元素的："+(this.scrolltop - this.scrollHeight))
+					}
 				}).exec();
+				return height
 			},
 			getHeight() {
 				uni.getSystemInfo({
@@ -136,6 +146,16 @@
 				        this.scrollHeight = res.windowHeight - uni.upx2px(108)
 				    }
 				})
+			},
+			scroll(e) {
+				//console.log(this.scrollToBottom() - this.scrollHeight)
+				//console.log("滚动的：" + e.detail.scrollTop)
+				//console.log("距离的：" + this.scrolltop)
+				if (e.detail.scrollTop == (this.scrollToBottom() - this.scrollHeight)) {
+					this.tag = true
+				} else {
+					this.tag = false
+				}
 			}
 		},
 		onLoad() {
@@ -143,7 +163,10 @@
 			this.getHeight()
 		},
 		onReady() {
-			this.getContainerHeight()
+			this.scrollToBottom()
+		},
+		onUnload() {
+			uni.closeSocket()
 		},
 		onBackPress(options) {  
 			if (options.from === 'navigateBack') {  
