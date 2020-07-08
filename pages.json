@@ -136,7 +136,7 @@
 		{
 			"path": "pages/orderinfo3/orderinfo3",
 			"style": {
-				"navigationBarTitleText": "发单订单详情"
+				"navigationBarTitleText": "订单详情"
 			}
 		},
 		{

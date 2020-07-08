@@ -9,7 +9,7 @@
 				<view class="itemcenterbottom">QQ/微信：{{list.contact}}</view>
 			</view>
 			<view class="itemright">
-				<!-- {{list.platforms.name}} -->
+				{{list.platforms.name}}
 			</view>
 		</view>
 	</view>
