@@ -202,7 +202,18 @@
 		{
 			"path": "pages/appealdetial/appealdetial",
 			"style": {
-				"navigationBarTitleText": "申诉详情"
+				"navigationBarTitleText": "申诉详情",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSize": "30rpx",
+								"text":"刷新",
+								"float": "right"
+							}
+						]
+					}
+				}
 			}
 		},
 		{
@@ -214,7 +225,18 @@
 		{
 			"path": "pages/appealpkdetail/appealpkdetail",
 			"style": {
-				"navigationBarTitleText": "申诉详情"
+				"navigationBarTitleText": "申诉详情",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSize": "30rpx",
+								"text":"刷新",
+								"float": "right"
+							}
+						]
+					}
+				}
 			}
 		},
 		{

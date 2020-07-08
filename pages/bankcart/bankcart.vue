@@ -43,6 +43,7 @@
 				name:"",
 				bank:"",
 				path:null,
+				type:0
 			}
 		},
 		methods: {
@@ -56,15 +57,20 @@
 					
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
-					this.mobile=res.data.data.mobile
-					this.bank_no=res.data.data.bank_no
-					this.name=res.data.data.name
-					this.bank=res.data.data.bank
+					if(res.data.data){
+						this.type=1
+						this.mobile=res.data.data.mobile
+						this.bank_no=res.data.data.bank_no
+						this.name=res.data.data.name
+						this.bank=res.data.data.bank
+					}else{
+						this.type=0
+					}
 				})
 			},
 			//提交
 			submit(){
-				if(this.mobile){
+				if(this.type==1){
 					let opts = {
 						url: '/api/withdraw/account/edit',
 						method: 'put'
