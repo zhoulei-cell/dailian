@@ -62,7 +62,6 @@
 		},
 		onLoad(options) {
 			this.userinfo = JSON.parse(options.userinfo)
-			console.log(this.userinfo)
 		}
 	}
 </script>

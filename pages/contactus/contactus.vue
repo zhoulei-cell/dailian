@@ -16,13 +16,16 @@
 			</block>
 			<view class="tips">Tips:请尽量在工作时间拨打客服电话,我们的客服人员将竭尽全力为您解决问题</view>
 		</view>
+		<custom-popup ref="popup" title="您确定要拨打电话给客服吗？" @cancel="close" @confirm="confirm"/>
 	</view>
 </template>
 
 <script>
+	import customPopup from '../../components/custom-popup/custom-popup'
 	export default {
 		data() {
 			return {
+				phone: '',
 				dataList: [
 					{
 						id: 0,
@@ -41,10 +44,21 @@
 		},
 		methods: {
 			call(phone) {
+				this.open()
+				this.phone = phone
+			},
+			close() {
+				this.$refs['popup'].close()
+			},
+			open() {
+				this.$refs['popup'].open()
+			},
+			confirm() {
+				this.close()
 				uni.makePhoneCall({
-					phoneNumber: phone,
+					phoneNumber: this.phone,
 					success(e) {
-						
+
 					},
 					fail(e) {
 						uni.showTost({
@@ -54,6 +68,9 @@
 					}
 				})
 			}
+		},
+		components: {
+			customPopup
 		}
 	}
 </script>
