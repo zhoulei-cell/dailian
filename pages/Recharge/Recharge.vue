@@ -41,7 +41,7 @@
 				</view>
 			</view>
 		</view>
-		
+		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="confirm"/>
 		<view class="btn">
 			<button type="primary" @click="recharge">确认充值</button>
 		</view>
@@ -49,13 +49,17 @@
 </template>
 
 <script>
+	import customPopup from '../../components/custom-popup/custom-popup.vue'
 	export default {
-		components: {},
+		components: {
+			customPopup
+		},
 		data() {
 			return {
 				userinfo:{},
 				check:2,
-				acount:''
+				acount:'',
+				content: "后台订单已生成，点击确认获取向银行卡转账信息，向银行卡转账成功以后联系客服充值"
 			}
 		},
 		methods: {
@@ -101,10 +105,13 @@
 						type:1
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
-					uni.showToast({
-						icon:'none',
-						title:res.data.msg
-					})
+					this.$refs['popup'].open()
+				})
+			},
+			confirm() {
+				this.$refs['popup'].close()
+				uni.redirectTo({
+					url: '/pages/paymentguide/paymentguide'
 				})
 			}
 		},

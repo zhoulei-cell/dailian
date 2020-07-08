@@ -6,7 +6,7 @@
             <text class="uni-tip-title">警告</text> -->
             <text class="uni-tip-content">{{title}}</text>
             <view class="uni-tip-group-button">
-                <text class="uni-tip-button" @tap="$emit('cancel')">取消</text>
+                <text class="uni-tip-button" @tap="$emit('cancel')" v-if="isCancel">取消</text>
                 <text class="uni-tip-button check" @tap="$emit('confirm')">确定</text>
             </view>
         </view>
@@ -22,6 +22,10 @@ export default {
         title: {
             type: String,
             default: "默认的标题"
+        },
+        isCancel: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -67,7 +71,7 @@ export default {
         font-size: 30rpx;
         font-family: PingFang SC;
         font-weight: bold;
-        color: rgba(3,3,3,1);
+        color: #444;
         text-align: center;
     }
 

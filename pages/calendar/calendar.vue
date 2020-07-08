@@ -7,7 +7,7 @@
 					<view class="leftbottom"><text>{{daylx}}</text>天</view>
 				</view>
 				<view class="right">
-					<button @tap="lisign">立即签到</button>
+					<button @tap="lisign">{{calendarText}}</button>
 				</view>
 			</view>
 		</view>
@@ -40,7 +40,8 @@
 					insert: false,
 					selected: []
 				},
-				daylx:0
+				daylx:0,
+				calendarText: "立即签到"
 			}
 		},
 		methods: {
@@ -83,17 +84,22 @@
 				this.$http.httpTokenRequest(opts, param).then(res => {
 					if (res.data.code == 200) {
 						if(res.data.data.length>0){
-							console.log(res.data.data)
+							//console.log(res.data.data)
 							for (var i = 0; i < res.data.data.length; i++) {
 								let date=res.data.data[i].created_time.split(' ')
 								this.info.selected.push({
 									date: date[0],
 									info: '已签到'
 								})
-								console.log(this.info.selected)
+								//console.log(this.info.selected)
 							}
 							let num=res.data.data.length-1
 							this.daylx=res.data.data[num].sign_in_num
+							let date=new Date()
+							let time=util.dateFormat('YYYY-mm-dd',date)
+							if ( time === this.info.selected[num].date ) {
+								this.calendarText = "已签到"
+							}
 						}
 					} else {
 						uni.showToast({
@@ -126,11 +132,16 @@
 				}, error => {
 					console.log(error);
 				})
+			},
+			getMonthDay(year, month) {
+				let days = new Date(year, month + 1, 0).getDate()
+				return days
 			}
 		},
 		onLoad() {
 			let date=new Date()
 			let time=util.dateFormat('YYYY-mm',date)
+			//console.log(this.getMonthDay(date.getFullYear(), date.getMonth() + 1 + 2))
 			this.getsignlist(time+'-01',time+'-31')
 		}
 	}
