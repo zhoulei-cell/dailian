@@ -65,7 +65,7 @@
 		<custom-popup ref="withdraw" title="您真的要提现吗？" @cancel="close('withdraw')" @confirm="withdraw"/>
 		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="close('popup')"/>
 		<view class="btn">
-			<button type="primary" @tap="open('withdraw')">确认提现</button>
+			<button type="primary" @tap="confirmWithdraw">确认提现</button>
 		</view>
 	</view>
 </template>
@@ -158,6 +158,12 @@
 			withdraw() {
 				this.close('withdraw')
 				this.submit()
+			},
+			confirmWithdraw() {
+				if (this.amount === "") {
+					return null
+				}
+				this.open('withdraw');
 			}
 		},
 		onLoad() {
