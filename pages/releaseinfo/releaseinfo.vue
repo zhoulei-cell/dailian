@@ -348,8 +348,8 @@
 								title: res.data.msg
 							})
 							setTimeout(() => {
-								uni.reLaunch({
-									url: "/pages/releaseinfo/releaseinfo"
+								uni.navigateBack({
+									delta:1
 								})
 							}, 500)
 						} else {
