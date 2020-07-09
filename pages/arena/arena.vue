@@ -1,24 +1,10 @@
 <template>
     <view class="content">
-		<!-- <swiper class="swiper" current="1" previous-margin="23rpx" next-margin="23rpx" :indicator-dots="true" indicator-color="#DDDDDD" indicator-active-color="#666666">
-			<swiper-item>
-				<image src="../../static/img/index/banner.png" mode="scaleToFill"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../../static/img/other/banner.png" mode="scaleToFill"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../../static/img/index/banner2.png" mode="scaleToFill"></image>
-			</swiper-item>
-		</swiper> -->
-		<view class="filter">
-			
-		</view>
 		<!-- <HMfilterDropdown class="pos" v-if="isShow" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown> -->
 		<!-- 站位 -->
 		<view style="height: 45px"></view>
 		<!-- 站位 -->
-		<HMfilterDropdown class="pos" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
+		<HMfilterDropdown bgColor="#fff" class="pos" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
 		<block v-for="(list,index) in listData" :key="index">
 			<!-- 列表 -->
 			<view class="list-group-wrap" @tap="navtodetail(list)">
@@ -189,13 +175,6 @@
 		position: relative;
 		padding-bottom: 150rpx;
 		padding: 0 !important;
-	}
-	.swiper{
-		height: 355rpx;
-		image{
-			width: 704rpx;
-			height: 349rpx;
-		}
 	}
 	.pos{
 		position: fixed;
