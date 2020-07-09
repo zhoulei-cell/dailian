@@ -235,7 +235,6 @@
 			},
 		},
 		onPageScroll(options) {
-			console.log(uni.upx2px(88))
 			if (options.scrollTop >= uni.upx2px(88)) {
 				this.isShow = true
 			} else {
