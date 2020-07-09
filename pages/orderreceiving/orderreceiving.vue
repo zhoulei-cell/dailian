@@ -35,8 +35,8 @@
 							
 							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals==0 && item.order_status!=5">申诉</button>
 							<button @tap.stop="lookappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
-							<button @tap.stop="submitexception(item,index)" v-if="item.order_status==2">提交异常</button>
-							<button @tap.stop="cancelexception(item,index)" v-if="item.order_status==3">取消异常</button>
+							<button @tap.stop="submitexception(item,index)" v-if="item.abnormal==0">提交异常</button>
+							<button @tap.stop="cancelexception(item,index)" v-if="item.abnormal!=0">取消异常</button>
 						</view>
 					</view>
 				</view>
