@@ -338,12 +338,14 @@
         },{
             "path" : "pages/warrecord/warrecord",
             "style" : {
-				"navigationBarTitleText": "发布对战"
+				"navigationBarTitleText": "发布对战",
+				"enablePullDownRefresh": true
 			}
         },{
             "path" : "pages/acceptthewar/acceptthewar",
             "style" : {
-				"navigationBarTitleText": "接受对战"
+				"navigationBarTitleText": "接受对战",
+				"enablePullDownRefresh": true
 			}
         },{
             "path" : "pages/uploadresults/uploadresults",

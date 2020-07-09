@@ -64,17 +64,19 @@ const httpTokenRequest = async (opts, data) => {
 	//此token是登录成功后后台返回保存在storage中的
 	let httpDefaultOpts = {
 		url: base + opts.url,
-		data: Object.assign(data, {
-			token
-		}),
+		// data: Object.assign(data, {
+		// 	token
+		// }),
 		method: opts.method,
 		header: opts.method == 'get' ? {
-			// 'Authorization' : '	Bearer' + token,
+			'Authorization': "Bearer " + token,
+			'token': "Bearer " + token,
 			'X-Requested-With': 'XMLHttpRequest',
 			"Accept": "application/json",
 			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
 		} : {
-			// 'Authorization' : '	Bearer' + token,
+			'Authorization': "Bearer " + token,
+			'token': "Bearer " + token,
 			'X-Requested-With': 'XMLHttpRequest',
 			'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 		},
@@ -112,7 +114,7 @@ const httpTokenRequest = async (opts, data) => {
 	})
 	return promise
 };
-const uploadimg = async(imgFiles)=>{
+const uploadimg = async(files)=>{
 	let token =await gettoken();
 	// 上传图片
 	// 做成一个上传对象
@@ -121,7 +123,8 @@ const uploadimg = async(imgFiles)=>{
 		    // 需要上传的地址
 		    url:base+'/api/upload?token='+token,
 		    // filePath  需要上传的文件
-		    filePath: imgFiles,
+				//filePath: imgFiles,
+				files: files,
 		    name: 'image[]',
 		    success(res1) {
 				if(res1.data.code==200)
@@ -139,9 +142,9 @@ const uploadimg = async(imgFiles)=>{
 		// onProgressUpdate 上传对象更新的方法
 		uper.onProgressUpdate(function(res){
 		    // 进度条等于 上传到的进度
-		    console.log('上传进度' + res.progress)
-		    console.log('已经上传的数据长度' + res.totalBytesSent)
-		    console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend)
+		    // console.log('上传进度' + res.progress)
+		    // console.log('已经上传的数据长度' + res.totalBytesSent)
+		    // console.log('预期需要上传的数据总长度' + res.totalBytesExpectedToSend)
 		})
 	})
 }

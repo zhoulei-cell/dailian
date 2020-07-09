@@ -1,83 +1,115 @@
 <template>
-    <view class="content">
-		<view class="imglist">
+  <view class="content">
+		<!-- <view class="imglist">
 			<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
 				<image :src="imglist.full || imglist.url"></image>
 			</view>
 		</view>
-        <button type="primary" @tap="cI">选择图片</button>
-		<view class="status">
-			<view class="item">
-				<view class="checkbox" :class="{check:check==1}" @tap="check=1">
-					
-				</view>
-				<view class="text">
-					胜利
+    <button type="primary" @tap="cI">选择图片</button> -->
+		<!-- 图片上传 -->
+		<view class="image-upload">
+			<view class="uni-list list-pd">
+				<view class="uni-list-cell cell-pd">
+					<view class="uni-uploader">
+						<view class="uni-uploader-head">
+							<!-- <view class="uni-uploader-info">{{imageList.length}}/5</view> -->
+						</view>
+						<view class="uni-uploader-body">
+							<view class="uni-uploader__files">
+								<block v-for="(image,index) in imageList" :key="index">
+									<view class="uni-uploader__file">
+										<image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image"></image>
+									</view>
+								</block>
+								<view class="uni-uploader__input-box">
+									<view class="uni-uploader__input" @tap="chooseImage"></view>
+								</view>
+							</view>
+						</view>
+					</view>
 				</view>
 			</view>
+		</view>
+		<!-- 图片上传 -->
+		<view class="status">
 			<view class="item">
-				<view class="checkbox" :class="{check:check==2}" @tap="check=2">
-					
-				</view>
-				<view class="text">
-					失败
-				</view>
+				<view class="checkbox" :class="{check:check==1}" @tap="check=1"></view>
+				<view class="text">胜利</view>
+			</view>
+			<view class="item">
+				<view class="checkbox" :class="{check:check==2}" @tap="check=2"></view>
+				<view class="text">失败</view>
 			</view>
 		</view>
 		<view class="next">
-			<button @tap="imgsubmit">确认上传</button>
+			<button @tap="uploadImg">确认上传</button>
 		</view>
-    </view>
+  </view>
 </template>
 
 <script>
     // 注册一个进度条
-    var _self;
-    export default {
-        data() {
-            return {
-                percent:0,
-				imglist:[],
+  var _self;
+  export default {
+		data() {
+			return {
+				percent:0,
+				imageList:[],
 				selectindex:1,
 				id:"",
-				check:1,
-				imgsubmitd:[]
-            }
-        },
-        methods: {
-			//图片上传
-            cI(){
-				let _this=this;
-                uni.chooseImage({
-                    count: 1,
-                    sizeType:['copressed'],
-                    success(res) {
-                        var imgFiles = res.tempFilePaths[0]
-                        _this.$http.uploadimg(imgFiles).then((res)=>{
-							var data=JSON.parse(res.data)
-							_this.imglist = _this.imglist.concat(data.data)
-							console.log(data.data)
-							_this.imgsubmitd.push(data.data[0].url)
+				check:1
+			}
+		},
+    methods: {
+			// 图片上传
+			chooseImage() {
+				uni.chooseImage({
+					count: 1,
+					sizeType:['copressed'],
+					success: (res) => {
+						this.imageList = this.imageList.concat(res.tempFilePaths)
+					},
+					fail: (res) => {
+						uni.showToast({
+							icon: 'none',
+							title: '错误！'
 						})
-                    }
-                })
-            },
+					}
+				})
+			},
+			//确认上传图片
+			uploadImg() {
+				const imgFiles = []
+				this.imageList.forEach((item,index) => {
+					imgFiles.push({uri: item, name: `image[${index}]`})
+				})
+				this.$http.uploadimg(imgFiles).then((res)=>{
+					let url = ''
+					const data = JSON.parse(res.data)
+					data.data.forEach(item => {
+						url += item.url + ',';
+					})
+				})
+			},
 			//图片上传提交
-			imgsubmit(){
+			imgsubmit(url){
 				let opts = {
 					url: '/api/match/prefinish',
 					method: 'post'
 				}
 				let params={
-					match_id:this.id,
-					images:String(this.imgsubmitd),
-					win:this.check
+					match_id: this.id,
+					images: url,
+					win: this.check
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						uni.showToast({
 							icon:'none',
 							title:res.data.msg
+						})
+						uni.navigateBack({
+							delta: 1
 						})
 					}else{
 						uni.showToast({
@@ -89,11 +121,11 @@
 					console.log(error);
 				})
 			}
-        },
+		},
 		onLoad: function (option) {
-			this.id=option.id
+			this.id = option.id
 		}
-    }
+  }
 </script>
 
 <style lang="scss">

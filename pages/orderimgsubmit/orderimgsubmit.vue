@@ -62,7 +62,6 @@
 						}
 					],
 					percent:0,
-					imglist:[],
 					selectindex:1,
 					id:"",
 					imageList: [],
@@ -86,7 +85,6 @@
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
-						this.imglist=res.data.data
 						this.uploadImageList = res.data.data
 						this.imageList = res.data.data
 					}else{
@@ -130,9 +128,7 @@
 					count: 1,
 					sizeType:['copressed'],
 					success: (res) => {
-						console.log(res)
 						this.imageList = this.imageList.concat(res.tempFilePaths)
-						console.log(this.imageList)
 					},
 					fail: (res) => {
 						uni.showToast({
@@ -144,10 +140,22 @@
 			},
 			//确认上传图片
 			uploadImg() {
-				const imgFiles = this.imageList.slice(this.uploadImageList.length)[0]
-				this.$http.uploadimg(imgFiles).then((res)=>{
-					const data=JSON.parse(res.data)
-					this.imgsubmit(data.data[0].url)
+				let imgFiles = this.imageList.slice(this.uploadImageList.length)
+				if (imgFiles.length === 0) {
+					console.log('没有图片')
+					return null
+				}
+				const imgFile = [];
+				imgFiles.forEach((item, index) => {
+					imgFile.push({uri: item, name: `image[${index}]`})
+				})
+				this.$http.uploadimg(imgFile).then((res)=>{
+					let url = ''
+					const data = JSON.parse(res.data)
+					data.data.forEach(item => {
+						url += item.url + ',';
+					})
+					this.imgsubmit(url)
 				})
 			}
 		},
