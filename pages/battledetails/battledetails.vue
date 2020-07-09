@@ -498,6 +498,7 @@
 	.imglist {
 		display: flex;
 		flex-wrap: wrap;
+		background: #fff;
 		.imgcont{
 			width: 50%;
 			height: 400rpx;
@@ -511,5 +512,8 @@
 				width: 100%;
 			}
 		}
+	}
+	.consult{
+		background: #fff;
 	}
 </style>
