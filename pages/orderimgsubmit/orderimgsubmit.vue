@@ -1,14 +1,36 @@
 <template>
-    <view class="content">
-		<view class="tab">
-			<view class="tabitem" v-for="item in ordertype" :key="item.type" :class="{check:item.type==selectindex}" @tap="choseItem(item)">{{item.text}}</view>
-		</view>
-		<view class="imglist">
-			<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
-				<image :src="imglist.full || imglist.url"></image>
+    <view class="order-img">
+			<view class="tab">
+				<view class="tabitem" v-for="item in ordertype" :key="item.type" :class="{check:item.type==selectindex}" @tap="choseItem(item)">{{item.text}}</view>
 			</view>
-		</view>
-        <button type="primary" @tap="cI">选择图片</button>
+				<!-- 图片上传 -->
+				<view class="image-upload">
+					<view class="uni-list list-pd">
+						<view class="uni-list-cell cell-pd">
+							<view class="uni-uploader">
+								<view class="uni-uploader-head">
+									<!-- <view class="uni-uploader-info">{{imageList.length}}/5</view> -->
+								</view>
+								<view class="uni-uploader-body">
+									<view class="uni-uploader__files">
+										<block v-for="(image,index) in imageList" :key="index">
+											<view class="uni-uploader__file">
+												<image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image"></image>
+											</view>
+										</block>
+										<view class="uni-uploader__input-box">
+											<view class="uni-uploader__input" @tap="chooseImage"></view>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+				<!-- 图片上传 -->
+				<view class="next">
+					<button @tap="uploadImg">保存</button>
+				</view>
     </view>
 </template>
 
@@ -42,30 +64,15 @@
 					percent:0,
 					imglist:[],
 					selectindex:1,
-					id:""
+					id:"",
+					imageList: [],
+					uploadImageList: []
 				}
 			},
 		methods: {
 			choseItem(item) {
 				this.selectindex = item.type
 				this.getimglist()
-			},
-			//图片上传
-			cI(){
-				let _this=this;
-				uni.chooseImage({
-					count: 1,
-					sizeType:['copressed'],
-					success(res) {
-						var imgFiles = res.tempFilePaths[0]
-						_this.$http.uploadimg(imgFiles).then((res)=>{
-							var data=JSON.parse(res.data)
-							_this.imglist = _this.imglist.concat(data.data)
-							_this.imgsubmit(data.data[0].url)
-							console.log(_this.imglist)
-						})
-					}
-				})
 			},
 			//获取图片
 			getimglist(){
@@ -74,12 +81,14 @@
 					method: 'get'
 				}
 				let params={
-					order_id:this.id,
-					type:this.selectindex,
+					order_id: this.id,
+					type: this.selectindex,
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						this.imglist=res.data.data
+						this.uploadImageList = res.data.data
+						this.imageList = res.data.data
 					}else{
 						uni.showToast({
 							title:res.data.msg
@@ -113,24 +122,65 @@
 				}, error => {
 					console.log(error);
 				})
+			},
+
+			// 图片上传
+			chooseImage() {
+				uni.chooseImage({
+					count: 1,
+					sizeType:['copressed'],
+					success: (res) => {
+						console.log(res)
+						this.imageList = this.imageList.concat(res.tempFilePaths)
+						console.log(this.imageList)
+					},
+					fail: (res) => {
+						uni.showToast({
+							icon: 'none',
+							title: '错误！'
+						})
+					}
+				})
+			},
+			//确认上传图片
+			uploadImg() {
+				const imgFiles = this.imageList.slice(this.uploadImageList.length)[0]
+				this.$http.uploadimg(imgFiles).then((res)=>{
+					const data=JSON.parse(res.data)
+					this.imgsubmit(data.data[0].url)
+				})
 			}
 		},
 		onLoad: function (option) {
-			console.log(option.id)
-			this.id=option.id
+			this.id = option.id
 			this.getimglist()
 		}
 	}
 </script>
 
-<style>
-	.content{
-		padding: 0;
+<style lang="scss">
+	page{
+		background-color: #f4f8fb;
+	}
+	.order-img{
+		width: 100%;
+	}
+	.image-upload{
+		padding-bottom: 120rpx;
+		.uni-list{
+			padding: 20rpx;
+			box-sizing: border-box;
+			background-color: #fff;
+			&:before{
+				height: 0;
+			}
+		}
 	}
 	.tab {
 		display: flex;
 		width: 100%;
 		border-bottom: 1px solid #E0E0E0;
+		background-color: #fff;
 	}
 	
 	.tab .tabitem {
@@ -151,17 +201,39 @@
 		width: 100%;
 		padding: 20rpx;
 	}
-.imgbox{
-	width: 350rpx;
-	height: 350rpx;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	margin-bottom: 20rpx;
-}
-.imgbox image{
-	width: 100%;
-	
-}
+	.imgbox{
+		width: 350rpx;
+		height: 350rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		margin-bottom: 20rpx;
+	}
+	.imgbox image{
+		width: 100%;
+	}
+	.next{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		height: 120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
+	}
+	.next button{
+		width: 100%;
+		height: 80rpx;
+		background:rgba(0,203,130,1);
+		box-shadow:0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		line-height: 80rpx;
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+	}
 </style>
