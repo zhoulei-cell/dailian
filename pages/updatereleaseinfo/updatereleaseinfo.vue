@@ -48,7 +48,7 @@
 						当前段位
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入当前段位" v-model="orderInfo.current_segment" />
+						<input class="uni-input" placeholder="请输入当前段位" v-model="orderInfo.current_segment" disabled="true"/>
 					</view>
 				</view>
 			</view>
@@ -58,7 +58,7 @@
 						目标段位
 					</view>
 					<view class="uni-list-cell-db">
-						<input class="uni-input" placeholder="请输入目标段位" v-model="orderInfo.tag_segment" />
+						<input class="uni-input" placeholder="请输入目标段位" v-model="orderInfo.tag_segment" disabled="true"/>
 					</view>
 				</view>
 			</view>
@@ -199,7 +199,10 @@ export default {
 				size: '22',
 				type: 'gear-filled'
 			},
-            multiArray: [],
+            multiArray: [
+				{},
+				{}
+			],
             multiIndex: [0, 0],
 			orderInfo:{
 				title:'',

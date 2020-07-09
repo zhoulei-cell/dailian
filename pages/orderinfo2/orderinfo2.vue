@@ -52,6 +52,7 @@
 		</view> -->
 		<view class="lineinfo">
 			<view class="title">当前游戏信息</view>
+			<view class="line">游戏角色：{{orderInfo.game_role_name}}</view>
 			<view class="cont">
 				{{orderInfo.rel_message}}
 			</view>
