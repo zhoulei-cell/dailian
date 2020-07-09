@@ -73,7 +73,6 @@
 				uni.stopPullDownRefresh()
 			},
 			onReachBottom(){
-				console.log(1)
 				if (!this.isEnd) {
 					this.loadMoreText = "加载中..."
 					this.page++

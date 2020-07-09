@@ -5,15 +5,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-		// 发布对战信息
-		role:{
-			role_name:''
-		}
+			// 发布对战信息
+			role:{
+				role_name:''
+			}
     },
     mutations: {
-		updaterole(state,data){
-			state.role=data
-		}
+			updaterole(state,data){
+				state.role=data
+			}
     }
 })
 

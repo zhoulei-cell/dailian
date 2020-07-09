@@ -67,23 +67,30 @@
 				<view class="card-box d-flex jc-between">
 					<view class="avatar-box">
 						<view class="avatar">
-							<image :src="detailinfo.user.avatar" mode="aspectFill"></image>
+							<image v-if="detailinfo.user_role.id === detailinfo.winner" class="win" src="../../static/img/other/win.png" mode="aspectFit"></image>
+							<image :src="detailinfo.user.avatar" mode="aspectFit"></image>
 						</view>
-						<view class="text">{{detailinfo.user_role.role_name}}</view>
-						<view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view>
+						<view class="text text-overflow">{{detailinfo.user_role.role_name}}</view>
+						<!-- <view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view> -->
+						<view class="text">{{detailinfo.showStatus}}</view>
+					</view>
+					<view class="vs d-flex">
+						<!-- <view v-if="detailinfo.status === 5" class="text">{{detailinfo.user_role.id === detailinfo.winner ? '胜方' : '败方'}}</view> -->
+						<image src="../../static/img/other/vs.png"></image>
+						<!-- <view v-if="detailinfo.status === 5" class="text">{{detailinfo.partake.id === detailinfo.winner ? '胜方' : '败方'}}</view> -->
 					</view>
 					<view class="avatar-box" v-if="detailinfo.partake_role">
 						<view class="avatar">
-							<image :src="detailinfo.partake.avatar" mode="aspectFill"></image>
+							<image v-if="detailinfo.partake.id === detailinfo.winner" class="win" src="../../static/img/other/win.png" mode="aspectFit"></image>
+							<image :src="detailinfo.partake.avatar" mode="aspectFit"></image>
 						</view>
-						<view class="text">{{detailinfo.partake_role.role_name || '请选择'}}</view>
-						<view class="text">{{detailinfo.partake_ready?'已准备':'未准备'}}</view>
+						<view class="text text-overflow">{{detailinfo.partake_role.role_name || '请选择'}}</view>
+						<!-- <view class="text">{{detailinfo.partake_ready?'已准备':'未准备'}}</view> -->
+						<view class="text">{{detailinfo.showStatus}}</view>
 					</view>
-					<view class="avatar-box" v-else>
-						<navigator url="../opposingrole/opposingrole?type=1">
-							<view class="avatar"></view>
-							<view class="text">{{role.role_name || '请选择'}}</view>
-						</navigator>
+					<view class="avatar-box" v-else @tap="toSelect">
+						<view class="avatar"></view>
+						<view class="text text-overflow">{{role.role_name || '请选择'}}</view>
 					</view>
 				</view>
 				<!-- <view class="btn-box">
@@ -91,7 +98,7 @@
 				</view> -->
 			</view>
 			
-			<view class="consult" v-if="detailinfo.winners">
+			<!-- <view class="consult" v-if="detailinfo.winners">
 				胜利者：<text style="color: red;">{{detailinfo.winners.name}}</text>
 			</view>
 			<view class="imglist" v-if="JSON.stringify(detailinfo.images)!='[]'">
@@ -103,7 +110,8 @@
 				<view class="imgcont">
 					<image :src="list" mode="widthFix" v-for="(list,index) in detailinfo.images[1].images" :key="index"></image>
 				</view>
-			</view>
+			</view> -->
+
 			<view class="info-card" v-if="type!=1&&type!=2">
 				<view class="card-title">英雄禁用</view>
 				<view class="card-box d-flex jc-between">
@@ -188,7 +196,10 @@
 					user_role:{
 						role_name:''
 					},
-					images:[]
+					images:[],
+					partake: {},
+					user: {},
+					winners: {}
 				},
 				match_id:'',
 				checkzy:0,
@@ -259,6 +270,13 @@
 				uni.navigateTo({
 					url:'../appealpk/appealpk?id='+this.match_id
 				})
+			},
+			toSelect() {
+				if (this.detailinfo.status !== 7 && this.userinfo.id !== this.detailinfo.user.id) {
+					uni.navigateTo({
+						url: "../opposingrole/opposingrole?type=1"
+					})
+				}
 			},
 			cancel(){
 				let opts = {
@@ -386,6 +404,7 @@
 			padding-bottom: 20rpx;
 			.info-card{
 				margin-top: 14rpx;
+				border-radius: 15rpx;
 				background-color: #fff;
 				.card-title{
 					padding: 26rpx 20rpx;
@@ -415,8 +434,23 @@
 							color: red;
 						}
 					}
+					.vs{
+						margin-top: 53.5rpx;
+						image{
+							display: block;
+							padding: 0 20rpx;
+							width: 60rpx;
+							height: 81rpx;
+						}
+						.text{
+							height: 81rpx;
+							line-height: 81rpx;
+						}
+					}
 					.avatar-box{
+						width: 188rpx;
 						.avatar{
+							position: relative;
 							width: 188rpx;
 							height: 188rpx;
 							border: 1rpx dashed #BEBEBE;
@@ -425,6 +459,14 @@
 							align-items: center;
 							overflow: hidden;
 							box-sizing: border-box;
+							.win{
+								position: absolute;
+								right: 0;
+								top: 0;
+								z-index: 1;
+								width: 40rpx;
+								height: 40rpx;
+							}
 							image{
 								width: 100%;
 							}

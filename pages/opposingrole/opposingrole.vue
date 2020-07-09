@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
-		<view class="item" v-for="(list,index) in listData" :key="index">
-			<view class="itemleft" @tap="chose(list)">
+		<view class="item" v-for="(list,index) in listData" :key="index" @tap="chose(list)">
+			<view class="itemleft">
 				<view class="checkbox" :class="{check:check==list.id}"></view>
 			</view>
 			<view class="itemcenter">
@@ -16,8 +16,8 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
+  data() {
+    return {
 			listData:[
 				{
 					platforms:{
@@ -28,13 +28,8 @@ export default {
 			check:'',
 			type:''
 		}
-    },
-	components: {
-	},
-    computed: {
-    },
+  },
 	onNavigationBarButtonTap(e) {
-	    console.log(e)   
 		uni.navigateTo({
 			url:'../addrole/addrole'
 		})
@@ -46,7 +41,7 @@ export default {
 		await this.getorderlist()
 		uni.stopPullDownRefresh()
 	},
-    methods: {
+  methods: {
 		chose(list){
 			this.check=list.id
 			if(this.type){
@@ -67,15 +62,15 @@ export default {
 			return this.$http.httpTokenRequest(opts, params).then(res => {
 				if (res.data.code == 200) {
 					this.listData = res.data.data
-					this.check=this.listData[0].id
+					this.check = this.listData[0].id
 				}
 			}, error => {
 				console.log(error);
 			})
 		}
-    },
+  },
 	onLoad:function(option) {
-		this.type=option.type
+		this.type = option.type
 	}
 }
 </script>

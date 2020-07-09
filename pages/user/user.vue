@@ -3,7 +3,7 @@
 		<!-- 用户信息 -->
 		<view class="topuser">
 			<view class="usertopcont">
-				<view class="tag" v-if="userinfo.is_member"></view>
+				<view class="tag" :class="userinfo.is_member ? 'vip' : 'no_vip'"></view>
 				<view class="userinfo">
 					<view class="userinfoimg">
 						<view class="img">
@@ -267,7 +267,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
 	
 	.content{
 		padding: 0;
@@ -293,7 +293,12 @@
 		bottom: -10rpx;
 	}
 	.usertopcont .tag{
-		background-image: url(../../static/img/user/tag.png);
+		&.vip{
+			background-image: url(../../static/img/user/vip.png);
+		}
+		&.no_vip{
+			background-image: url(../../static/img/user/no_vip.png);
+		}
 		background-size: cover;
 		width: 193rpx;
 		height: 193rpx;
