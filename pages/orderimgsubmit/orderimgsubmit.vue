@@ -13,60 +13,60 @@
 </template>
 
 <script>
-    // 注册一个进度条
-    var _self;
-    export default {
-        data() {
-            return {
-				ordertype: [{
-						type: 1,
-						text: "开始图"
-					},
-					{
-						type: 2,
-						text: "进度图"
-					},
-					{
-						type: 3,
-						text: "完成图"
-					},
-					{
-						type: 5,
-						text: "申诉图"
-					},
-					{
-						type: 6,
-						text: "异常图"
-					}
-				],
-                percent:0,
-				imglist:[],
-				selectindex:1,
-				id:""
-            }
-        },
-        methods: {
+	// 注册一个进度条
+	var _self;
+	export default {
+			data() {
+				return {
+					ordertype: [{
+							type: 1,
+							text: "开始图"
+						},
+						{
+							type: 2,
+							text: "进度图"
+						},
+						{
+							type: 3,
+							text: "完成图"
+						},
+						{
+							type: 5,
+							text: "申诉图"
+						},
+						{
+							type: 6,
+							text: "异常图"
+						}
+					],
+					percent:0,
+					imglist:[],
+					selectindex:1,
+					id:""
+				}
+			},
+		methods: {
 			choseItem(item) {
 				this.selectindex = item.type
 				this.getimglist()
 			},
 			//图片上传
-            cI(){
+			cI(){
 				let _this=this;
-                uni.chooseImage({
-                    count: 1,
-                    sizeType:['copressed'],
-                    success(res) {
-                        var imgFiles = res.tempFilePaths[0]
-                        _this.$http.uploadimg(imgFiles).then((res)=>{
+				uni.chooseImage({
+					count: 1,
+					sizeType:['copressed'],
+					success(res) {
+						var imgFiles = res.tempFilePaths[0]
+						_this.$http.uploadimg(imgFiles).then((res)=>{
 							var data=JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
 							_this.imgsubmit(data.data[0].url)
 							console.log(_this.imglist)
 						})
-                    }
-                })
-            },
+					}
+				})
+			},
 			//获取图片
 			getimglist(){
 				let opts = {
@@ -114,13 +114,13 @@
 					console.log(error);
 				})
 			}
-        },
+		},
 		onLoad: function (option) {
 			console.log(option.id)
 			this.id=option.id
 			this.getimglist()
 		}
-    }
+	}
 </script>
 
 <style>

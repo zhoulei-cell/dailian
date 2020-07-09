@@ -114,7 +114,8 @@
 								"float": "right"
 							}
 						]
-					}
+					},
+					"scrollIndicator": "none"
 				}
 			}
 		},
