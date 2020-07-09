@@ -516,7 +516,7 @@
 		height: 44px;
 		border-bottom: solid 1rpx #eee;
 		z-index: 12;
-		background-color: #f4f8fb;
+		background-color: #fff;
 		flex-direction: row;
 		.first-menu {
 			width: 100%;

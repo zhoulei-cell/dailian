@@ -315,7 +315,7 @@
 			},
 			formSubmit(e) {
 				var rule = [
-				    {name:"title",checkType:"notnull", errorMsg:"标题不能为空"},
+				  {name:"title",checkType:"notnull", errorMsg:"标题不能为空"},
 					{name:"hero_num",checkType:"notnull", errorMsg:"铭文等级不能为空"},
 					{name:"current_segment",checkType:"notnull", errorMsg:"当前段位不能为空"},
 					{name:"tag_segment",checkType:"notnull", errorMsg:"目标段位不能为空"},

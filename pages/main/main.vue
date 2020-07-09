@@ -16,7 +16,7 @@
 				<swiper class="swiper-box" @change="change">
 					<swiper-item v-for="(item ,index) in info" :key="index">
 						<view class="swiper-item">
-							<image :src="item.content" mode=""></image>
+							<image :src="item.content" mode="scaleToFill"></image>
 						</view>
 					</swiper-item>
 				</swiper>
@@ -281,6 +281,7 @@
 
 	.swiper-item image {
 		width: 100%;
+		height: 300rpx;
 	}
 
 	.navicon {
