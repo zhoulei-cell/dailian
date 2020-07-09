@@ -10,6 +10,8 @@
 				</view>
 			</scroll-view>
 		</view> -->
+		<HMfilterDropdown class="pos" v-if="isShow" :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
+		 dataFormat="Object"></HMfilterDropdown>
 		<HMfilterDropdown :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
 		 dataFormat="Object"></HMfilterDropdown>
 		<view class="conleft">
@@ -72,7 +74,8 @@
 				max: '',
 				min: '',
 				loadText: "上拉加载更多...",
-				isLoadMore: true
+				isLoadMore: true,
+				isShow: false
 			}
 		},
 		components: {
@@ -228,8 +231,16 @@
 			navtoDetail(item) {
 				uni.navigateTo({
 					url: '/pages/orderinfo2/orderinfo2?id=' + item.id
-				});
+				})
 			},
+		},
+		onPageScroll(options) {
+			console.log(uni.upx2px(88))
+			if (options.scrollTop >= uni.upx2px(88)) {
+				this.isShow = true
+			} else {
+				this.isShow = false
+			}
 		},
 	}
 </script>
@@ -242,6 +253,16 @@
 		position: relative;
 		padding-bottom: 150rpx;
 		padding: 0 !important;
+	}
+
+	.pos{
+		position: fixed;
+		top: 0;
+		/* #ifdef H5*/
+		top: 44px;
+		/* #endif */
+		left: 0;
+		z-index: 999;
 	}
 
 	.uni-list {
