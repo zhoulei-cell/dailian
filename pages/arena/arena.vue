@@ -2,7 +2,7 @@
     <view class="content">
 		<!-- <HMfilterDropdown class="pos" v-if="isShow" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown> -->
 		<!-- 站位 -->
-		<view style="height: 90rpx"></view>
+		<view style="height: 45px;"></view>
 		<!-- 站位 -->
 		<HMfilterDropdown bgColor="#fff" class="pos" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
 		<block v-for="(list,index) in listData" :key="index">
@@ -178,9 +178,9 @@
 	}
 	.pos{
 		position: fixed;
-		top: 88rpx;
-		/* #ifdef APP-PLUS*/
 		top: 0;
+		/* #ifdef H5*/
+		top: 44px;
 		/* #endif */
 		left: 0;
 		z-index: 999;
