@@ -152,7 +152,7 @@
 			//申诉
 			agreeappeal(item) {
 				uni.navigateTo({
-					url: '/pages/appeal/appeal?item=' + JSON.stringify(item)
+					url: '/pages/appeal/appeal?item=' + JSON.stringify(item)+'&type=1'
 				});
 			},
 			//查看申诉

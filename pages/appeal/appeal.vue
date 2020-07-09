@@ -165,6 +165,18 @@
 		onLoad: function (option) {
 			this.orderinfo=JSON.parse(option.item)
 			console.log(this.orderinfo)
+			if(option.type){
+				this.items=[
+					{
+						value: '8',
+						name: '连跪'
+					},
+					{
+						value: '7',
+						name: '其他原因'
+					}
+				]
+			}
 		}
 	}
 </script>
