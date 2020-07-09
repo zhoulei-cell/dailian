@@ -202,7 +202,7 @@
 			//同意协商
 			agreeconsult(item,index){
 				uni.navigateTo({
-					url: '/pages/consult/consult?id='+item.id+'&type=1'
+					url: '/pages/consult/consult?id='+item.id+'&type=1&order_status='+item.order_status
 				});
 			},
 			//上传图片
