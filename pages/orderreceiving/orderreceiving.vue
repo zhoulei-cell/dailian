@@ -26,7 +26,7 @@
 					</view>
 					<view class="orderbtn">
 						<view class="orderbtn_left"></view>
-						<view class="orderbtn_right">
+						<view class="orderbtn_right jc-end">
 							<button @tap.stop="submitorder(item,index)" v-if="item.order_status==2&&item.locked!=1">提交完成</button>
 							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
 							
