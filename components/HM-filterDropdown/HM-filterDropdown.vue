@@ -1,6 +1,6 @@
 <template>
 	<view class="HMfilterDropdown" @touchmove.stop.prevent="discard" @tap.stop="discard">
-		<view class="nav">
+		<view class="nav" :style="{backgroundColor: bgColor}">
 			<block v-for="(item,index) in menu" :key="index">
 				<view class="first-menu" :class="{'on':showPage==index}" @tap="togglePage(index)">
 					<text class="name">{{item.name}}</text>
@@ -120,6 +120,10 @@
 			dataFormat:{
 				value: String,
 				default: 'Array'
+			},
+			bgColor: {
+				type: String,
+				default: '#f4f8fb'
 			}
 		},
 		watch: {
@@ -516,7 +520,6 @@
 		height: 44px;
 		border-bottom: solid 1rpx #eee;
 		z-index: 12;
-		background-color: #f4f8fb;
 		flex-direction: row;
 		.first-menu {
 			width: 100%;

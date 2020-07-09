@@ -49,7 +49,8 @@
 								"float": "right"
 							}
 						]
-					}
+					},
+					"scrollIndicator":"none"
 				}
 			}
 		},
@@ -100,7 +101,18 @@
 			"style": {
 				"navigationBarTitleText": "竞技场",
 				"enablePullDownRefresh": true,
-				"onReachBottomDistance": 50
+				"onReachBottomDistance": 50,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"fontSize": "30rpx",
+								"text":"规则",
+								"float": "right"
+							}
+						]
+					}
+				}
 			}
 		},
 		{
@@ -371,6 +383,12 @@
             "path" : "pages/vipcenter/vipcenter",
             "style" : {
 				"navigationBarTitleText": "会员中心"
+			}
+        }
+        ,{
+            "path" : "pages/rule/rule",
+            "style" : {
+				"navigationBarTitleText": "规则详情"
 			}
         }
     ],

@@ -1,48 +1,59 @@
 <template>
     <view class="content">
-		<!-- <swiper class="swiper" current="1" previous-margin="23rpx" next-margin="23rpx" :indicator-dots="true" indicator-color="#DDDDDD" indicator-active-color="#666666">
-			<swiper-item>
-				<image src="../../static/img/index/banner.png" mode="scaleToFill"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../../static/img/other/banner.png" mode="scaleToFill"></image>
-			</swiper-item>
-			<swiper-item>
-				<image src="../../static/img/index/banner2.png" mode="scaleToFill"></image>
-			</swiper-item>
-		</swiper> -->
-		<HMfilterDropdown :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
-		<view class="item" v-for="(list,index) in listData" :key="index" @tap="navtodetail(list)">
-			<view class="titleline">
-				<view class="titleleft">
-					<!-- <view class="titletag">星耀</view> -->
-					房号：{{list.match_no}}
-				</view>
-				<text>{{list.showStatus}}</text>
-			</view>
-			<view class="dec">
-				<view class="line">发布者：{{list.user.name}}</view>
-				<view class="line">应战区服：{{list.platforms.name}}</view>
-				<view class="linet">胜者奖金<text class="red">￥{{list.totalAmount}}</text></view>
-			</view>
-		</view>
+		<!-- <HMfilterDropdown class="pos" v-if="isShow" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown> -->
 		<!-- 站位 -->
-		<view style="height: 150rpx;"></view>
+		<view style="height: 45px"></view>
+		<!-- 站位 -->
+		<HMfilterDropdown bgColor="#fff" class="pos" :filterData="filterData" :defaultSelected ="filterDropdownValue" :updateMenuName="true" @confirm="confirm" dataFormat="Object"></HMfilterDropdown>
+		<block v-for="(list,index) in listData" :key="index">
+			<!-- 列表 -->
+			<view class="list-group-wrap" @tap="navtodetail(list)">
+				<view class="list-group">
+					<view class="list-group-title">
+						<view class="title-logo d-flex jc-center">
+							<view class="logo">
+								{{list.release_ban == "未ban职业" ? list.release_ban : ('已禁职业' + list.release_ban)}}
+							</view>
+						</view>
+						<view class="title d-flex jc-between">
+							<view class="left flex-1 text-overflow">
+								<text>房间号: {{list.match_no}}</text>
+							</view>
+							<view class="right">{{list.showStatus}}</view>
+						</view>
+					</view>
+					<view class="list-group-content">
+						<view class="list-group-item">发布者：{{list.user.name}}</view>
+						<view class="list-group-item">应战区服：{{list.platforms.name}}</view>
+						<view class="list-group-item">
+							<text>胜者奖金：</text>
+							<text>￥{{list.totalAmount}}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<!-- 列表 -->
+		</block>
+		<load-more v-if="listData.length !== 0" :text="loadMoreText"></load-more>
+		<!-- 站位 -->
+		<view style="height: 150rpx"></view>
 		<view class="next">
 			<navigator url="/pages/releasepk/releasepk" class="publicbtn">
 				<button>发布对战</button>
 			</navigator>
 			<!-- <view class="mybtn">我的角色</view> -->
 		</view>
-    </view>
+  </view>
 </template>
 
 <script>
-	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue';
+	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue'
+	import loadMore from '@/components/load-more'
 	import data2 from '@/common/data2.js';//筛选菜单数据
     export default {
 			components: {
-				'HMfilterDropdown':HMfilterDropdown
+				'HMfilterDropdown':HMfilterDropdown,
+				loadMore
 			},
 			data() {
 				return {
@@ -51,7 +62,9 @@
 					page:1,
 					listData:[],
 					area_id:'',
-					order:''
+					order:'',
+					loadMoreText: '上拉加载更多...',
+					isShow: false
 				}
 			},
 			async onPullDownRefresh() {
@@ -60,13 +73,16 @@
 				uni.stopPullDownRefresh()
 			},
 			onReachBottom(){
-				this.page++
-				this.getlist()
+				console.log(1)
+				if (!this.isEnd) {
+					this.loadMoreText = "加载中..."
+					this.page++
+					this.getlist()
+				} 
 			},
 			methods: {
 				navtodetail(list){
 					uni.navigateTo({
-						// url:'../arenadetial/arenadetial?list='+JSON.stringify(list)
 						url:'../battledetails/battledetails?list='+JSON.stringify(list)
 					})
 				},
@@ -118,10 +134,14 @@
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
 						if (this.page == 1) {
-							this.listData = res.data.data.data
-						} else {
-							this.listData.concat(this.listData, res.data.data.data)
+							this.listData = []
 						}
+						const data = res.data.data
+						if (data.per_page > data.data.length) { //说明已经加载到最后一页了
+							this.isEnd = true;
+							this.loadMoreText = "没有更多数据了..."
+						}
+						this.listData.push(...data.data)
 					}
 				}, error => {
 					console.log(error);
@@ -133,72 +153,37 @@
       },
 			onShow() {
 				this.getlist()
+			},
+			/*onPageScroll(options) {
+				if (options.scrollTop >= 44) {
+					this.isShow = true
+				} else {
+					this.isShow = false
+				}
+			}*/
+			onNavigationBarButtonTap(options) {
+				uni.navigateTo({
+					url: '/pages/rule/rule'
+				})
 			}
     }
 </script>
 
 <style lang="scss">
-	.pos{
-		position: fixed;
-		top: 88rpx;
-		left: 0;
-		z-index: 999;
-	}
 	.content{
 		background-color: #f4f8fb;
 		position: relative;
 		padding-bottom: 150rpx;
 		padding: 0 !important;
 	}
-	.swiper{
-		height: 355rpx;
-		image{
-			width: 704rpx;
-			height: 349rpx;
-		}
-	}
-  .item{
-		padding: 20rpx;
-		border-radius: 10rpx;
-		background: #fff;
-		margin: 20rpx;
-	}
-	.titleline{
-		display: flex;
-		border-bottom: 1px solid #E0E0E0;
-		padding-bottom: 20rpx;
-	}
-	.titleline text{
-		color: red;
-	}
-	.titleleft{
-		flex: 1;
-		display: flex;
-		color: #666666;
-	}
-	.titletag{
-		background: #929292;
-		color: #fff;
-		width: 80rpx;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border-radius: 0 10rpx 10rpx 0 ;
-		margin-right: 10rpx;
-	}
-	.dec{
-		padding-top: 20rpx;
-	}
-	.dec .line{
-		color: #666;
-		font-size: 24rpx;
-	}
-	.dec .linet{
-		color: #333;
-		font-size: 28rpx;
-	}
-	.red{
-		color: red;
+	.pos{
+		position: fixed;
+		top: 88rpx;
+		/* #ifdef APP-PLUS*/
+		top: 0;
+		/* #endif */
+		left: 0;
+		z-index: 999;
 	}
 	.next{
 		position: fixed;
@@ -222,5 +207,69 @@
 		font-family:PingFang SC;
 		font-weight:bold;
 		color:rgba(255,255,255,1);
+	}
+
+	.list-group-wrap{
+		font-family: PingFang-SC-Bold;
+		padding: 0 20rpx;
+		margin-top: 20rpx;
+		.list-group{
+			padding: 20rpx 15rpx;
+			border-radius: 15rpx;
+			background-color: #fff;
+			.list-group-title{
+				border-bottom: 1rpx solid #F0F0F0;
+				.title-logo{
+					.logo{
+						width: 278rpx;
+						height: 46rpx;
+						background-image: url(../../static/img/arena/01.png);
+						background-size: 100% 100%;
+						color: #806F39;
+						font-size: 28rpx;
+						text-align: center;
+						line-height: 46rpx;
+						font-weight: bold;
+					}
+				}
+				.title{
+					padding: 15rpx 0;
+					line-height: 28rpx;
+					font-weight: bold;
+					.left{
+						text{
+							color: #333;
+							font-size: 28rpx;
+							line-height: 28rpx;
+						}
+					}
+					.right{
+						color: #999;
+						font-size: 28rpx;
+					}
+				}
+			}
+			.list-group-content{
+				font-weight: bold;
+				padding-top: 15rpx;
+				.list-group-item{
+					padding: 10rpx 0;
+					color: #666;
+					font-size: 28rpx;
+					line-height: 28rpx;
+					text{
+						font-size: 30rpx;
+						line-height: 30rpx;
+					}
+					text:nth-child(1){
+						color: #333;
+						padding-right: 50rpx;
+					}
+					text:nth-child(2){
+						color: red;
+					}
+				}
+			}
+		}	
 	}
 </style>
