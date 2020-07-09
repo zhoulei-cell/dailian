@@ -348,8 +348,8 @@
 								title: res.data.msg
 							})
 							setTimeout(() => {
-								uni.navigateBack({
-									delta:1
+								uni.navigateTo({
+									url:'../orderrelease/orderrelease'
 								})
 							}, 500)
 						} else {

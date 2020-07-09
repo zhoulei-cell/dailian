@@ -59,6 +59,7 @@
     		<view class="cont">
     			<view class="line">账号：{{orderInfo.game_account}}</view>
     			<view class="line">密码：{{orderInfo.game_password}}</view>
+				<view class="line">游戏角色：{{orderInfo.game_role_name}}</view>
     		</view>
     	</view>
     	<view class="lineinfo">
