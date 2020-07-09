@@ -169,11 +169,39 @@
 				this.items=[
 					{
 						value: '8',
-						name: '连跪'
+						name: '我要退订单'
+					},
+					{
+						value: '8',
+						name: '超时完成'
+					},
+					{
+						value: '10',
+						name: '毁星掉段'
+					},
+					{
+						value: '11',
+						name: '战绩差'
+					},
+					{
+						value: '12',
+						name: '私自动用账号物品'
+					},
+					{
+						value: '13',
+						name: '虚假提交'
+					},
+					{
+						value: '14',
+						name: '游戏账号被封'
+					},
+					{
+						value: '15',
+						name: '进度慢'
 					},
 					{
 						value: '7',
-						name: '其他原因'
+						name: '其他问题'
 					}
 				]
 			}
