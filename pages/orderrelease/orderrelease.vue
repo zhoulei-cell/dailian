@@ -174,7 +174,7 @@
 			//同意协商
 			agreeconsult(item, index) {
 				uni.navigateTo({
-					url: '/pages/consult/consult?id=' + item.id
+					url: '/pages/consult/consult?id=' + item.id+'&order_status='+item.order_status
 				});
 			},
 			//协商结算

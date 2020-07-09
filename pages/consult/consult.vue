@@ -26,7 +26,7 @@
 		<view class="lineinput">
 		    <textarea  placeholder="撤单原因" :disabled="!submittype" v-model="orderinfo.reason"/>
 		</view>
-		<view class="btn">
+		<view class="btn" v-if="order_status!=5">
 			<button type="default" @tap="submit" v-if="submittype">提交</button>
 			<button type="default" @tap="tysubmit" v-if="orderinfo.agree && orderinfo.consult_status !== 3">同意协商</button>
 			<button type="default" @tap="cssubmit" v-if="!orderinfo.agree && !submittype">撤销协商</button>
@@ -44,7 +44,8 @@
 				reason:"",
 				id:"",
 				type:1,
-				submittype:true
+				submittype:true,
+				order_status:''
 			}
 		},
 		methods: {
@@ -166,6 +167,7 @@
 		onLoad: function (option) {
 			//console.log(option.id)
 			this.id=option.id
+			this.order_status=option.order_status
 			console.log(option)
 			if(option.orderinfo){
 				this.orderinfo=JSON.parse(option.orderinfo)
