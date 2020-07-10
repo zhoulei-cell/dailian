@@ -304,6 +304,7 @@
 					method: 'get'
 				}
 				this.$http.httpRequest(opts).then(res => {
+					console.log(this.multiArray)
 					if (res.data.code == 200) {
 						this.multiArray[1] = res.data.data
 						this.$forceUpdate()
