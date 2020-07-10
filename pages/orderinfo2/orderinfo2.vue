@@ -52,31 +52,28 @@
 		</view> -->
 		<view class="lineinfo">
 			<view class="title">当前游戏信息</view>
-			<view class="line">游戏角色：{{orderInfo.game_role_name}}</view>
 			<view class="cont">
-				{{orderInfo.rel_message}}
+				<view class="line">游戏角色：{{orderInfo.game_role_name}}</view>
+				<view class="line">其他信息：{{orderInfo.rel_message || "无"}}</view>
 			</view>
 		</view>
 		<view class="lineinfo">
-			<view class="title">代练要求</view>
-			<view class="cont">
-				<view class="linetitle"><text class="titlel">代练要求：</text></view>
-				<view class="linetextinfo">
-					【代练要求】
-					★★如qq区无法正常登陆需要验证码,请打手卸载qq后直接游戏界面登陆
-					★ 指定英雄订单上传战力初始图,别掉原来的战力分,被ban被选务必每场截图上传。
-					★ ★接单后30分钟内上号开打,接单又退单将扣除效率金
-					★ ★高级套餐:胜率低于70%或打手原因单方面中途撤单支付代练费0元
-					WX区: 号主电话,在当前密码的后面,验证码或密码错自己问一下态度好点。
-					QQ区: 先进游戏,然后后台登录账号,不可以登录玩家QQ,QQ区如有异地冻结密码后面是手机号联系号主改密码即可。
-					需要验证码不联系号主直接撤单者必扣效率
-					1.动用金币钻石铭文体验卡等必须先经过我同意之后才能使用
-					2.接单10分钟内开打并传首图,完成传图(带有号主名字的排行榜截图)
-					3.拖单不打,一页四红,三连跪,掉星,我方有权中途撤单要求赔付效率金
-					4.订单完成后进裙验收处理订单742-067-549
-				</view>
-			</view>
-		</view>
+    		<view class="title">代练要求</view>
+    		<view class="cont">
+					<view class="text-rule">
+    				<view class="linetextinfo">1.如qq区无法正常登陆需要验证码,请打手卸载qq后直接游戏界面登陆</view>
+    				<view class="linetextinfo">2.指定英雄订单上传战力初始图,别掉原来的战力分,被ban被选务必每场截图上传。</view>
+    				<view class="linetextinfo">3.接单后30分钟内上号开打,接单又退单将扣除效率金</view>
+    				<view class="linetextinfo">4.高级套餐:胜率低于70%或打手原因单方面中途撤单支付代练费0元</view>
+    				<view class="linetextinfo">5.WX区: 号主电话,在当前密码的后面,验证码或密码错自己问一下态度好点。</view>
+    				<view class="linetextinfo">6.QQ区: 先进游戏后台登录账号,不可以登录玩家QQ,,然后QQ区如有异地冻结密码后面是手机号联系号主改密码即可。</view>
+    				<view class="linetextinfo">7.需要验证码不联系号主直接撤单者必扣效率</view>
+    				<view class="linetextinfo">8.动用金币钻石铭文体验卡等必须先经过我同意之后才能使用</view>
+    				<view class="linetextinfo">9.接单10分钟内开打并传首图,完成传图(带有号主名字的排行榜截图)</view>
+    				<view class="linetextinfo">10.拖单不打,一页四红,三连跪,掉星,我方有权中途撤单要求赔付效率金</view>
+					</view>
+    		</view>
+    	</view>
 		<view class="line2">
 			<checkbox-group>
 				<label>
@@ -213,7 +210,7 @@ export default {
 		width: 100%;
 	}
 	.cont{
-		padding: 23rpx;
+		padding: 10rpx 23rpx;
 	}
 	.cont2{
 		display: flex;

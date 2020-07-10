@@ -75,7 +75,6 @@ export default {
     confirm() {
       this.close()
       this.imageList.splice(this.index, 1)
-      console.log(this.imageList)
       this.$emit('upload', this.imageList)
     }
   }

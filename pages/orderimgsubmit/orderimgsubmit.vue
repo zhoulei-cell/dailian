@@ -8,13 +8,14 @@
 					<view class="uni-list list-pd">
 						<view class="uni-list-cell cell-pd">
 							<view class="uni-uploader">
-								<view class="uni-uploader-head">
-									<!-- <view class="uni-uploader-info">{{imageList.length}}/5</view> -->
-								</view>
+								<!-- <view class="uni-uploader-head">
+									<view class="uni-uploader-info">{{imageList.length}}/5</view>
+								</view> -->
 								<view class="uni-uploader-body">
 									<view class="uni-uploader__files">
 										<block v-for="(image,index) in imageList" :key="index">
 											<view class="uni-uploader__file">
+												<view class="delete_img" @tap="deleteImage(index)" v-if="index >= num"></view>
 												<image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image"></image>
 											</view>
 										</block>
@@ -26,8 +27,9 @@
 							</view>
 						</view>
 					</view>
-				</view>
+				</view> 
 				<!-- 图片上传 -->
+				<custom-popup ref="popup" title="您确定要删除这张图片吗？" @cancel="close" @confirm="confirm"/>
 				<view class="next">
 					<button @tap="uploadImg">保存</button>
 				</view>
@@ -37,6 +39,8 @@
 <script>
 	// 注册一个进度条
 	var _self;
+	import customPopup from '../../components/custom-popup/custom-popup'
+	import uploadImage from '../../components/upload-image'
 	export default {
 			data() {
 				return {
@@ -68,99 +72,146 @@
 					uploadImageList: []
 				}
 			},
-		methods: {
-			choseItem(item) {
-				this.selectindex = item.type
-				this.getimglist()
+			components: {
+				uploadImage,
+				customPopup
 			},
-			//获取图片
-			getimglist(){
-				let opts = {
-					url: '/api/order/images',
-					method: 'get'
+			computed: {
+				num() {
+					console.log(this.uploadImageList.length)
+					return this.uploadImageList.length
 				}
-				let params={
-					order_id: this.id,
-					type: this.selectindex,
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-						this.uploadImageList = res.data.data
-						this.imageList = res.data.data
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
+			},
+			methods: {
+				// updataList(list) {
+				// 	this.imageList = list
+				// },
+				choseItem(item) {
+					this.selectindex = item.type
+					this.getimglist()
+				},
+				//获取图片
+				getimglist(){
+					let opts = {
+						url: '/api/order/images',
+						method: 'get'
 					}
-				}, error => {
-					console.log(error);
-				})
-			},
-			//图片上传提交
-			imgsubmit(url){
-				let opts = {
-					url: '/api/order/image',
-					method: 'post'
-				}
-				let params={
-					order_id:this.id,
-					type:this.selectindex,
-					url:url
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-						uni.showToast({
-							title:res.data.msg
-						})
-					}else{
-						uni.showToast({
-							title:res.data.msg
-						})
+					let params={
+						order_id: this.id,
+						type: this.selectindex,
 					}
-				}, error => {
-					console.log(error);
-				})
-			},
+					this.$http.httpTokenRequest(opts,params).then(res => {
+						if(res.data.code==200){
+							this.uploadImageList = res.data.data
+							this.imageList = res.data.data
+						}else{
+							uni.showToast({
+								title:res.data.msg
+							})
+						}
+					}, error => {
+						uni.showToast({
+							title:"上传错误！"
+						})
+					})
+				},
+				//图片上传提交
+				imgsubmit(url){
+					let opts = {
+						url: '/api/order/image',
+						method: 'post'
+					}
+					let params={
+						order_id:this.id,
+						type:this.selectindex,
+						url:url
+					}
+					this.$http.httpTokenRequest(opts,params).then(res => {
+						if(res.data.code==200){
+							this.getimglist()
+							uni.showToast({
+								title:res.data.msg
+							})
+						}else{
+							uni.showToast({
+								title:res.data.msg
+							})
+						}
+					}, error => {
+						uni.showToast({
+							title: "上传错误！"
+						})
+					})
+				},
 
-			// 图片上传
-			chooseImage() {
-				uni.chooseImage({
-					count: 1,
-					sizeType:['copressed'],
-					success: (res) => {
-						this.imageList = this.imageList.concat(res.tempFilePaths)
-					},
-					fail: (res) => {
+				// 图片上传
+				chooseImage() {
+					uni.chooseImage({
+						count: 1,
+						sizeType:['copressed'],
+						success: (res) => {
+							this.imageList = this.imageList.concat(res.tempFilePaths)
+						},
+						fail: (res) => {
+							uni.showToast({
+								icon: 'none',
+								title: '错误！'
+							})
+						}
+					})
+				},
+				//确认上传图片
+				uploadImg() {
+					let imgFiles = this.imageList.slice(this.uploadImageList.length)
+					if (imgFiles.length === 0) {
 						uni.showToast({
 							icon: 'none',
-							title: '错误！'
+							title: '您还没有选择图片！'
 						})
+						return null
 					}
-				})
-			},
-			//确认上传图片
-			uploadImg() {
-				let imgFiles = this.imageList.slice(this.uploadImageList.length)
-				if (imgFiles.length === 0) {
-					uni.showToast({
-						icon: 'none',
-						title: '您还没有选择图片！'
+					if (this.imageList < 5) {
+						uni.showToast({
+							icon: 'none',
+							title: '最多只能上传五张图片'
+						})
+						return null
+					}
+					const imgFile = [];
+					imgFiles.forEach((item, index) => {
+						imgFile.push({uri: item, name: `image[${index}]`})
 					})
-					return null
+					this.$http.uploadimg(imgFile).then((res)=>{
+						let url = ''
+						const data = JSON.parse(res.data)
+						data.data.forEach((item, index) => {
+							if (index == 0) {
+								url += item.url
+							} else {
+								url += "," + item.url;
+							}
+						})
+						this.imgsubmit(url)
+					})
+				},
+				//删除图片
+				deleteImage(index) {
+					this.index = index
+					this.open()
+				},
+				//关闭提示窗
+				close() {
+					this.$refs['popup'].close()
+				},
+				//打开提示窗
+				open() {
+					this.$refs['popup'].open()
+				},
+				//用户确认删除
+				confirm() {
+					this.close()
+					this.imageList.splice(index, 1)
 				}
-				const imgFile = [];
-				imgFiles.forEach((item, index) => {
-					imgFile.push({uri: item, name: `image[${index}]`})
-				})
-				this.$http.uploadimg(imgFile).then((res)=>{
-					let url = ''
-					const data = JSON.parse(res.data)
-					data.data.forEach(item => {
-						url += item.url + ',';
-					})
-					this.imgsubmit(url)
-				})
-			}
 		},
 		onLoad: function (option) {
 			this.id = option.id
@@ -247,4 +298,17 @@
 		font-weight:bold;
 		color:rgba(255,255,255,1);
 	}
+	.uni-uploader__file{
+    position: relative;
+    .delete_img{
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 999;
+      width: 40rpx;
+      height: 40rpx;
+      background-image: url(../../static/img/other/shanchu.png);
+      background-size: 100% 100%;
+    }
+  }
 </style>

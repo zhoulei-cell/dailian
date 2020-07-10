@@ -86,19 +86,18 @@
 			//图片上传
 			cI(){
 				let _this=this;
-			    uni.chooseImage({
-			        count: 1,
-			        sizeType:['copressed'],
-			        success(res) {
-			            var imgFiles = res.tempFilePaths[0]
-			            _this.$http.uploadimg(imgFiles).then((res)=>{
-							var data=JSON.parse(res.data)
-							_this.imglist = _this.imglist.concat(data.data)
-							_this.imgsubmit(data.data[0].url)
-							console.log(_this.imglist)
-						})
-			        }
-			    })
+				uni.chooseImage({
+						count: 1,
+						sizeType:['copressed'],
+						success(res) {
+							var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
+							_this.$http.uploadimg(imgFiles).then((res)=>{
+								var data=JSON.parse(res.data)
+								_this.imglist = _this.imglist.concat(data.data)
+								_this.imgsubmit(data.data[0].url)
+							})
+						}
+				})
 			},
 			//图片上传提交
 			imgsubmit(url){
@@ -119,7 +118,9 @@
 						})
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						title: '上传图片失败！'
+					})
 				})
 			},
 			radioChange: function(evt) {
@@ -164,7 +165,7 @@
 		},
 		onLoad: function (option) {
 			this.orderinfo=JSON.parse(option.item)
-			console.log(this.orderinfo)
+			//console.log(this.orderinfo)
 			if(option.type){
 				this.items=[
 					{
@@ -172,7 +173,7 @@
 						name: '我要退订单'
 					},
 					{
-						value: '8',
+						value: '16',
 						name: '超时完成'
 					},
 					{

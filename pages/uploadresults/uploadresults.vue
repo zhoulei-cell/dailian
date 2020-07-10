@@ -47,14 +47,32 @@
 			//确认上传图片
 			uploadImg() {
 				const imgFiles = []
+				if (this.imageList.length === 0) {
+					uni.showToast({
+						icon: 'none',
+						title: '您还没有选择图片'
+					})
+					return null
+				}
+				if (this.imageList.length > 5) {
+					uni.showToast({
+						icon: 'none',
+						title: '最多只能上传五张图片'
+					})
+					return null
+				}
 				this.imageList.forEach((item,index) => {
 					imgFiles.push({uri: item, name: `image[${index}]`})
 				})
 				this.$http.uploadimg(imgFiles).then((res)=>{
 					let url = ''
 					const data = JSON.parse(res.data)
-					data.data.forEach(item => {
-						url += item.url + ',';
+					data.data.forEach((item, index) => {
+						if (index == 0) {
+							url += item.url
+						} else {
+							url += "," + item.url;
+						}
 					})
 					this.imgsubmit(url)
 				})
@@ -76,8 +94,8 @@
 							icon:'none',
 							title:res.data.msg
 						})
-						uni.navigateBack({
-							delta: 1
+						uni.navigateTo({
+							url: '/pages/warrecord/warrecord'
 						})
 					}else{
 						uni.showToast({

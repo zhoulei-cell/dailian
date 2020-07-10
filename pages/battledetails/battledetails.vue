@@ -1,6 +1,22 @@
 <template>
 	<view class="battle-details">
 		<view class="container">
+
+			<view class="info-card" v-if="detailinfo.status === 5">
+				<view class="card-title">结算信息</view>
+				<view class="card-box">
+					<view class="desc">
+						<text>胜方：</text>
+						<text class="red">{{detailinfo.winners.name}}</text>
+					</view>
+					<view class="desc">
+						<text>获得奖励：</text>
+						<text v-if="detailinfo.partake.id === detailinfo.winners.id" class="red">{{detailinfo.partake.match_reward}}</text>
+						<text v-if="detailinfo.user.id === detailinfo.winners.id" class="red">{{detailinfo.user.match_reward}}</text>
+					</view>
+				</view>
+			</view>
+
 			<view class="info-card">
 				<view class="card-title">对战信息</view>
 				<view class="card-box">
@@ -71,8 +87,8 @@
 							<image :src="detailinfo.user.avatar" mode="aspectFit"></image>
 						</view>
 						<view class="text text-overflow">{{detailinfo.user_role.role_name}}</view>
-						<!-- <view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view> -->
-						<view class="text">{{detailinfo.showStatus}}</view>
+						<view class="text">{{detailinfo.release_ready?'已准备':'未准备'}}</view>
+						<!-- <view class="text">{{detailinfo.release_ready?'已准备':detailinfo.showStatus}}</view> -->
 					</view>
 					<view class="vs d-flex">
 						<!-- <view v-if="detailinfo.status === 5" class="text">{{detailinfo.user_role.id === detailinfo.winner ? '胜方' : '败方'}}</view> -->
@@ -85,12 +101,13 @@
 							<image :src="detailinfo.partake.avatar" mode="aspectFit"></image>
 						</view>
 						<view class="text text-overflow">{{detailinfo.partake_role.role_name || '请选择'}}</view>
-						<!-- <view class="text">{{detailinfo.partake_ready?'已准备':'未准备'}}</view> -->
-						<view class="text">{{detailinfo.showStatus}}</view>
+						<view class="text">{{detailinfo.partake_ready?'已准备':'未准备'}}</view>
+						<!-- <view class="text">{{detailinfo.partake_ready?'已准备':detailinfo.showStatus}}</view> -->
 					</view>
 					<view class="avatar-box" v-else @tap="toSelect">
 						<view class="avatar"></view>
-						<view class="text text-overflow">{{role.role_name || '请选择'}}</view>
+						<view class="text text-overflow" v-if="detailinfo.user_role.id !== userinfo.id">{{role.role_name || '请选择'}}</view>
+						<view class="text text-overflow" v-else>待对方选择</view>
 					</view>
 				</view>
 				<!-- <view class="btn-box">
@@ -122,6 +139,8 @@
 					</view>
 				</view>
 			</view>
+
+			
 			
 			<!-- <view class="info-card">
 				<view class="card-title">订单流程</view>
@@ -383,7 +402,6 @@
 			this.getuserinfo()
 		},
 		onShow() {
-			
 			this.getlist()
 		}
 	}

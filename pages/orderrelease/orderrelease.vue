@@ -103,7 +103,7 @@
 		},
 		methods: {
 			onPulling(e) {
-				console.log("onpulling", e);
+				//console.log("onpulling", e);
 			},
 			async onRefresh() {
 				this.triggered = true
@@ -195,9 +195,11 @@
 				}
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
+						if (res.data.data.data.length < res.data.data.per_page) {
+							this.loadmore = false
+						}
 						if (this.page == 1) {
 							this.listData = res.data.data.data
-							console.log(this.listData)
 						} else {
 							this.listData.concat(this.listData, res.data.data.data)
 						}
