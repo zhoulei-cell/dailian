@@ -388,6 +388,12 @@
 				"navigationBarTitleText": "规则详情"
 			}
         }
+        ,{
+            "path" : "pages/releaseorder/releaseorder",
+            "style" : {
+				"navigationBarTitleText": "发布订单"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",

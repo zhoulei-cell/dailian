@@ -1,21 +1,14 @@
 <template>
   <view class="content">
-		<!-- <view class="imglist">
-			<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
-				<image :src="imglist.full || imglist.url"></image>
+		<view class="status-wrap">
+			<view class="title">选择提交类型</view>
+			<view class="status-box d-flex">
+				<view class="item" :class="{win:check==1}" @tap="check=1">胜利</view>
+				<view class="item" :class="{win:check==2}" @tap="check=2">失败</view>
 			</view>
 		</view>
-    <button type="primary" @tap="cI">选择图片</button> -->
-		<upload-image @upload="updataImg"></upload-image>
-		<view class="status">
-			<view class="item">
-				<view class="checkbox" :class="{check:check==1}" @tap="check=1"></view>
-				<view class="text">胜利</view>
-			</view>
-			<view class="item">
-				<view class="checkbox" :class="{check:check==2}" @tap="check=2"></view>
-				<view class="text">失败</view>
-			</view>
+		<view class="upload-wrapper">
+			<upload-image @upload="updataImg"></upload-image>
 		</view>
 		<view class="next">
 			<button @tap="uploadImg">确认上传</button>
@@ -117,6 +110,42 @@
 <style lang="scss">
 	.content{
 		padding: 0;
+	}
+	.upload-wrapper{
+		margin-top: 20rpx;
+		padding: 0 28rpx;
+	}
+	.status-wrap{
+		padding: 28rpx 32rpx;
+		font-family: SimHei;
+		font-weight: bold;
+		border-bottom: 1rpx solid #ccc;
+		.title{
+			padding-bottom: 20rpx;
+			font-size: 30rpx;
+			color:rgba(38,38,38,1);
+			line-height: 30rpx;
+		}
+		.status-box{
+			padding-top: 20rpx;
+			.item{
+				width: 200rpx;
+				height: 60rpx;
+				border-radius: 30rpx;
+				background-color: #F5F5F5;
+				color: #999;
+				font-size: 26rpx;
+				text-align: center;
+				line-height: 60rpx;
+				&:nth-child(1){
+					margin-right: 20rpx;
+				}
+			}
+			.win{
+				background-color: #39ac6a;
+				color: #fff;
+			}
+		}
 	}
 	.tab {
 		display: flex;

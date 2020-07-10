@@ -92,6 +92,7 @@
 								value:''
 							}
 						]
+						console.log(data1.data.data.length)
 						for(var i=0;i<data1.data.data.length;i++){
 							var newobj=data1.data.data[i]
 							newobj.value=newobj.id

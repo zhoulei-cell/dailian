@@ -82,6 +82,12 @@ export default {
 </script>
 
 <style lang="scss">
+  .uni-list:before{
+    height: 0;
+  }
+  .uni-list:after{
+    height: 0;
+  }
   .uni-uploader__file{
     position: relative;
     .delete_img{

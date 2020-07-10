@@ -310,11 +310,9 @@
 						icon: 'none',
 						title: res.data.msg
 					})
-					if (res.data.msg == 200) {
-						uni.navigateBack({
-							delta:1
-						})
-					}
+					uni.navigateBack({
+						delta:1
+					})
 							
 				}, error => {
 					console.log(error);
@@ -333,12 +331,10 @@
 						icon: 'none',
 						title: res.data.msg
 					})
-					if (res.data.msg == 200) {
-						uni.navigateBack({
-							delta:1
-						})
-					}
 					this.getlist()
+					// uni.navigateBack({
+					// 	delta:1
+					// })
 				}, error => {
 					console.log(error);
 				})
