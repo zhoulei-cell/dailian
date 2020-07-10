@@ -26,7 +26,7 @@
 				</view>
 				<view class="orderbtn">
 					<view class="orderbtn_left"></view>
-					<view class="orderbtn_right">
+					<view class="orderbtn_right" v-if="item.order_status !== 6">
 						<button @tap.stop="lockorder(item,index)" v-if="item.locked==0 && item.order_status !== 5">锁号</button>
 						<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
 						<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>

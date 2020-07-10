@@ -44,15 +44,6 @@
 				"onReachBottomDistance": 50,
 				"enablePullDownRefresh": true,
 				"app-plus": {
-					"titleNView": {
-						"buttons": [
-							{
-								"fontSize": "30rpx",
-								"text":"发单",
-								"float": "right"
-							}
-						]
-					},
 					"scrollIndicator":"none"
 				}
 			}
@@ -170,13 +161,13 @@
 		{
 			"path": "pages/orderreceiving/orderreceiving",
 			"style": {
-				"navigationBarTitleText": "接单订单"
+				"navigationBarTitleText": "接单列表"
 			}
 		},
 		{
 			"path": "pages/orderrelease/orderrelease",
 			"style": {
-				"navigationBarTitleText": "发单订单"
+				"navigationBarTitleText": "发单列表"
 			}
 		},
 		{
@@ -414,7 +405,7 @@
 			"selectedIconPath": "static/img/tabbar/shaishicheck.png"
 		}, {
 			"pagePath": "pages/hall/hall",
-			"text": "派单大厅",
+			"text": "接单大厅",
 			"iconPath": "static/img/tabbar/order.png",
 			"selectedIconPath": "static/img/tabbar/ordercheck.png"
 		}, {

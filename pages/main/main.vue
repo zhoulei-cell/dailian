@@ -13,7 +13,7 @@
 		<!-- 轮播图 -->
 		<view class="banner">
 			<uni-swiper-dot :info="info" :current="current" field="content" :mode="mode">
-				<swiper class="swiper-box" @change="change">
+				<swiper class="swiper-box" :autoplay="true" :interval="3000" :duration="500" @change="change">
 					<swiper-item v-for="(item ,index) in info" :key="index">
 						<view class="swiper-item">
 							<image :src="item.content" mode="scaleToFill"></image>

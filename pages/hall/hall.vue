@@ -10,7 +10,7 @@
 				</view>
 			</scroll-view>
 		</view> -->
-		<HMfilterDropdown class="pos" v-if="isShow" :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
+		<HMfilterDropdown bgColor="#f4f8fb" class="pos" v-if="isShow" :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
 		 dataFormat="Object"></HMfilterDropdown>
 		<HMfilterDropdown :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
 		 dataFormat="Object"></HMfilterDropdown>
@@ -85,11 +85,6 @@
 		},
 		computed: {
 
-		},
-		onNavigationBarButtonTap() {
-			uni.navigateTo({
-				url: '../releaseinfo/releaseinfo'
-			});
 		},
 		async onLoad() {
 			await this.getGameplatforms()
@@ -261,7 +256,7 @@
 		top: 44px;
 		/* #endif */
 		left: 0;
-		z-index: 999;
+		z-index: 9999;
 	}
 
 	.uni-list {

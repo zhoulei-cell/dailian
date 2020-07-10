@@ -327,11 +327,11 @@
 			// 获取详情
 			getlist() {
 				let opts = {
-					url: '/api/match/show',
+					url: `/api/match/show`,
 					method: 'get'
 				}
 				let params = {
-					match_id:this.match_id
+					match_id: this.match_id
 				}
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {

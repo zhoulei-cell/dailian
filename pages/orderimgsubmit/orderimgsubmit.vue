@@ -142,7 +142,10 @@
 			uploadImg() {
 				let imgFiles = this.imageList.slice(this.uploadImageList.length)
 				if (imgFiles.length === 0) {
-					console.log('没有图片')
+					uni.showToast({
+						icon: 'none',
+						title: '您还没有选择图片！'
+					})
 					return null
 				}
 				const imgFile = [];

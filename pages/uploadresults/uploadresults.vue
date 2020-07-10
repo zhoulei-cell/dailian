@@ -6,31 +6,7 @@
 			</view>
 		</view>
     <button type="primary" @tap="cI">选择图片</button> -->
-		<!-- 图片上传 -->
-		<view class="image-upload">
-			<view class="uni-list list-pd">
-				<view class="uni-list-cell cell-pd">
-					<view class="uni-uploader">
-						<view class="uni-uploader-head">
-							<!-- <view class="uni-uploader-info">{{imageList.length}}/5</view> -->
-						</view>
-						<view class="uni-uploader-body">
-							<view class="uni-uploader__files">
-								<block v-for="(image,index) in imageList" :key="index">
-									<view class="uni-uploader__file">
-										<image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image"></image>
-									</view>
-								</block>
-								<view class="uni-uploader__input-box">
-									<view class="uni-uploader__input" @tap="chooseImage"></view>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view>
-		<!-- 图片上传 -->
+		<upload-image @upload="updataImg"></upload-image>
 		<view class="status">
 			<view class="item">
 				<view class="checkbox" :class="{check:check==1}" @tap="check=1"></view>
@@ -49,7 +25,8 @@
 
 <script>
     // 注册一个进度条
-  var _self;
+	//var _self;
+	import uploadImage from '../../components/upload-image'
   export default {
 		data() {
 			return {
@@ -60,22 +37,12 @@
 				check:1
 			}
 		},
+		components: {
+			uploadImage
+		},
     methods: {
-			// 图片上传
-			chooseImage() {
-				uni.chooseImage({
-					count: 1,
-					sizeType:['copressed'],
-					success: (res) => {
-						this.imageList = this.imageList.concat(res.tempFilePaths)
-					},
-					fail: (res) => {
-						uni.showToast({
-							icon: 'none',
-							title: '错误！'
-						})
-					}
-				})
+			updataImg(list) {
+				this.imageList = list
 			},
 			//确认上传图片
 			uploadImg() {
@@ -89,6 +56,7 @@
 					data.data.forEach(item => {
 						url += item.url + ',';
 					})
+					this.imgsubmit(url)
 				})
 			},
 			//图片上传提交

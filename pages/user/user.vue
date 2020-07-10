@@ -50,19 +50,25 @@
 				<view class="item">
 					<navigator url="../orderreceiving/orderreceiving" hover-class="none">
 						<view class="itemimg"><image src="../../static/img/user/jd.png" mode=""></image></view>
-						<view class="itemtext">接单订单</view>
+						<view class="itemtext">接单列表</view>
 					</navigator>
 				</view>
 				<view class="item">
 					<navigator url="../orderrelease/orderrelease" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/fd.png" mode=""></image></view>
-					<view class="itemtext">发单订单</view>
+					<view class="itemtext">发单列表</view>
 					</navigator>
 				</view>
 				<view class="item">
+					<navigator url="../releaseinfo/releaseinfo" hover-class="none">
+					<view class="itemimg"><image src="../../static/img/user/fadan.png" mode=""></image></view>
+					<view class="itemtext">发布订单</view>
+					</navigator>
+				</view>
+				<!-- <view class="item">
 					<view class="itemimg"><image src="../../static/img/user/youhuiquan.png" mode=""></image></view>
 					<view class="itemtext">优惠券</view>
-				</view>
+				</view> -->
 				<!-- <view class="item">
 					<view class="itemimg"><image src="../../static/img/user/pinglun.png" mode=""></image></view>
 					<view class="itemtext">评论</view>

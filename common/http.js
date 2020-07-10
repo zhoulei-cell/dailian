@@ -1,5 +1,6 @@
-// const baseUrl = 'http://192.168.0.121';
-const baseUrl = '47.94.34.165';
+// const baseUrl = '192.168.0.142';
+//const baseUrl = '47.94.34.165';
+const baseUrl = 'www.zldjsss.com';
 const base='http://'+baseUrl
 const httpRequest = (opts, data) => {
 	let httpDefaultOpts = {
@@ -64,19 +65,15 @@ const httpTokenRequest = async (opts, data) => {
 	//此token是登录成功后后台返回保存在storage中的
 	let httpDefaultOpts = {
 		url: base + opts.url,
-		// data: Object.assign(data, {
-		// 	token
-		// }),
+		data: data,
 		method: opts.method,
 		header: opts.method == 'get' ? {
-			'Authorization': "Bearer " + token,
-			'token': "Bearer " + token,
+			'Authorization': `Bearer ${token}`,
 			'X-Requested-With': 'XMLHttpRequest',
 			"Accept": "application/json",
 			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
 		} : {
-			'Authorization': "Bearer " + token,
-			'token': "Bearer " + token,
+			'Authorization': `Bearer ${token}`,
 			'X-Requested-With': 'XMLHttpRequest',
 			'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
 		},
@@ -121,7 +118,10 @@ const uploadimg = async(files)=>{
 	return new Promise((resolve,reject)=>{
 		var uper = uni.uploadFile({
 		    // 需要上传的地址
-		    url:base+'/api/upload?token='+token,
+				url:base+'/api/upload',
+				header: {
+					'Authorization': `Bearer ${token}`,
+				},
 		    // filePath  需要上传的文件
 				//filePath: imgFiles,
 				files: files,
