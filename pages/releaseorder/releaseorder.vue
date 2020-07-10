@@ -4,7 +4,7 @@
 			<!-- 段位信息 -->
 			<view class="list-group">
 				<view class="list-title">基本信息</view>
-				<custom-picker @confirm="selectArea">
+				<custom-picker :array="data.area" @confirm="selectArea">
 					<view class="list-item">
 						<view class="item-title">选择区服</view>
 						<view class="item-text d-flex ai-center jc-between">
@@ -13,20 +13,24 @@
 						</view>
 					</view>
 				</custom-picker>
-				<view class="list-item" @tap="originSegment">
-					<view class="item-title">当前段位</view>
-					<view class="item-text d-flex ai-center jc-between">
-						<input disabled="disabled" placeholder="当前段位" class="text" placeholder-class="placeholder"/>
-						<image src="../../static/img/other/left.png" mode="scaleToFill"></image>
+				<custom-picker :array="data.segment" @confirm="originSegment">
+					<view class="list-item">
+						<view class="item-title">当前段位</view>
+						<view class="item-text d-flex ai-center jc-between">
+							<input disabled="disabled" placeholder="当前段位" v-model="originSm" class="text" placeholder-class="placeholder"/>
+							<image src="../../static/img/other/left.png" mode="scaleToFill"></image>
+						</view>
 					</view>
-				</view>
-				<view class="list-item" @tap="targetSegment">
-					<view class="item-title">目标段位</view>
-					<view class="item-text d-flex ai-center jc-between">
-						<input disabled="disabled" placeholder="目标段位" class="text" placeholder-class="placeholder"/>
-						<image src="../../static/img/other/left.png" mode="scaleToFill"></image>
+				</custom-picker>
+				<custom-picker :array="data.segment" @confirm="targetSegment">
+					<view class="list-item">
+						<view class="item-title">目标段位</view>
+						<view class="item-text d-flex ai-center jc-between">
+							<input disabled="disabled" placeholder="目标段位" v-model="targetSm" class="text" placeholder-class="placeholder"/>
+							<image src="../../static/img/other/left.png" mode="scaleToFill"></image>
+						</view>
 					</view>
-				</view>
+				</custom-picker>
 				<view class="list-item">
 					<view class="item-title">订单价格</view>
 					<view class="item-text d-flex ai-center jc-between">
@@ -116,13 +120,17 @@
 
 <script>
 	import customPicker from '../../components/custom-picker'
+	import data from '../../common/area'
 	export default {
 		components: {
 			customPicker
 		},
 		data() {
 			return {
-				area: ''
+				data,
+				area: '',
+				originSm: '',
+				targetSm: ''
 			}
 		},
 		methods: {
@@ -135,16 +143,21 @@
 				this.area = area
 			},
 			//当前段位
-			originSegment() {
-
+			originSegment(sm) {
+				this.originSm = sm
 			},
 			//目标段位
-			targetSegment() {
-
+			targetSegment(sm) {
+				this.targetSm = sm
 			}
 		},
 		onLoad() {
 			console.log(111)
+			const arr = []
+			for (var i = 0; i <= 120; i++) {
+				arr.push({text: i + "星"})
+			}
+			console.log(JSON.stringify(arr))
 		}
 	}
 </script>

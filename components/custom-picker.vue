@@ -12,40 +12,18 @@
 
 <script>
 export default {
+  props: {
+    array: {
+      type: Array,
+      default() {
+        return []
+      }
+    }
+  },
   data() {
     return {
       area: '',
 			pickerArr: [],
-      array: [
-        {
-          text: '安卓QQ',
-          children: [
-            {text: '手Q1区'},
-            {text: '手Q2区'}
-          ]
-        },
-        {
-          text: '安卓微信',
-          children: [
-            {text: '安卓微信1区'},
-            {text: '安卓微信2区'}
-          ]
-        },
-        {
-          text: '苹果QQ',
-          children: [
-            {text: '苹果1区'},
-            {text: '苹果2区'}
-          ]
-        },
-        {
-          text: '苹果微信',
-          children: [
-            {text: '苹果微信1区'},
-            {text: '苹果微信2区'}
-          ]
-        }
-      ],
       index: [0, 0] // picker - 索引
     }
   },
