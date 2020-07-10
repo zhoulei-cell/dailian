@@ -10,10 +10,11 @@
 				</view>
 			</scroll-view>
 		</view> -->
-		<HMfilterDropdown bgColor="#f4f8fb" class="pos" v-if="isShow" :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
-		 dataFormat="Object"></HMfilterDropdown>
 		<HMfilterDropdown :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
 		 dataFormat="Object"></HMfilterDropdown>
+		<HMfilterDropdown class="pos" v-if="isShow" :filterData="filterData" :defaultSelected="filterDropdownValue" :updateMenuName="true" @confirm="confirm"
+		 dataFormat="Object"></HMfilterDropdown>
+		
 		<view class="conleft">
 			<view class="orderlist">
 				<view class="item" v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
