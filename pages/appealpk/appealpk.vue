@@ -4,7 +4,7 @@
 			申诉金额
 		</view>
 		<view class="textarea" style="padding: 10rpx;">
-			<input type="text" placeholder="0" v-model="amount"/>
+			<input type="text" placeholder="请输入申述金额" v-model="amount"/>
 		</view>
 		<view class="title">
 			申类型及详情
@@ -45,35 +45,10 @@
 			return {
 				items: [{
 						value: '0',
-						name: '账号密码不对'
-					},
-					{
-						value: '1',
-						name: '联系不到号主',
-						checked: 'true'
+						name: '作弊'
 					},
 					{
 						value: '2',
-						name: '号主顶号'
-					},
-					{
-						value: '3',
-						name: '账号被禁号不能登录游戏'
-					},
-					{
-						value: '4',
-						name: '游戏账号/角色被封停'
-					},
-					{
-						value: '5',
-						name: '订单信息和描述不符'
-					},
-					{
-						value: '6',
-						name: '账号防沉迷无法代练'
-					},
-					{
-						value: '7',
 						name: '其他原因'
 					},
 				],
@@ -81,7 +56,7 @@
 				orderid:0,
 				info:{},
 				match_id:'',
-				amount:0,
+				amount:'',
 				imglist:[],
 				desc:'',
 				imgdata:[]
@@ -91,7 +66,7 @@
 			//图片上传
 			cI(){
 				let _this=this;
-			  uni.chooseImage({
+				uni.chooseImage({
 					count: 1,
 					sizeType:['copressed'],
 					success(res) {
@@ -99,7 +74,8 @@
 						_this.$http.uploadimg(imgFiles).then((res)=>{
 							var data=JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
-							_this.imgsubmit(data.data[0].url)
+							//_this.imgsubmit(data.data[0].url)
+							_this.imgdata.push(data.data[0].url)
 						})
 					}
 				})
@@ -153,45 +129,45 @@
 </script>
 
 <style>
-.btn{
-	padding-top: 50rpx;
-}
-.title{
-	background: #E0E0E0;
-	color: #333;
-	font-weight: bold;
-	font-size: 24rpx;
-	padding: 10rpx;
-	margin-top: 20rpx;
-	display: flex;
-	align-items: center;
-}
-.title text{
-	flex: 1;
-}
-.title button{
-	width: 100rpx;
-	height: 50rpx;
-	line-height: 50rpx;
-	font-size: 20rpx;
-}
-.textarea{
-	width: 100%;
-	
-}
-.textarea textarea{
-	box-sizing: border-box;
-	height: 300rpx;
-	border: 1rpx solid #E0E0E0;
-	width: 100%;
-	padding: 10rpx;
-	font-size: 24rpx;
-}
-.line{
-	font-size: 24rpx;
-	color: #666;
-	line-height: 60rpx;
-}
+	.btn{
+		padding-top: 50rpx;
+	}
+	.title{
+		background: #E0E0E0;
+		color: #333;
+		font-weight: bold;
+		font-size: 24rpx;
+		padding: 10rpx;
+		margin-top: 20rpx;
+		display: flex;
+		align-items: center;
+	}
+	.title text{
+		flex: 1;
+	}
+	.title button{
+		width: 100rpx;
+		height: 50rpx;
+		line-height: 50rpx;
+		font-size: 20rpx;
+	}
+	.textarea{
+		width: 100%;
+		
+	}
+	.textarea textarea{
+		box-sizing: border-box;
+		height: 300rpx;
+		border: 1rpx solid #E0E0E0;
+		width: 100%;
+		padding: 10rpx;
+		font-size: 24rpx;
+	}
+	.line{
+		font-size: 24rpx;
+		color: #666;
+		line-height: 60rpx;
+	}
 	.imglist{
 		display: flex;
 		flex-wrap: wrap;
@@ -200,17 +176,17 @@
 		width: 100%;
 		padding: 20rpx;
 	}
-.imgbox{
-	width: 330rpx;
-	height: 330rpx;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	margin-bottom: 20rpx;
-}
-.imgbox image{
-	width: 100%;
-	
-}
+	.imgbox{
+		width: 330rpx;
+		height: 330rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		margin-bottom: 20rpx;
+	}
+	.imgbox image{
+		width: 100%;
+		
+	}
 </style>

@@ -17,7 +17,7 @@
 		</view>
 		<view class="imglist">
 			<view class="imgbox" v-for="(imglist,index) in orderinfo.images" :key="index">
-				<image :src="imglist.full || imglist.url"></image>
+				<image :src="imglist"></image>
 			</view>
 		</view>
 		<view class="title">
@@ -64,35 +64,10 @@
 			return {
 				items: [{
 						value: '0',
-						name: '账号密码不对'
-					},
-					{
-						value: '1',
-						name: '联系不到号主',
-						checked: 'true'
+						name: '作弊'
 					},
 					{
 						value: '2',
-						name: '号主顶号'
-					},
-					{
-						value: '3',
-						name: '账号被禁号不能登录游戏'
-					},
-					{
-						value: '4',
-						name: '游戏账号/角色被封停'
-					},
-					{
-						value: '5',
-						name: '订单信息和描述不符'
-					},
-					{
-						value: '6',
-						name: '账号防沉迷无法代练'
-					},
-					{
-						value: '7',
 						name: '其他原因'
 					},
 				],
@@ -100,7 +75,8 @@
 				orderid:0,
 				orderinfo:{
 					images:[],
-					appeal_chat:[]
+					appeal_chat:[],
+					user: {}
 				},
 				imglist:[],
 				reviwe:"",
@@ -115,17 +91,17 @@
 			//图片上传
 			cI(){
 				let _this=this;
-			    uni.chooseImage({
-			        count: 1,
-			        sizeType:['copressed'],
-			        success(res) {
-			            var imgFiles = res.tempFilePaths[0]
-			            _this.$http.uploadimg(imgFiles).then((res)=>{
+			  uni.chooseImage({
+						count: 1,
+						sizeType:['copressed'],
+						success(res) {
+							var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
+							_this.$http.uploadimg(imgFiles).then((res)=>{
 							var data=JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
 						})
-			        }
-			    })
+					}
+				})
 			},
 			radioChange: function(evt) {
 				for (let i = 0; i < this.items.length; i++) {
