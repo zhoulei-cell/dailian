@@ -45,7 +45,7 @@
 				</view>
 			</view>
 		</scroll-view>
-		<custom-popup ref="popup" confirm="close" :isCancel="false">
+		<custom-popup ref="popup" @confirm="close" :isCancel="false">
 			<text class="uni-tip-title">{{ab_reason}}</text>
 			<text class="uni-tip-content">{{ab_content}}</text>
 		</custom-popup>
