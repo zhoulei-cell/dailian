@@ -38,6 +38,24 @@
 						<view class="money">（元）</view>
 					</view>
 				</view>
+				<view class="list-item">
+					<view class="item-title">铭文等级</view>
+					<view class="item-text d-flex ai-center jc-between">
+						<input class="text" v-model="info.inscription_level" placeholder="请在此输入" placeholder-class="placeholder"/>
+					</view>
+				</view>
+				<view class="list-item">
+					<view class="item-title">英雄个数</view>
+					<view class="item-text d-flex ai-center jc-between">
+						<input class="text" v-model="info.hero_num" placeholder="请在此输入" placeholder-class="placeholder"/>
+					</view>
+				</view>
+				<view class="list-item">
+					<view class="item-title">时限要求</view>
+					<view class="item-text d-flex ai-center jc-between">
+						<input class="text" v-model="info.duration" placeholder="请在此输入" placeholder-class="placeholder"/>
+					</view>
+				</view>
 			</view>
 			<!-- 段位信息 -->
 			<!-- 联系方式 -->
@@ -99,6 +117,19 @@
 						<view class="money">（元）</view>
 					</view>
 				</view>
+				<view class="list-item">
+					<view class="item-title">增值业务</view>
+					<view class="item-text d-flex ai-center jc-between">
+						<text class="flex-1 placeholder">同省可接</text>
+						<view>
+							<checkbox-group>
+								<label>
+									<checkbox value="cb" :checked="info.province" @tap="info.province=!info.province" />
+								</label>
+							</checkbox-group>
+						</view>
+					</view>
+				</view>
 			</view>
 			<!-- 服务保障 -->
 
@@ -140,7 +171,11 @@
 					game_role_name: '',
 					promise_price: '',
 					eff_price: '',
-					rel_message: ''
+					rel_message: '',
+					inscription_level: '',
+					duration: '',
+					hero_num: '',
+					province: false
 				}
 			}
 		},

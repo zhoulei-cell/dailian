@@ -10,6 +10,14 @@
 				</label>
 			</radio-group>
 		</view>
+		<view class="textarea">
+			<textarea value="" placeholder="请输入问题及其描述" v-model="reason"/>
+		</view>
+		<view class="tips">
+			<view>在商家处理完异常之后，请自行[取消异常]；</view>
+			<view>若商家超过30分钟未处理异常，可发起协商或者申诉</view>
+			<view>请上传游戏异常截图</view>
+		</view>
 		<view class="btn">
 			<button type="default" @tap="submit">提交</button>
 		</view>
@@ -55,7 +63,8 @@
 					},
 				],
 				current: 0,
-				orderid:0
+				orderid:0,
+				reason: ''
 			}
 		},
 		methods: {
@@ -77,7 +86,8 @@
 				let params={
 					order_id:this.orderid,
 					type:type,
-					status:1
+					status:1,
+					reason: this.reason
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
@@ -104,8 +114,28 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 .btn{
 	padding-top: 50rpx;
+}
+.textarea{
+	margin-top: 10rpx;
+}
+.textarea textarea{
+	box-sizing: border-box;
+	min-height: 300rpx;
+	border: 1rpx solid #E0E0E0;
+	width: 100%;
+	padding: 10rpx;
+	font-size: 24rpx;
+}
+.tips {
+	padding-top: 20rpx;
+	view{
+		height: 40rpx;
+		color: red;
+		font-size: 26rpx;
+		line-height: 40rpx;
+	}
 }
 </style>

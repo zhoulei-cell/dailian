@@ -74,13 +74,13 @@
 					</view>
     		</view>
     	</view>
-    	<view class="line2">
+    	<!-- <view class="line2">
     		<checkbox-group>
     			<label>
     				<checkbox value="cb" checked="true" disabled/>我已阅读并接受<text>发单协议</text>
     			</label>
     		</checkbox-group>
-    	</view>
+    	</view> -->
     </view>
 </template>
 <script>

@@ -26,7 +26,7 @@
 				</view>
 				<view class="orderbtn">
 					<view class="orderbtn_left"></view>
-					<view class="orderbtn_right" v-if="item.order_status !== 6">
+					<view class="orderbtn_right jc-end" v-if="item.order_status !== 6">
 						<button @tap.stop="lockorder(item,index)" v-if="item.locked==0 && item.order_status !== 5">锁号</button>
 						<button @tap.stop="jslockorder(item,index)" v-if="item.locked==1">解锁</button>
 						<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>
@@ -39,14 +39,21 @@
 						<button @tap.stop="lookappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
 						<button @tap.stop="cancelorder(item,index)" v-if="item.order_status==1">取消订单</button>
 						<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
+
+						<button @tap.stop="lookOdd(item,index)" v-if="item.abnormal!==0">查看异常信息</button>
 					</view>
 				</view>
 			</view>
 		</scroll-view>
+		<custom-popup ref="popup" confirm="close" :isCancel="false">
+			<text class="uni-tip-title">{{ab_reason}}</text>
+			<text class="uni-tip-content">{{ab_content}}</text>
+		</custom-popup>
 	</view>
 </template>
 
 <script>
+	import customPopup from '../../components/custom-popup/custom-popup'
 	import {
 		mapState
 	} from 'vuex'
@@ -90,10 +97,14 @@
 				loadmore: true,
 				ordertext: ['关闭', '待接单', '代练中', '异常中', '待验收', '已结算', '取消'],
 				orderstaus: '',
-				triggered:false
+				triggered:false,
+				ab_reason: '异常原因：',
+				ab_content: ''
 			}
 		},
-		components: {},
+		components: {
+			customPopup
+		},
 		computed: mapState(['forcedLogin', 'hasLogin', 'userName']),
 		onLoad() {
 
@@ -289,6 +300,63 @@
 				}, error => {
 					console.log(error);
 				})
+			},
+			//查看异常信息
+			lookOdd(item,index) {
+				console.log(item)
+				let opts = {
+					url: '/api/order/abnormal/view',
+					method: 'get'
+				}
+				let params = {
+					id: item.abnormal
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						const data = res.data.data
+						const arr = [{
+								value: '0',
+								name: '账号密码不对'
+							},
+							{
+								value: '1',
+								name: '联系不到号主',
+								checked: 'true'
+							},
+							{
+								value: '2',
+								name: '号主顶号'
+							},
+							{
+								value: '3',
+								name: '账号被禁号不能登录游戏'
+							},
+							{
+								value: '4',
+								name: '游戏账号/角色被封停'
+							},
+							{
+								value: '5',
+								name: '订单信息和描述不符'
+							},
+							{
+								value: '6',
+								name: '账号防沉迷无法代练'
+							},
+							{
+								value: '7',
+								name: '其他原因'
+							}
+						]
+						this.ab_content = arr[data.type].name + " " + (data.reason ? data.reason : '')
+						this.$refs['popup'].open()
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			close() {
+				this.$refs['popup'].close()
 			}
 		},
 		async onShow() {
@@ -398,12 +466,13 @@
 		flex: 1;
 	}
 
-	.orderbtn_right {
+	.orderbtn_right{
 		display: flex;
+		flex-wrap: wrap;
 	}
-
-	.orderbtn_right button {
+	.orderbtn_right button{
 		height: 50rpx;
+		margin: 10rpx 0 0;
 		line-height: 50rpx;
 		font-size: 12px;
 		margin-left: 10rpx;

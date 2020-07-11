@@ -37,10 +37,16 @@
 							<button @tap.stop="lookappeal(item,index)" v-if="item.order_status!=1 && item.appeals!=0 && item.order_status!=5">查看申诉</button>
 							<button @tap.stop="submitexception(item,index)" v-if="item.abnormal==0 && item.order_status!=5">提交异常</button>
 							<button @tap.stop="cancelexception(item,index)" v-if="item.abnormal!=0 && item.order_status!=5">取消异常</button>
+							
+							<button @tap.stop="lookOdd(item,index)" v-if="item.abnormal!==0">查看异常信息</button>
 						</view>
 					</view>
 				</view>
 		</scroll-view>
+		<custom-popup ref="popup" confirm="close" :isCancel="false">
+			<text class="uni-tip-title">{{ab_reason}}</text>
+			<text class="uni-tip-content">{{ab_content}}</text>
+		</custom-popup>
 		<custom-popup ref="customPopupLogout" :title="contenttext" @cancel="cancelLogout" @confirm="confirmLogout"/>
 	</view>
 </template>
@@ -89,7 +95,9 @@
 				orderstaus:'',
 				triggered:false,
 				submittype:"",
-				order_id:""
+				order_id:"",
+				ab_reason: '异常原因：',
+				ab_content: ''
 			}
 		},
 		components: {
@@ -268,7 +276,63 @@
 					this.getorderlist()
 				}
 			},
-			
+			//查看异常信息
+			lookOdd(item,index) {
+				console.log(item)
+				let opts = {
+					url: '/api/order/abnormal/view',
+					method: 'get'
+				}
+				let params = {
+					id: item.abnormal
+				}
+				this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						const data = res.data.data
+						const arr = [{
+								value: '0',
+								name: '账号密码不对'
+							},
+							{
+								value: '1',
+								name: '联系不到号主',
+								checked: 'true'
+							},
+							{
+								value: '2',
+								name: '号主顶号'
+							},
+							{
+								value: '3',
+								name: '账号被禁号不能登录游戏'
+							},
+							{
+								value: '4',
+								name: '游戏账号/角色被封停'
+							},
+							{
+								value: '5',
+								name: '订单信息和描述不符'
+							},
+							{
+								value: '6',
+								name: '账号防沉迷无法代练'
+							},
+							{
+								value: '7',
+								name: '其他原因'
+							}
+						]
+						this.ab_content = arr[data.type].name + " " + (data.reason ? data.reason : '')
+						this.$refs['popup'].open()
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			close() {
+				this.$refs['popup'].close()
+			}
 		},
 		async onShow() {
 			this.triggered = true

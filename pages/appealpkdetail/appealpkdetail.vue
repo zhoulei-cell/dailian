@@ -127,6 +127,7 @@
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					this.orderinfo=res.data
+					console.log(res.data)
 				}, error => {
 					console.log(error);
 				})

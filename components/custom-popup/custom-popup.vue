@@ -4,7 +4,8 @@
         <view class="uni-tip">
             <!--
             <text class="uni-tip-title">警告</text> -->
-            <text class="uni-tip-content">{{title}}</text>
+            <text v-if="title" class="uni-tip-content">{{title}}</text>
+            <slot/>
             <view class="uni-tip-group-button">
                 <text class="uni-tip-button" @tap="$emit('cancel')" v-if="isCancel">取消</text>
                 <text class="uni-tip-button check" @tap="$emit('confirm')">确定</text>
@@ -21,7 +22,7 @@ export default {
     props: {
         title: {
             type: String,
-            default: "默认的标题"
+            default: ""
         },
         isCancel: {
             type: Boolean,
