@@ -54,9 +54,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/微信图片_20200708110527.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/微信图片_20200708110527.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/微信图片_20200708110527.png"
+                    "hdpi" : "C:/Users/Administrator/Desktop/启动图/480.png",
+                    "xhdpi" : "C:/Users/Administrator/Desktop/启动图/720.png",
+                    "xxhdpi" : "C:/Users/Administrator/Desktop/启动图/1080.png"
                 }
             }
         }
