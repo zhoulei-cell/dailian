@@ -10,7 +10,7 @@
 				</label>
 			</radio-group>
 		</view>
-		<view class="textarea">
+		<view class="textarea" v-if="current === 7">
 			<textarea value="" placeholder="请输入问题及其描述" v-model="reason"/>
 		</view>
 		<view class="tips">
@@ -130,7 +130,7 @@
 	font-size: 24rpx;
 }
 .tips {
-	padding-top: 20rpx;
+	padding: 30rpx 0;
 	view{
 		height: 40rpx;
 		color: red;
