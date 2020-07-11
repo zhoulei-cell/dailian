@@ -1,39 +1,41 @@
 <template>
 	<view class="content">
-		<view class="title">
-			申诉金额
-		</view>
-		<view class="textarea" style="padding: 10rpx;">
-			<input type="text" placeholder="请输入申述金额" v-model="amount"/>
-		</view>
-		<view class="title">
-			申类型及详情
-		</view>
-		<view class="uni-list">
-			<radio-group @change="radioChange">
-				<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
-					<view>
-						<radio :value="item.value" :checked="index === current" />
-					</view>
-					<view>{{item.name}}</view>
-				</label>
-			</radio-group>
-		</view>
-		<view class="title">
-			问题希望及其描述：
-		</view>
-		<view class="textarea">
-			<textarea value="" placeholder="请输入问题希望及其描述" v-model="desc"/>
-		</view>
-		<view class="title">
-			<text>凭证截图：</text><button type="primary" @tap="cI">上传图片</button>
-		</view>
-		<view class="imglist">
-			<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
-				<image :src="imglist.full || imglist.url"></image>
+		<view class="wrapper">
+			<view class="title">
+				申诉金额
+			</view>
+			<view class="textarea" style="padding: 10rpx;">
+				<input type="text" placeholder="请输入申述金额" v-model="amount"/>
+			</view>
+			<view class="title">
+				申类型及详情
+			</view>
+			<view class="uni-list">
+				<radio-group @change="radioChange">
+					<label class="uni-list-cell uni-list-cell-pd" v-for="(item, index) in items" :key="item.value">
+						<view>
+							<radio :value="item.value" :checked="index === current" />
+						</view>
+						<view>{{item.name}}</view>
+					</label>
+				</radio-group>
+			</view>
+			<view class="title">
+				问题希望及其描述：
+			</view>
+			<view class="textarea">
+				<textarea value="" placeholder="请输入问题希望及其描述" v-model="desc"/>
+			</view>
+			<view class="title">
+				<text>凭证截图：</text><button size="default" type="primary" @tap="cI">上传图片</button>
+			</view>
+			<view class="imglist">
+				<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
+					<image :src="imglist.full || imglist.url"></image>
+				</view>
 			</view>
 		</view>
-		<view class="btn">
+		<view class="next">
 			<button type="default" @tap="submit">提交</button>
 		</view>
 	</view>
@@ -109,7 +111,7 @@
 							title:res.data.msg
 						})
 						uni.navigateBack({
-							delta:2
+							delta:1
 						})
 					}else{
 						uni.showToast({
@@ -128,7 +130,10 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
+	.content .wrapper{
+		padding-bottom: 120rpx;
+	}
 	.btn{
 		padding-top: 50rpx;
 	}
@@ -146,14 +151,15 @@
 		flex: 1;
 	}
 	.title button{
-		width: 100rpx;
 		height: 50rpx;
 		line-height: 50rpx;
 		font-size: 20rpx;
 	}
 	.textarea{
 		width: 100%;
-		
+		input{
+			font-size: 24rpx;
+		}
 	}
 	.textarea textarea{
 		box-sizing: border-box;
@@ -174,7 +180,9 @@
 		justify-content: space-between;
 		box-sizing: border-box;
 		width: 100%;
+		min-height: 250rpx;
 		padding: 20rpx;
+		border: 1rpx solid #E0E0E0; 
 	}
 	.imgbox{
 		width: 330rpx;
@@ -187,6 +195,28 @@
 	}
 	.imgbox image{
 		width: 100%;
-		
+	}
+	.next{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		height:120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
+	}
+	.next button{
+		width:100%;
+		height:80rpx;
+		background:rgba(0,203,130,1);
+		box-shadow:0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		line-height: 80rpx;
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
 	}
 </style>
