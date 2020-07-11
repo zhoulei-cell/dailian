@@ -161,8 +161,8 @@
 			}
 		},
 		onLoad: function (option) {
-			this.appeals=option.orderid
-			this.ssid=option.id
+			this.appeals = option.orderid
+			this.ssid = option.id
 		},
 		onShow() {
 			this.getdetal()

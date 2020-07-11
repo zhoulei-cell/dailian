@@ -37,7 +37,7 @@
 
 			</view>
 		</scroll-view>
-
+		<!-- 发送按钮 -->
 		<view class="btn-box d-flex ai-center">
 			<view class="left-box d-flex flex-1 ai-center">
 				<input class="input flex-1" type="text" placeholder="请输入文字内容"  placeholder-class="place" v-model="content">
@@ -86,7 +86,7 @@
 					
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
-					const that=this
+					const that = this
 					this.userinfo = res.data.data
 					uni.connectSocket({
 					    url: 'ws://'+this.$http.baseUrl+':9511?id='+this.userinfo.id+'',

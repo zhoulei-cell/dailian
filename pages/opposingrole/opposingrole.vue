@@ -12,10 +12,15 @@
 				{{list.platforms.name}}
 			</view>
 		</view>
+		<custom-popup ref="delete" title="你确定要删除该角色？" @confirm="confirm" @cancel="close"/>
 	</view>
 </template>
 <script>
+import customPopup from "../../components/custom-popup/custom-popup"
 export default {
+	components: {
+		customPopup
+	},
   data() {
     return {
 			listData:[
@@ -67,6 +72,48 @@ export default {
 			}, error => {
 				console.log(error);
 			})
+		},
+		//删除角色
+		delRole() {
+			let opts = {
+				url: '/api/match/role/delete',
+				method: 'delete'
+			}
+			console.log(this.delList)
+			let params = {
+				role_id: this.delList.id
+			}
+			return this.$http.httpTokenRequest(opts, params).then(res => {
+				if (res.data.code == 200) {
+					uni.showToast({
+						title: '删除成功!'
+					})
+					console.log(this.listData)
+					this.listData = this.listData.filter(item => item.id !== this.delList.id)
+				}
+			}, error => {
+				uni.showToast({
+					title: '删除失败!'
+				})
+			})
+		},
+		//关闭弹窗
+		close() {
+			this.$refs['delete'].close()
+		},
+		//开启弹窗
+		open() {
+			this.$refs['delete'].open()
+		},
+		//确认删除
+		confirm() {
+			this.delRole()
+			this.close()
+		},
+		//删除角色
+		del(list) {
+			this.delList = list
+			this.open()
 		}
   },
 	onLoad:function(option) {

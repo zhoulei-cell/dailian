@@ -1238,28 +1238,28 @@ export default [
 						"value": ""
 					},
 					{
-						"name": "倔强青铜",
-						"value": "倔强青铜"
+						"name": "青铜",
+						"value": "青铜"
 					},
 					{
-						"name": "秩序白银",
-						"value": "秩序白银"
+						"name": "白银",
+						"value": "白银"
 					},
 					{
-						"name": "荣耀黄金",
-						"value": "荣耀黄金"
+						"name": "黄金",
+						"value": "黄金"
 					},
 					{
-						"name": "尊贵铂金",
-						"value": "尊贵铂金"
+						"name": "铂金",
+						"value": "铂金"
 					},
 					{
-						"name": "永恒钻石",
-						"value": "永恒钻石"
+						"name": "钻石",
+						"value": "钻石"
 					},
 					{
-						"name": "至尊星耀",
-						"value": "至尊星耀"
+						"name": "星耀",
+						"value": "星耀"
 					},
 					{
 						"name": "最强王者",
@@ -1278,28 +1278,28 @@ export default [
 						"value": ""
 					},
 					{
-						"name": "倔强青铜",
-						"value": "倔强青铜"
+						"name": "青铜",
+						"value": "青铜"
 					},
 					{
-						"name": "秩序白银",
-						"value": "秩序白银"
+						"name": "白银",
+						"value": "白银"
 					},
 					{
-						"name": "荣耀黄金",
-						"value": "荣耀黄金"
+						"name": "黄金",
+						"value": "黄金"
 					},
 					{
-						"name": "尊贵铂金",
-						"value": "尊贵铂金"
+						"name": "铂金",
+						"value": "铂金"
 					},
 					{
-						"name": "永恒钻石",
-						"value": "永恒钻石"
+						"name": "钻石",
+						"value": "钻石"
 					},
 					{
-						"name": "至尊星耀",
-						"value": "至尊星耀"
+						"name": "星耀",
+						"value": "星耀"
 					},
 					{
 						"name": "最强王者",
