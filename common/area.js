@@ -10,8 +10,8 @@ export default {
     {
       text: '安卓微信',
       children: [
-        {text: '安卓微信1区'},
-        {text: '安卓微信2区'}
+        {text: '微信1区'},
+        {text: '微信2区'}
       ]
     },
     {
@@ -24,8 +24,8 @@ export default {
     {
       text: '苹果微信',
       children: [
-        {text: '苹果微信1区'},
-        {text: '苹果微信2区'}
+        {text: '微信1区'},
+        {text: '微信2区'}
       ]
     }
   ],
@@ -34,7 +34,7 @@ export default {
       text: "青铜三",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -51,7 +51,7 @@ export default {
       text: "青铜二",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -68,7 +68,7 @@ export default {
       text: "青铜一",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -85,7 +85,7 @@ export default {
       text: "白银三",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -102,7 +102,7 @@ export default {
       text: "白银二",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -119,7 +119,7 @@ export default {
       text: "白银一",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -136,7 +136,7 @@ export default {
       text: "黄金四",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -156,7 +156,7 @@ export default {
       text: "黄金三",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -176,7 +176,7 @@ export default {
       text: "黄金二",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -196,7 +196,7 @@ export default {
       text: "黄金一",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -216,7 +216,7 @@ export default {
       text: "铂金四",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -236,7 +236,7 @@ export default {
       text: "铂金三",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -256,7 +256,7 @@ export default {
       text: "铂金二",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -276,7 +276,7 @@ export default {
       text: "铂金一",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -296,7 +296,7 @@ export default {
       text: "钻石五",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -319,7 +319,7 @@ export default {
       text: "钻石四",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -342,7 +342,7 @@ export default {
       text: "钻石三",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -365,7 +365,7 @@ export default {
       text: "钻石二",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -388,7 +388,7 @@ export default {
       text: "钻石一",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -411,7 +411,7 @@ export default {
       text: "星耀五",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -434,7 +434,7 @@ export default {
       text: "星耀四",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -457,7 +457,7 @@ export default {
       text: "星耀三",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -480,7 +480,7 @@ export default {
       text: "星耀二",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"
@@ -503,7 +503,7 @@ export default {
       text: "星耀一",
       children: [
         {
-          text: "0星"
+          text: "零星"
         },
         {
           text: "一星"

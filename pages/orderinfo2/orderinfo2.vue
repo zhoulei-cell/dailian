@@ -39,8 +39,8 @@
 				<view class="line">总发单数：{{orderInfo.user.rel_number}}笔</view>
 				<view class="line">总成交数：{{orderInfo.user.rec_number+orderInfo.user.rel_number}}笔</view>
 				<view class="line">协  商  率：{{orderInfo.user.negotiation}}</view>
-				<view class="line">电话：{{orderInfo.rel_phone}}</view>
-				<view class="line">QQ：{{orderInfo.rel_qq}}</view>
+				<view class="line" v-if="orderInfo.rel_phone">电话：{{orderInfo.rel_phone}}</view>
+				<view class="line" v-if="orderInfo.rel_qq">QQ：{{orderInfo.rel_qq}}</view>
 			</view>
 		</view>
 		<!-- <view class="lineinfo">

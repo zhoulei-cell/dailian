@@ -91,18 +91,18 @@
 			//图片上传
 			cI(){
 				let _this=this;
-			    uni.chooseImage({
-			        count: 1,
-			        sizeType:['copressed'],
-			        success(res) {
-			            var imgFiles = res.tempFilePaths[0]
-			            _this.$http.uploadimg(imgFiles).then((res)=>{
+			  uni.chooseImage({
+					count: 1,
+					sizeType:['copressed'],
+					success(res) {
+						var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
+						_this.$http.uploadimg(imgFiles).then((res)=>{
 							var data=JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
-							_this.imgdata.push(data.data[0].url)
+							_this.imgsubmit(data.data[0].url)
 						})
-			        }
-			    })
+					}
+				})
 			},
 			radioChange: function(evt) {
 				for (let i = 0; i < this.items.length; i++) {
