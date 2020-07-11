@@ -118,6 +118,15 @@ export default {
 			console.log(option.id)
 			this.id=option.id
 			this.getorderdetail(option.id)
+		},
+		onBackPress(options) {  
+			if (options.from === 'navigateBack') {  
+					return false;  
+			}  
+			uni.navigateTo({
+				url: '/pages/orderreceiving/orderreceiving'
+			})
+			return true
 		}
 	}
 </script>
