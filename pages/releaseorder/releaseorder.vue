@@ -4,7 +4,7 @@
 			<!-- 段位信息 -->
 			<view class="list-group">
 				<view class="list-title">基本信息</view>
-				<custom-picker :array="data.area" @confirm="selectArea">
+				<picker @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray">
 					<view class="list-item">
 						<view class="item-title">选择区服</view>
 						<view class="item-text d-flex ai-center jc-between">
@@ -12,7 +12,7 @@
 							<image src="../../static/img/other/left.png" mode="scaleToFill"></image>
 						</view>
 					</view>
-				</custom-picker>
+				</picker>
 				<custom-picker :array="data.segment" @confirm="originSegment">
 					<view class="list-item">
 						<view class="item-title">当前段位</view>
@@ -159,6 +159,7 @@
 		data() {
 			return {
 				data,
+				areaArr: [[0],[0]],
 				info: {
 					area: '',
 					current_segment: '',
@@ -176,7 +177,12 @@
 					duration: '',
 					hero_num: '',
 					province: false
-				}
+				},
+				multiArray: [
+					[0],
+					[0]
+				],
+				multiIndex: [0, 0],
 			}
 		},
 		methods: {
@@ -195,15 +201,60 @@
 			//目标段位
 			targetSegment(sm) {
 				this.tag_segment = sm
+			},
+			// 获取游戏平台
+			getGameplatforms() {
+				let opts = {
+					url: '/api/game/platforms?game_id=1',
+					method: 'get'
+				}
+				this.$http.httpRequest(opts).then(res => {
+					if (res.data.code == 200) {
+						const data = res.data.data
+						this.multiArray[0] = data
+						this.getGameAreas(data[0].id)
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			//根据平台获取区
+			getGameAreas(id) {
+				let opts = {
+					url: '/api/game/areas?platform_id=' + id,
+					method: 'get'
+				}
+				this.$http.httpRequest(opts).then(res => {
+					if (res.data.code == 200) {
+						const data = res.data.data;
+						this.multiArray[1] = data
+						console.log(this.multiArray)
+						this.$forceUpdate()
+					}
+				}, error => {
+					console.log(error);
+				})
+			},
+			bindMultiPickerColumnChange: function(e) {
+				console.log('修改的列为：' + e.detail.column + '，值为：' + e.detail.value)
+				this.multiIndex[e.detail.column] = e.detail.value
+				switch (e.detail.column) {
+					case 0: //拖动第1列
+						let id = this.multiArray[e.detail.column][e.detail.value].id
+						this.getGameAreas(id)
+						break
+						this.multiIndex.splice(2, 1)
+						break
+				}
+				this.$forceUpdate()
+			},
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.index = e.target.value
 			}
 		},
 		onLoad() {
-			//console.log(111)
-			const arr = []
-			for (var i = 0; i <= 249; i++) {
-				arr.push({text:  "微信" + i + "区"})
-			}
-			console.log(JSON.stringify(arr))
+			this.getGameplatforms()
 		}
 	}
 </script>
