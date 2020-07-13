@@ -299,7 +299,7 @@
 			confirmOrder() {
 				if (this.check()) {
 					this.info.title = this.info.area + "*" + this.info.current_segment + "到" + this.info.tag_segment 
-					this.info.province = this.info.province ? 1 : 0;
+					this.info.province = this.province ? 1 : 0;
 					this.releaseOrder()
 				} 
 			},
@@ -393,7 +393,7 @@
 				//console.log(e)
 				const value = e.detail.value
 				this.multiIndex = value
-				this.info.area = this.multiArray[0][value[0]].name + this.multiArray[1][value[1]].name 
+				this.info.area = this.multiArray[0][value[0]].name + "*" + this.multiArray[1][value[1]].name 
 				this.info.platform_id = this.multiArray[0][value[0]].id
 				this.info.game_area_id = this.multiArray[1][value[1]].id
 			},
