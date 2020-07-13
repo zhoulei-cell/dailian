@@ -17,7 +17,7 @@
 		
 		<view class="conleft">
 			<view class="orderlist">
-				<view class="item" v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
+				<view class="item" v-for="(item) in listData" :key="item.id" @tap="navtoDetail(item)">
 					<view class="tag1" v-show="item.province">
 						<image src="../../static/img/index/shenlei.png" mode=""></image>
 					</view>
@@ -26,7 +26,7 @@
 					</view>
 					<view class="itemright">
 						<view class="title">{{item.title}}</view>
-						<view class="desc">{{item.rel_message}}</view>
+						<view class="desc text-overflow" v-if="item.rel_message && item.rel_message !== 'null'">{{item.rel_message}}</view>
 						<view class="fabuzhe">发布者：{{item.user.name || ''}}</view>
 						<view class="comfirm">保证金：{{item.promise_price}}元<view class="tag">|</view>时间：{{item.duration}}小时</view>
 					</view>
