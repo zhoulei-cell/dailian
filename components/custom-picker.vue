@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       area: '',
-	  pickerArr: [],
+	    pickerArr: [],
       index: [0, 0] // picker - 索引
     }
   },
@@ -35,19 +35,16 @@ export default {
     },
     //绑定选择
     bindPickerChange(e) {
-      //console.log(e)
       const value = e.detail.value
-      this.index = value
       this.area = this.array[value[0]].text + this.array[value[0]].children[value[1]].text 
       this.$emit('confirm', this.area, value)
     },
     // 获取二级分类
     columnchange(e) {
       // 当滚动切换一级分类时，为当前的一级分类添加它的子类
+      this.index[e.detail.column] = e.detail.value
       if (e.detail.column == 0) {
-        //this.pickerArr[1] =  this.array[e.detail.value].children
         this.$set(this.pickerArr, 1, this.array[e.detail.value].children)
-        //this.$forceUpdate()
       }
     }
   },

@@ -221,6 +221,13 @@
 						icon: 'none',
 						title: '请填写正确的订单价格'
 					})
+					if (this.info.price > 5) {
+						uni.showToast({
+							icon: 'none',
+							title: '订单价格最低5块'
+						})
+						return false
+					}
 					return false
 				}
 				if (!check.checkLevel(this.info.inscription_level)) {
@@ -390,9 +397,7 @@
 			},
 			 //绑定选择
 			bindPickerChange(e) {
-				//console.log(e)
 				const value = e.detail.value
-				this.multiIndex = value
 				this.info.area = this.multiArray[0][value[0]].name + "*" + this.multiArray[1][value[1]].name 
 				this.info.platform_id = this.multiArray[0][value[0]].id
 				this.info.game_area_id = this.multiArray[1][value[1]].id
@@ -400,6 +405,7 @@
 			// 获取二级分类
 			columnchange(e) {
 				// 当滚动切换一级分类时，为当前的一级分类添加它的子类
+				this.multiIndex[e.detail.column] = e.detail.value
 				if (e.detail.column == 0) {
 					let id = this.multiArray[e.detail.column][e.detail.value].id
 					this.getGameAreas(id)
