@@ -29176,7 +29176,6 @@ var render = function() {
                         [_vm._v("电话号码")]
                       ),
                       _c("v-uni-input", {
-                        staticClass: _vm._$g(44, "sc"),
                         attrs: {
                           type: "text",
                           placeholder: "请填写常用联系方式",
@@ -29211,7 +29210,6 @@ var render = function() {
                         [_vm._v("QQ号码或微信")]
                       ),
                       _c("v-uni-input", {
-                        staticClass: _vm._$g(48, "sc"),
                         attrs: {
                           type: "text",
                           placeholder: "请填写QQ",
@@ -29258,7 +29256,6 @@ var render = function() {
                         [_vm._v("游戏账号")]
                       ),
                       _c("v-uni-input", {
-                        staticClass: _vm._$g(54, "sc"),
                         attrs: {
                           type: "text",
                           placeholder: "请填写正确的游戏账号",
@@ -29293,7 +29290,6 @@ var render = function() {
                         [_vm._v("账号密码")]
                       ),
                       _c("v-uni-input", {
-                        staticClass: _vm._$g(58, "sc"),
                         attrs: {
                           type: "text",
                           placeholder: "请填写正确的账号密码",
@@ -29328,7 +29324,6 @@ var render = function() {
                         [_vm._v("游戏角色")]
                       ),
                       _c("v-uni-input", {
-                        staticClass: _vm._$g(62, "sc"),
                         attrs: {
                           type: "text",
                           placeholder: "请填写正确的游戏角色",
@@ -29790,7 +29785,7 @@ if(false) {}
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../../HBuilderX.2.7.5.20200519.full/HBuilderX/plugins/uniapp-cli/node_modules/css-loader/dist/runtime/api.js */ 16);
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ".release-order {\n  width: 100%;\n}\n.release-order .wrapper {\n  padding-bottom: 120rpx;\n}\n.release-order .wrapper .list-group {\n  font-family: SimHei;\n  font-weight: 400;\n}\n.release-order .wrapper .list-group .list-title {\n  height: 90rpx;\n  padding-left: 41rpx;\n  background: #f4f4f4;\n  font-size: 28rpx;\n  color: #333333;\n  line-height: 90rpx;\n}\n.release-order .wrapper .list-group .list-item {\n  padding: 18rpx 41rpx;\n  background-color: #fff;\n}\n.release-order .wrapper .list-group .list-item.last {\n  border-bottom: 10rpx solid #f4f4f4;\n}\n.release-order .wrapper .list-group .list-item .placeholder {\n  font-size: 24rpx;\n  color: #999999;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item uni-textarea {\n  color: #333333;\n  font-size: 24rpx;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-box {\n  border-bottom: 1rpx solid #ccc;\n}\n.release-order .wrapper .list-group .list-item .item-box .left {\n  font-size: 28rpx;\n  color: #333333;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-box > uni-input {\n  font-size: 24rpx;\n  color: #000;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-title {\n  font-size: 28rpx;\n  color: #333333;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-text {\n  padding-bottom: 15rpx;\n  border-bottom: 1rpx solid #ccc;\n}\n.release-order .wrapper .list-group .list-item .item-text uni-input {\n  font-size: 24rpx;\n  color: #000;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-text uni-image {\n  width: 21rpx;\n  height: 31rpx;\n}\n.release-order .wrapper .list-group .list-item .item-text .money {\n  font-size: 24rpx;\n  color: #999999;\n}\n.release-order .next {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  height: 120rpx;\n  background: white;\n  -webkit-box-shadow: 2px -3px 5px 0px rgba(0, 0, 0, 0.1);\n          box-shadow: 2px -3px 5px 0px rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 20rpx 24rpx;\n}\n.release-order .next uni-button {\n  width: 100%;\n  height: 80rpx;\n  background: #00cb82;\n  -webkit-box-shadow: 0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);\n          box-shadow: 0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);\n  -webkit-border-radius: 15rpx;\n          border-radius: 15rpx;\n  line-height: 80rpx;\n  font-size: 36rpx;\n  font-family: PingFang SC;\n  font-weight: bold;\n  color: white;\n}\n", ""]);
+exports.push([module.i, ".release-order {\n  width: 100%;\n}\n.release-order uni-input {\n  height: 68rpx;\n}\n.release-order .wrapper {\n  padding-bottom: 120rpx;\n}\n.release-order .wrapper .list-group {\n  font-family: SimHei;\n  font-weight: 400;\n}\n.release-order .wrapper .list-group .list-title {\n  height: 90rpx;\n  padding-left: 41rpx;\n  background: #f4f4f4;\n  font-size: 28rpx;\n  color: #333333;\n  line-height: 90rpx;\n}\n.release-order .wrapper .list-group .list-item {\n  padding: 18rpx 41rpx;\n  background-color: #fff;\n}\n.release-order .wrapper .list-group .list-item.last {\n  border-bottom: 10rpx solid #f4f4f4;\n}\n.release-order .wrapper .list-group .list-item .placeholder {\n  font-size: 24rpx;\n  color: #999999;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item uni-textarea {\n  color: #333333;\n  font-size: 24rpx;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-box {\n  border-bottom: 1rpx solid #ccc;\n}\n.release-order .wrapper .list-group .list-item .item-box .left {\n  font-size: 28rpx;\n  color: #333333;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-box > uni-input {\n  font-size: 24rpx;\n  color: #000;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-title {\n  font-size: 28rpx;\n  color: #333333;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-text {\n  padding-bottom: 15rpx;\n  border-bottom: 1rpx solid #ccc;\n}\n.release-order .wrapper .list-group .list-item .item-text uni-input {\n  font-size: 24rpx;\n  color: #000;\n  line-height: 70rpx;\n}\n.release-order .wrapper .list-group .list-item .item-text uni-image {\n  width: 21rpx;\n  height: 31rpx;\n}\n.release-order .wrapper .list-group .list-item .item-text .money {\n  font-size: 24rpx;\n  color: #999999;\n}\n.release-order .next {\n  position: fixed;\n  bottom: 0;\n  width: 100%;\n  left: 0;\n  height: 120rpx;\n  background: white;\n  -webkit-box-shadow: 2px -3px 5px 0px rgba(0, 0, 0, 0.1);\n          box-shadow: 2px -3px 5px 0px rgba(0, 0, 0, 0.1);\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  padding: 20rpx 24rpx;\n}\n.release-order .next uni-button {\n  width: 100%;\n  height: 80rpx;\n  background: #00cb82;\n  -webkit-box-shadow: 0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);\n          box-shadow: 0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);\n  -webkit-border-radius: 15rpx;\n          border-radius: 15rpx;\n  line-height: 80rpx;\n  font-size: 36rpx;\n  font-family: PingFang SC;\n  font-weight: bold;\n  color: white;\n}\n", ""]);
 // Exports
 module.exports = exports;
 

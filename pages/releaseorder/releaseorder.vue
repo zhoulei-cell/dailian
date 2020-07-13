@@ -348,7 +348,7 @@
 				this.$http.httpRequest(opts).then(res => {
 					if (res.data.code == 200) {
 						const data = res.data.data
-						this.multiArray[0] = data
+						this.$set(this.multiArray, 0, data)
 						this.getGameAreas(data[0].id)
 					}
 				}, error => {
@@ -364,8 +364,9 @@
 				this.$http.httpRequest(opts).then(res => {
 					if (res.data.code == 200) {
 						const data = res.data.data;
-						this.multiArray[1] = data
-						this.$forceUpdate()
+						//this.multiArray[1] = data
+						this.$set(this.multiArray, 1, data)
+						//this.$forceUpdate()
 					}
 				}, error => {
 					console.log(error);
