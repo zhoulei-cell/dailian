@@ -12,7 +12,7 @@
               <block v-for="(image,index) in imageList" :key="index">
                 <view class="uni-uploader__file">
                   <view class="delete_img" @tap="deleteImage(index)"></view>
-                  <image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image"></image>
+                  <image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image" @tap="previewImage"></image>
                 </view>
               </block>
               <view class="uni-uploader__input-box">
@@ -63,6 +63,14 @@ export default {
       this.index = index
       this.open()
     },
+    //预览图片
+    previewImage: function(e) {
+      var current = e.target.dataset.src
+      uni.previewImage({
+        current: current,
+        urls: this.imageList
+      })
+		},
     //关闭提示窗
     close() {
       this.$refs['popup'].close()

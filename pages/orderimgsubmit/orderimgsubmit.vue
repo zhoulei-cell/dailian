@@ -16,7 +16,7 @@
 										<block v-for="(image,index) in imageList" :key="index">
 											<view class="uni-uploader__file">
 												<view class="delete_img" @tap="deleteImage(index)" v-if="index >= num"></view>
-												<image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image"></image>
+												<image class="uni-uploader__img" :src="image.url || image" :data-src="image.url || image" @tap="previewImage"></image>
 											</view>
 										</block>
 										<view class="uni-uploader__input-box">
@@ -147,7 +147,7 @@
 				// 图片上传
 				chooseImage() {
 					uni.chooseImage({
-						count: 1,
+						count: 5,
 						sizeType:['copressed'],
 						success: (res) => {
 							this.imageList = this.imageList.concat(res.tempFilePaths)
@@ -170,7 +170,7 @@
 						})
 						return null
 					}
-					if (this.imageList < 5) {
+					if (this.imageList.length > 5) {
 						uni.showToast({
 							icon: 'none',
 							title: '最多只能上传五张图片'
@@ -199,6 +199,14 @@
 					this.index = index
 					this.open()
 				},
+				//预览图片
+				previewImage: function(e) {
+					var current = e.target.dataset.src
+					uni.previewImage({
+						current: current,
+						urls: this.imageList
+					})
+				},
 				//关闭提示窗
 				close() {
 					this.$refs['popup'].close()
@@ -210,7 +218,7 @@
 				//用户确认删除
 				confirm() {
 					this.close()
-					this.imageList.splice(index, 1)
+					this.imageList.splice(this.index, 1)
 				}
 		},
 		onLoad: function (option) {
