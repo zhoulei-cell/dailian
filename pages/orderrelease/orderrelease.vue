@@ -365,6 +365,15 @@
 			this.page = 1
 			await this.getorderlist()
 			this.triggered = false
+		},
+		onBackPress(options) {
+			if (options.from === 'navigateBack') {  
+					return false;  
+			}  
+			uni.switchTab({
+				url: '/pages/user/user'
+			})
+			return true
 		}
 	}
 </script>
