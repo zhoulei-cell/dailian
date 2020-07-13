@@ -221,7 +221,7 @@
 						icon: 'none',
 						title: '请填写正确的订单价格'
 					})
-					if (this.info.price > 5) {
+					if (this.info.price < 5) {
 						uni.showToast({
 							icon: 'none',
 							title: '订单价格最低5块'
