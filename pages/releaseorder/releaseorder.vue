@@ -124,7 +124,7 @@
 						<view>
 							<checkbox-group>
 								<label>
-									<checkbox value="cb" :checked="info.province" @tap="info.province=!info.province" />
+									<checkbox value="cb" :checked="province" @tap="province =! province" />
 								</label>
 							</checkbox-group>
 						</view>
@@ -161,6 +161,7 @@
 			return {
 				data,
 				areaArr: [[0],[0]],
+				province: false,
 				info: {
 					area: '',
 					title: '',
@@ -181,7 +182,7 @@
 					inscription_level: '',
 					duration: '',
 					hero_num: '',
-					province: false,
+					province: 0,
 					lat: '',
 					lon: ''
 				},
@@ -194,6 +195,27 @@
 		},
 		methods: {
 			check() {
+				if (!check.checkNoThing(this.info.area)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请选择游戏区服'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.current_segment)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请选择当前段位'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.tag_segment)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请选择目标段位'
+					})
+					return false
+				}
 				if (!check.checkMoney(this.info.price)) {
 					uni.showToast({
 						icon: 'none',
@@ -257,20 +279,29 @@
 					})
 					return false
 				}
-
+				if (!check.checkNoThing(this.info.promise_price)) {
+					uni.showToast({
+						icon: 'none',
+						title: '安全保证金不能为空'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.eff_price)) {
+					uni.showToast({
+						icon: 'none',
+						title: '效率保证金不能为空'
+					})
+					return false
+				}
 				return true
 			},
 			//确认订单
 			confirmOrder() {
 				if (this.check()) {
 					this.info.title = this.info.area + this.info.current_segment + "到" + this.info.tag_segment 
-					console.log(this.info.title)
-					console.log(this.info)
+					this.info.province = this.info.province ? 1 : 0;
+					this.releaseOrder()
 				} 
-			},
-			//选择区服
-			selectArea(area) {
-				this.area = area
 			},
 			//当前段位
 			originSegment(sm) {
@@ -280,6 +311,33 @@
 			//目标段位
 			targetSegment(sm) {
 				this.info.tag_segment = sm
+			},
+			// 发布订单
+			releaseOrder() {
+				let opts = {
+						url: '/api/order/release',
+						method: 'post'
+				}
+				this.$http.httpTokenRequest(opts, this.info).then(res => {
+					if (res.data.code == 200) {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+						setTimeout(() => {
+							uni.navigateTo({
+								url:'../orderrelease/orderrelease'
+							})
+						}, 500)
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: res.data.msg
+						})
+					}
+				}, error => {
+					console.log(error);
+				})
 			},
 			// 获取游戏平台
 			getGameplatforms() {
@@ -334,12 +392,9 @@
 				//console.log(e)
 				const value = e.detail.value
 				this.multiIndex = value
-				this.info.area = this.multiArray[0][value[0]].name + " " + this.multiArray[1][value[1]].name
+				this.info.area = this.multiArray[0][value[0]].name + this.multiArray[1][value[1]].name
 				this.info.platform_id = this.multiArray[0][value[0]].id
 				this.info.game_area_id = this.multiArray[1][value[1]].id
-				// console.log(this.multiArray[0][value[0]].name + " " + this.multiArray[1][value[1]].name)
-				// console.log(this.multiArray[0][value[0]].id + " " + this.multiArray[1][value[1]].id)
-				// console.log(this.multiIndex)
 			},
 			// 获取二级分类
 			columnchange(e) {

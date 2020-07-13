@@ -60,7 +60,7 @@
 					</navigator>
 				</view>
 				<view class="item">
-					<navigator url="../releaseinfo/releaseinfo" hover-class="none">
+					<navigator url="../releaseorder/releaseorder" hover-class="none">
 					<view class="itemimg"><image src="../../static/img/user/fadan.png" mode=""></image></view>
 					<view class="itemtext">发布订单</view>
 					</navigator>
