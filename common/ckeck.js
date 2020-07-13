@@ -16,3 +16,19 @@ export const checkPhone = (phone) => {
 export const checkLength = (value,length = 5) => {
   return value.length >= length;
 }
+
+export const checkNoThing = (value) => {
+  return value !== ""
+}
+
+export const checkLevel = (value) => {
+  return value >= 0 && value <= 150
+}
+
+export const checkHeroNum = (value) => {
+  return value >=0 && value <= 200
+}
+
+export const checkDuration = (value) => {
+  return value >= 0 && value <= 999999999
+}

@@ -4,7 +4,7 @@
 			<!-- 段位信息 -->
 			<view class="list-group">
 				<view class="list-title">基本信息</view>
-				<picker @columnchange="bindMultiPickerColumnChange" :value="multiIndex" :range="multiArray">
+				<picker mode="multiSelector" @change="bindPickerChange" @columnchange="columnchange" :value="multiIndex" :range="multiArray" :range-key="'name'">
 					<view class="list-item">
 						<view class="item-title">选择区服</view>
 						<view class="item-text d-flex ai-center jc-between">
@@ -51,7 +51,7 @@
 					</view>
 				</view>
 				<view class="list-item">
-					<view class="item-title">时限要求</view>
+					<view class="item-title">时限要求(写1表示1小时)</view>
 					<view class="item-text d-flex ai-center jc-between">
 						<input class="text" v-model="info.duration" placeholder="请在此输入" placeholder-class="placeholder"/>
 					</view>
@@ -69,7 +69,7 @@
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
-						<view class="left">QQ号码</view>
+						<view class="left">QQ号码或微信</view>
 						<input type="text" v-model="info.rel_qq" placeholder="请填写QQ" placeholder-class="placeholder"/>
 					</view>
 				</view>
@@ -150,6 +150,7 @@
 </template>
 
 <script>
+	import * as check from "../../common/ckeck"
 	import customPicker from '../../components/custom-picker'
 	import data from '../../common/area'
 	export default {
@@ -162,6 +163,10 @@
 				areaArr: [[0],[0]],
 				info: {
 					area: '',
+					title: '',
+					game_id: '1',
+					platform_id: '',
+					game_area_id: '',
 					current_segment: '',
 					tag_segment: '',
 					price: '',
@@ -176,7 +181,9 @@
 					inscription_level: '',
 					duration: '',
 					hero_num: '',
-					province: false
+					province: false,
+					lat: '',
+					lon: ''
 				},
 				multiArray: [
 					[0],
@@ -186,9 +193,80 @@
 			}
 		},
 		methods: {
+			check() {
+				if (!check.checkMoney(this.info.price)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写正确的订单价格'
+					})
+					return false
+				}
+				if (!check.checkLevel(this.info.inscription_level)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写正确的铭文等级'
+					})
+					return false
+				}
+				if (!check.checkHeroNum(this.info.hero_num)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写正确的英雄个数'
+					})
+					return false
+				}
+				if (!check.checkDuration(this.info.duration)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写正确的时间限制'
+					})
+					return false
+				}
+				if (!check.checkPhone(this.info.rel_phone)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写正确的手机号'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.rel_qq)) {
+					uni.showToast({
+						icon: 'none',
+						title: '请填写QQ号或者微信'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.game_account)) {
+					uni.showToast({
+						icon: 'none',
+						title: '游戏账号不能为空'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.game_password)) {
+					uni.showToast({
+						icon: 'none',
+						title: '游戏密码不能为空'
+					})
+					return false
+				}
+				if (!check.checkNoThing(this.info.game_role_name)) {
+					uni.showToast({
+						icon: 'none',
+						title: '游戏角色不能为空'
+					})
+					return false
+				}
+
+				return true
+			},
 			//确认订单
 			confirmOrder() {
-
+				if (this.check()) {
+					this.info.title = this.info.area + this.info.current_segment + "到" + this.info.tag_segment 
+					console.log(this.info.title)
+					console.log(this.info)
+				} 
 			},
 			//选择区服
 			selectArea(area) {
@@ -196,11 +274,12 @@
 			},
 			//当前段位
 			originSegment(sm) {
-				this.current_segment = sm
+				this.info.current_segment = sm
+				console.log(sm)
 			},
 			//目标段位
 			targetSegment(sm) {
-				this.tag_segment = sm
+				this.info.tag_segment = sm
 			},
 			// 获取游戏平台
 			getGameplatforms() {
@@ -228,33 +307,52 @@
 					if (res.data.code == 200) {
 						const data = res.data.data;
 						this.multiArray[1] = data
-						console.log(this.multiArray)
 						this.$forceUpdate()
 					}
 				}, error => {
 					console.log(error);
 				})
 			},
-			bindMultiPickerColumnChange: function(e) {
-				console.log('修改的列为：' + e.detail.column + '，值为：' + e.detail.value)
-				this.multiIndex[e.detail.column] = e.detail.value
-				switch (e.detail.column) {
-					case 0: //拖动第1列
-						let id = this.multiArray[e.detail.column][e.detail.value].id
-						this.getGameAreas(id)
-						break
-						this.multiIndex.splice(2, 1)
-						break
-				}
-				this.$forceUpdate()
+			// 获取定位
+			getlocation() {
+				uni.getLocation({
+					type: 'gcj02',
+					success: (res) => {
+						this.info.lat = res.latitude
+						this.info.lon = res.longitude
+					},
+					fail: function(res) {
+						// uni.showToast({
+						// 	icon: 'none',
+						// 	title: '获取定位失败'
+						// })
+					},
+				})
 			},
-			bindPickerChange: function(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.target.value
+			 //绑定选择
+			bindPickerChange(e) {
+				//console.log(e)
+				const value = e.detail.value
+				this.multiIndex = value
+				this.info.area = this.multiArray[0][value[0]].name + " " + this.multiArray[1][value[1]].name
+				this.info.platform_id = this.multiArray[0][value[0]].id
+				this.info.game_area_id = this.multiArray[1][value[1]].id
+				// console.log(this.multiArray[0][value[0]].name + " " + this.multiArray[1][value[1]].name)
+				// console.log(this.multiArray[0][value[0]].id + " " + this.multiArray[1][value[1]].id)
+				// console.log(this.multiIndex)
+			},
+			// 获取二级分类
+			columnchange(e) {
+				// 当滚动切换一级分类时，为当前的一级分类添加它的子类
+				if (e.detail.column == 0) {
+					let id = this.multiArray[e.detail.column][e.detail.value].id
+					this.getGameAreas(id)
+				}
 			}
 		},
 		onLoad() {
 			this.getGameplatforms()
+			this.getlocation()
 		}
 	}
 </script>
