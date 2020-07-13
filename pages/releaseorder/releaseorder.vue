@@ -64,13 +64,13 @@
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">电话号码</view>
-						<input class="flex-1" type="text" v-model="info.rel_phone" placeholder="请填写常用联系方式" placeholder-class="placeholder"/>
+						<input type="text" v-model="info.rel_phone" placeholder="请填写常用联系方式" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">QQ号码或微信</view>
-						<input class="flex-1" type="text" v-model="info.rel_qq" placeholder="请填写QQ" placeholder-class="placeholder"/>
+						<input type="text" v-model="info.rel_qq" placeholder="请填写QQ" placeholder-class="placeholder"/>
 					</view>
 				</view>
 			</view>
@@ -82,19 +82,19 @@
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">游戏账号</view>
-						<input class="flex-1" type="text" v-model="info.game_account" placeholder="请填写正确的游戏账号" placeholder-class="placeholder"/>
+						<input type="text" v-model="info.game_account" placeholder="请填写正确的游戏账号" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">账号密码</view>
-						<input class="flex-1" type="text" v-model="info.game_password" placeholder="请填写正确的账号密码" placeholder-class="placeholder"/>
+						<input type="text" v-model="info.game_password" placeholder="请填写正确的账号密码" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">游戏角色</view>
-						<input class="flex-1" type="text" v-model="info.game_role_name" placeholder="请填写正确的游戏角色" placeholder-class="placeholder"/>
+						<input type="text" v-model="info.game_role_name" placeholder="请填写正确的游戏角色" placeholder-class="placeholder"/>
 					</view>
 				</view>
 			</view>
@@ -415,6 +415,9 @@
 <style lang="scss">
 	.release-order{
 		width: 100%;
+		input{
+			height: 68rpx;
+		}
 		.wrapper{
 			padding-bottom: 120rpx;
 			.list-group{
