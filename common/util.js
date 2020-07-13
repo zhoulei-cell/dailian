@@ -99,10 +99,30 @@ function dateFormat(fmt, date) {
     };
     return fmt;
 }
+function dateDiff(d1,d2){
+	var date1 = new Date(dateUtils.parse(d1));
+	if(d2){
+			var date2 = new Date(dateUtils.parse(d2));
+	}else{
+			var date2 = new Date();
+	}
+	var ms = Math.abs(date1.getTime() - date2.getTime());
+	var hm=1000;
+	var mi=hm*60;
+	var hh=mi*60;
+	var dd=hh*24;
+	var day=parseInt(ms/dd);
+	var hour= (ms-day*dd)/hh;
+	var minute = (ms - day * dd - hour * hh) / mi;  
+	var second = (ms - day * dd - hour * hh - minute * mi) / hm;  
+	var milliSecond = ms - day * dd - hour * hh - minute * mi - second * hm; 
+	return day+"天"+hour+"小时"+minute+"分钟"+second+"秒"+milliSecond+"毫秒"
+}
 module.exports = {
 	getTime:getTime,
 	formatTime: formatTime,
 	formatLocation: formatLocation,
 	dateUtils: dateUtils,
-	dateFormat:dateFormat
+	dateFormat:dateFormat,
+	dateDiff: dateDiff
 }

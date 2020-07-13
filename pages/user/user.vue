@@ -32,6 +32,7 @@
 				</view>
 			</view>
 		</view>
+		<!-- 用户信息 -->
 		<!-- 中间部分 -->
 		<view class="usercenter">
 			<view class="usercentercont">
@@ -76,6 +77,7 @@
 			</view>
 		</view>
 		<!-- 中间部分 -->
+		<!-- 中间部分 -->
 		<view class="usercenter">
 			<view class="usercentercont">
 				<view class="item">
@@ -104,6 +106,30 @@
 				</view>
 			</view>
 		</view>
+		<!-- 中间部分 -->
+		<!-- 推广部分 -->
+		<view class="usercenter">
+			<view class="promote">
+				<view class="promote-title d-flex jc-between">
+					<view class="left">我的推广</view>
+					<view class="right d-flex ai-center">
+						<text>推广中心</text>
+						<image src="../../static/img/right.png" mode="widthFix"></image>
+					</view>
+				</view>
+				<view class="promote-content d-flex">
+					<view class="promote-box flex-1">
+						<view class="money">￥3.48</view>
+						<view class="desc">可提现金额</view>
+					</view>
+					<view class="promote-box flex-1">
+						<view class="money">￥0.00</view>
+						<view class="desc">预估金额</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- 推广部分 -->
 		<!-- 底部部分 -->
 		<view class="usercenter bottom">
 			<view class="usercentercont">
@@ -163,8 +189,9 @@
 				</view>
 			</view>
 		</view>
+		<!-- 底部部分 -->
 		<custom-popup ref="customPopupLogout" title="是否退出登录？" @cancel="cancelLogout" @confirm="confirmLogout"/>
-    </view>
+  </view>
 </template>
 
 <script>
@@ -418,5 +445,54 @@
 		background-image: url(../../static/img/user/bottom.png) !important;
 		height: 442rpx !important;
 		padding: 20rpx 0;
+	}
+	.content .promote{
+		border-radius: 15rpx;
+		box-shadow: 0 4rpx 10rpx #ccc;
+		background-color: #fff;
+		.promote-title{
+			height: 80rpx;
+			padding: 0 20rpx;
+			border-bottom: 1rpx solid #eee;
+			.left{
+				color: #222;
+				font-size: 26rpx;
+				font-weight: bold;
+				line-height: 80rpx;
+			}
+			.right{
+				text{
+					color: #666;
+					font-size: 26rpx;
+					line-height: 80rpx;
+				}
+				image{
+					width: 40rpx;
+					height: 40rpx;
+				}
+			}
+		}
+		.promote-content{
+			padding: 30rpx 0 50rpx 0;
+			.promote-box{
+				&:nth-child(1){
+					border-right: 1rpx solid #eee;
+				}
+				.money{
+					padding-bottom: 15rpx;
+					color: #222;
+					font-size: 28rpx;
+					font-weight: bold;
+					text-align: center;
+					line-height: 28rpx;
+				}
+				.desc{
+					color: #666;
+					font-size: 24rpx;
+					text-align: center;
+					line-height: 28rpx;
+				}
+			}
+		}
 	}
 </style>

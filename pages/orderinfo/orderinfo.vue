@@ -7,6 +7,8 @@
     			<view class="dec line">游戏区服：{{orderInfo.game.name}}/{{orderInfo.platform.name}}/{{orderInfo.game_area.name}}</view>
     			<view class="ordercode line">订单编号：{{orderInfo.order_no}}</view>
     			<view class="ordertime line">发布时间：{{orderInfo.created_at}}</view>
+					<view class="ordertime line" v-if="orderInfo.order_status !== 1 && orderInfo.begin_time">接单时间：{{orderInfo.begin_time}}</view>
+					<view class="ordertime line" v-if="orderInfo.order_status !== 1 && orderInfo.end_time">提交时间：{{orderInfo.end_time}}</view>
     			<view class="ordertime line">当前段位：{{orderInfo.current_segment}}</view>
     			<view class="ordertime line">目标段位：{{orderInfo.tag_segment}}</view>
     		</view>
