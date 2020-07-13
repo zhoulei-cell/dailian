@@ -38,7 +38,7 @@ export default {
       //console.log(e)
       const value = e.detail.value
       this.index = value
-      this.area = this.array[value[0]].text + this.array[value[0]].children[value[1]].text
+      this.area = this.array[value[0]].text + this.array[value[0]].children[value[1]].text 
       this.$emit('confirm', this.area, value)
     },
     // 获取二级分类
