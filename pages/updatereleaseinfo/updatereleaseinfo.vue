@@ -148,10 +148,10 @@
 		</view>
 		<view class="uni-title">增值服务</view>
 		<view class="uni-list">
-			<view class="line">
+			<view class="line" @tap="change">
 				<checkbox-group>
 					<label>
-						<checkbox value="cb" :checked="orderInfo.province" @tap="orderInfo.province=!orderInfo.province"/>省内代理员可接<text>（可选项额外收费订单金额5%）</text>
+						<checkbox value="cb" :checked="province"/>省内代理员可接<text>（可选项额外收费订单金额5%）</text>
 					</label>
 				</checkbox-group>
 			</view>
@@ -192,18 +192,19 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
+	data() {
+		return {
 			extraIcon1: {
 				color: '#007aff',
 				size: '22',
 				type: 'gear-filled'
 			},
-            multiArray: [
-				{},
-				{}
+			multiArray: [
+				[{}],
+				[{}]
 			],
-            multiIndex: [0, 0],
+			multiIndex: [0, 0],
+			province: true,
 			orderInfo:{
 				title:'',
 				game_id:'1',
@@ -220,20 +221,15 @@ export default {
 				game_account:'',
 				game_password:'',
 				game_role_name:'',
-				province:true,
+				province: true,
 				lon:'',
 				lat:'',
 				rel_qq:'',
 				rel_phone:''
 			}
-        }
-    },
-	components: {
+		}
 	},
-    computed: {
-		
-    },
-    methods: {
+	methods: {
 		//获取订单详情
 		getorderdetail(id){
 			let opts = {
@@ -245,6 +241,7 @@ export default {
 			this.$http.httpTokenRequest(opts, params).then(res => {
 				if (res.data.code == 200) {
 					this.orderInfo=res.data.data
+					this.province = !!this.orderInfo.province 
 				}
 			}, error => {
 				console.log(error);
@@ -284,17 +281,18 @@ export default {
 			
 		},
 		submit(){
-			uni.getLocation({
-			    type: 'wgs84',
-			    success: function (res) {
-			        alert('当前位置的经度：' + res.longitude);
-			        alert('当前位置的纬度：' + res.latitude);
-			    }
-			});
+			// uni.getLocation({
+			// 		type: 'wgs84',
+			// 		success: function (res) {
+			// 				alert('当前位置的经度：' + res.longitude);
+			// 				alert('当前位置的纬度：' + res.latitude);
+			// 		}
+			// });
 			const newobj=this.orderInfo
 			newobj.platform_id=this.multiArray[0][this.multiIndex[0]].id
 			newobj.game_area_id=this.multiArray[1][this.multiIndex[1]].id
-			newobj.province=this.orderInfo.province?1:0
+			newobj.province=this.province?1:0
+			console.log(newobj.province)
 			let opts = {
 				url: '/api/order/edit',
 				method: 'post'
@@ -307,7 +305,7 @@ export default {
 					})
 					setTimeout(()=>{
 						uni.navigateBack({
-						    delta: 1
+								delta: 1
 						});
 					},500)
 				}
@@ -328,11 +326,15 @@ export default {
 			}
 			this.$forceUpdate()
 		},
-        bindPickerChange: function(e) {
-            console.log('picker发送选择改变，携带值为', e.target.value)
-            this.index = e.target.value
-        }
-    },
+		bindPickerChange: function(e) {
+			console.log('picker发送选择改变，携带值为', e.target.value)
+			this.index = e.target.value
+		},
+		change() {
+			this.province = !this.province
+			console.log(this.province)
+		}
+	},
 	onLoad: function (option) {
 		this.getGameplatforms()
 		this.getorderdetail(option.id)

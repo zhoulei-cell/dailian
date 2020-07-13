@@ -117,12 +117,6 @@
 			}
 		},
 		{
-			"path": "pages/releaseinfo/releaseinfo",
-			"style": {
-				"navigationBarTitleText": "王者排位发单"
-			}
-		},
-		{
 			"path": "pages/orderinfo/orderinfo",
 			"style": {
 				"navigationBarTitleText": "订单详情"
