@@ -21,14 +21,27 @@ export const checkNoThing = (value) => {
   return value !== ""
 }
 
+export const checkThing = (value) => {
+  return value === ""
+}
+
 export const checkLevel = (value) => {
+  if (checkThing(value)) {
+	  return false
+  }
   return value >= 0 && value <= 150
 }
 
 export const checkHeroNum = (value) => {
+  if (checkThing(value)) {
+	  return false
+  }
   return value >=0 && value <= 200
 }
 
 export const checkDuration = (value) => {
+  if (checkThing(value)) {
+	  return false
+  }
   return value >= 0 && value <= 999999999
 }

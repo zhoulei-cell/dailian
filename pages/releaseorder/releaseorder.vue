@@ -221,6 +221,8 @@
 						icon: 'none',
 						title: '请填写正确的订单价格'
 					})
+					return false
+				} else {
 					if (this.info.price < 5) {
 						uni.showToast({
 							icon: 'none',
@@ -228,7 +230,6 @@
 						})
 						return false
 					}
-					return false
 				}
 				if (!check.checkLevel(this.info.inscription_level)) {
 					uni.showToast({
@@ -236,6 +237,8 @@
 						title: '请填写正确的铭文等级'
 					})
 					return false
+				} else {
+					console.log(1,this.info.inscription_level)
 				}
 				if (!check.checkHeroNum(this.info.hero_num)) {
 					uni.showToast({
