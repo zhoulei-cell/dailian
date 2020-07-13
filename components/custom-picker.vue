@@ -23,7 +23,7 @@ export default {
   data() {
     return {
       area: '',
-			pickerArr: [],
+	  pickerArr: [],
       index: [0, 0] // picker - 索引
     }
   },
@@ -45,7 +45,9 @@ export default {
     columnchange(e) {
       // 当滚动切换一级分类时，为当前的一级分类添加它的子类
       if (e.detail.column == 0) {
-        this.pickerArr[1] =  this.array[e.detail.value].children
+        //this.pickerArr[1] =  this.array[e.detail.value].children
+		this.$set(this.pickerArr, 1, this.array[e.detail.value].children)
+		//this.$forceUpdate()
       }
     }
   },

@@ -34,26 +34,26 @@
 				<view class="list-item">
 					<view class="item-title">订单价格</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text" v-model="info.price" placeholder="请在此输入" placeholder-class="placeholder"/>
+						<input class="text flex-1" v-model="info.price" placeholder="请在此输入" placeholder-class="placeholder"/>
 						<view class="money">（元）</view>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-title">铭文等级</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text" v-model="info.inscription_level" placeholder="请在此输入" placeholder-class="placeholder"/>
+						<input class="text flex-1" v-model="info.inscription_level" placeholder="请在此输入" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-title">英雄个数</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text" v-model="info.hero_num" placeholder="请在此输入" placeholder-class="placeholder"/>
+						<input class="text flex-1" v-model="info.hero_num" placeholder="请在此输入" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-title">时限要求(写1表示1小时)</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text" v-model="info.duration" placeholder="请在此输入" placeholder-class="placeholder"/>
+						<input class="text flex-1" v-model="info.duration" placeholder="请在此输入" placeholder-class="placeholder"/>
 					</view>
 				</view>
 			</view>
@@ -64,13 +64,13 @@
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">电话号码</view>
-						<input type="text" v-model="info.rel_phone" placeholder="请填写常用联系方式" placeholder-class="placeholder"/>
+						<input class="flex-1" type="text" v-model="info.rel_phone" placeholder="请填写常用联系方式" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">QQ号码或微信</view>
-						<input type="text" v-model="info.rel_qq" placeholder="请填写QQ" placeholder-class="placeholder"/>
+						<input class="flex-1" type="text" v-model="info.rel_qq" placeholder="请填写QQ" placeholder-class="placeholder"/>
 					</view>
 				</view>
 			</view>
@@ -82,19 +82,19 @@
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">游戏账号</view>
-						<input type="text" v-model="info.game_account" placeholder="请填写正确的游戏账号" placeholder-class="placeholder"/>
+						<input class="flex-1" type="text" v-model="info.game_account" placeholder="请填写正确的游戏账号" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">账号密码</view>
-						<input type="text" v-model="info.game_password" placeholder="请填写正确的账号密码" placeholder-class="placeholder"/>
+						<input class="flex-1" type="text" v-model="info.game_password" placeholder="请填写正确的账号密码" placeholder-class="placeholder"/>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-box d-flex ai-center jc-between">
 						<view class="left">游戏角色</view>
-						<input type="text" v-model="info.game_role_name" placeholder="请填写正确的游戏角色" placeholder-class="placeholder"/>
+						<input class="flex-1" type="text" v-model="info.game_role_name" placeholder="请填写正确的游戏角色" placeholder-class="placeholder"/>
 					</view>
 				</view>
 			</view>
@@ -106,14 +106,14 @@
 				<view class="list-item">
 					<view class="item-title">安全保证金</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text" v-model="info.promise_price" placeholder="请输入安全保证金" placeholder-class="placeholder"/>
+						<input class="text flex-1" v-model="info.promise_price" placeholder="请输入安全保证金" placeholder-class="placeholder"/>
 						<view class="money">（元）</view>
 					</view>
 				</view>
 				<view class="list-item">
 					<view class="item-title">效率保证金</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text" v-model="info.eff_price" placeholder="请输入效率保证金" placeholder-class="placeholder"/>
+						<input class="text flex-1" v-model="info.eff_price" placeholder="请输入效率保证金" placeholder-class="placeholder"/>
 						<view class="money">（元）</view>
 					</view>
 				</view>
