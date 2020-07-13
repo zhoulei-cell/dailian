@@ -119,13 +119,19 @@
 		{
 			"path": "pages/orderinfo/orderinfo",
 			"style": {
-				"navigationBarTitleText": "订单详情"
+				"navigationBarTitleText": "订单详情",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/orderinfo2/orderinfo2",
 			"style": {
-				"navigationBarTitleText": "订单详情"
+				"navigationBarTitleText": "订单详情",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
@@ -137,13 +143,19 @@
 		{
 			"path": "pages/orderinfo3/orderinfo3",
 			"style": {
-				"navigationBarTitleText": "订单详情"
+				"navigationBarTitleText": "订单详情",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/updatereleaseinfo/updatereleaseinfo",
 			"style": {
-				"navigationBarTitleText": "修改订单"
+				"navigationBarTitleText": "修改订单",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
@@ -155,13 +167,19 @@
 		{
 			"path": "pages/orderreceiving/orderreceiving",
 			"style": {
-				"navigationBarTitleText": "接单列表"
+				"navigationBarTitleText": "接单列表",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/orderrelease/orderrelease",
 			"style": {
-				"navigationBarTitleText": "发单列表"
+				"navigationBarTitleText": "发单列表",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
@@ -213,7 +231,8 @@
 								"float": "right"
 							}
 						]
-					}
+					},
+					"scrollIndicator": "none"
 				}
 			}
 		},
@@ -236,7 +255,8 @@
 								"float": "right"
 							}
 						]
-					}
+					},
+					"scrollIndicator": "none"
 				}
 			}
 		},
@@ -312,13 +332,19 @@
 	    ,{
             "path" : "pages/chat/chat",
             "style" : {
-				"navigationBarTitleText": "聊天大厅"
+				"navigationBarTitleText": "聊天大厅",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
         }
         ,{
             "path" : "pages/battledetails/battledetails",
             "style" : {
-				"navigationBarTitleText": "对战详情"
+				"navigationBarTitleText": "对战详情",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
         },{
             "path" : "pages/warrecord/warrecord",
@@ -355,7 +381,10 @@
         ,{
             "path" : "pages/paymentguide/paymentguide",
             "style" : {
-				"navigationBarTitleText": "支付教程"
+				"navigationBarTitleText": "支付教程",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
         }
         ,{
@@ -379,13 +408,19 @@
         ,{
             "path" : "pages/rule/rule",
             "style" : {
-				"navigationBarTitleText": "规则详情"
+				"navigationBarTitleText": "规则详情",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
         }
         ,{
             "path" : "pages/releaseorder/releaseorder",
             "style" : {
-				"navigationBarTitleText": "发布订单"
+				"navigationBarTitleText": "发布订单",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
         }
     ],

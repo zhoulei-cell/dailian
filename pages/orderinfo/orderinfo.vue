@@ -4,7 +4,7 @@
     		<view class="title">游戏信息</view>
     		<view class="cont">
     			<view class="ordercode line">订单标题：{{orderInfo.title}}</view>
-    			<view class="dec line">游戏区服：{{orderInfo.game.name}}/{{orderInfo.game_area.name}}/{{orderInfo.platform.name}}</view>
+    			<view class="dec line">游戏区服：{{orderInfo.game.name}}/{{orderInfo.platform.name}}/{{orderInfo.game_area.name}}</view>
     			<view class="ordercode line">订单编号：{{orderInfo.order_no}}</view>
     			<view class="ordertime line">发布时间：{{orderInfo.created_at}}</view>
     			<view class="ordertime line">当前段位：{{orderInfo.current_segment}}</view>

@@ -417,6 +417,7 @@
 	}
 
 	.orderlist .itemright .desc {
+		width: 350rpx;
 		font-size: 20rpx;
 		font-family: PingFang SC;
 		font-weight: 400;
