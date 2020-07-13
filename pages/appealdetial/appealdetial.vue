@@ -56,7 +56,7 @@
 				<text>凭证截图：</text>
 				<button type="primary" @tap="cI">上传图片</button>
 			</view>
-			<view class="imglist">
+			<view class="imglist img-list">
 				<view class="imgbox" v-for="(imglist,index) in imglist" :key="index">
 					<image :src="imglist.full || imglist.url"></image>
 				</view>
@@ -292,6 +292,10 @@
 		box-sizing: border-box;
 		width: 100%;
 		padding: 20rpx;
+	}
+	.img-list{
+		min-height: 250rpx;
+		border: 1rpx solid #E0E0E0; 
 	}
 	.imgbox{
 		width: 330rpx;
