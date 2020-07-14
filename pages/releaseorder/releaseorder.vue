@@ -120,7 +120,7 @@
 				<view class="list-item">
 					<view class="item-title">增值业务</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<text class="flex-1 placeholder">同省可接</text>
+						<text class="flex-1 placeholder">同省可接（同省服务加收5%手续费）</text>
 						<view>
 							<checkbox-group>
 								<label>

@@ -50,11 +50,11 @@
 				<view class="line">密码：{{orderInfo.game_password}}</view>
 			</view>
 		</view> -->
-		<view class="lineinfo">
+		<view class="lineinfo" v-if="orderInfo.rel_message !== 'null'">
 			<view class="title">当前游戏信息</view>
 			<view class="cont">
 				<!-- <view class="line">游戏角色：{{orderInfo.game_role_name}}</view> -->
-				<view class="line">{{orderInfo.rel_message || "无"}}</view>
+				<view class="line">{{orderInfo.rel_message}}</view>
 			</view>
 		</view>
 		<view class="lineinfo">

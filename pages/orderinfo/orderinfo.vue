@@ -1,5 +1,12 @@
 <template>
     <view class="content">
+			<view class="lineinfo" v-if="orderInfo.order_status !== 6">
+    		<view class="title">扣款信息</view>
+    		<view class="cont">
+    			<view class="ordertime line">扣款状态：正常扣款</view>
+					<view class="ordertime line">支付金额：<text class="red">{{orderInfo.pay_price}} </text>元，扣款情况请看资金流水</view>
+    		</view>
+    	</view>
     	<view class="lineinfo">
     		<view class="title">游戏信息</view>
     		<view class="cont">
@@ -45,7 +52,7 @@
     			<view class="line">QQ：{{orderInfo.rel_qq}}</view>
     		</view>
     	</view>
-		<view class="lineinfo" v-if="orderInfo.order_status!=1">
+		<view class="lineinfo" v-if="orderInfo.order_status!=1 && orderInfo.received !== null">
 			<view class="title">接单者信息</view>
 			<view class="cont">
 				<view class="linetitle">接单者：{{orderInfo.received.name ||　orderInfo.received.phone}}</view>
@@ -125,6 +132,7 @@ export default {
 			this.$http.httpTokenRequest(opts, params).then(res => {
 				if (res.data.code == 200) {
 					this.orderInfo=res.data.data
+					console.log(this.orderInfo)
 				}
 			}, error => {
 				console.log(error);

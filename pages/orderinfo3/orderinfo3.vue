@@ -1,5 +1,12 @@
 <template>
     <view class="content">
+			<view class="lineinfo" v-if="orderInfo.order_status === 5 && orderInfo.consult === 0">
+    		<view class="title">结算信息</view>
+    		<view class="cont">
+    			<view class="ordertime line">结算状态：正常结算</view>
+					<view class="ordertime line">结算金额：<text class="red">{{orderInfo.get_price}} </text>元，到账情况请看资金流水</view>
+    		</view>
+    	</view>
     	<view class="lineinfo">
     		<view class="title">游戏信息</view>
     		<view class="cont">
@@ -53,12 +60,13 @@
 				<view class="line">游戏角色：{{orderInfo.game_role_name}}</view>
     		</view>
     	</view>
-    	<view class="lineinfo">
-    		<view class="title">当前游戏信息</view>
-    		<view class="cont">
-    			<view class="line">{{orderInfo.rel_message || "无"}}</view>
-    		</view>
-    	</view>
+    	<view class="lineinfo" v-if="orderInfo.rel_message !== 'null'">
+				<view class="title">当前游戏信息</view>
+				<view class="cont">
+					<!-- <view class="line">游戏角色：{{orderInfo.game_role_name}}</view> -->
+					<view class="line">{{orderInfo.rel_message}}</view>
+				</view>
+			</view>
     	<view class="lineinfo">
     		<view class="title">代练要求</view>
     		<view class="cont">
@@ -145,14 +153,16 @@ export default {
 		font-size: 24rpx;
 	}
 	.content{
-		padding: 0;
-		background: #fff;
+		background: #f4f8fb;
 		padding-bottom: 100rpx;
 	}
 	.lineinfo{
-		padding: 20rpx;
 		position: relative;
 		border-bottom: 1px solid #E0E0E0;
+		background:rgba(255,255,255,1);
+		box-shadow:0px 0px 6px 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		margin-bottom: 40rpx;
 	}
 	.line{
 		font-size: 24rpx;
@@ -160,9 +170,14 @@ export default {
 		line-height: 42rpx;
 	}
 	.title{
-		font-size: 36rpx;
 		font-weight: bold;
 		color: #333;
+		font-size:32rpx;
+		font-family:PingFang SC;
+		font-weight:500;
+		color:rgba(51,51,51,1);
+		border-bottom: 1rpx solid rgba(220,220,220,1);
+		padding: 23rpx;
 	}
 	.lineone{
 		display: flex;
@@ -187,6 +202,7 @@ export default {
 	.linetextinfo{
 		box-sizing: border-box;
 		color: #666;
+		font-size: 26rpx;
 		line-height: 26px;
 	}
 	.next{
@@ -196,6 +212,9 @@ export default {
 	}
 	.next button{
 		width: 100%;
+	}
+	.cont{
+		padding: 23rpx;
 	}
 	.cont2{
 		display: flex;
@@ -217,5 +236,43 @@ export default {
 		font-family:PingFang SC;
 		font-weight:400;
 		color:rgba(51,51,51,1);
+	}
+	.next{
+		position: fixed;
+		bottom: 0;
+		width: 100%;
+		left: 0;
+		height:120rpx;
+		background:rgba(255,255,255,1);
+		box-shadow:2px -3px 5px 0px rgba(0, 0, 0, 0.1);
+		box-sizing: border-box;
+		padding: 20rpx 24rpx;
+	}
+	.next button{
+		width:100%;
+		height:80rpx;
+		background:rgba(0,203,130,1);
+		box-shadow:0px 6rpx 6rpx 0px rgba(0, 0, 0, 0.1);
+		border-radius:15rpx;
+		line-height: 80rpx;
+		font-size:36rpx;
+		font-family:PingFang SC;
+		font-weight:bold;
+		color:rgba(255,255,255,1);
+	}
+	/* #ifdef APP-PLUS */
+	.next{
+		bottom: 0;
+	}
+	/* #endif */
+	.line2{
+		font-size:24rpx;
+		font-family:PingFang SC;
+		font-weight:400;
+		color:rgba(0,203,130,1);
+		padding-bottom: 50rpx;
+	}
+	.red{
+		color: red;
 	}
 </style>

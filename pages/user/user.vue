@@ -119,7 +119,7 @@
 				</view>
 				<view class="promote-content d-flex">
 					<view class="promote-box flex-1">
-						<view class="money">￥3.48</view>
+						<view class="money">￥0.00</view>
 						<view class="desc">可提现金额</view>
 					</view>
 					<view class="promote-box flex-1">
