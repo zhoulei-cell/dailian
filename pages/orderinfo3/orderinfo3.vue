@@ -56,7 +56,7 @@
     	<view class="lineinfo">
     		<view class="title">当前游戏信息</view>
     		<view class="cont">
-    			<view class="line">其他信息：{{orderInfo.rel_message || "无"}}</view>
+    			<view class="line">{{orderInfo.rel_message || "无"}}</view>
     		</view>
     	</view>
     	<view class="lineinfo">

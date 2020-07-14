@@ -18,6 +18,8 @@
 							<view class="title">{{item.title}}</view>
 							<view class="dec">游戏账号：{{item.game_account}}</view>
 							<view class="dec">发布者：{{item.user.name}}</view>
+							<view class="red" v-if="item.order_status === 2 || item.order_status === 3">剩余时间：{{item.time}}</view>
+							<view class="red" v-if="item.order_status === 4 || item.order_status === 5">剩余时间：{{item.isTimeout ? "已超时" : "未超时"}}</view>
 							<view class="red">保证金：{{item.promise_price}} 发布时间：{{item.created_at}}</view>
 						</view>
 						<view class="item_right">
@@ -53,6 +55,7 @@
 
 <script>
 	import customPopup from '@/components/custom-popup/custom-popup.vue'
+	import utils from '../../common/util'
 	import {
 		mapState
 	} from 'vuex'
@@ -264,6 +267,23 @@
 						}else{
 							this.listData.concat(this.listData,res.data.data.data)
 						}
+						this.listData.forEach(item => {
+							if (item.order_status === 6 || item.order_status === 1) return //取消和未接单都不用计算
+							// let begin_time = new Date(utils.dateUtils.parse(item.begin_time))
+							// let end_time = item.end_time
+							// if (end_time === null) {
+							// 	end_time = new Date()
+							// }	else {
+							// 	end_time = new Date(utils.dateUtils.parse(end_time))
+							// }
+							// const total = begin_time.getTime() + (item.duration * 60 * 60 * 1000)
+							// const scale = total - end_time.getTime()
+
+							// const dt = utils.formatDuring(scale)
+							const dt = utils.computedTRTime(item.duration, item.begin_time, item.end_time)
+							item.time = `${dt.days}天 ${dt.hours}时 ${dt.minutes}分 ${dt.seconds}秒`
+							item.isTimeout = dt.isTimeout
+						})
 					}
 				}, error => {
 					console.log(error);

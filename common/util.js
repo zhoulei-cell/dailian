@@ -99,24 +99,48 @@ function dateFormat(fmt, date) {
     };
     return fmt;
 }
-function dateDiff(d1,d2){
-	var date1 = new Date(dateUtils.parse(d1));
-	if(d2){
-			var date2 = new Date(dateUtils.parse(d2));
-	}else{
-			var date2 = new Date();
+function zero(s) {
+	return s < 10 ? "0" + s : s
+}
+function formatDuring(mss) {
+	var days = parseInt(mss / (1000 * 60 * 60 * 24));
+	var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = parseInt((mss % (1000 * 60)) / 1000);
+	var isTimeout = false
+	if (days < 0 || hours < 0 || minutes < 0 || seconds < 0) {
+		isTimeout = true
 	}
-	var ms = Math.abs(date1.getTime() - date2.getTime());
-	var hm=1000;
-	var mi=hm*60;
-	var hh=mi*60;
-	var dd=hh*24;
-	var day=parseInt(ms/dd);
-	var hour= (ms-day*dd)/hh;
-	var minute = (ms - day * dd - hour * hh) / mi;  
-	var second = (ms - day * dd - hour * hh - minute * mi) / hm;  
-	var milliSecond = ms - day * dd - hour * hh - minute * mi - second * hm; 
-	return day+"天"+hour+"小时"+minute+"分钟"+second+"秒"+milliSecond+"毫秒"
+	if (days < 0) {
+		hours = Math.abs(hours)
+		minutes = Math.abs(minutes)
+		seconds = Math.abs(seconds)
+	}
+	if (hours < 0) {
+		minutes = Math.abs(minutes)
+		seconds = Math.abs(seconds)
+	}
+	if (minutes < 0) {
+		seconds = Math.abs(seconds)
+	}
+	return {
+		days,
+		hours,
+		minutes,
+		seconds,
+		isTimeout
+	}
+} 
+function computedTRTime(num, begin_time, end_time) {
+	begin_time = new Date(dateUtils.parse(begin_time))
+	if (!end_time) {
+		end_time = new Date()
+	}	else {
+		end_time = new Date(dateUtils.parse(end_time))
+	}
+	const total = begin_time.getTime() + (num * 60 * 60 * 1000)
+	const scale = total - end_time.getTime()
+	return formatDuring(scale)
 }
 module.exports = {
 	getTime:getTime,
@@ -124,5 +148,7 @@ module.exports = {
 	formatLocation: formatLocation,
 	dateUtils: dateUtils,
 	dateFormat:dateFormat,
-	dateDiff: dateDiff
+	formatDuring: formatDuring,
+	zero: zero,
+	computedTRTime: computedTRTime
 }

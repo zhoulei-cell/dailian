@@ -96,6 +96,7 @@
 							_this.$http.uploadimg(imgFiles).then((res)=>{
 								var data=JSON.parse(res.data)
 								_this.imglist = _this.imglist.concat(data.data)
+								console.log(_this.imglist)
 								_this.imgsubmit(data.data[0].url)
 							})
 						}

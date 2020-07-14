@@ -5,7 +5,7 @@
 				申诉金额：{{orderinfo.amount}}
 			</view>
 			<view class="line">
-				申诉原因：{{items[orderinfo.reason].name}}
+				申诉原因：{{reason}}
 			</view>
 			<view class="line">
 				申诉描述：{{orderinfo.description}}
@@ -69,7 +69,7 @@
 						name: '作弊'
 					},
 					{
-						value: '2',
+						value: '1',
 						name: '其他原因'
 					},
 				],
@@ -87,6 +87,14 @@
 				reviwe:"",
 				appeals:'',
 				ssid:''
+			}
+		},
+		computed: {
+			reason() {
+				if ( this.orderinfo.reason ) {
+					return this.items[this.orderinfo.reason].name
+				}
+				return "无"
 			}
 		},
 		onNavigationBarButtonTap() {
@@ -126,7 +134,8 @@
 					appeal_id:this.ssid,
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
-					this.orderinfo=res.data
+					this.orderinfo = res.data
+					console.log(this.orderinfo)
 					console.log(res.data)
 				}, error => {
 					console.log(error);
@@ -170,8 +179,6 @@
 		onLoad: function (option) {
 			this.appeals = option.orderid
 			this.ssid = option.id
-		},
-		onShow() {
 			this.getdetal()
 		}
 	}
