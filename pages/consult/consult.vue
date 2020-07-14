@@ -1,30 +1,38 @@
 <template>
-	<view class="content">
-		<view class="line">
-			订单编号：{{orderinfo.order_no}}
+	<view class="consult">
+		<view class="wrap">
+			<view class="line">
+				订单编号：{{orderinfo.order_no}}
+			</view>
+			<view class="line">
+				发单者预付代练费：￥{{orderinfo.order_price}}
+			</view>
+			<view class="line">
+				代练员效率保证金：￥{{orderinfo.eff_price}}
+			</view>
+			<view class="line">
+				代练员安全保证金：￥{{orderinfo.promise_price}}
+			</view>
+			<view class="lineinput">
+				<text>需要发单者支付代练费：</text><input class="uni-input" placeholder="代练费" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.price"/>
+			</view>
+			<view class="line">（支付金额不能超过<text class="red">￥{{orderinfo.order_price}}</text>元）</view>
+			<view class="lineinput">
+				<text>接单者愿意赔偿保证金：</text><input class="uni-input" placeholder="保证金" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.bond"/>
+			</view>
+			<view class="line">（支付金额不能超过<text class="red">￥{{orderinfo.promise_price}}</text>元）</view>
+			<view class="line">
+				撤单原因:
+			</view>
+			<view class="lineinput">
+					<textarea  placeholder="撤单原因" :disabled="!submittype" v-model="orderinfo.reason"/>
+			</view>
 		</view>
-		<view class="line">
-			发单者预付代练费：￥{{orderinfo.order_price}}
-		</view>
-		<view class="line">
-			代练员效率保证金：￥{{orderinfo.eff_price}}
-		</view>
-		<view class="line">
-			代练员安全保证金：￥{{orderinfo.promise_price}}
-		</view>
-		<view class="lineinput">
-			<text>需要发单者支付代练费：</text><input class="uni-input" placeholder="代练费" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.price"/>
-		</view>
-		<view class="line">（支付金额不能超过<text class="red">￥{{orderinfo.order_price}}</text>元）</view>
-		<view class="lineinput">
-			<text>接单者愿意赔偿保证金：</text><input class="uni-input" placeholder="保证金" placeholder-style="color:#F76260" type="number" :disabled="!submittype" v-model="orderinfo.bond"/>
-		</view>
-		<view class="line">（支付金额不能超过<text class="red">￥{{orderinfo.promise_price}}</text>元）</view>
-		<view class="line">
-			撤单原因:
-		</view>
-		<view class="lineinput">
-		    <textarea  placeholder="撤单原因" :disabled="!submittype" v-model="orderinfo.reason"/>
+		<view class="result" v-if="orderinfo.consult_status === 3">
+			<view class="title">协商结果: </view>
+			<view class="result-text result-pd">发单者支付代练费：<text class="red">{{orderinfo.price}}</text>元</view>
+			<view class="result-text result-pd">接单者赔偿保证金：<text class="red">{{orderinfo.bond}}</text>元</view>
+			<!-- <view class="result-text">温馨提示：扣款详情请看资金流水</view> -->
 		</view>
 		<view class="btn" v-if="order_status!=5">
 			<button type="default" @tap="submit" v-if="submittype">提交</button>
@@ -168,7 +176,6 @@
 			//console.log(option.id)
 			this.id=option.id
 			this.order_status=option.order_status
-			console.log(option)
 			if(option.orderinfo){
 				this.orderinfo=JSON.parse(option.orderinfo)
 				this.orderinfo.order_price=this.orderinfo.price
@@ -184,6 +191,18 @@
 </script>
 
 <style>
+page{
+	background-color: #f4f8fb;
+}
+.consult{
+	width: 200%;
+	margin: 20rpx; 
+}
+.wrap,.result{
+	padding: 15rpx;
+	border-radius: 15rpx;
+	background-color: #fff;
+}
 .btn{
 	padding-top: 50rpx;
 }
@@ -206,7 +225,26 @@ textarea{
 	width: 100%;
 	padding: 20rpx;
 }
-.red{
+text.red{
 	color: red;
+}
+.result{
+	margin-top: 20rpx;
+	padding: 15rpx 15rpx 30rpx;
+}
+.result .title{
+	height: 60rpx;
+	border-bottom: 1rpx solid #eee;
+	font-size: 28rpx;
+	font-weight: bold;
+	line-height: 60rpx;
+}
+.result .result-text{
+	color: #999;
+	font-size: 24rpx;
+	line-height: 24rpx;
+}
+.result .result-pd{
+	padding: 20rpx 0;
 }
 </style>

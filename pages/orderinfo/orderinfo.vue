@@ -1,9 +1,8 @@
 <template>
     <view class="content">
-			<view class="lineinfo" v-if="orderInfo.order_status !== 6">
-    		<view class="title">扣款信息</view>
+			<view class="lineinfo" v-if="orderInfo.order_status === 5 && orderInfo.consult === 0">
+    		<view class="title">交易完成</view>
     		<view class="cont">
-    			<view class="ordertime line">扣款状态：正常扣款</view>
 					<view class="ordertime line">支付金额：<text class="red">{{orderInfo.pay_price}} </text>元，扣款情况请看资金流水</view>
     		</view>
     	</view>
@@ -18,6 +17,8 @@
 					<view class="ordertime line" v-if="orderInfo.order_status !== 1 && orderInfo.end_time">提交时间：{{orderInfo.end_time}}</view>
     			<view class="ordertime line">当前段位：{{orderInfo.current_segment}}</view>
     			<view class="ordertime line">目标段位：{{orderInfo.tag_segment}}</view>
+					<!-- <view class="ordertime line" v-if="orderInfo.order_status !== 5">发单支付代练费：{{orderInfo.pay_price}}元（含同省可接的5%手续费）</view>
+					<view class="ordertime line" v-if="orderInfo.order_status === 6">取消订单退回代练费：{{orderInfo.pay_price}}元（含同省可接的5%手续费）</view> -->
     		</view>
     	</view>
     	<view class="lineinfo">
