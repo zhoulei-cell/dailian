@@ -191,6 +191,7 @@
 					[0]
 				],
 				multiIndex: [0, 0],
+				flag: true
 			}
 		},
 		methods: {
@@ -310,8 +311,14 @@
 				if (this.check()) {
 					this.info.title = this.info.area + "*" + this.info.current_segment + "到" + this.info.tag_segment 
 					this.info.province = this.province ? 1 : 0;
-					this.releaseOrder()
-				} 
+					if (this.flag) {
+						uni.showLoading({
+							title: '发布中...'
+						})
+						this.flag = false
+						this.releaseOrder()
+					}
+				}
 			},
 			//当前段位
 			originSegment(sm) {
@@ -329,6 +336,7 @@
 						method: 'post'
 				}
 				this.$http.httpTokenRequest(opts, this.info).then(res => {
+					uni.hideLoading()
 					if (res.data.code == 200) {
 						uni.showToast({
 							icon: 'none',
@@ -340,12 +348,15 @@
 							})
 						}, 500)
 					} else {
+						this.flag = true
 						uni.showToast({
 							icon: 'none',
 							title: res.data.msg
 						})
 					}
 				}, error => {
+					uni.hideLoading()
+					this.flag = true
 					console.log(error);
 				})
 			},

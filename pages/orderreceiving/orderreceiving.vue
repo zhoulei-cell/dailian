@@ -11,7 +11,8 @@
 				<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
 					<view class="ordertop">
 						<view class="ordertop_left">订单编号：{{item.order_no}}</view>
-						<view class="ordertop_right red">{{ordertext[item.order_status]}}</view>
+						<view class="ordertop_right red" v-if="item.order_status !== 5">{{ordertext[item.order_status]}}</view>
+						<view class="ordertop_right red" v-else>{{item.consult != 0 ? "协商结算" : "正常结算"}}</view>
 					</view>
 					<view class="item">
 						<view class="item_left">
@@ -32,7 +33,7 @@
 							<button @tap.stop="submitorder(item,index)" v-if="item.order_status==2&&item.locked!=1">提交完成</button>
 							<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
 							
-							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
+							<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0)">协商结算</button>
 							<button @tap.stop="agreeconsult(item,index)" v-if="item.consult!=0">查看协商信息</button>
 							
 							<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals==0 && item.order_status!=5">申诉</button>

@@ -12,7 +12,8 @@
 			<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
 				<view class="ordertop">
 					<view class="ordertop_left">订单编号：{{item.order_no}}</view>
-					<view class="ordertop_right red">{{ordertext[item.order_status]}}</view>
+					<view class="ordertop_right red" v-if="item.order_status !== 5">{{ordertext[item.order_status]}}</view>
+					<view class="ordertop_right red" v-else>{{item.consult != 0 ? "协商结算" : "正常结算"}}</view>
 				</view>
 				<view class="item">
 					<view class="item_left">
