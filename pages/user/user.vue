@@ -108,7 +108,7 @@
 		</view>
 		<!-- 中间部分 -->
 		<!-- 推广部分 -->
-		<view class="usercenter">
+		<!-- <view class="usercenter">
 			<view class="promote">
 				<view class="promote-title d-flex jc-between">
 					<view class="left">我的推广</view>
@@ -128,7 +128,7 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 推广部分 -->
 		<!-- 底部部分 -->
 		<view class="usercenter bottom">

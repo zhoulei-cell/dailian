@@ -66,11 +66,19 @@ export default {
     //预览图片
     previewImage: function(e) {
       var current = e.target.dataset.src
+      const list = []
+      this.imageList.forEach(item => {
+        if (typeof item === "string") {
+          list.push(item)
+        } else {
+          list.push(item.url)
+        }
+      })
       uni.previewImage({
         current: current,
-        urls: this.imageList
+        urls: list
       })
-		},
+    },
     //关闭提示窗
     close() {
       this.$refs['popup'].close()

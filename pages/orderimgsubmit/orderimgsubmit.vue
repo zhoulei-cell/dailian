@@ -44,6 +44,7 @@
 	export default {
 			data() {
 				return {
+					flag: true,
 					ordertype: [{
 							type: 1,
 							text: "开始图"
@@ -69,7 +70,7 @@
 					selectindex:1,
 					id:"",
 					imageList: [],
-					uploadImageList: []
+					uploadImageList: [],
 				}
 			},
 			components: {
@@ -127,6 +128,8 @@
 						url:url
 					}
 					this.$http.httpTokenRequest(opts,params).then(res => {
+						this.flag = true
+						uni.hideLoading()
 						if(res.data.code==200){
 							this.getimglist()
 							uni.showToast({
@@ -138,6 +141,8 @@
 							})
 						}
 					}, error => {
+						this.flag = true
+						uni.hideLoading()
 						uni.showToast({
 							title: "上传错误！"
 						})
@@ -177,6 +182,13 @@
 						})
 						return null
 					}
+					if (!this.flag) {
+						return null
+					}
+					this.flag = false
+					uni.showLoading({
+						title: '上传中...'
+					})
 					const imgFile = [];
 					imgFiles.forEach((item, index) => {
 						imgFile.push({uri: item, name: `image[${index}]`})
@@ -192,6 +204,8 @@
 							}
 						})
 						this.imgsubmit(url)
+					}, errr => {
+						this.flag = true
 					})
 				},
 				//删除图片
@@ -202,9 +216,17 @@
 				//预览图片
 				previewImage: function(e) {
 					var current = e.target.dataset.src
+					const list = []
+					this.imageList.forEach(item => {
+						if (typeof item === "string") {
+							list.push(item)
+						} else {
+							list.push(item.url)
+						}
+					})
 					uni.previewImage({
 						current: current,
-						urls: this.imageList
+						urls: list
 					})
 				},
 				//关闭提示窗

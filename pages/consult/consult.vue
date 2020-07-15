@@ -173,7 +173,6 @@
 			}
 		},
 		onLoad: function (option) {
-			//console.log(option.id)
 			this.id=option.id
 			this.order_status=option.order_status
 			if(option.orderinfo){
@@ -181,7 +180,6 @@
 				this.orderinfo.order_price=this.orderinfo.price
 				this.orderinfo.price=""
 				this.submittype=true
-				console.log(this.orderinfo)
 			}else{
 				this.getinfo()
 				this.submittype=false
