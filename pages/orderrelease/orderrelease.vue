@@ -35,7 +35,7 @@
 						<button @tap.stop="agreejs(item,index)" v-if="item.order_status==4">同意结算</button>
 						<button @tap.stop="uploadimg(item,index)" v-if="item.order_status==2||item.order_status==3||item.order_status==4">上传截图</button>
 
-						<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) ">协商结算</button>
+						<button @tap.stop="consult(item,index)" v-if="(item.order_status==2 && item.consult==0) || (item.order_status==3 && item.consult==0) || (item.order_status==4 && item.consult==0)">协商结算</button>
 						<button @tap.stop="agreeconsult(item,index)" v-if="item.consult!=0">查看协商信息</button>
 
 						<button @tap.stop="agreeappeal(item,index)" v-if="item.order_status!=1 && item.appeals==0 && item.order_status!=5">申诉</button>
@@ -173,7 +173,7 @@
 			//查看申诉
 			lookappeal(item){
 				uni.navigateTo({
-					url: '/pages/appealdetial/appealdetial?item='+JSON.stringify(item)
+					url: '/pages/appealdetial/appealdetial?item='+JSON.stringify(item)+'&type=1'
 				});
 			},
 			navtoDetail(item) {

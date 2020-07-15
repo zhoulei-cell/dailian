@@ -179,12 +179,13 @@
 					method: 'get'
 				}
 				let params={
-					id:this.appeals,
+					id: this.appeals,
 				}
+				console.log(this.appeals)
 				this.$http.httpTokenRequest(opts,params).then(res => {
-					this.orderinfo=res.data.data
 					if(res.data.code==200){
 						this.orderinfo=res.data.data
+						console.log(this.orderinfo)
 					}else{
 						uni.showToast({
 							title:res.data.msg
@@ -231,8 +232,47 @@
 		},
 		onLoad: function (option) {
 			this.appeals=JSON.parse(option.item).appeals
-		},
-		onShow() {
+			console.log(this.appeals)
+			if(option.type){
+				this.items=[
+					{
+						value: '0',
+						name: '我要退订单'
+					},
+					{
+						value: '1',
+						name: '超时完成'
+					},
+					{
+						value: '2',
+						name: '毁星掉段'
+					},
+					{
+						value: '3',
+						name: '战绩差'
+					},
+					{
+						value: '4',
+						name: '私自动用账号物品'
+					},
+					{
+						value: '5',
+						name: '虚假提交'
+					},
+					{
+						value: '6',
+						name: '游戏账号被封'
+					},
+					{
+						value: '7',
+						name: '进度慢'
+					},
+					{
+						value: '8',
+						name: '其他问题'
+					}
+				]
+			}
 			this.getdetal()
 		}
 	}

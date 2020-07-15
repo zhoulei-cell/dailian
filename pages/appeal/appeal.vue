@@ -168,43 +168,42 @@
 		},
 		onLoad: function (option) {
 			this.orderinfo=JSON.parse(option.item)
-			//console.log(this.orderinfo)
 			if(option.type){
 				this.items=[
 					{
-						value: '8',
+						value: '0',
 						name: '我要退订单'
 					},
 					{
-						value: '16',
+						value: '1',
 						name: '超时完成'
 					},
 					{
-						value: '10',
+						value: '2',
 						name: '毁星掉段'
 					},
 					{
-						value: '11',
+						value: '3',
 						name: '战绩差'
 					},
 					{
-						value: '12',
+						value: '4',
 						name: '私自动用账号物品'
 					},
 					{
-						value: '13',
+						value: '5',
 						name: '虚假提交'
 					},
 					{
-						value: '14',
+						value: '6',
 						name: '游戏账号被封'
 					},
 					{
-						value: '15',
+						value: '7',
 						name: '进度慢'
 					},
 					{
-						value: '7',
+						value: '8',
 						name: '其他问题'
 					}
 				]
