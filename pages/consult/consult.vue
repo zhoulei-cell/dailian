@@ -28,7 +28,7 @@
 					<textarea  placeholder="撤单原因" :disabled="!submittype" v-model="orderinfo.reason"/>
 			</view>
 		</view>
-		<view class="result" v-if="orderinfo.consult_status === 3">
+		<view class="result" v-if="orderinfo.consult_status === 3 && order_status !== '3'">
 			<view class="title">协商结果: </view>
 			<view class="result-text result-pd">发单者支付代练费：<text class="red">{{orderinfo.price}}</text>元</view>
 			<view class="result-text result-pd">接单者赔偿保证金：<text class="red">{{orderinfo.bond}}</text>元</view>
