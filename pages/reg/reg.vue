@@ -15,6 +15,9 @@
 			<view class="input-row">
 				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
 			</view>
+			<view class="input-row">
+				<m-input class="m-input" type="text" v-model="promote_phone" placeholder="请输入推荐人手机号"></m-input>
+			</view>
 		</view>
 		<view class="btn">
 			<view class="btnleft"></view>
@@ -53,7 +56,8 @@
 				code: '',
 				key: '',
 				codeText: "获取验证码",
-				colorText: "blue"
+				colorText: "blue",
+				promote_phone: ''
 			}
 		},
 		computed: mapState(['forcedLogin']),
@@ -142,7 +146,8 @@
 				let param = {
 					captcha: this.code,
 					password: this.password,
-					phone: this.account
+					phone: this.account,
+					p: this.promote_phone
 				}
 				this.$http.httpRequest(opts,param).then(res => {
 					uni.showToast({

@@ -108,27 +108,29 @@
 		</view>
 		<!-- 中间部分 -->
 		<!-- 推广部分 -->
-		<!-- <view class="usercenter">
+		<view class="usercenter">
 			<view class="promote">
-				<view class="promote-title d-flex jc-between">
-					<view class="left">我的推广</view>
-					<view class="right d-flex ai-center">
-						<text>推广中心</text>
-						<image src="../../static/img/right.png" mode="widthFix"></image>
+				<navigator url="/pages/promotioncenter/promotioncenter">
+					<view class="promote-title d-flex jc-between">
+						<view class="left">我的推广</view>
+						<view class="right d-flex ai-center">
+							<text>推广中心</text>
+							<image src="../../static/img/right.png" mode="widthFix"></image>
+						</view>
 					</view>
-				</view>
+				</navigator>
 				<view class="promote-content d-flex">
 					<view class="promote-box flex-1">
-						<view class="money">￥0.00</view>
+						<view class="money">￥{{promote.all_commission}}</view>
 						<view class="desc">可提现金额</view>
 					</view>
 					<view class="promote-box flex-1">
-						<view class="money">￥0.00</view>
+						<view class="money">￥{{promote.preAmount}}</view>
 						<view class="desc">预估金额</view>
 					</view>
 				</view>
 			</view>
-		</view> -->
+		</view>
 		<!-- 推广部分 -->
 		<!-- 底部部分 -->
 		<view class="usercenter bottom">
@@ -202,7 +204,8 @@
 		data(){
 			return {
 				userinfo:{},
-				user: {}
+				user: {},
+				promote: {}
 			}
 		},
 		computed: {
@@ -220,83 +223,94 @@
 			customPopup
 		},
     methods: {
-			//跳转登录
-			bindlogin(){
-				uni.navigateTo({
-				    url: "../login/login",
-				})
-			},
-			// 路径跳转
-			navigateTo(url){
-				uni.navigateTo({
-				    url: url,
-				});
-			},
-			// 退出登录
-			bindLogout() {
-					this.logout();
-					/**
-					 * 如果需要强制登录跳转回登录页面
-					 */
-					if (this.forcedLogin) {
-							uni.reLaunch({
-									url: '../login/login',
-							});
-					}
-			},
-			openLogoutPopup() {
-				this.$refs['customPopupLogout'].open()
-			},
-			cancelLogout() {
-				this.$refs['customPopupLogout'].close()
-			},
-			confirmLogout() {
-				this.logout()
-				this.$refs['customPopupLogout'].close()
-			},
-			// 退出登录
-			logout(){
-				let opts = {
-					url: '/api/loginout',
-					method: 'post'
+		//跳转登录
+		bindlogin(){
+			uni.navigateTo({
+				url: "../login/login",
+			})
+		},
+		// 路径跳转
+		navigateTo(url){
+			uni.navigateTo({
+				url: url,
+			});
+		},
+		// 退出登录
+		bindLogout() {
+				this.logout();
+				/**
+				 * 如果需要强制登录跳转回登录页面
+				 */
+				if (this.forcedLogin) {
+						uni.reLaunch({
+								url: '../login/login',
+						});
 				}
-				let param = {
-				}
-				this.$http.httpTokenRequest(opts,param).then(res => {
-					uni.removeStorage({
-					    key: 'userinfo'
-					})
-					uni.removeStorage({
-					    key: 'token'
-					})
-					uni.navigateTo({
-						url:"/pages/login/login"
-					})
-				})
-			},
-			// 获取用户信息
-			getuserinfo(){
-				let opts = {
-					url: '/api/getUserInfo',
-					method: 'get'
-				}
-				let param = {
-					
-				}
-				this.$http.httpTokenRequest(opts,param).then(res => {
-					this.userinfo = res.data.data
-					this.user = {
-						phone: this.userinfo.phone,
-						name: this.userinfo.name,
-						avatar: this.userinfo.avatar,
-						is_member: this.userinfo.is_member
-					}
-				})
+		},
+		openLogoutPopup() {
+			this.$refs['customPopupLogout'].open()
+		},
+		cancelLogout() {
+			this.$refs['customPopupLogout'].close()
+		},
+		confirmLogout() {
+			this.logout()
+			this.$refs['customPopupLogout'].close()
+		},
+		// 退出登录
+		logout(){
+			let opts = {
+				url: '/api/loginout',
+				method: 'post'
 			}
-    },
-		onShow() {
-			this.getuserinfo()
+			let param = {
+			}
+			this.$http.httpTokenRequest(opts,param).then(res => {
+				uni.removeStorage({
+					key: 'userinfo'
+				})
+				uni.removeStorage({
+					key: 'token'
+				})
+				uni.navigateTo({
+					url:"/pages/login/login"
+				})
+			})
+		},
+		// 获取用户信息
+		getuserinfo(){
+			let opts = {
+				url: '/api/getUserInfo',
+				method: 'get'
+			}
+			let param = {
+				
+			}
+			this.$http.httpTokenRequest(opts,param).then(res => {
+				this.userinfo = res.data.data
+				this.user = {
+					phone: this.userinfo.phone,
+					name: this.userinfo.name,
+					avatar: this.userinfo.avatar,
+					is_member: this.userinfo.is_member
+				}
+			})
+		},
+		//我的推广信息获取
+		getDistribution() {
+			let opts = {
+				url: '/api/user/distribution',
+				method: 'get'
+			}
+			this.$http.httpTokenRequest(opts, {}).then(res => {
+				this.promote = res.data.data
+			})
 		}
+    },
+	onLoad() {
+		this.getuserinfo()
+		this.getDistribution()
+	}
   }
 </script>
 

@@ -426,6 +426,18 @@
 				}
 			}
         }
+        ,{
+            "path" : "pages/promotioncenter/promotioncenter",
+            "style" : {
+				"navigationBarTitleText": "推广中心"
+			}
+        }
+        ,{
+            "path" : "pages/promotioncount/promotioncount",
+            "style" : {
+				"navigationBarTitleText": "推广人统计"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",

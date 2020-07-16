@@ -16,6 +16,7 @@
 </script>
 
 <style>
+	@import './static/css/icon.css';
 	@import './static/css/iconfont.css';
 	/* #ifndef APP-PLUS-NVUE */
 	/* uni.css - 通用组件、模板样式库，可以当作一套ui库应用 */
