@@ -34,7 +34,7 @@
 				</view>
 			</view>
 			<view class="promote d-flex jc-between">
-				<view class="promote-item d-flex fd-column ai-center">
+				<view class="promote-item d-flex fd-column ai-center" @tap="howToPromote">
 					<view class="iconfont icon-tuiguangzhuanqian"></view>
 					<view class="text">如何推广</view>
 				</view>
@@ -53,7 +53,7 @@
 					</view>
 					<block v-for="(item, index) in info.all_member" :key="index">
 						<view class="list d-flex">
-							<view class="item">{{item.name}}</view>
+							<view class="item text-overflow">{{item.name}}</view>
 							<view class="item flex-1 ta-center">{{item.phone}}</view>
 							<view class="item flex-1 ta-center">{{!!item.is_member === true ? "已支付" : "未支付"}}</view>
 						</view>
@@ -68,10 +68,12 @@
 				</view>
 			</scroll-view>
 		</view>
+		<custom-popup ref="custom" title="邀请他人下载战狼电竞app, 他人注册时会有输入一个推广手机号, 这个推广手机号就是你的账号绑定的手机号" :isCancel="false" @confirm="confirm"></custom-popup>
 	</view>
 </template>
 
 <script>
+	import customPopup from '../../components/custom-popup/custom-popup.vue'
 	export default {
 		data() {
 			return {
@@ -82,16 +84,23 @@
 			}
 		},
 		methods: {
+			//去推广统计页面
 			goCount() {
 				uni.navigateTo({
 					url: "/pages/promotioncount/promotioncount"
 				})
 			},
+			//去提现页面
 			goWithdraw() {
 				uni.navigateTo({
 					url: '/pages/withdrawal/withdrawal'
 				})
 			},
+			//如何推广
+			howToPromote() {
+				this.$refs['custom'].open()
+			},
+			//获取推广中心数据
 			getDistribution() {
 				let opts = {
 					url: '/api/distribution',
@@ -100,7 +109,14 @@
 				this.$http.httpTokenRequest(opts, {}).then(res => {
 					this.info = res.data.data
 				})
+			},
+			//点击弹窗的确认按钮
+			confirm() {
+				this.$refs['custom'].close()
 			}
+		},
+		components: {
+			customPopup
 		},
 		onLoad() {
 			this.getDistribution()

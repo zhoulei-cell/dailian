@@ -79,6 +79,7 @@
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					const memberList = res.data.data
+					console.log(memberList)
 					memberList.forEach(item => {
 						if (item.captain == 1) {
 							this.sirdarList.push(item)
@@ -136,15 +137,16 @@
 			}
 		}
 		.promotion-tab{
-			height: 50rpx;
-			padding-top: 50rpx;
+			height: 60rpx;
+			padding-top: 60rpx;
 			border-bottom: 2rpx solid #999;
 			.tab-item{
-				height: 50rpx;
+				height: 60rpx;
 				padding: 0 30rpx;
+				margin-right: 70rpx;
 				color: #999;
-				font-size: 24rpx;
-				line-height: 50rpx;
+				font-size: 26rpx;
+				line-height: 60rpx;
 				&.change{
 					color: rgba(0,0,0,1);
 					border-bottom: 2rpx solid #FE0101;

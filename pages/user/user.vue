@@ -110,7 +110,7 @@
 		<!-- 推广部分 -->
 		<view class="usercenter">
 			<view class="promote">
-				<navigator url="/pages/promotioncenter/promotioncenter">
+				<navigator url="/pages/promotioncenter/promotioncenter" hover-class="none">
 					<view class="promote-title d-flex jc-between">
 						<view class="left">我的推广</view>
 						<view class="right d-flex ai-center">
@@ -122,7 +122,7 @@
 				<view class="promote-content d-flex">
 					<view class="promote-box flex-1">
 						<view class="money">￥{{promote.all_commission}}</view>
-						<view class="desc">可提现金额</view>
+						<view class="desc">总佣金</view>
 					</view>
 					<view class="promote-box flex-1">
 						<view class="money">￥{{promote.preAmount}}</view>
@@ -307,7 +307,7 @@
 			})
 		}
     },
-	onLoad() {
+	onShow() {
 		this.getuserinfo()
 		this.getDistribution()
 	}

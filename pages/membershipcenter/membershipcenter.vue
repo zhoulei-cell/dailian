@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="topinfo">
 			<view class="topinfoleft">开通会员</view>
-			<view class="topinforight">￥200</view>
+			<view class="topinforight">￥{{amount}}</view>
 		</view>
 		<view class="paytype">
 			<view class="paytypetitle">请选择支付方式</view>
@@ -42,12 +42,13 @@
 		data() {
 			return {
 				check: 2,
-				content: "后台订单已生成，点击确认获取向银行卡转账信息，向银行卡转账成功以后联系客服充值"
+				content: "后台订单已生成，点击确认获取向银行卡转账信息，向银行卡转账成功以后联系客服充值",
+				amount: ''
 			}
 		},
-		onLoad() {
-			this.getuserinfo()
-		},
+		// onLoad() {
+		// 	this.getuserinfo()
+		// },
 		methods: {
 			// 开通会员
 			submit(){
@@ -57,7 +58,7 @@
 				}
 				let params = {
 					payment_method: this.check==3?'ali_app_pay':'wechat_app_pay',
-					amount:200,
+					amount: this.amount,
 					type:0
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
@@ -86,6 +87,18 @@
 					url: '/pages/paymentguide/paymentguide'
 				})
 			},
+			getPrice() {
+				let opts = {
+					url: '/api/memberrate',
+					method: 'get'
+				}
+				this.$http.httpTokenRequest(opts, {}).then(res => {
+					this.amount = res.data.data
+				})
+			}
+		},
+		onShow() {
+			this.getPrice()
 		}
 	}
 </script>
