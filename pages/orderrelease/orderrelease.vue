@@ -275,7 +275,7 @@
 			},
 			updateorder(item) {
 				uni.navigateTo({
-					url: '/pages/updatereleaseinfo/updatereleaseinfo?id=' + item.id
+					url: '/pages/updateorderinfo/updateorderinfo?id=' + item.id
 				});
 			},
 			//锁号

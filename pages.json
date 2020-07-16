@@ -153,15 +153,6 @@
 			}
 		},
 		{
-			"path": "pages/updatereleaseinfo/updatereleaseinfo",
-			"style": {
-				"navigationBarTitleText": "修改订单",
-				"app-plus": {
-					"scrollIndicator": "none"
-				}
-			}
-		},
-		{
 			"path": "pages/invitation/invitation",
 			"style": {
 				"navigationBarTitleText": "我的邀请"
@@ -421,6 +412,15 @@
             "path" : "pages/releaseorder/releaseorder",
             "style" : {
 				"navigationBarTitleText": "发布订单",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+        }
+        ,{
+            "path" : "pages/updateorderinfo/updateorderinfo",
+            "style" : {
+				"navigationBarTitleText": "修改订单",
 				"app-plus": {
 					"scrollIndicator": "none"
 				}
