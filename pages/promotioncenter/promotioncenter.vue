@@ -114,6 +114,7 @@
 		onLoad() {
 			this.getDistribution()
 		},
+		//点击原生标题栏的自定义按钮
 		onNavigationBarButtonTap(e) {
 			this.goWithdraw()
 		}

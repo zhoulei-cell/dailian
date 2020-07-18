@@ -328,7 +328,7 @@
 			targetSegment(sm) {
 				this.info.tag_segment = sm
 			},
-			// 发布订单
+			// 修改订单
 			editOrder() {
 				let opts = {
 					url: '/api/order/edit',

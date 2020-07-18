@@ -456,6 +456,12 @@
 				"navigationBarTitleText": "推广人统计"
 			}
         }
+        ,{
+            "path" : "pages/editpwd/editpwd",
+            "style" : {
+				"navigationBarTitleText": "修改订单密码"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#989898",

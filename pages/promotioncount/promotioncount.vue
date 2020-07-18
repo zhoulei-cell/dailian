@@ -49,6 +49,7 @@
 			}
 		},
 		methods: {
+			//切换tab 队长/队员
 			change(type) {
 				this.current = type
 				if (type === 'sirdar') {

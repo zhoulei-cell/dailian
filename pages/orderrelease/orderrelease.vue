@@ -5,8 +5,8 @@
 		</view>
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y" @scrolltolower="lower" :lower-threshold="threshold"
 		 style="position: absolute;top: 68rpx;left: 0;right: 0;bottom: 0;background: #F4F5F6;" refresher-enabled="true"
-		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherpulling="onPulling" @refresherrefresh="onRefresh"
-		 @refresherrestore="onRestore" @refresherabort="onAbort">
+		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherrefresh="onRefresh"
+		 @refresherrestore="onRestore">
 
 			<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
 			<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
@@ -44,6 +44,8 @@
 						<button @tap.stop="updateorder(item,index)" v-if="item.order_status==1">修改订单</button>
 
 						<button @tap.stop="lookOdd(item,index)" v-if="item.abnormal!==0">查看异常信息</button>
+						
+						<button @tap.stop="editPwd(item,index)" v-if="item.order_status === 2 || item.order_status === 3">修改密码</button>
 					</view>
 				</view>
 			</view>
@@ -117,9 +119,6 @@
 			console.log('filter_result:' + JSON.stringify(val));
 		},
 		methods: {
-			onPulling(e) {
-				//console.log("onpulling", e);
-			},
 			async onRefresh() {
 				this.triggered = true
 				this.loadmore = true
@@ -129,9 +128,6 @@
 			},
 			onRestore() {
 				this.triggered = 'restore'; // 需要重置
-			},
-			onAbort() {
-				
 			},
 			//同意结算
 			agreejs(item) {
@@ -220,17 +216,6 @@
 						}
 						this.listData.forEach(item => {
 							if (item.order_status === 6 || item.order_status === 1) return //取消和未接单都不用计算
-							// let begin_time = new Date(utils.dateUtils.parse(item.begin_time))
-							// let end_time = item.end_time
-							// if (end_time === null) {
-							// 	end_time = new Date()
-							// }	else {
-							// 	end_time = new Date(utils.dateUtils.parse(end_time))
-							// }
-							// const total = begin_time.getTime() + (item.duration * 60 * 60 * 1000)
-							// const scale = total - end_time.getTime()
-
-							// const dt = utils.formatDuring(scale)
 							const dt = utils.computedTRTime(item.duration, item.begin_time, item.end_time)
 							item.time = `${dt.days}天 ${dt.hours}时 ${dt.minutes}分 ${dt.seconds}秒`
 							item.isTimeout = dt.isTimeout
@@ -273,10 +258,17 @@
 					console.log(error);
 				})
 			},
+			//修改订单
 			updateorder(item) {
 				uni.navigateTo({
 					url: '/pages/updateorderinfo/updateorderinfo?id=' + item.id
 				});
+			},
+			//修改订单密码
+			editPwd(item) {
+				uni.navigateTo({
+					url: '/pages/editpwd/editpwd?id=' + item.id
+				})
 			},
 			//锁号
 			lockorder(item, index) {
