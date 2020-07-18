@@ -62,7 +62,6 @@
 					const imgcode = res.data.img
 					base64ToPath(imgcode)
 						.then(path => {
-							console.log(path)
 							this.imgcode = path
 						})
 						.catch(error => {
@@ -121,6 +120,9 @@
 					});
 					return;
 				}
+				uni.showLoading({
+					title: '登录中...'
+				})
 				let opts = {
 					url: '/api/code_login',
 					method: 'post'
@@ -130,6 +132,7 @@
 					phone: this.account
 				}
 				this.$http.httpRequest(opts,param).then(res => {
+					uni.hideLoading()
 					if(res.data.code==200){
 						uni.setStorage({
 						    key: 'token',
@@ -154,7 +157,11 @@
 						title: res.data.msg
 					});
 				}, error => {
-					console.log(error);
+					uni.hideLoading()
+					uni.showToast({
+						icon: 'none',
+						title: '登录失败，如果没有注册账号请先注册后在登录'
+					})
 				})
 			},
 			// 发送验证码

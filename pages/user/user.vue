@@ -237,15 +237,15 @@
 		},
 		// 退出登录
 		bindLogout() {
-				this.logout();
-				/**
-				 * 如果需要强制登录跳转回登录页面
-				 */
-				if (this.forcedLogin) {
-						uni.reLaunch({
-								url: '../login/login',
-						});
-				}
+			this.logout();
+			/**
+			 * 如果需要强制登录跳转回登录页面
+			 */
+			if (this.forcedLogin) {
+				uni.reLaunch({
+					url: '../login/login',
+				})
+			}
 		},
 		openLogoutPopup() {
 			this.$refs['customPopupLogout'].open()

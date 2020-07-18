@@ -50,10 +50,9 @@
 				<view class="line">密码：{{orderInfo.game_password}}</view>
 			</view>
 		</view> -->
-		<view class="lineinfo" v-if="orderInfo.rel_message !== 'null'">
+		<view class="lineinfo" v-if="orderInfo.rel_message">
 			<view class="title">当前游戏信息</view>
 			<view class="cont">
-				<!-- <view class="line">游戏角色：{{orderInfo.game_role_name}}</view> -->
 				<view class="line">{{orderInfo.rel_message}}</view>
 			</view>
 		</view>
@@ -90,51 +89,50 @@
 export default {
     data() {
         return {
-					orderInfo:{
-						game: {},
-						game_area: {},
-						platform: {},
-						user: {}
-					},
-					id:"",
-					type:""
+			orderInfo:{
+				game: {},
+				game_area: {},
+				platform: {},
+				user: {}
+			},
+			id:"",
+			type:""
         }
     },
     methods: {
-			//获取订单详情
-			getorderdetail(id){
-				let opts = {
-					url: '/api/order/info?order_id='+id,
-					method: 'get'
-				}
-				let params = {
-				}
-				this.$http.httpTokenRequest(opts, params).then(res => {
-					if (res.data.code == 200) {
-						this.orderInfo=res.data.data
-					}else{
-						uni.showToast({
-							icon:'none',
-							title:res.data.message|| res.data.msg 
-						})
-					}
-				}, error => {
-					console.log(error);
-				})
-			},
-			//提交订单
-			naviteto(){
-				uni.navigateTo({
-					url:"../ordercomfirm/ordercomfirm?data="+JSON.stringify(this.orderInfo)
-				})
+		//获取订单详情
+		getorderdetail(id){
+			let opts = {
+				url: '/api/order/info?order_id='+id,
+				method: 'get'
 			}
-    },
-		onLoad: function (option) { 
-			console.log(option.id)
-			this.id=option.id
-			this.getorderdetail(option.id)
-			this.type=option.type
+			let params = {
+			}
+			this.$http.httpTokenRequest(opts, params).then(res => {
+				if (res.data.code == 200) {
+					this.orderInfo=res.data.data
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:res.data.message|| res.data.msg 
+					})
+				}
+			}, error => {
+				console.log(error);
+			})
+		},
+		//提交订单
+		naviteto(){
+			uni.navigateTo({
+				url:"../ordercomfirm/ordercomfirm?data="+JSON.stringify(this.orderInfo)
+			})
 		}
+    },
+	onLoad: function (option) { 
+		this.id=option.id
+		this.getorderdetail(option.id)
+		this.type=option.type
+	}
 }
 </script>
 <style>

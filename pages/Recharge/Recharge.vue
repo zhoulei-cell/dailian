@@ -86,6 +86,10 @@
 			},
 			recharge(){
 				if(!this.acount){
+					uni.showToast({
+						icon: 'none',
+						title: '请填写充值金额'
+					})
 					return false
 				}
 				if(this.acount<20){

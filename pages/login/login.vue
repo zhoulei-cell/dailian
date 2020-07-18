@@ -55,6 +55,9 @@
                     });
                     return;
                 }
+				uni.showLoading({
+					title: "登录中..."
+				})
 				let opts = {
 					url: '/api/login',
 					method: 'post'
@@ -64,6 +67,7 @@
 					phone: this.account
 				}
 				this.$http.httpRequest(opts,param).then(res => {
+					uni.hideLoading()
 					if(res.data.code==200){
 						uni.setStorage({
 						    key: 'token',
@@ -85,20 +89,17 @@
 					}else{
 						uni.showToast({
 							icon: 'none',
-							title: res.data.msg
-						});
+							title: '登录失败，如果没有注册账号请先注册后在登录'
+						})
 					}
 				}, error => {
+					uni.hideLoading()
 					uni.showToast({
 						icon: 'none',
-						title: error
-					});
-					console.log(error);
+						title: '登录失败，如果没有注册账号请先注册后在登录'
+					})
 				})
             }
-        },
-        onReady() {
-			
         }
     }
 </script>

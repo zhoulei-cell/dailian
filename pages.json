@@ -263,7 +263,17 @@
 		{
 			"path": "pages/withdrawal/withdrawal",
 			"style": {
-				"navigationBarTitleText": "提现"
+				"navigationBarTitleText": "提现",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [
+							{
+								"text": "提现记录",
+								"fontSize": "24rpx"
+							}
+						]
+					}
+				}
 			}
 		},
 		{
@@ -429,7 +439,15 @@
         ,{
             "path" : "pages/promotioncenter/promotioncenter",
             "style" : {
-				"navigationBarTitleText": "推广中心"
+				"navigationBarTitleText": "推广中心",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "去提现",
+							"fontSize": "24rpx"
+						}]
+					}
+				}
 			}
         }
         ,{

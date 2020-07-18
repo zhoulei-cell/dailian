@@ -1,14 +1,11 @@
 <template>
 	<view class="content">
-		<view class="tab">
-			<view class="tabitem" v-for="item in ordertype" :key="item.type" :class="{check:item.type==selectindex}" @tap="choseItem(item)">{{item.text}}</view>
-		</view>
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y"  @scrolltolower="lower" :lower-threshold="threshold" style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;background: #F4F5F6;" refresher-enabled="true"
-		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherpulling="onPulling" @refresherrefresh="onRefresh"
-		 @refresherrestore="onRestore" @refresherabort="onAbort">
+		 :refresher-triggered="triggered" :refresher-threshold="50" @refresherrefresh="onRefresh"
+		 @refresherrestore="onRestore">
 			
 				<!-- 注意事项: 不能使用 index 作为 key 的唯一标识 -->
-				<view v-for="(item, index) in listData" :key="item.id" @tap="navtoDetail(item)">
+				<view v-for="(item, index) in listData" :key="item.id">
 					<view class="item">
 						<view class="line">提现金额：{{item.amount}}</view>
 						<view class="line">提现方式：{{item.w_method}}</view>
@@ -27,7 +24,6 @@
 	export default {
 		data() {
 			return {
-				
 				listData: [],
 				page: 1,
 				scrollTop: 0,
@@ -35,17 +31,12 @@
 					scrollTop: 0
 				},
 				threshold:"50px",
-				loadmore:true,
-				ordertext:['关闭','待接单','代练中','异常中','待验收','已结算','取消'],
-				orderstaus:'',
-				triggered:false
+				loadmore: true,
+				triggered: false
 			}
 		},
 		
 		methods: {
-			onPulling(e) {
-				console.log("onpulling", e);
-			},
 			async onRefresh() {
 				this.triggered = true
 				this.loadmore = true
@@ -55,9 +46,6 @@
 			},
 			onRestore() {
 				this.triggered = 'restore'; // 需要重置
-			},
-			onAbort() {
-				
 			},
 			// 获取提现列表
 			getorderlist() {
@@ -70,14 +58,21 @@
 				}
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
+						const data = res.data.data
+						if (data.per_page > data.data.length) {
+							this.loadmore = false
+						}
 						if(this.page==1){
-							this.listData = res.data.data.data
+							this.listData = data.data
 						}else{
-							this.listData.concat(this.listData,res.data.data.data)
+							this.listData.push(...data.data)
 						}
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: 'none',
+						title: '获取数据失败，请稍后重试'
+					})
 				})
 			},
 			// 下拉加载
@@ -88,7 +83,7 @@
 				}
 			}
 		},
-		onShow() {
+		onLoad() {
 			this.getorderlist()
 		}
 	}

@@ -3,7 +3,7 @@
 		<view class="topbg">
 			<text>￥{{userinfo.balance}}</text>元
 			<view class="rechergenumber">
-				<view class="title">提现金额</view>
+				<view class="title">提现金额（金额必须大于50元）</view>
 				<view class="rechergenumbercont">
 					<!-- <view class="item" :class="{check:true}">50.00元</view>
 					<view class="item">100.00元</view>
@@ -112,7 +112,6 @@
 				this.$http.httpTokenRequest(opts,param).then(res => {
 					const data = res.data.data
 					if(data){
-						console.log(data)
 						this.bankinfo = data
 						this.bind = true
 					}else{
@@ -122,9 +121,6 @@
 			},
 			// 提现
 			submit() {
-				if(!this.amount){
-					return false
-				}
 				let opts = {
 					url: '/api/finance/withdraw',
 					method: 'post'
@@ -160,7 +156,18 @@
 				this.submit()
 			},
 			confirmWithdraw() {
-				if (this.amount === "") {
+				if (!this.amount) {
+					uni.showToast({
+						icon: 'none',
+						title: '请输入提现金额'
+					})
+					return null
+				}
+				if (this.amount < 50) {
+					uni.showToast({
+						icon: 'none',
+						title: '提现金额必须大于50元'
+					})
 					return null
 				}
 				this.open('withdraw');
@@ -169,6 +176,11 @@
 		onLoad() {
 			this.getuserinfo()
 			this.getbankinfo()
+		},
+		onNavigationBarButtonTap(e) {
+			uni.navigateTo({
+				url: '/pages/withdrawallist/withdrawallist'
+			})
 		}
 	}
 </script>

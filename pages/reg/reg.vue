@@ -73,7 +73,6 @@
 					const imgcode = res.data.img
 					base64ToPath(imgcode)
 						.then(path => {
-							console.log(path)
 							this.imgcode = path
 						})
 						.catch(error => {
@@ -139,6 +138,9 @@
 					});
 					return;
 				}
+				uni.showLoading({
+					title: '注册中...'
+				})
 				let opts = {
 					url: '/api/register',
 					method: 'post'
@@ -150,6 +152,7 @@
 					p: this.promote_phone
 				}
 				this.$http.httpRequest(opts,param).then(res => {
+					uni.hideLoading()
 					uni.showToast({
 						icon: 'none',
 						title: res.data.msg
@@ -158,7 +161,11 @@
 						url:"/pages/login/login"
 					})
 				}, error => {
-					console.log(error);
+					uni.hideLoading()
+					uni.showToast({
+						icon: 'none',
+						title: '注册失败！请稍后重试'
+					})
 				})
 			},
 			// 发送验证码

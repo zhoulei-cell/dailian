@@ -317,7 +317,6 @@
 						})
 						this.flag = false
 						this.editOrder()
-						console.log(this.info)
 					}
 				}
 			},
@@ -357,7 +356,6 @@
 				}, error => {
 					uni.hideLoading()
 					this.flag = true
-					console.log(error);
 				})
 			},
 			// 获取游戏平台
@@ -419,13 +417,7 @@
 					success: (res) => {
 						this.info.lat = res.latitude
 						this.info.lon = res.longitude
-					},
-					fail: function(res) {
-						// uni.showToast({
-						// 	icon: 'none',
-						// 	title: '获取定位失败'
-						// })
-					},
+					}
 				})
 			},
 			 //绑定选择
@@ -433,7 +425,6 @@
 				const value = e.detail.value
 				this.info.area = this.multiArray[0][value[0]].name + "*" + this.multiArray[1][value[1]].name 
 				this.$forceUpdate()
-				console.log(this.info)
 				this.info.platform_id = this.multiArray[0][value[0]].id
 				this.info.game_area_id = this.multiArray[1][value[1]].id
 			},

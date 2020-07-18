@@ -6,7 +6,7 @@
 					<image :src="info.current_user.avatar" mode="scaleToFill"></image>
 					<view class="name">{{info.current_user.name}}</view>
 				</view>
-				<view class="money-wrap d-flex jc-between">
+				<!-- <view class="money-wrap d-flex jc-between">
 					<view class="money-box d-flex fd-column ai-center">
 						<view class="text">总佣金</view>
 						<view class="num">{{info.all_commission}}</view>
@@ -17,7 +17,7 @@
 							<image src="../../static/img/right.png" mode="widthFix"></image>
 						</view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view class="total d-flex">
 				<view class="total-item flex-1">
@@ -57,14 +57,7 @@
 							<view class="item flex-1 ta-center">{{item.phone}}</view>
 							<view class="item flex-1 ta-center">{{!!item.is_member === true ? "已支付" : "未支付"}}</view>
 						</view>
-					</block>
-					
-					<!-- <view class="list d-flex">
-						<view class="item">李四</view>
-						<view class="item flex-1 ta-center">15326524657</view>
-						<view class="item flex-1 ta-center">未支付</view>
-					</view> -->
-					
+					</block>			
 				</view>
 			</scroll-view>
 		</view>
@@ -120,6 +113,9 @@
 		},
 		onLoad() {
 			this.getDistribution()
+		},
+		onNavigationBarButtonTap(e) {
+			this.goWithdraw()
 		}
 	}
 </script>
@@ -143,8 +139,10 @@
 						background-color: orange;
 					}
 					.name{
+						padding: 15rpx 0;
 						font-size: 24rpx;
 						color: rgba(12,12,12,1);
+						line-height: 24rpx;
 					}
 				}
 				.money-wrap{
