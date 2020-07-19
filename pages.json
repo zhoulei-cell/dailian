@@ -324,7 +324,7 @@
 		{
 			"path": "pages/withdrawallist/withdrawallist",
 			"style": {
-				"navigationBarTitleText": "提现记录"
+				"navigationBarTitleText": "记录"
 			}
 		},
 		{

@@ -150,7 +150,7 @@
 </template>
 
 <script>
-	import * as check from "../../common/ckeck"
+	import * as check from "../../common/check"
 	import customPicker from '../../components/custom-picker'
 	import data from '../../common/area'
 	export default {
