@@ -155,7 +155,7 @@
 					uni.hideLoading()
 					uni.showToast({
 						icon: 'none',
-						title: res.data.msg
+						title: '注册成功'
 					});
 					uni.navigateTo({
 						url:"/pages/login/login"

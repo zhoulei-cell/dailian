@@ -134,6 +134,9 @@
 					});
 					return;
 				}
+				uni.showLoading({
+					title: '重置中...'
+				})
 				let opts = {
 					url: '/api/reset_password',
 					method: 'post'
@@ -144,13 +147,18 @@
 					phone: this.account
 				}
 				this.$http.httpRequest(opts,param).then(res => {
+					uni.hideLoading()
 					uni.showToast({
 						icon: 'none',
 						title: res.data.msg
 					})
 					this.logout()
 				}, error => {
-					console.log(error);
+					uni.hideLoading()
+					uni.showToast({
+						icon: 'none',
+						title: '重置失败'
+					})
 				})
 			},
 			// 退出登录

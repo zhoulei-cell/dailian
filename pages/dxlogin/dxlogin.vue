@@ -140,7 +140,7 @@
 						    success: () =>{
 						        uni.showToast({
 						        	icon: 'none',
-						        	title: res.data.msg
+						        	title: '登陆成功'
 						        })
 								uni.setStorage({
 								    key: 'userinfo',
@@ -151,16 +151,17 @@
 								})
 						    }
 						})
+					} else {
+						uni.showToast({
+							icon: 'none',
+							title: '登录失败，验证码错误'
+						})
 					}
-					uni.showToast({
-						icon: 'none',
-						title: res.data.msg
-					});
 				}, error => {
 					uni.hideLoading()
 					uni.showToast({
 						icon: 'none',
-						title: '登录失败，如果没有注册账号请先注册后在登录'
+						title: '登录失败，请稍后重试'
 					})
 				})
 			},
