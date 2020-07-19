@@ -2,7 +2,7 @@
 	<view class="promotion-count">
 		<view class="promotion-user d-flex ai-center">
 			<view class="user-photo">
-				<image :src="userInfo.avatar" mode="scaleToFill"></image>
+				<image :src="userInfo.avatar || '../../static/img/qq.png'" mode="scaleToFill"></image>
 			</view>
 			<view class="user-info">
 				<view class="name-box d-flex ai-center">
@@ -21,7 +21,7 @@
 				<block v-for="(item, index) in memberList" :key="index">
 					<view class="list d-flex ai-center">
 						<view class="user-photo">
-							<image :src="item.avatar" mode="scaleToFill"></image>
+							<image :src="item.avatar || '../../static/img/qq.png'" mode="scaleToFill"></image>
 						</view>
 						<view class="user-info">
 							<view class="name-box">
@@ -112,7 +112,6 @@
 					width: 100rpx;
 					height: 100rpx;
 					border-radius: 50%;
-					background-color: yellow;
 				}
 			}
 			.user-info{
@@ -166,7 +165,6 @@
 							width: 94rpx;
 							height: 94rpx;
 							border-radius: 50%;
-							background-color: yellow;
 						}
 					}
 					.user-info{
