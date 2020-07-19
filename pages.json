@@ -268,7 +268,7 @@
 					"titleNView": {
 						"buttons": [
 							{
-								"text": "提现记录",
+								"text": "记录",
 								"fontSize": "24rpx"
 							}
 						]
@@ -324,7 +324,7 @@
 		{
 			"path": "pages/withdrawallist/withdrawallist",
 			"style": {
-				"navigationBarTitleText": "记录"
+				"navigationBarTitleText": "提现记录"
 			}
 		},
 		{

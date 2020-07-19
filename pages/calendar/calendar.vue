@@ -50,7 +50,8 @@
 				var date = new Date()
 				var datetime = util.getTime(date)
 				await this.sign()
-				this.getsignlist()
+				let time=util.dateFormat('YYYY-mm',date)
+				this.getsignlist(time+'-01',time+'-31')
 			},
 			async change(e) {
 				var date = new Date()
@@ -122,7 +123,7 @@
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
 					if (res.data.code == 200) {
-
+						this.calendarText = "已签到"
 					} else {
 						uni.showToast({
 							icon: 'none',
