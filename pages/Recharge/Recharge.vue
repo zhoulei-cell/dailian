@@ -86,13 +86,13 @@
 					})
 					return false
 				}
-				// if(this.acount<20){
-				// 	uni.showToast({
-				// 		icon:'none',
-				// 		title:"充值金额必须大于20"
-				// 	})
-				// 	return false
-				// }
+				if(this.acount<20){
+					uni.showToast({
+						icon:'none',
+						title:"充值金额必须大于20"
+					})
+					return false
+				}
 				let opts = {
 					url: '/api/app/recharge',
 					method: 'post'
@@ -115,6 +115,7 @@
 							icon: 'none',
 							title: '支付成功！'
 						})
+						this.getuserinfo()
 				    },
 				    fail: function (err) {
 						uni.showToast({
