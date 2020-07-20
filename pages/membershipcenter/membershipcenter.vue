@@ -20,15 +20,14 @@
 					<view class="checkbox" :class="{check:check==2}"></view>
 				</view>
 			</view>
-			<view class="payitem" @tap="check=3">
+			<!-- <view class="payitem" @tap="check=3">
 				<view class="img"><image src="../../static/img/common/zhifubao.png" mode=""></image></view>
 				<view class="text">支付宝支付</view>
 				<view class="check">
 					<view class="checkbox" :class="{check:check==3}"></view>
 				</view>
-			</view>
+			</view> -->
 		</view>
-		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="confirm"/>
 		<view class="btn">
 			<button @tap="submit">立即支付</button>
 		</view>
@@ -37,12 +36,10 @@
 
 <script>
 	// var wx = require('jweixin-module')
-	import customPopup from '../../components/custom-popup/custom-popup.vue'
 	export default {
 		data() {
 			return {
 				check: 2,
-				content: "后台订单已生成，点击确认获取向银行卡转账信息，向银行卡转账成功以后联系客服充值",
 				amount: ''
 			}
 		},
@@ -63,28 +60,18 @@
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
-						/*uni.showToast({
-							icon: 'none',
-							title: res.data.msg
-						})*/
-						this.$refs['popup'].open()
-						// uni.reLaunch({
-						// 	url: '../user/user'
-						// })
+						this.payment(res.data.data)
 					}else{
 						uni.showToast({
 							icon: 'none',
-							title: res.data.msg
+							title: '获取数据失败，请重试'
 						})
 					}
 				}, error => {
-					console.log(error);
-				})
-			},
-			confirm() {
-				this.$refs['popup'].close()
-				uni.redirectTo({
-					url: '/pages/paymentguide/paymentguide'
+					uni.showToast({
+						icon: 'none',
+						title: '错误，请稍后再试'
+					})
 				})
 			},
 			getPrice() {
@@ -95,6 +82,27 @@
 				this.$http.httpTokenRequest(opts, {}).then(res => {
 					this.amount = res.data.data
 				})
+			},
+			payment(data) {
+				uni.requestPayment({
+				    provider: 'wxpay',
+				    orderInfo: data, //微信、支付宝订单数据
+				    success: function (res) {
+						uni.showToast({
+							icon: 'none',
+							title: '开通成功!'
+						})
+						uni.reLaunch({
+							url: '../vipcenter/vipcenter'
+						})
+				    },
+				    fail: function (err) {
+						uni.showToast({
+							icon: 'none',
+							title: '开通失败!'
+						})
+				    }
+				});
 			}
 		},
 		onShow() {

@@ -30,7 +30,7 @@
 						<view class="checkbox" :class="{check:check==2}"></view>
 					</view>
 				</view>
-				<view class="payitem" @tap="check=3">
+				<!-- <view class="payitem" @tap="check=3">
 					<view class="img">
 						<image src="../../static/img/common/zhifubao.png" mode=""></image>
 					</view>
@@ -38,10 +38,9 @@
 					<view class="check">
 						<view class="checkbox" :class="{check:check==3}"></view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
-		<custom-popup ref="popup" :title="content" :isCancel="false" @confirm="confirm"/>
 		<view class="btn">
 			<button type="primary" @click="recharge">确认充值</button>
 		</view>
@@ -49,28 +48,23 @@
 </template>
 
 <script>
-	import customPopup from '../../components/custom-popup/custom-popup.vue'
 	export default {
-		components: {
-			customPopup
-		},
 		data() {
 			return {
 				userinfo:{},
 				check:2,
-				acount:'',
-				content: "后台订单已生成，点击确认获取向银行卡转账信息，向银行卡转账成功以后联系客服充值"
+				acount:''
 			}
 		},
 		methods: {
-			radioChange: function(evt) {
-				for (let i = 0; i < this.items.length; i++) {
-					if (this.items[i].value === evt.target.value) {
-						this.current = i;
-						break;
-					}
-				}
-			},
+			// radioChange: function(evt) {
+			// 	for (let i = 0; i < this.items.length; i++) {
+			// 		if (this.items[i].value === evt.target.value) {
+			// 			this.current = i;
+			// 			break;
+			// 		}
+			// 	}
+			// },
 			// 获取用户信息
 			getuserinfo() {
 				let opts = {
@@ -92,31 +86,43 @@
 					})
 					return false
 				}
-				if(this.acount<20){
-					uni.showToast({
-						icon:'none',
-						title:"充值金额必须大于20"
-					})
-					return false
-				}
+				// if(this.acount<20){
+				// 	uni.showToast({
+				// 		icon:'none',
+				// 		title:"充值金额必须大于20"
+				// 	})
+				// 	return false
+				// }
 				let opts = {
 					url: '/api/app/recharge',
 					method: 'post'
 				}
 				let param = {
-						payment_method:this.check==2?'wechat_app_pay':'ali_app_pay',
-						amount:this.acount,
-						type:1
+					payment_method:this.check==2?'wechat_app_pay':'ali_app_pay',
+					amount:this.acount,
+					type:1
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
-					this.$refs['popup'].open()
+					this.payment(res.data.data)
 				})
 			},
-			confirm() {
-				this.$refs['popup'].close()
-				uni.redirectTo({
-					url: '/pages/paymentguide/paymentguide'
-				})
+			payment(data) {
+				uni.requestPayment({
+				    provider: 'wxpay',
+				    orderInfo: data, //微信、支付宝订单数据
+				    success: function (res) {
+						uni.showToast({
+							icon: 'none',
+							title: '支付成功！'
+						})
+				    },
+				    fail: function (err) {
+						uni.showToast({
+							icon: 'none',
+							title: '支付失败！'
+						})
+				    }
+				});
 			}
 		},
 		onReady() {
