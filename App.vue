@@ -1,6 +1,8 @@
 <script>
+	import { isLogin } from 'common/user.js'
 	export default {
 		onLaunch: function() {
+			isLogin()
 			console.log('App Launch')
 		},
 		onShow: function() {
@@ -8,9 +10,6 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
-		},
-		methods:{
-			
 		}
 	}
 </script>
