@@ -49,12 +49,6 @@
 			}
 		},
 		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "账号登录"
-			}
-		},
-		{
 			"path": "pages/pay/pay",
 			"style": {
 				"navigationBarTitleText": "支付订单"
@@ -295,21 +289,6 @@
 			}
 		},
 		{
-			"path": "pages/reg/reg",
-			"style": {
-				"navigationBarTitleText": "注册"
-			}
-		}, {
-			"path": "pages/dxlogin/dxlogin",
-			"style": {
-				"navigationBarTitleText": "短信登录"
-			}
-		}, {
-			"path": "pages/pwd/pwd",
-			"style": {
-				"navigationBarTitleText": "找回密码"
-			}
-		}, {
 			"path": "pages/updateuserinfo/updateuserinfo",
 			"style": {
 				"navigationBarTitleText": "修改资料"
@@ -462,6 +441,24 @@
 				"navigationBarTitleText": "修改订单密码"
 			}
         }
+        ,{
+            "path" : "pages/signIn/signIn",
+            "style" : {
+				"navigationStyle": "custom"
+			}
+        },
+		{
+		    "path" : "pages/signUp/signUp",
+		    "style" : {
+		    	"navigationBarTitleText":"注册"
+		    }
+		}
+		,{
+		    "path" : "pages/findpwd/findpwd",
+		    "style" : {
+		    	"navigationBarTitleText":"找回密码"
+		    }
+		}
     ],
 	"tabBar": {
 		"color": "#989898",

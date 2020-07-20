@@ -34,7 +34,7 @@ const httpRequest = (opts, data) => {
 					});
 				} else if (res[1].statusCode == 401) {
 					uni.navigateTo({
-						url: "/pages/login/login"
+						url: "/pages/signIn/signIn"
 					})
 				}
 			}
@@ -96,14 +96,14 @@ const httpTokenRequest = async (opts, data) => {
 					});
 				} else if (res[1].statusCode == 401) {
 					uni.navigateTo({
-						url: "/pages/login/login"
+						url: "/pages/signIn/signIn"
 					})
 				}
 			}
 		).catch(
 			(response) => {
 				uni.navigateTo({
-					url: "/pages/login/login"
+					url: "/pages/signIn/signIn"
 				})
 				reject(response)
 			}

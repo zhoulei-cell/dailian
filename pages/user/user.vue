@@ -226,7 +226,7 @@
 		//跳转登录
 		bindlogin(){
 			uni.navigateTo({
-				url: "../login/login",
+				url: "../signIn/signIn",
 			})
 		},
 		// 路径跳转
@@ -243,7 +243,7 @@
 			 */
 			if (this.forcedLogin) {
 				uni.reLaunch({
-					url: '../login/login',
+					url: '../signIn/signIn',
 				})
 			}
 		},
@@ -273,7 +273,7 @@
 					key: 'token'
 				})
 				uni.navigateTo({
-					url:"/pages/login/login"
+					url:"/pages/signIn/signIn"
 				})
 			})
 		},
