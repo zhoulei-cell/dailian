@@ -226,8 +226,8 @@
 
 <style lang="scss">
 	.sign-in{
+		overflow: hidden;
 		width: 100%;
-		height: 100%;
 		background-color: #fff;
 		.sign-top{
 			position: relative;
