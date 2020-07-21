@@ -285,13 +285,19 @@
 		{
 			"path": "pages/withdrawallist/withdrawallist",
 			"style": {
-				"navigationBarTitleText": "提现记录"
+				"navigationBarTitleText": "提现记录",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
 			"path": "pages/capitalflow/capitalflow",
 			"style": {
-				"navigationBarTitleText": "资金流水"
+				"navigationBarTitleText": "资金流水",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
 			}
 		}
 	    ,{

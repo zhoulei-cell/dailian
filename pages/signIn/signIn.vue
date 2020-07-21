@@ -21,7 +21,7 @@
 				</view>
 				<view class="form-item" v-if="loginType === 'pwd'">
 					<image src="../../static/images/pwd.png" mode="widthFix"></image>
-					<input type="text" placeholder="请输入密码" v-model="password"/>
+					<input type="password" placeholder="请输入密码" v-model="password"/>
 				</view>
 				<view class="form-item" v-if="loginType === 'sms'">
 					<image src="../../static/images/verify.png" mode="widthFix"></image>
