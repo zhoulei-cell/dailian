@@ -382,7 +382,7 @@
 					})
 					if(res.data.code==200){
 						setTimeout(() => {
-							uni.navigateTo({
+							uni.redirectTo({
 								url: '../acceptthewar/acceptthewar'
 							})
 						}, 500)

@@ -80,7 +80,6 @@
 				}
 				this.$http.httpTokenRequest(opts, params).then(res => {
 					const memberList = res.data.data
-					console.log(memberList)
 					memberList.forEach(item => {
 						if (item.captain == 1) {
 							this.sirdarList.push(item)
