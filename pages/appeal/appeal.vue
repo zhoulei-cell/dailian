@@ -116,11 +116,13 @@
 					if(res.data.code==200){
 					}else{
 						uni.showToast({
+							icon: 'none',
 							title:res.data.msg
 						})
 					}
 				}, error => {
 					uni.showToast({
+						icon: 'none',
 						title: '上传图片失败！'
 					})
 				})
@@ -162,7 +164,8 @@
 					}
 				}, error => {
 					uni.showToast({
-						icon: '提交申述失败'
+						icon: 'none',
+						title: '提交申述失败'
 					})
 				})
 			}

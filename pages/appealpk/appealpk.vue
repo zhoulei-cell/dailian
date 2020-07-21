@@ -121,7 +121,8 @@
 					}
 				}, error => {
 					uni.showToast({
-						icon: '提交申述失败'
+						icon: 'none',
+						title: '提交申述失败'
 					})
 				})
 			}

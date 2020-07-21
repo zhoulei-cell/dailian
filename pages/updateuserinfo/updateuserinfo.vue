@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="userimg">
 			<view class="imgbox">
-				<image :src=" userinfo.avatar || '../../static/img/qq.png'" mode="widthFix" @tap="cI"></image>
+				<image :src=" userinfo.avatar || '../../static/img/qq.jpg'" mode="widthFix" @tap="cI"></image>
 			</view>
 		</view>
 		<view class="input-group">

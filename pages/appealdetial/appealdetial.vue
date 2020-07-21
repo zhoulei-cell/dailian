@@ -162,7 +162,8 @@
 					}
 				}, error => {
 					uni.showToast({
-						icon: '图片上传失败'
+						icon: 'none',
+						title: '图片上传失败'
 					})
 				})
 			},
@@ -183,11 +184,9 @@
 				let params={
 					id: this.appeals,
 				}
-				console.log(this.appeals)
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						this.orderinfo=res.data.data
-						console.log(this.orderinfo)
 					}else{
 						uni.showToast({
 							title:res.data.msg
@@ -195,7 +194,8 @@
 					}
 				}, error => {
 					uni.showToast({
-						icon: '获取数据失败，请稍后重试'
+						icon: 'none',
+						title: '获取数据失败，请稍后重试'
 					})
 				})
 			},
@@ -217,7 +217,6 @@
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						uni.showToast({
-							icon:'none',
 							title:res.data.msg
 						})
 						this.imglist=[]
@@ -231,7 +230,8 @@
 					}
 				}, error => {
 					uni.showToast({
-						icon: '提交申述失败'
+						icon: 'none',
+						title: '提交申述失败'
 					})
 				})
 			}

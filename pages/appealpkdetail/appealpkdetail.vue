@@ -137,7 +137,8 @@
 					this.orderinfo = res.data
 				}, error => {
 					uni.showToast({
-						icon: '获取数据失败，请稍后重试'
+						icon: 'none',
+						title: '获取数据失败，请稍后重试'
 					})
 				})
 			},
