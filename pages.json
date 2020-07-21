@@ -52,6 +52,7 @@
 			"path": "pages/user/user",
 			"style": {
 				"navigationStyle": "custom",
+				"enablePullDownRefresh": true,
 				"app-plus": {
 					"scrollIndicator": "none"
 				}

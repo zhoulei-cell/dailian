@@ -4,10 +4,10 @@
 		<view class="topuser">
 			<view class="usertopcont">
 				<view class="tag" :class="userinfo.is_member ? 'vip' : 'no_vip'"></view>
-				<view class="userinfo">
+				<view class="userinfo" @tap="toEditUserInfo">
 					<view class="userinfoimg">
 						<view class="img">
-							<image :src="userinfo.avatar || '../../static/img/qq.png'" mode="aspectFit"></image>
+							<image :src="userinfo.avatar || '../../static/img/qq.jpg'" mode="aspectFit"></image>
 						</view>
 					</view>
 					<view class="userinfotext">
@@ -17,7 +17,7 @@
 					</view>
 				</view>
 				<view class="withdrawal">
-					<view class="item">
+					<view class="item" @tap="toWith">
 						<view class="itemnumber">{{userinfo.balance || 0}}</view>
 						<view class="itemtext">账户余额（元）</view>
 					</view>
@@ -222,95 +222,134 @@
 			uniListItem,
 			customPopup
 		},
-    methods: {
-		//跳转登录
-		bindlogin(){
-			uni.navigateTo({
-				url: "../signIn/signIn",
-			})
-		},
-		// 路径跳转
-		navigateTo(url){
-			uni.navigateTo({
-				url: url,
-			});
-		},
-		// 退出登录
-		bindLogout() {
-			this.logout();
-			/**
-			 * 如果需要强制登录跳转回登录页面
-			 */
-			if (this.forcedLogin) {
-				uni.reLaunch({
-					url: '../signIn/signIn',
-				})
-			}
-		},
-		openLogoutPopup() {
-			this.$refs['customPopupLogout'].open()
-		},
-		cancelLogout() {
-			this.$refs['customPopupLogout'].close()
-		},
-		confirmLogout() {
-			this.logout()
-			this.$refs['customPopupLogout'].close()
-		},
-		// 退出登录
-		logout(){
-			let opts = {
-				url: '/api/loginout',
-				method: 'post'
-			}
-			let param = {
-			}
-			this.$http.httpTokenRequest(opts,param).then(res => {
-				uni.removeStorage({
-					key: 'userinfo'
-				})
-				uni.removeStorage({
-					key: 'token'
-				})
+		methods: {
+			//跳转登录
+			bindlogin(){
 				uni.navigateTo({
-					url:"/pages/signIn/signIn"
+					url: "../signIn/signIn",
 				})
-			})
-		},
-		// 获取用户信息
-		getuserinfo(){
-			let opts = {
-				url: '/api/getUserInfo',
-				method: 'get'
-			}
-			let param = {
-				
-			}
-			this.$http.httpTokenRequest(opts,param).then(res => {
-				this.userinfo = res.data.data
-				this.user = {
-					phone: this.userinfo.phone,
-					name: this.userinfo.name,
-					avatar: this.userinfo.avatar,
-					is_member: this.userinfo.is_member
+			},
+			// 路径跳转
+			navigateTo(url){
+				uni.navigateTo({
+					url: url,
+				});
+			},
+			// 退出登录
+			bindLogout() {
+				this.logout();
+				/**
+				 * 如果需要强制登录跳转回登录页面
+				 */
+				if (this.forcedLogin) {
+					uni.reLaunch({
+						url: '../signIn/signIn',
+					})
 				}
-			})
-		},
-		//我的推广信息获取
-		getDistribution() {
-			let opts = {
-				url: '/api/user/distribution',
-				method: 'get'
+			},
+			openLogoutPopup() {
+				this.$refs['customPopupLogout'].open()
+			},
+			cancelLogout() {
+				this.$refs['customPopupLogout'].close()
+			},
+			confirmLogout() {
+				this.logout()
+				this.$refs['customPopupLogout'].close()
+			},
+			// 退出登录
+			logout(){
+				let opts = {
+					url: '/api/loginout',
+					method: 'post'
+				}
+				let param = {
+				}
+				this.$http.httpTokenRequest(opts,param).then(res => {
+					uni.removeStorage({
+						key: 'userinfo'
+					})
+					uni.removeStorage({
+						key: 'token'
+					})
+					uni.navigateTo({
+						url:"/pages/signIn/signIn"
+					})
+				})
+			},
+			// 获取用户信息
+			async getuserinfo(){
+				let opts = {
+					url: '/api/getUserInfo',
+					method: 'get'
+				}
+				let param = {}
+				// this.$http.httpTokenRequest(opts,param).then(res => {
+				// 	this.userinfo = res.data.data
+				// 	this.user = {
+				// 		phone: this.userinfo.phone,
+				// 		name: this.userinfo.name,
+				// 		avatar: this.userinfo.avatar,
+				// 		is_member: this.userinfo.is_member
+				// 	}
+				// })
+				try {
+					const res = await this.$http.httpTokenRequest(opts,param)
+					this.userinfo = res.data.data
+					this.user = {
+						phone: this.userinfo.phone,
+						name: this.userinfo.name,
+						avatar: this.userinfo.avatar,
+						is_member: this.userinfo.is_member
+					}
+				} catch(e) {
+					uni.showToast({
+						icon: 'none',
+						title: '获取用户数据失败'
+					})
+				}
+			},
+			//我的推广信息获取
+			async getDistribution() {
+				let opts = {
+					url: '/api/user/distribution',
+					method: 'get'
+				}
+				// this.$http.httpTokenRequest(opts, {}).then(res => {
+				// 	this.promote = res.data.data
+				// })
+				try{
+					const res = await this.$http.httpTokenRequest(opts, {})
+					this.promote = res.data.data
+				} catch(e) {
+					uni.showToast({
+						icon: 'none',
+						title: '获取推广信息数据失败'
+					})
+				}
+			},
+			//跳转信息修改
+			toEditUserInfo() {
+				uni.navigateTo({
+					url: '/pages/updateuserinfo/updateuserinfo'
+				})
+			},
+			//跳转到钱包
+			toWith() {
+				uni.navigateTo({
+					url: '/pages/mwallet/mwallet'
+				})
 			}
-			this.$http.httpTokenRequest(opts, {}).then(res => {
-				this.promote = res.data.data
-			})
+		},
+		onShow() {
+			this.getuserinfo()
+			this.getDistribution()
+		},
+		async onPullDownRefresh() {
+			this.getuserinfo()
+			await this.getDistribution()
+			uni.stopPullDownRefresh()
 		}
-    },
-	onShow() {
-		this.getuserinfo()
-		this.getDistribution()
-	}
   }
 </script>
 

@@ -1,8 +1,10 @@
 <script>
 	import { isLogin } from 'common/user.js'
+	import { updata } from 'common/lib.js'
 	export default {
 		onLaunch: function() {
-			isLogin()
+			isLogin() //检查是否登陆
+			updata() //检查更新
 			console.log('App Launch')
 		},
 		onShow: function() {

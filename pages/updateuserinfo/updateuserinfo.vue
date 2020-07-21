@@ -43,7 +43,6 @@
 				}
 				this.$http.httpTokenRequest(opts,param).then(res => {
 					this.userinfo = res.data.data
-					console.log(this.userinfo)
 				})
 			},
 			//图片上传
@@ -53,9 +52,9 @@
 			        count: 1,
 			        sizeType:['copressed'],
 			        success(res) {
-			            var imgFiles = res.tempFilePaths[0]
+			            var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
 			            _this.$http.uploadimg(imgFiles).then((res)=>{
-							var data=JSON.parse(res.data)
+							var data = JSON.parse(res.data)
 							_this.userinfo.avatar = data.data[0].full
 							_this.path=data.data[0].url
 						})

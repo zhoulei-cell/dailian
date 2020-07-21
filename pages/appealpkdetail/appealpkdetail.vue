@@ -29,7 +29,7 @@
 					<view class="time">
 						{{re.created_at}}
 					</view>
-					<view class="line2 red">{{re.username || '无用户名'}}</view>
+					<view class="line2 red">{{re.user.name + "（" + re.type + "）"}}</view>
 					<view class="line2">{{re.content}}</view>
 					<view class="imglist">
 					<view class="imgbox" v-for="(imglist,index) in re.images" :key="index">

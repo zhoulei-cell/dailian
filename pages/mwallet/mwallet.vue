@@ -7,7 +7,7 @@
 				<view class="userinfo">
 					<view class="userinfoimg">
 						<view class="img">
-							<image :src="userinfo.avatar || '../../static/img/qq.png'" mode="aspectFit"></image>
+							<image :src="userinfo.avatar || '../../static/img/qq.jpg'" mode="aspectFit"></image>
 						</view>
 					</view>
 					<view class="userinfotext">

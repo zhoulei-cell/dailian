@@ -54,10 +54,10 @@
     	</view>
     	<view class="lineinfo">
     		<view class="title">账号信息</view>
-    		<view class="cont">
-    			<view class="line">账号：{{orderInfo.game_account}}</view>
-    			<view class="line">密码：{{orderInfo.game_password}}</view>
-				<view class="line">游戏角色：{{orderInfo.game_role_name}}</view>
+    		<view class="cont d-flex fd-column">
+    			<text :selectable="true" class="line">账号：{{orderInfo.game_account}}</text>
+    			<text :selectable="true" class="line">密码：{{orderInfo.game_password}}</text>
+    			<text :selectable="true" class="line">游戏角色：{{orderInfo.game_role_name}}</text>
     		</view>
     	</view>
     	<view class="lineinfo" v-if="orderInfo.rel_message">

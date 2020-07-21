@@ -3,7 +3,7 @@
 		<view class="wrapper">
 			<view class="top">
 				<view class="photo-box d-flex fd-column jc-center ai-center">
-					<image :src="info.current_user.avatar || '../../static/img/qq.png'" mode="scaleToFill"></image>
+					<image :src="info.current_user.avatar || '../../static/img/qq.jpg'" mode="scaleToFill"></image>
 					<view class="name">{{info.current_user.name}}</view>
 				</view>
 				<!-- <view class="money-wrap d-flex jc-between">
