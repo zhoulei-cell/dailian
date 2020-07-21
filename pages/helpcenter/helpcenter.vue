@@ -19,7 +19,7 @@
 				<view class="text flex-1">3、提现手续费多少？</view>
 				<image :class="{left: !status[2].isShow, bottom: status[2].isShow}" :src="status[2].isShow ? bottomImg : rightImg"></image>
 			</view>
-			<view class="list-group-answer" v-show="status[2].isShow">当会员想提现余额时我们这边的提现余额通道将收取5%的手续费。</view>
+			<view class="list-group-answer" v-show="status[2].isShow">当会员想提现余额时我们这边的提现余额通道将收取1%的手续费。</view>
 		</view>
 		<view class="list-group" @tap="show(3)">
 			<view class="list-group-title d-flex jc-between ai-center">

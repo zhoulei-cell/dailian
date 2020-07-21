@@ -102,7 +102,6 @@
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
 						this.orderinfo=res.data.data
-						console.log(this.orderinfo)
 					}else{
 						uni.showToast({
 							icon:'none',

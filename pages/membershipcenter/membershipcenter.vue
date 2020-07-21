@@ -92,7 +92,7 @@
 							icon: 'none',
 							title: '开通成功!'
 						})
-						uni.reLaunch({
+						uni.redirectTo({
 							url: '../vipcenter/vipcenter'
 						})
 				    },

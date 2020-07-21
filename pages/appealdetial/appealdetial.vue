@@ -161,7 +161,9 @@
 						})
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: '图片上传失败'
+					})
 				})
 			},
 			radioChange: function(evt) {
@@ -192,7 +194,9 @@
 						})
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: '获取数据失败，请稍后重试'
+					})
 				})
 			},
 			// 提交申诉
@@ -226,15 +230,16 @@
 						})
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: '提交申述失败'
+					})
 				})
 			}
 		},
 		onLoad: function (option) {
-			this.appeals=JSON.parse(option.item).appeals
-			console.log(this.appeals)
+			this.appeals = JSON.parse(option.item).appeals
 			if(option.type){
-				this.items=[
+				this.items = [
 					{
 						value: '0',
 						name: '我要退订单'

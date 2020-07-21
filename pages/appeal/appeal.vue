@@ -94,9 +94,8 @@
 						success(res) {
 							var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
 							_this.$http.uploadimg(imgFiles).then((res)=>{
-								var data=JSON.parse(res.data)
+								var data = JSON.parse(res.data)
 								_this.imglist = _this.imglist.concat(data.data)
-								console.log(_this.imglist)
 								_this.imgsubmit(data.data[0].url)
 							})
 						}
@@ -162,14 +161,16 @@
 						})
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: '提交申述失败'
+					})
 				})
 			}
 		},
 		onLoad: function (option) {
-			this.orderinfo=JSON.parse(option.item)
+			this.orderinfo = JSON.parse(option.item)
 			if(option.type){
-				this.items=[
+				this.items = [
 					{
 						value: '0',
 						name: '我要退订单'

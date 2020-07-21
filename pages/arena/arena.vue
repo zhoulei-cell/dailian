@@ -51,65 +51,65 @@
 	import loadMore from '@/components/load-more'
 	import data2 from '@/common/data2.js';//筛选菜单数据
     export default {
-			components: {
-				'HMfilterDropdown':HMfilterDropdown,
-				loadMore
+		components: {
+			'HMfilterDropdown':HMfilterDropdown,
+			loadMore
+		},
+		data() {
+			return {
+				filterData:[],
+				filterDropdownValue:[],
+				page:1,
+				listData:[],
+				area_id:'',
+				order:'',
+				loadMoreText: '上拉加载更多...',
+				isShow: false
+			}
+		},
+		async onPullDownRefresh() {
+			this.page=1
+			await this.getlist()
+			uni.stopPullDownRefresh()
+		},
+		onReachBottom(){
+			if (!this.isEnd) {
+				this.loadMoreText = "加载中..."
+				this.page++
+				this.getlist()
+			} 
+		},
+		methods: {
+			navtodetail(list){
+				uni.navigateTo({
+					url:'../battledetails/battledetails?list='+JSON.stringify(list)
+				})
 			},
-			data() {
-				return {
-					filterData:[],
-					filterDropdownValue:[],
-					page:1,
-					listData:[],
-					area_id:'',
-					order:'',
-					loadMoreText: '上拉加载更多...',
-					isShow: false
-				}
-			},
-			async onPullDownRefresh() {
-				this.page=1
-				await this.getlist()
-				uni.stopPullDownRefresh()
-			},
-			onReachBottom(){
-				if (!this.isEnd) {
-					this.loadMoreText = "加载中..."
-					this.page++
-					this.getlist()
-				} 
-			},
-			methods: {
-				navtodetail(list){
-					uni.navigateTo({
-						url:'../battledetails/battledetails?list='+JSON.stringify(list)
-					})
-				},
-				// 获取筛选数据
-				async getGameplatforms() {
-						let opts = {
-							url: '/api/game/platforms?game_id=1',
-							method: 'get'
+			// 获取筛选数据
+			async getGameplatforms() {
+					let opts = {
+						url: '/api/game/platforms?game_id=1',
+						method: 'get'
+					}
+					let data1 = await this.$http.httpRequest(opts)
+					let newarr=[
+						{
+							name:'全部',
+							value:''
 						}
-						let data1 = await this.$http.httpRequest(opts)
-						let newarr=[
-							{
-								name:'全部',
-								value:''
-							}
-						]
-						for(var i=0;i<data1.data.data.length;i++){
-							var newobj=data1.data.data[i]
-							newobj.value=newobj.id
-							newarr.push(newobj)
-						}
-						this.filterData=data2
-						this.filterData[0]['submenu']=newarr
-						this.filterDropdownValue = [
-							[0],
-							[0]
-						];
-				},
+					]
+					for(var i=0;i<data1.data.data.length;i++){
+						var newobj=data1.data.data[i]
+						newobj.value=newobj.id
+						newarr.push(newobj)
+					}
+					this.filterData=data2
+					this.filterData[0]['submenu']=newarr
+					this.filterDropdownValue = [
+						[0],
+						[0]
+					];
+			},
 			//接收菜单结果
 			confirm(e){
 				this.page=1
@@ -145,26 +145,26 @@
 				}, error => {
 					console.log(error);
 				})
-				}
-      },
-      async onLoad() {
-				await this.getGameplatforms()
-      },
-			onShow() {
-				this.getlist()
-			},
-			/*onPageScroll(options) {
-				if (options.scrollTop >= 44) {
-					this.isShow = true
-				} else {
-					this.isShow = false
-				}
-			}*/
-			onNavigationBarButtonTap(options) {
-				uni.navigateTo({
-					url: '/pages/rule/rule'
-				})
 			}
+        },
+		async onLoad() {
+					await this.getGameplatforms()
+		},
+		onShow() {
+			this.getlist()
+		},
+		/*onPageScroll(options) {
+			if (options.scrollTop >= 44) {
+				this.isShow = true
+			} else {
+				this.isShow = false
+			}
+		}*/
+		onNavigationBarButtonTap(options) {
+			uni.navigateTo({
+				url: '/pages/rule/rule'
+			})
+		}
     }
 </script>
 

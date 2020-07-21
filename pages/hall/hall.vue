@@ -122,7 +122,6 @@
 					newarr.push(newobj)
 				}
 				this.filterData = data
-				console.log(data)
 				this.filterData[0]['submenu'] = newarr
 				this.filterDropdownValue = [
 					[0],
@@ -140,7 +139,6 @@
 			},
 			//接收菜单结果
 			confirm(e) {
-				console.log(e)
 				this.page = 1
 				this.ordertype = e.value[1][0]
 				this.platform_id = e.value[0][0]

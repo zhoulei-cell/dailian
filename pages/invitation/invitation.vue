@@ -2,7 +2,7 @@
     <view class="content">
 		<view class="title">邀请有奖</view>
 		<view class="img">
-			<image :src="imgurl" mode=""></image>
+			<image :src="imgurl" mode="widthFix"></image>
 		</view>
     </view>
 </template>

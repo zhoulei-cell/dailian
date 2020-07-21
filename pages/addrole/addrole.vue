@@ -93,7 +93,9 @@ export default {
 					})
 				}
 			}, error => {
-				console.log(error);
+				uni.showToast({
+					icon: '获取数据失败，请稍后重试'
+				})
 			})
 		},
 		bindMultiPickerColumnChange: function(e) {

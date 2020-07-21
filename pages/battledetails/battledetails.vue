@@ -351,7 +351,6 @@
 				return this.$http.httpTokenRequest(opts, params).then(res => {
 					if (res.data.code == 200) {
 						this.detailinfo=res.data.data
-						console.log(this.detailinfo)
 					}
 				}, error => {
 					console.log(error);
@@ -393,8 +392,8 @@
 			}
 		},
 		async onLoad(option) {
-			this.match_id=JSON.parse(option.list).id
-			this.type=option.type
+			this.match_id = JSON.parse(option.list).id
+			this.type = option.type
 			this.getuserinfo()
 		},
 		onShow() {

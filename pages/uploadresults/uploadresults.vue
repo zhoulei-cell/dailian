@@ -17,94 +17,94 @@
 </template>
 
 <script>
-    // 注册一个进度条
-	//var _self;
-	import uploadImage from '../../components/upload-image'
-  export default {
-		data() {
-			return {
-				percent:0,
-				imageList:[],
-				selectindex:1,
-				id:"",
-				check:1
-			}
-		},
-		components: {
-			uploadImage
-		},
-    methods: {
-			updataImg(list) {
-				this.imageList = list
-			},
-			//确认上传图片
-			uploadImg() {
-				const imgFiles = []
-				if (this.imageList.length === 0) {
-					uni.showToast({
-						icon: 'none',
-						title: '您还没有选择图片'
-					})
-					return null
-				}
-				if (this.imageList.length > 5) {
-					uni.showToast({
-						icon: 'none',
-						title: '最多只能上传五张图片'
-					})
-					return null
-				}
-				this.imageList.forEach((item,index) => {
-					imgFiles.push({uri: item, name: `image[${index}]`})
-				})
-				this.$http.uploadimg(imgFiles).then((res)=>{
-					let url = ''
-					const data = JSON.parse(res.data)
-					data.data.forEach((item, index) => {
-						if (index == 0) {
-							url += item.url
-						} else {
-							url += "," + item.url;
-						}
-					})
-					this.imgsubmit(url)
-				})
-			},
-			//图片上传提交
-			imgsubmit(url){
-				let opts = {
-					url: '/api/match/prefinish',
-					method: 'post'
-				}
-				let params={
-					match_id: this.id,
-					images: url,
-					win: this.check
-				}
-				this.$http.httpTokenRequest(opts,params).then(res => {
-					if(res.data.code==200){
-						uni.showToast({
-							icon:'none',
-							title:res.data.msg
-						})
-						uni.navigateTo({
-							url: '/pages/warrecord/warrecord'
-						})
-					}else{
-						uni.showToast({
-							icon:'none',
-							title:res.data.msg
-						})
-					}
-				}, error => {
-					console.log(error);
-				})
-			}
-		},
-		onLoad: function (option) {
-			this.id = option.id
+// 注册一个进度条
+//var _self;
+import uploadImage from '../../components/upload-image'
+export default {
+	data() {
+		return {
+			percent:0,
+			imageList:[],
+			selectindex:1,
+			id:"",
+			check:1
 		}
-  }
+	},
+	components: {
+		uploadImage
+	},
+    methods: {
+		updataImg(list) {
+			this.imageList = list
+		},
+		//确认上传图片
+		uploadImg() {
+			const imgFiles = []
+			if (this.imageList.length === 0) {
+				uni.showToast({
+					icon: 'none',
+					title: '您还没有选择图片'
+				})
+				return null
+			}
+			if (this.imageList.length > 5) {
+				uni.showToast({
+					icon: 'none',
+					title: '最多只能上传五张图片'
+				})
+				return null
+			}
+			this.imageList.forEach((item,index) => {
+				imgFiles.push({uri: item, name: `image[${index}]`})
+			})
+			this.$http.uploadimg(imgFiles).then((res)=>{
+				let url = ''
+				const data = JSON.parse(res.data)
+				data.data.forEach((item, index) => {
+					if (index == 0) {
+						url += item.url
+					} else {
+						url += "," + item.url;
+					}
+				})
+				this.imgsubmit(url)
+			})
+		},
+		//图片上传提交
+		imgsubmit(url){
+			let opts = {
+				url: '/api/match/prefinish',
+				method: 'post'
+			}
+			let params={
+				match_id: this.id,
+				images: url,
+				win: this.check
+			}
+			this.$http.httpTokenRequest(opts,params).then(res => {
+				if(res.data.code==200){
+					uni.showToast({
+						icon:'none',
+						title:res.data.msg
+					})
+					uni.navigateTo({
+						url: '/pages/warrecord/warrecord'
+					})
+				}else{
+					uni.showToast({
+						icon:'none',
+						title:res.data.msg
+					})
+				}
+			}, error => {
+				console.log(error);
+			})
+		}
+	},
+	onLoad: function (option) {
+		this.id = option.id
+	}
+}
 </script>
 
 <style lang="scss">
@@ -171,19 +171,19 @@
 		width: 100%;
 		padding: 20rpx;
 	}
-.imgbox{
-	width: 350rpx;
-	height: 350rpx;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
-	margin-bottom: 20rpx;
-}
-.imgbox image{
-	width: 100%;
-	
-}
+	.imgbox{
+		width: 350rpx;
+		height: 350rpx;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+		margin-bottom: 20rpx;
+	}
+	.imgbox image{
+		width: 100%;
+		
+	}
 .status{
 	.item{
 		display: flex;
@@ -208,7 +208,7 @@
 		}
 	}
 }
-.next{
+	.next{
 		position: fixed;
 		bottom: 0;
 		width: 100%;

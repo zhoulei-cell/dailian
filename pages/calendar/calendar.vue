@@ -50,7 +50,7 @@
 				var date = new Date()
 				var datetime = util.getTime(date)
 				await this.sign()
-				let time=util.dateFormat('YYYY-mm',date)
+				let time = util.dateFormat('YYYY-mm',date)
 				this.getsignlist(time+'-01',time+'-31')
 			},
 			async change(e) {
@@ -140,8 +140,8 @@
 			}
 		},
 		onLoad() {
-			let date=new Date()
-			let time=util.dateFormat('YYYY-mm',date)
+			let date = new Date()
+			let time = util.dateFormat('YYYY-mm',date)
 			//console.log(this.getMonthDay(date.getFullYear(), date.getMonth() + 1 + 2))
 			this.getsignlist(time+'-01',time+'-31')
 		}

@@ -84,13 +84,14 @@ export default {
 				method: 'get'
 			}
 			this.$http.httpRequest(opts).then(res => {
-				console.log(res.data)
 				if(res.data.code==200){
 					this.multiArray[0]=res.data.data
 					this.getGameAreas(res.data.data[0].id)
 				}
 			}, error => {
-				console.log(error);
+				uni.showToast({
+					icon: '获取数据失败，请稍后重试'
+				})
 			})
 			
 		},
@@ -106,7 +107,9 @@ export default {
 					this.$forceUpdate()
 				}
 			}, error => {
-				console.log(error);
+				uni.showToast({
+					icon: '获取数据失败，请稍后重试'
+				})
 			})
 			
 		},
@@ -116,7 +119,7 @@ export default {
 			});
 		},
 		bindMultiPickerColumnChange: function(e) {
-			console.log('修改的列为：' + e.detail.column + '，值为：' + e.detail.value)
+			//console.log('修改的列为：' + e.detail.column + '，值为：' + e.detail.value)
 			this.multiIndex[e.detail.column] = e.detail.value
 			switch (e.detail.column) {
 				case 0: //拖动第1列
@@ -129,7 +132,6 @@ export default {
 			this.$forceUpdate()
 		},
         bindPickerChange: function(e) {
-            console.log('picker发送选择改变，携带值为', e.target.value)
             this.index = e.target.value
         }
     },

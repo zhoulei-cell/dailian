@@ -14,17 +14,6 @@
 
 <script>
     export default {
-        components: {
-        },
-        data() {
-            return {
-            }
-        },
-        methods: {
-            
-        },
-        onReady() {
-        }
     }
 </script>
 

@@ -49,18 +49,6 @@
 			}
 		},
 		{
-			"path": "pages/pay/pay",
-			"style": {
-				"navigationBarTitleText": "支付订单"
-			}
-		},
-		{
-			"path": "pages/paysuccess/paysuccess",
-			"style": {
-				"navigationBarTitleText": "支付成功"
-			}
-		},
-		{
 			"path": "pages/user/user",
 			"style": {
 				"navigationStyle": "custom",
@@ -168,12 +156,6 @@
 				"app-plus": {
 					"scrollIndicator": "none"
 				}
-			}
-		},
-		{
-			"path": "pages/coupon/coupon",
-			"style": {
-				"navigationBarTitleText": "优惠券"
 			}
 		},
 		{
@@ -359,15 +341,6 @@
 				"navigationBarTitleText": "聊天列表",
 				"navigationStyle":"custom"
 				
-			}
-        }
-        ,{
-            "path" : "pages/paymentguide/paymentguide",
-            "style" : {
-				"navigationBarTitleText": "支付教程",
-				"app-plus": {
-					"scrollIndicator": "none"
-				}
 			}
         }
         ,{

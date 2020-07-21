@@ -223,14 +223,13 @@
 						title: '请填写正确的订单价格'
 					})
 					return false
-				} else {
-					if (this.info.price < 5) {
-						uni.showToast({
-							icon: 'none',
-							title: '订单价格最低5块'
-						})
-						return false
-					}
+				} 
+				if (this.info.price < 5) {
+					uni.showToast({
+						icon: 'none',
+						title: '订单价格最低5块'
+					})
+					return false
 				}
 				if (!check.checkLevel(this.info.inscription_level)) {
 					uni.showToast({

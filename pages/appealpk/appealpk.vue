@@ -74,7 +74,7 @@
 					success(res) {
 						var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
 						_this.$http.uploadimg(imgFiles).then((res)=>{
-							var data=JSON.parse(res.data)
+							var data = JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
 							//_this.imgsubmit(data.data[0].url)
 							_this.imgdata.push(data.data[0].url)
@@ -96,13 +96,13 @@
 					url: '/api/match/appeal',
 					method: 'post'
 				}
-				let type=this.items[this.current].value
-				let params={
-					match_id:this.match_id,
-					reason:type,
-					description:this.desc,
-					amount:this.amount,
-					images:String(this.imgdata)
+				let type = this.items[this.current].value
+				let params = {
+					match_id: this.match_id,
+					reason: type,
+					description: this.desc,
+					amount: this.amount,
+					images: String(this.imgdata)
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					if(res.data.code==200){
@@ -120,12 +120,14 @@
 						})
 					}
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: '提交申述失败'
+					})
 				})
 			}
 		},
 		onLoad: function (option) {
-			this.match_id=option.id
+			this.match_id = option.id
 		}
 	}
 </script>

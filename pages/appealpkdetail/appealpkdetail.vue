@@ -110,7 +110,7 @@
 						success(res) {
 							var imgFiles = [{uri: res.tempFilePaths[0], name: `image[0]`}]
 							_this.$http.uploadimg(imgFiles).then((res)=>{
-							var data=JSON.parse(res.data)
+							var data = JSON.parse(res.data)
 							_this.imglist = _this.imglist.concat(data.data)
 						})
 					}
@@ -135,10 +135,10 @@
 				}
 				this.$http.httpTokenRequest(opts,params).then(res => {
 					this.orderinfo = res.data
-					console.log(this.orderinfo)
-					console.log(res.data)
 				}, error => {
-					console.log(error);
+					uni.showToast({
+						icon: '获取数据失败，请稍后重试'
+					})
 				})
 			},
 			// 提交申诉
