@@ -175,11 +175,12 @@
 			</view>
 		</view>
 		<view class="fixed-btn d-flex" v-if="detailinfo.status==1&&userinfo.id!=detailinfo.user.id">
-			<view class="btn flex-1 d-flex ai-center jc-center" @tap="nextStep">
+			<view class="btn flex-1 d-flex ai-center jc-center" @tap="open">
 				<view class="pay">支付{{detailinfo.amount}}帮币</view>
 				<view class="go">发起挑战</view>
 			</view>
 		</view>
+		<custom-popup :title="title" ref="pay" @confirm="payConfirm" @cancel="close"/>
 	</view>
 </template>
 
@@ -188,12 +189,14 @@
 		mapState,
 		mapMutations
 	} from 'vuex'
+	import CustomPopup from '@/components/custom-popup/custom-popup.vue'
 	import EvanSteps from '@/components/evan-steps/evan-steps.vue'
 	import EvanStep from '@/components/evan-steps/evan-step.vue'
 	export default {
 		components: {
 			EvanSteps,
-			EvanStep
+			EvanStep,
+			CustomPopup
 		},
 		data() {
 			return {
@@ -255,10 +258,15 @@
 				userinfo:{}
 			}
 		},
-		computed: mapState({
-			// 箭头函数可使代码更简练
-			role: state => state.role
-		}),
+		computed: {
+			... mapState({
+				// 箭头函数可使代码更简练
+				role: state => state.role
+			}),
+			title() {
+				return `是否确认支付${this.detailinfo.amount}帮币发起挑战`
+			}
+		},
 		methods: {
 			getuserinfo(){
 				let that=this
@@ -358,13 +366,6 @@
 			},
 			//提交
 			nextStep: function() {
-				if(!this.role.id){
-					uni.showToast({
-						icon:'none',
-						title:'请选择角色'
-					})
-					return false
-				}
 				let opts = {
 					url: '/api/match/partake',
 					method: 'post'
@@ -389,6 +390,23 @@
 				}, error => {
 					console.log(error);
 				})
+			},
+			open() {
+				if(!this.role.id){
+					uni.showToast({
+						icon:'none',
+						title:'请选择角色'
+					})
+					return false
+				}
+				this.$refs['pay'].open()
+			},
+			close() {
+				this.$refs['pay'].close()
+			},
+			payConfirm() {
+				this.nextStep()
+				this.close()
 			}
 		},
 		async onLoad(option) {
