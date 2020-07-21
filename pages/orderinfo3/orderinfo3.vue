@@ -96,49 +96,48 @@
 <script>
 export default {
     data() {
-      return {
-				orderInfo:{
-					game: {},
-					game_area: {},
-					platform: {},
-					user: {}
-				},
-				id:""
-      }
+        return {
+			orderInfo:{
+				game: {},
+				game_area: {},
+				platform: {},
+				user: {}
+			},
+			id:""
+        }
     },
     methods: {
-			//获取订单详情
-			getorderdetail(id){
-				let opts = {
-					url: '/api/order/received/info?order_id='+id,
-					method: 'get'
-				}
-				let params = {
-				}
-				this.$http.httpTokenRequest(opts, params).then(res => {
-					if (res.data.code == 200) {
-						this.orderInfo=res.data.data
-					}
-				}, error => {
-					console.log(error);
-				})
+		//获取订单详情
+		getorderdetail(id){
+			let opts = {
+				url: '/api/order/received/info?order_id='+id,
+				method: 'get'
 			}
-    },
-		onLoad: function (option) { 
-			console.log(option.id)
-			this.id=option.id
-			this.getorderdetail(option.id)
-		},
-		onBackPress(options) {  
-			if (options.from === 'navigateBack') {  
-					return false;  
-			}  
-			uni.navigateTo({
-				url: '/pages/orderreceiving/orderreceiving'
+			let params = {
+			}
+			this.$http.httpTokenRequest(opts, params).then(res => {
+				if (res.data.code == 200) {
+					this.orderInfo=res.data.data
+				}
+			}, error => {
+				console.log(error);
 			})
-			return true
 		}
+    },
+	onLoad: function (option) { 
+		this.id=option.id
+		this.getorderdetail(option.id)
+	},
+	onBackPress(options) {  
+		if (options.from === 'navigateBack') {  
+				return false;  
+		}  
+		uni.navigateTo({
+			url: '/pages/orderreceiving/orderreceiving'
+		})
+		return true
 	}
+}
 </script>
 <style>
 	.blue{

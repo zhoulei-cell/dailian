@@ -133,7 +133,6 @@ export default {
 			this.$http.httpTokenRequest(opts, params).then(res => {
 				if (res.data.code == 200) {
 					this.orderInfo=res.data.data
-					console.log(this.orderInfo)
 				}
 			}, error => {
 				console.log(error);
