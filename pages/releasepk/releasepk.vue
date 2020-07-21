@@ -147,7 +147,7 @@
 					})
 					if(res.data.code==200){
 						setTimeout(() => {
-							uni.navigateTo({
+							uni.redirectTo({
 								url: '../arena/arena'
 							})
 						}, 500)
