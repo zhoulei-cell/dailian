@@ -3,7 +3,7 @@
 		<!-- 用户信息 -->
 		<view class="topuser">
 			<view class="usertopcont">
-				<view class="tag"></view>
+				<view class="tag" @tap="toVip"></view>
 				<view class="userinfo">
 					<view class="userinfoimg">
 						<view class="img">
@@ -73,7 +73,25 @@
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
 					this.userinfo = res.data.data
+					this.user = {
+						phone: this.userinfo.phone,
+						name: this.userinfo.name,
+						avatar: this.userinfo.avatar,
+						is_member: this.userinfo.is_member
+					}
 				})
+			},
+			//跳转会员中心
+			toVip() {
+				if (this.userinfo.is_member !== 1) {
+					uni.redirectTo({
+						url: '/pages/membershipcenter/membershipcenter'
+					})
+				} {
+					uni.redirectTo({
+						url: '../vipcenter/vipcenter?userinfo=' + JSON.stringify(this.user)
+					})
+				}
 			}
         },
 		onLoad() {

@@ -45,109 +45,108 @@
 	import HMfilterDropdown from '@/components/HM-filterDropdown/HM-filterDropdown.vue';
 	import loadMore from '@/components/load-more'
 	import data2 from '@/common/data2.js';//筛选菜单数据
-    export default {
-      components: {
-				'HMfilterDropdown':HMfilterDropdown,
-				loadMore
-      },
-			data() {
-				return {
-					filterData:[],
-					filterDropdownValue:[],
-					page: 1,
-					listData: [],
-					area_id: '',
-					order: '',
-					loadMoreText: '上拉加载更多...'
-				}
-			},
-			async onPullDownRefresh() {
-				this.page=1
-				await this.getlist()
-				uni.stopPullDownRefresh()
-			},
-			onReachBottom(){
-				if (!this.isEnd) {
-					this.loadMoreText = "加载中..."
-					this.page++
-					this.getlist()
-				} 
-			},
-      methods: {
-				navtodetail(list){
-					uni.navigateTo({
-						url:'../battledetails/battledetails?list='+JSON.stringify(list)+'&type=1'
-					})
-				},
-        // 获取筛选数据
-				async getGameplatforms() {
-						let opts = {
-							url: '/api/game/platforms?game_id=1',
-							method: 'get'
-						}
-						let data1 = await this.$http.httpRequest(opts)
-						let newarr=[
-							{
-								name:'全部',
-								value:''
-							}
-						]
-						console.log(data1.data.data.length)
-						for(var i=0;i<data1.data.data.length;i++){
-							var newobj=data1.data.data[i]
-							newobj.value=newobj.id
-							newarr.push(newobj)
-						}
-						this.filterData=data2
-						this.filterData[0]['submenu']=newarr
-						this.filterDropdownValue = [
-							[0],
-							[0]
-						];
-				},
-				//接收菜单结果
-				confirm(e){
-					this.page=1
-					this.area_id=e.value[0][0]
-					this.order=e.value[1][0]
-					this.getlist()
-				},
-				// 获取列表
-				getlist() {
-					let opts = {
-						url: '/api/match/index',
-						method: 'get'
-					}
-					let params = {
-						self:1,
-						type:'',
-						page:this.page,
-						order:this.order,
-						area_id:this.area_id,
-						type:0
-					}
-					return this.$http.httpTokenRequest(opts, params).then(res => {
-						if (res.data.code == 200) {
-							if (this.page == 1) {
-								this.listData = []
-							}
-							const data = res.data.data
-							if (data.per_page > data.data.length) { //说明已经加载到最后一页了
-								this.isEnd = true;
-								this.loadMoreText = "没有更多数据了..."
-							}
-							this.listData.push(...data.data)
-						}
-					}, error => {
-						console.log(error);
-					})
-				}
-      },
-      async onLoad() {
+	export default {
+		components: {
+			'HMfilterDropdown':HMfilterDropdown,
+			loadMore
+		},
+		data() {
+			return {
+				filterData:[],
+				filterDropdownValue:[],
+				page: 1,
+				listData: [],
+				area_id: '',
+				order: '',
+				loadMoreText: '上拉加载更多...'
+			}
+		},
+		async onPullDownRefresh() {
+			this.page=1
+			await this.getlist()
+			uni.stopPullDownRefresh()
+		},
+		onReachBottom(){
+			if (!this.isEnd) {
+				this.loadMoreText = "加载中..."
+				this.page++
 				this.getlist()
-				await this.getGameplatforms()
-      }
-    }
+			} 
+		},
+		methods: {
+			navtodetail(list){
+				uni.navigateTo({
+					url:'../battledetails/battledetails?list='+JSON.stringify(list)+'&type=1'
+				})
+			},
+			// 获取筛选数据
+			async getGameplatforms() {
+				let opts = {
+					url: '/api/game/platforms?game_id=1',
+					method: 'get'
+				}
+				let data1 = await this.$http.httpRequest(opts)
+				let newarr=[
+					{
+						name:'全部',
+						value:''
+					}
+				]
+				for(var i=0;i<data1.data.data.length;i++){
+					var newobj=data1.data.data[i]
+					newobj.value=newobj.id
+					newarr.push(newobj)
+				}
+				this.filterData=data2
+				this.filterData[0]['submenu']=newarr
+				this.filterDropdownValue = [
+					[0],
+					[0]
+				];
+			},
+			//接收菜单结果
+			confirm(e){
+				this.page=1
+				this.area_id=e.value[0][0]
+				this.order=e.value[1][0]
+				this.getlist()
+			},
+			// 获取列表
+			getlist() {
+				let opts = {
+					url: '/api/match/index',
+					method: 'get'
+				}
+				let params = {
+					self:1,
+					type:'',
+					page:this.page,
+					order:this.order,
+					area_id:this.area_id,
+					type:0
+				}
+				return this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						if (this.page == 1) {
+							this.listData = []
+						}
+						const data = res.data.data
+						if (data.per_page > data.data.length) { //说明已经加载到最后一页了
+							this.isEnd = true;
+							this.loadMoreText = "没有更多数据了..."
+						}
+						this.listData.push(...data.data)
+					}
+				}, error => {
+					console.log(error);
+				})
+			}
+		},
+		async onLoad() {
+			this.getlist()
+			await this.getGameplatforms()
+		}
+	}
 </script>
 
 <style lang="scss">

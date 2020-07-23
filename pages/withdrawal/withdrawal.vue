@@ -82,7 +82,7 @@
 				bankinfo: {},
 				bind: false,
 				amount: '',
-				check:2,
+				check: 2,
 				content: "提现申请已提交，48小时内将转到您的银行卡，扣款详情请看资金流水"
 			}
 		},
@@ -131,10 +131,6 @@
 				}
 				this.$http.httpTokenRequest(opts, param).then(res => {
 					if (res.data.code == 200) {
-						/*uni.showToast({
-							icon: 'none',
-							title: res.data.msg
-						})*/
 						this.open('popup')
 						this.getuserinfo()
 					} else {

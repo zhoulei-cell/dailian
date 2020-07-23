@@ -104,16 +104,16 @@
 			<view class="list-group">
 				<view class="list-title">服务保障</view>
 				<view class="list-item">
-					<view class="item-title">安全保证金</view>
+					<view class="item-title">安全保证金（不能修改）</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text flex-1" v-model="info.promise_price" placeholder="请输入安全保证金" placeholder-class="placeholder"/>
+						<input class="text flex-1 gray" v-model="info.promise_price" disabled="disabled" placeholder="请输入安全保证金" placeholder-class="placeholder"/>
 						<view class="money">（元）</view>
 					</view>
 				</view>
 				<view class="list-item">
-					<view class="item-title">效率保证金</view>
+					<view class="item-title">效率保证金（不能修改）</view>
 					<view class="item-text d-flex ai-center jc-between">
-						<input class="text flex-1" v-model="info.eff_price" placeholder="请输入效率保证金" placeholder-class="placeholder"/>
+						<input class="text flex-1 gray" v-model="info.eff_price" disabled="disabled" placeholder="请输入效率保证金" placeholder-class="placeholder"/>
 						<view class="money">（元）</view>
 					</view>
 				</view>
@@ -217,29 +217,12 @@
 					})
 					return false
 				}
-				// if (!check.checkMoney(this.info.price)) {
-				// 	uni.showToast({
-				// 		icon: 'none',
-				// 		title: '请填写正确的订单价格'
-				// 	})
-				// 	return false
-				// } else {
-				// 	if (this.info.price < 5) {
-				// 		uni.showToast({
-				// 			icon: 'none',
-				// 			title: '订单价格最低5块'
-				// 		})
-				// 		return false
-				// 	}
-				// }
 				if (!check.checkLevel(this.info.inscription_level)) {
 					uni.showToast({
 						icon: 'none',
 						title: '请填写正确的铭文等级'
 					})
 					return false
-				} else {
-					console.log(1,this.info.inscription_level)
 				}
 				if (!check.checkHeroNum(this.info.hero_num)) {
 					uni.showToast({

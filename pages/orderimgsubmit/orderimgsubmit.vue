@@ -79,7 +79,6 @@
 			},
 			computed: {
 				num() {
-					console.log(this.uploadImageList.length)
 					return this.uploadImageList.length
 				}
 			},

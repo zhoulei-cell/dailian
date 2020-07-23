@@ -16,110 +16,110 @@
 	</view>
 </template>
 <script>
-import customPopup from "../../components/custom-popup/custom-popup"
-export default {
-	components: {
-		customPopup
-	},
-  data() {
-    return {
-			listData:[
-				{
-					platforms:{
-						name:''
+	import customPopup from "../../components/custom-popup/custom-popup"
+	export default {
+		components: {
+			customPopup
+		},
+		data() {
+			return {
+				listData:[
+					{
+						platforms:{
+							name:''
+						}
 					}
-				}
-			],
-			check:'',
-			type:''
-		}
-  },
-	onNavigationBarButtonTap(e) {
-		uni.navigateTo({
-			url:'../addrole/addrole'
-		})
-	},
-	async onShow() {
-		await this.getorderlist()
-	},
-	async onPullDownRefresh() {
-		await this.getorderlist()
-		uni.stopPullDownRefresh()
-	},
-  methods: {
-		chose(list){
-			this.check=list.id
-			if(this.type){
-				this.$store.commit('updaterole',list)
-				uni.navigateBack({
-					delta:1
-				})
+				],
+				check:'',
+				type:''
 			}
 		},
-		// 获取角色列表
-		getorderlist() {
-			let opts = {
-				url: '/api/match/role/index',
-				method: 'get'
-			}
-			let params = {
-			}
-			return this.$http.httpTokenRequest(opts, params).then(res => {
-				if (res.data.code == 200) {
-					this.listData = res.data.data
-					this.check = this.listData[0].id
-				}
-			}, error => {
-				console.log(error);
+		onNavigationBarButtonTap(e) {
+			uni.navigateTo({
+				url:'../addrole/addrole'
 			})
 		},
-		//删除角色
-		delRole() {
-			let opts = {
-				url: '/api/match/role/delete',
-				method: 'delete'
-			}
-			console.log(this.delList)
-			let params = {
-				role_id: this.delList.id
-			}
-			return this.$http.httpTokenRequest(opts, params).then(res => {
-				if (res.data.code == 200) {
-					uni.showToast({
-						title: '删除成功!'
+		async onShow() {
+			await this.getorderlist()
+		},
+		async onPullDownRefresh() {
+			await this.getorderlist()
+			uni.stopPullDownRefresh()
+		},
+		methods: {
+			chose(list){
+				this.check=list.id
+				if(this.type){
+					this.$store.commit('updaterole',list)
+					uni.navigateBack({
+						delta:1
 					})
-					console.log(this.listData)
-					this.listData = this.listData.filter(item => item.id !== this.delList.id)
 				}
-			}, error => {
-				uni.showToast({
-					title: '删除失败!'
+			},
+			// 获取角色列表
+			getorderlist() {
+				let opts = {
+					url: '/api/match/role/index',
+					method: 'get'
+				}
+				let params = {
+				}
+				return this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						this.listData = res.data.data
+						this.check = this.listData[0].id
+					}
+				}, error => {
+					console.log(error);
 				})
-			})
+			},
+			//删除角色
+			delRole() {
+				let opts = {
+					url: '/api/match/role/delete',
+					method: 'delete'
+				}
+				console.log(this.delList)
+				let params = {
+					role_id: this.delList.id
+				}
+				return this.$http.httpTokenRequest(opts, params).then(res => {
+					if (res.data.code == 200) {
+						uni.showToast({
+							title: '删除成功!'
+						})
+						console.log(this.listData)
+						this.listData = this.listData.filter(item => item.id !== this.delList.id)
+					}
+				}, error => {
+					uni.showToast({
+						title: '删除失败!'
+					})
+				})
+			},
+			//关闭弹窗
+			close() {
+				this.$refs['delete'].close()
+			},
+			//开启弹窗
+			open() {
+				this.$refs['delete'].open()
+			},
+			//确认删除
+			confirm() {
+				this.delRole()
+				this.close()
+			},
+			//删除角色
+			del(list) {
+				this.delList = list
+				this.open()
+			}
 		},
-		//关闭弹窗
-		close() {
-			this.$refs['delete'].close()
-		},
-		//开启弹窗
-		open() {
-			this.$refs['delete'].open()
-		},
-		//确认删除
-		confirm() {
-			this.delRole()
-			this.close()
-		},
-		//删除角色
-		del(list) {
-			this.delList = list
-			this.open()
+		onLoad:function(option) {
+			this.type = option.type
 		}
-  },
-	onLoad:function(option) {
-		this.type = option.type
 	}
-}
 </script>
 <style>
 	/* .status_barcenter{

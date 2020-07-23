@@ -237,9 +237,7 @@
 						title: '请填写正确的铭文等级'
 					})
 					return false
-				} else {
-					console.log(1,this.info.inscription_level)
-				}
+				} 
 				if (!check.checkHeroNum(this.info.hero_num)) {
 					uni.showToast({
 						icon: 'none',

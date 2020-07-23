@@ -259,7 +259,7 @@
 			}
 		},
 		computed: {
-			... mapState({
+			...mapState({
 				// 箭头函数可使代码更简练
 				role: state => state.role
 			}),

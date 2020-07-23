@@ -13,11 +13,6 @@ export default {
 			imgurl:""
         }
     },
-	components: {
-	},
-    computed: {
-		
-    },
     methods: {
 		//获取订单详情
 		getorderdetail(id){

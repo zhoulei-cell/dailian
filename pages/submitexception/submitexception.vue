@@ -115,27 +115,27 @@
 </script>
 
 <style lang="scss">
-.btn{
-	padding-top: 50rpx;
-}
-.textarea{
-	margin-top: 10rpx;
-}
-.textarea textarea{
-	box-sizing: border-box;
-	min-height: 300rpx;
-	border: 1rpx solid #E0E0E0;
-	width: 100%;
-	padding: 10rpx;
-	font-size: 24rpx;
-}
-.tips {
-	padding: 30rpx 0;
-	view{
-		height: 40rpx;
-		color: red;
-		font-size: 26rpx;
-		line-height: 40rpx;
+	.btn{
+		padding-top: 50rpx;
 	}
-}
+	.textarea{
+		margin-top: 10rpx;
+	}
+	.textarea textarea{
+		box-sizing: border-box;
+		min-height: 300rpx;
+		border: 1rpx solid #E0E0E0;
+		width: 100%;
+		padding: 10rpx;
+		font-size: 24rpx;
+	}
+	.tips {
+		padding: 30rpx 0;
+		view{
+			height: 40rpx;
+			color: red;
+			font-size: 26rpx;
+			line-height: 40rpx;
+		}
+	}
 </style>

@@ -284,15 +284,6 @@
 					method: 'get'
 				}
 				let param = {}
-				// this.$http.httpTokenRequest(opts,param).then(res => {
-				// 	this.userinfo = res.data.data
-				// 	this.user = {
-				// 		phone: this.userinfo.phone,
-				// 		name: this.userinfo.name,
-				// 		avatar: this.userinfo.avatar,
-				// 		is_member: this.userinfo.is_member
-				// 	}
-				// })
 				try {
 					const res = await this.$http.httpTokenRequest(opts,param)
 					this.userinfo = res.data.data
@@ -315,9 +306,6 @@
 					url: '/api/user/distribution',
 					method: 'get'
 				}
-				// this.$http.httpTokenRequest(opts, {}).then(res => {
-				// 	this.promote = res.data.data
-				// })
 				try{
 					const res = await this.$http.httpTokenRequest(opts, {})
 					this.promote = res.data.data

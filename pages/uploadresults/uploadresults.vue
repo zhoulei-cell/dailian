@@ -1,5 +1,5 @@
 <template>
-  <view class="content">
+    <view class="content">
 		<view class="status-wrap">
 			<view class="title">选择提交类型</view>
 			<view class="status-box d-flex">
@@ -13,7 +13,7 @@
 		<view class="next">
 			<button @tap="uploadImg">确认上传</button>
 		</view>
-  </view>
+    </view>
 </template>
 
 <script>

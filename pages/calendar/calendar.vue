@@ -113,7 +113,7 @@
 				})
 			},
 			// 签到
-			sign() {
+			async sign() {
 				let opts = {
 					url: '/api/signin',
 					method: 'post'

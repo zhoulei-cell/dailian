@@ -110,16 +110,16 @@
 <script>
 export default {
     data() {
-      return {
-				orderInfo:{
-					game: {},
-					game_area: {},
-					platform: {},
-					user: {},
-					received: {}
-				},
-				id:""
-      }
+        return {
+			orderInfo:{
+				game: {},
+				game_area: {},
+				platform: {},
+				user: {},
+				received: {}
+			},
+			id:""
+        }
     },
     methods: {
 		//获取订单详情
@@ -146,7 +146,6 @@ export default {
 		}
     },
 	onLoad: function (option) { 
-		console.log(option.id)
 		this.id=option.id
 		this.getorderdetail(option.id)
 	}

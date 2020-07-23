@@ -148,7 +148,7 @@
 			}
         },
 		async onLoad() {
-					await this.getGameplatforms()
+			await this.getGameplatforms()
 		},
 		onShow() {
 			this.getlist()

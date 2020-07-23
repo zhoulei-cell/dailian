@@ -73,30 +73,30 @@
 				}, error => {
 					console.log(error);
 				})
-		  },
-		//提交订单
+		    },
+		   //提交订单
 			ordercomfirm() {
-					/**
-					 * 客户端对账号信息进行一些必要的校验。
-					 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-					 */
-					if (this.account.length != 11) {
-							uni.showToast({
-									icon: 'none',
-									title: '请输入正确的账号'
-							});
-							return;
-					}
-					if (this.accountqq.length <= 0) {
-							uni.showToast({
-									icon: 'none',
-									title: '请输入QQ号'
-							});
-							return;
-					}
-					this.$refs['showtip'].open()
+				/**
+				 * 客户端对账号信息进行一些必要的校验。
+				 * 实际开发中，根据业务需要进行处理，这里仅做示例。
+				 */
+				if (this.account.length != 11) {
+						uni.showToast({
+								icon: 'none',
+								title: '请输入正确的账号'
+						});
+						return;
+				}
+				if (this.accountqq.length <= 0) {
+						uni.showToast({
+								icon: 'none',
+								title: '请输入QQ号'
+						});
+						return;
+				}
+				this.$refs['showtip'].open()
 			}
-	  },
+	    },
 		onLoad: function (option) {
 			this.infodata=JSON.parse(option.data)
 		}
