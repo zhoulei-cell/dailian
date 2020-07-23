@@ -112,6 +112,7 @@
 	import uniSearchBar from '@/components/uni-search-bar/uni-search-bar.vue';
 	import uniSwiperDot from "@/components/uni-swiper-dot/uni-swiper-dot.vue"
 	import loadMore from "@/components/load-more.vue"
+	import { isLogin } from '../../common/user.js'
 	export default {
 		data() {
 			return {
@@ -140,8 +141,10 @@
 			loadMore
 		},
 		async onLoad() {
-			this.getday()
-			this.getDataList()
+			if (isLogin()) {
+				this.getday()
+				this.getDataList()
+			}
 		},
 		async onPullDownRefresh() {
 			this.getday()

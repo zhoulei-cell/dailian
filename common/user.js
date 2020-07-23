@@ -3,14 +3,17 @@ export const isLogin = () => {
 	try{
 		const token = uni.getStorageSync('token')
 		if (token === "") {
-			uni.navigateTo({
-				url: '/pages/signIn/signIn'
+			uni.reLaunch({
+				url: "/pages/signIn/signIn"
 			})
+			return false
 		}
+		return true
 	} catch(e) {
-		uni.navigateTo({
-			url: '/pages/signIn/signIn'
+		uni.reLaunch({
+			url: "/pages/signIn/signIn"
 		})
+		return false
 	}
 	
 }

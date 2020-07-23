@@ -33,7 +33,7 @@ const httpRequest = (opts, data) => {
 						title: res[1].data.message|| res[1].data.msg 
 					});
 				} else if (res[1].statusCode == 401) {
-					uni.navigateTo({
+					uni.reLaunch({
 						url: "/pages/signIn/signIn"
 					})
 				}
@@ -61,7 +61,7 @@ function gettoken(){
 }
 //带Token请求
 const httpTokenRequest = async (opts, data) => {
-	let token =await gettoken();
+	let token = await gettoken();
 	//此token是登录成功后后台返回保存在storage中的
 	let httpDefaultOpts = {
 		url: base + opts.url,
@@ -95,14 +95,14 @@ const httpTokenRequest = async (opts, data) => {
 						title: res[1].data.message|| res[1].data.msg 
 					});
 				} else if (res[1].statusCode == 401) {
-					uni.navigateTo({
+					uni.reLaunch({
 						url: "/pages/signIn/signIn"
 					})
 				}
 			}
 		).catch(
 			(response) => {
-				uni.navigateTo({
+				uni.reLaunch({
 					url: "/pages/signIn/signIn"
 				})
 				reject(response)
@@ -152,5 +152,6 @@ export default {
 	baseUrl,
 	httpRequest,
 	httpTokenRequest,
-	uploadimg
+	uploadimg,
+	gettoken
 }
